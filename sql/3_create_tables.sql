@@ -106,6 +106,7 @@ CREATE TABLE product_rates
     value      TINYINT                NOT NULL,
     product_id INTEGER                NOT NULL,
     buyer_id   INTEGER                NOT NULL,
+    CONSTRAINT PK_ProductRates PRIMARY KEY (rate_id),
     CONSTRAINT FK_ProductRates_Product
         FOREIGN KEY (product_id) references products (product_id),
     CONSTRAINT FK_ProductRates_Buyer
