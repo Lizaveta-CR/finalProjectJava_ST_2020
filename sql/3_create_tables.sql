@@ -18,16 +18,19 @@ CREATE TABLE users
 
 CREATE TABLE buyers
 (
-    buyer_id  INTEGER       NOT NULL AUTO_INCREMENT,
-    email     VARCHAR(255)  NOT NULL UNIQUE,
-    password  CHAR(32)      NOT NULL,
+    buyer_id  INTEGER      NOT NULL AUTO_INCREMENT,
+    email     VARCHAR(255) NOT NULL UNIQUE,
+    password  CHAR(32)     NOT NULL,
     #     TODO:think about type
-    telephone BIGINT(13)    NOT NULL UNIQUE,
-    balance   DECIMAL(4, 2) NOT NULL,
+    telephone BIGINT(13)   NOT NULL UNIQUE,
+    balance   DECIMAL(4, 2),
     CONSTRAINT PK_Buyer PRIMARY KEY (buyer_id),
     CONSTRAINT UC_Buyer UNIQUE (email)
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
+
+ALTER TABLE buyers
+    CHANGE balance balance DECIMAL(10, 2);
 
 CREATE TABLE addresses
 (
@@ -57,8 +60,13 @@ CREATE TABLE products
   DEFAULT CHARACTER
       SET utf8;
 
+ALTER TABLE products
+    CHANGE price price DECIMAL(10, 2);
+
 CREATE TABLE producers
 (
+#     TODO:
+#     producer_id INTEGER       NOT NULL AUTO_INCREMENT,
     name       VARCHAR(255)  NOT NULL,
     country    DECIMAL(4, 2) NOT NULL,
     product_id INTEGER,
@@ -70,6 +78,18 @@ CREATE TABLE producers
 ) ENGINE = INNODB
   DEFAULT CHARACTER
       SET utf8;
+ALTER TABLE producers
+    CHANGE country country CHAR(2);
+ALTER TABLE producers
+    MODIFY name VARCHAR(255) NOT NULL;
+ALTER TABLE producers
+    MODIFY country CHAR(2) NOT NULL;
+ALTER TABLE producers
+    DROP PRIMARY KEY;
+alter table producers
+    add CONSTRAINT UC_Producers UNIQUE (name, country, product_id);
+ALTER TABLE producers
+    ADD producer_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL;
 
 CREATE table orders
 (
@@ -85,6 +105,8 @@ CREATE table orders
     DEFAULT CHARACTER
         SET utf8;
 
+ALTER TABLE orders
+    CHANGE price price DECIMAL(10, 2);
 CREATE TABLE order_item
 (
     order_id   INTEGER NOT NULL,
@@ -113,3 +135,6 @@ CREATE TABLE product_rates
         FOREIGN KEY (buyer_id) references buyers (buyer_id)
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
+
+ALTER TABLE product_rates
+    ADD CONSTRAINT CK_Constrain_Value CHECK ( value <= 10 )
