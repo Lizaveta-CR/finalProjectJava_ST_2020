@@ -31,6 +31,8 @@ CREATE TABLE buyers
 
 ALTER TABLE buyers
     CHANGE balance balance DECIMAL(10, 2);
+ALTER TABLE buyers
+    ADD bonus DECIMAL(10, 2) DEFAULT 0 NOT NULL;
 
 CREATE TABLE addresses
 (

@@ -8,6 +8,7 @@ public class Buyer extends Person {
     private Long telephone;
     private BigDecimal balance;
     private Address address;
+    private BigDecimal bonus = new BigDecimal(0.00);
     private List<Order> orders = new ArrayList<>(0);
 
     public Long getTelephone() {
@@ -32,6 +33,14 @@ public class Buyer extends Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public BigDecimal getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(BigDecimal bonus) {
+        this.bonus = bonus;
     }
 
     public List<Order> getOrders() {
