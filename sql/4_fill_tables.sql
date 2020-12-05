@@ -24,7 +24,7 @@ VALUES ('Takamine', 'JP', 1, 1),
 INSERT INTO orders(order_id, date, buyer_id, price)
 VALUES (1, '2013-08-05 18:19:03', 3, 1124);
 
-INSERT INTO order_item(order_id, product_id)
+INSERT INTO order_items(order_id, product_id)
 VALUES (1, 2);
 
 INSERT INTO product_rates(rate_id, value, product_id, buyer_id)
