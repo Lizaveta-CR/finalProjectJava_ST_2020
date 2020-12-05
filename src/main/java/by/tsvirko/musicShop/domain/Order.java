@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Order class
+ */
 public class Order extends Entity{
     private Date date;
     private Buyer buyer;

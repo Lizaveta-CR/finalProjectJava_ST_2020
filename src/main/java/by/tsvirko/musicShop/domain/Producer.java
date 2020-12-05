@@ -3,6 +3,9 @@ package by.tsvirko.musicShop.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Producer class
+ */
 public class Producer extends Entity {
     private String name;
     private String country;

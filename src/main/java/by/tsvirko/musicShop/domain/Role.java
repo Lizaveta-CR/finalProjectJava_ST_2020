@@ -1,5 +1,8 @@
 package by.tsvirko.musicShop.domain;
 
+/**
+ * Role enum
+ */
 public enum Role {
     ADMINISTRATOR("administrator"),
     MANAGER("manager");

@@ -1,5 +1,8 @@
 package by.tsvirko.musicShop.domain;
 
+/**
+ * Product class
+ */
 public class Product {
     private int amount;
     private ProductItem productItem;

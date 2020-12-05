@@ -3,7 +3,6 @@ package by.tsvirko.musicShop.main;
 import by.tsvirko.musicShop.domain.Role;
 import by.tsvirko.musicShop.domain.User;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 

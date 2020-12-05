@@ -3,6 +3,9 @@ package by.tsvirko.musicShop.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Buyer's addresses class
+ */
 public class Address extends Entity {
     private String country;
     private String city;

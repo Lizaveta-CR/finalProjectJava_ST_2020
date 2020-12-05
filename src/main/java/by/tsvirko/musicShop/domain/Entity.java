@@ -3,6 +3,9 @@ package by.tsvirko.musicShop.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Entity class
+ */
 abstract public class Entity implements Serializable {
     private Integer id;
 

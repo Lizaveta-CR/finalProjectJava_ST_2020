@@ -3,6 +3,9 @@ package by.tsvirko.musicShop.domain;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * ProductItem class
+ */
 public class ProductItem extends Entity {
     private String type;
     private BigDecimal price;

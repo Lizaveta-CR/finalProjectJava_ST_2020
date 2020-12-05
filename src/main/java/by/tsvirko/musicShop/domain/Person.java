@@ -3,6 +3,9 @@ package by.tsvirko.musicShop.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Person class
+ */
 abstract public class Person extends Entity {
     private String email;
     private String password;

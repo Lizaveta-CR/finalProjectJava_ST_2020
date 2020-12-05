@@ -1,5 +1,8 @@
 package by.tsvirko.musicShop.domain;
 
+/**
+ * Order item class: embedded class of Order and Product
+ */
 public class OrderItem extends Entity {
     private Integer product_id;
 

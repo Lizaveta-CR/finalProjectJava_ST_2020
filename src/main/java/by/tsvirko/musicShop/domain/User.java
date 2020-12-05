@@ -1,5 +1,8 @@
 package by.tsvirko.musicShop.domain;
 
+/**
+ * User class
+ */
 public class User extends Entity {
     private String login;
     private String password;

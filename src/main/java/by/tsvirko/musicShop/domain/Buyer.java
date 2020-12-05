@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Buyer class
+ */
 public class Buyer extends Person {
     private Long telephone;
     private BigDecimal balance;
