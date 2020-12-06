@@ -1,5 +1,7 @@
 package by.tsvirko.musicShop.domain;
 
+import by.tsvirko.musicShop.domain.enums.Role;
+
 /**
  * User class
  */
@@ -50,4 +52,14 @@ public class User extends Entity {
         this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

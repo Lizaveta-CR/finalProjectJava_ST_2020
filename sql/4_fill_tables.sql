@@ -1,5 +1,7 @@
 USE musicShop_db;
 
+DELETE
+FROM users;
 INSERT INTO users(login, password, role, name, surname)
 VALUES ('admin1', 'e00cf25ad42683b3df678c61f42c6bda', 0, 'Marina', 'Velikaya'),
        ('manager1', 'c240642ddef994358c96da82c0361a58', 1, 'Dasha', 'Volovetz');
@@ -8,7 +10,12 @@ FROM buyers;
 INSERT INTO buyers(buyer_id, email, password, telephone, balance, bonus, name, surname)
 VALUES (1, 'elizTs@gmail.com', '4b8ed8ec7f3dfb86fc092485f8f7fb63', 375445684811, 100.10, 0, 'Elizaveta', 'Tsvirko'),
        (2, 'ksuSokol@mail.ru', '53f115c78173b704702ded23e945861f', 375297385012, 119.99, 'Kseniya', 'Sokol'),
-       (3, 'kateBest@mail.ru', 'f1b3d4c742ecb604ac0fb2ae39884677', 375334177490, 2000, 'Kate');
+       (3, 'kateBest@mail.ru', 'f1b3d4c742ecb604ac0fb2ae39884677', 375334177490, 2000, 'Kate', 'Tsaric');
+
+INSERT INTO buyers (buyer_id, email, password, telephone, balance, name, surname)
+VALUES (3, 'kateBest@mail.ru', 'f1b3d4c742ecb604ac0fb2ae39884677', 375334177490, 2000, 'Kate', 'Tsaric')
+ON DUPLICATE KEY UPDATE name='Kate',
+                        surname='Tsaric';
 INSERT INTO countries(country_id, country_code, country_name, region_id)
 VALUES (1, 'AF', 'Afghanistan', 4),
        (2, 'AL', 'Albania', 8),
@@ -50,14 +57,14 @@ VALUES (1, 1, 100.22),
 DELETE
 FROM orders;
 
-INSERT INTO orders(order_id, date, buyer_id,price)
+INSERT INTO orders(order_id, date, buyer_id, price)
 VALUES (1, '2013-08-05 18:19:03', 1, 100.22);
 
 DELETE
 FROM order_items;
 
-INSERT INTO order_items(order_id, product_id,amount)
-VALUES (1, 1,1);
+INSERT INTO order_items(order_id, product_id, amount)
+VALUES (1, 1, 1);
 
 DELETE
 FROM product_rates;

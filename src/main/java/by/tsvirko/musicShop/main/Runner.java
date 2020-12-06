@@ -1,6 +1,6 @@
 package by.tsvirko.musicShop.main;
 
-import by.tsvirko.musicShop.domain.Role;
+import by.tsvirko.musicShop.domain.enums.Role;
 import by.tsvirko.musicShop.domain.User;
 
 import java.sql.*;
@@ -28,7 +28,8 @@ public class Runner {
                     List<User> users = new ArrayList<>();
                     while (rs.next()) {
                         User us = new User();
-                        us.setId(rs.getInt("user_id"));
+                        us.setName(rs.getString("name"));
+                        us.setSurname(rs.getString("surname"));
                         us.setLogin(rs.getString("login"));
                         us.setPassword(rs.getString("password"));
                         us.setRole(Role.getByIdentity(rs.getInt("role")));

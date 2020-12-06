@@ -16,10 +16,11 @@ CREATE TABLE users
   DEFAULT CHARACTER SET utf8;
 CREATE INDEX idx_login ON users (login);
 ALTER TABLE users
-    ADD name VARCHAR(255) DEFAULT '';
+    ADD name VARCHAR(255);
 ALTER TABLE users
-    ADD surname VARCHAR(255) DEFAULT '';
-
+    ADD surname VARCHAR(255);
+# ALTER TABLE users
+#     CHANGE name name VARCHAR(255) DEFAULT 'user' NOT NULL;
 CREATE TABLE buyers
 (
     buyer_id  INTEGER      NOT NULL AUTO_INCREMENT,
@@ -43,9 +44,11 @@ ALTER TABLE buyers
     DROP address_id;
 
 ALTER TABLE buyers
-    ADD name VARCHAR(255) DEFAULT '';
+    ADD name VARCHAR(255);
+# ALTER TABLE buyers
+#     CHANGE name name VARCHAR(255) DEFAULT 'buyer' NOT NULL;
 ALTER TABLE buyers
-    ADD surname VARCHAR(255) DEFAULT '';
+    ADD surname VARCHAR(255);
 
 
 CREATE TABLE addresses
@@ -93,8 +96,8 @@ CREATE TABLE producers
 (
 #     TODO:
     producer_id INTEGER       NOT NULL AUTO_INCREMENT,
-    name    VARCHAR(255)  NOT NULL,
-    country DECIMAL(4, 2) NOT NULL,
+    name        VARCHAR(255)  NOT NULL,
+    country     DECIMAL(4, 2) NOT NULL,
     CONSTRAINT PK_Producer PRIMARY KEY (name, country)
 ) ENGINE = INNODB
   DEFAULT CHARACTER
