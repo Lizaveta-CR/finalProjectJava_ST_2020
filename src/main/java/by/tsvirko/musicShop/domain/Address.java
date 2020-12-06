@@ -12,7 +12,7 @@ public class Address extends Entity {
     private String street;
     private int apartment_number;
     private int house_number;
-    private Set<Buyer> buyers = new HashSet<>();
+    private Buyer buyer;
 
     public String getCountry() {
         return country;
@@ -54,11 +54,11 @@ public class Address extends Entity {
         this.house_number = house_number;
     }
 
-    public Set<Buyer> getBuyers() {
-        return buyers;
+    public Buyer getBuyer() {
+        return buyer;
     }
 
-    public void setBuyers(Set<Buyer> buyers) {
-        this.buyers = buyers;
+    public void setBuyer(Buyer buyer) {
+        this.buyer = buyer;
     }
 }

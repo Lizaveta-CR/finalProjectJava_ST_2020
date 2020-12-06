@@ -8,11 +8,31 @@ import java.util.List;
  * Buyer class
  */
 public class Buyer extends Person {
+    private String name;
+    private String surname;
     private Long telephone;
     private BigDecimal balance;
     private Address address;
     private BigDecimal bonus = new BigDecimal(0.00);
-    private List<Order> orders = new ArrayList<>(0);
+    private List<Order> orders = new ArrayList<>();
+//    private List<Product> likes = new ArrayList<>(0);
+//    private Bucket bucket ;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public Long getTelephone() {
         return telephone;

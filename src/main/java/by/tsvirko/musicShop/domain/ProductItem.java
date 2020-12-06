@@ -1,41 +1,38 @@
 package by.tsvirko.musicShop.domain;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * ProductItem class
  */
 public class ProductItem extends Entity {
-    private String type;
+    private String name;
     private BigDecimal price;
-    private Producer producer;
+    private Set<Producer> producers = new HashSet<>();
 
-    public ProductItem() {
-        producer = new Producer();
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public void setProducer(Producer producer) {
-        this.producer = producer;
-    }
-
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public Producer getProducer() {
-        return producer;
+    public Set<Producer> getProducers() {
+        return producers;
+    }
+
+    public void setProducers(Set<Producer> producers) {
+        this.producers = producers;
     }
 }
