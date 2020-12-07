@@ -36,8 +36,8 @@ VALUES (1, 'Guitar'),
        (3, 'Piano');
 
 DELETE
-FROM products;
-INSERT INTO products(product_id, name_id, description)
+FROM productIts;
+INSERT INTO productIts(product_id, name_id, description)
 VALUES (1, 1,
         'Гитара акустическая Fender CD-60S Natural.Данная версия гитар Classic Design от компании Fender получила ряд замечательных "фишек": топ из массива ели, нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.'),
        (2, 2,

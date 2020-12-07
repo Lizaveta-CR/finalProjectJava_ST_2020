@@ -5,7 +5,8 @@ package by.tsvirko.musicShop.domain.enums;
  */
 public enum Role {
     ADMINISTRATOR("administrator"),
-    MANAGER("manager");
+    MANAGER("manager"),
+    BUYER("buyer");
 
     private String name;
 

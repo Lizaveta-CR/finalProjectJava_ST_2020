@@ -1,11 +1,9 @@
 USE musicShop_db;
 
-# TODO:BLOCK TABLE
 CREATE TABLE users
 (
     user_id  INTEGER      NOT NULL AUTO_INCREMENT,
     login    VARCHAR(255) NOT NULL,
-    email    VARCHAR(255) NOT NULL,
     password CHAR(32)     NOT NULL,
     /*
      * 0 - администратор (Role.ADMINISTRATOR)
@@ -14,7 +12,6 @@ CREATE TABLE users
      */
     role     TINYINT      NOT NULL CHECK (role IN (0, 1, 2)),
     CONSTRAINT UC_User UNIQUE (login),
-    CONSTRAINT UC_User UNIQUE (email),
     CONSTRAINT PK_User PRIMARY KEY (user_id)
 );
 CREATE INDEX idx_login ON users (login);
@@ -22,15 +19,19 @@ CREATE INDEX idx_login ON users (login);
 CREATE TABLE buyers
 (
     buyer_id  INTEGER                        NOT NULL,
+    email     VARCHAR(255)                   NOT NULL,
     name      VARCHAR(255)   DEFAULT 'buyer' NOT NULL,
     surname   VARCHAR(255)   DEFAULT ''      NOT NULL,
     telephone BIGINT(15)                     NOT NULL UNIQUE,
     balance   DECIMAL(10, 2),
     bonus     DECIMAL(10, 2) DEFAULT 0       NOT NULL,
+#     for blocking
+    enabled   BOOLEAN        DEFAULT true    NOT NULL,
     CONSTRAINT PK_Buyer PRIMARY KEY (buyer_id),
     CONSTRAINT FK_Buyer FOREIGN KEY (buyer_id) REFERENCES users (user_id)
         ON UPDATE CASCADE
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
+    CONSTRAINT UC_User UNIQUE (email)
 );
 
 CREATE TABLE addresses
@@ -53,8 +54,8 @@ CREATE TABLE products
 (
     product_id  INTEGER NOT NULL AUTO_INCREMENT,
     name_id     INTEGER NOT NULL,
-    description VARCHAR(2500) DEFAULT '',
-    img         LONGBLOB,
+    description VARCHAR(1000) DEFAULT '',
+    img         VARCHAR(2083),
     CONSTRAINT PK_Product PRIMARY KEY (product_id),
     CONSTRAINT FK_Products_Name FOREIGN KEY (name_id) REFERENCES instruments (name_id)
         ON UPDATE CASCADE
@@ -77,8 +78,11 @@ CREATE INDEX idx_name ON producers (name);
 
 CREATE table orders
 (
-    order_id INTEGER NOT NULL AUTO_INCREMENT,
+    order_id INTEGER        NOT NULL AUTO_INCREMENT,
     buyer_id INTEGER,
+#     Or orders_items?
+    date     TIMESTAMP(6)   NOT NULL,
+    price    DECIMAL(10, 2) NOT NULL,
     CONSTRAINT PK_Order PRIMARY KEY (order_id),
     CONSTRAINT UC_Order UNIQUE (order_id, buyer_id),
     CONSTRAINT FK_Order_Buyer FOREIGN KEY (buyer_id) REFERENCES buyers (buyer_id)
@@ -88,7 +92,6 @@ CREATE TABLE order_items
 (
     order_id   INTEGER        NOT NULL,
     product_id INTEGER        NOT NULL,
-    date       TIMESTAMP(6)   NOT NULL,
     price      DECIMAL(10, 2) NOT NULL,
     amount     INTEGER        NOT NULL CHECK ( amount > 0 ),
     CONSTRAINT PK_OrderItem PRIMARY KEY (order_id, product_id),
@@ -136,11 +139,9 @@ CREATE TABLE product_rates
 
 CREATE TABLE countries
 (
-    country_id   INTEGER        NOT NULL AUTO_INCREMENT,
-    country_code CHAR(2)        NOT NULL,
-    country_name varchar(40)    NOT NULL,
-    region_id    decimal(10, 0) NOT NULL,
-    CONSTRAINT UNx_Countries UNIQUE (country_code, region_id),
+    country_id   INTEGER NOT NULL AUTO_INCREMENT,
+    country_code CHAR(2) NOT NULL,
+    CONSTRAINT UNx_Countries UNIQUE (country_code),
     CONSTRAINT PK_Countries PRIMARY KEY (country_id)
 );
 

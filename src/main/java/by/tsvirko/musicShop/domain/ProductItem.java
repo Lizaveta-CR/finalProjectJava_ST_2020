@@ -5,34 +5,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * ProductItem class
+ * Product class
  */
-public class ProductItem extends Entity {
-    private String name;
+public class ProductItem {
+    private Product product;
     private BigDecimal price;
     private Set<Producer> producers = new HashSet<>();
 
-    public void setName(String name) {
-        this.name = name;
+    public ProductItem() {
+        product = new Product();
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public Set<Producer> getProducers() {
-        return producers;
-    }
-
-    public void setProducers(Set<Producer> producers) {
-        this.producers = producers;
+    public Product getProduct() {
+        return product;
     }
 }

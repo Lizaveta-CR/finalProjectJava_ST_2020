@@ -1,8 +1,5 @@
 package by.tsvirko.musicShop.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Person class
  */

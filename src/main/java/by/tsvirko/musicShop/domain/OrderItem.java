@@ -1,20 +1,22 @@
 package by.tsvirko.musicShop.domain;
 
+import java.math.BigDecimal;
+
 /**
  * Order item class: embedded class of Order and Product
  */
 //это чек
 public class OrderItem extends Entity {
-    private Integer product_id;
+    private Product product;
+    private BigDecimal price;
     private Integer amount;
-    //TODO:date?
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getAmount() {

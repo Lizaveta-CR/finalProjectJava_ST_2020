@@ -1,29 +1,36 @@
 package by.tsvirko.musicShop.domain;
 
+import java.math.BigDecimal;
+
 /**
- * Product class
+ * ProductItem class
  */
-public class Product {
-    private int amount;
-    private ProductItem productItem;
+public class Product extends Entity {
+    private String name;
+    private BigDecimal price;
+    private String image_url;
 
-    public Product() {
-        productItem = new ProductItem();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public void setProductItem(ProductItem productItem) {
-        this.productItem = productItem;
+    public String getName() {
+        return name;
     }
 
-    public int getAmount() {
-        return amount;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public ProductItem getProductItem() {
-        return productItem;
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }

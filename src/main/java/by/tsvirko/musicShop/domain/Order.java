@@ -1,5 +1,6 @@
 package by.tsvirko.musicShop.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,19 +8,11 @@ import java.util.Set;
 /**
  * Order class
  */
-public class Order extends Entity{
-    private Date date;
+public class Order extends Entity {
     private Buyer buyer;
-    private Set<Product> products = new HashSet<>();
-
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    private BigDecimal price;
+    private Date date;
+    private Set<Product> productIts = new HashSet<>();
 
     public Buyer getBuyer() {
         return buyer;
@@ -29,11 +22,11 @@ public class Order extends Entity{
         this.buyer = buyer;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Set<Product> getProductIts() {
+        return productIts;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setProductIts(Set<Product> productIts) {
+        this.productIts = productIts;
     }
 }

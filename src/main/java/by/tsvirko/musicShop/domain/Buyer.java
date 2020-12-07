@@ -14,9 +14,10 @@ public class Buyer extends Person {
     private BigDecimal balance;
     private Address address;
     private BigDecimal bonus = new BigDecimal(0.00);
+    private Boolean enabled = true;
     private List<Order> orders = new ArrayList<>();
-//    private List<Product> likes = new ArrayList<>(0);
-//    private Bucket bucket ;
+    private List<ProductItem> likes = new ArrayList<>(0);
+    private Bucket bucket;
 
     public String getName() {
         return name;

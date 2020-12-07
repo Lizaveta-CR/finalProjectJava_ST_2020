@@ -9,7 +9,7 @@ import java.util.Set;
 public class Producer extends Entity {
     private String name;
     private String country;
-    private Set<ProductItem> productItems = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
 
     public void setName(String name) {
@@ -28,11 +28,11 @@ public class Producer extends Entity {
         return country;
     }
 
-    public Set<ProductItem> getProductItems() {
-        return productItems;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setProductItems(Set<ProductItem> productItems) {
-        this.productItems = productItems;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }
