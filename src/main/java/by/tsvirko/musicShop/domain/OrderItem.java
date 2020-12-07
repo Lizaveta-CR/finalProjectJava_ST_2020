@@ -3,10 +3,11 @@ package by.tsvirko.musicShop.domain;
 /**
  * Order item class: embedded class of Order and Product
  */
-//TODO: возможно, что этот класс не нужен будет, а только для таблицы
+//это чек
 public class OrderItem extends Entity {
     private Integer product_id;
     private Integer amount;
+    //TODO:date?
 
     public Integer getProduct_id() {
         return product_id;
