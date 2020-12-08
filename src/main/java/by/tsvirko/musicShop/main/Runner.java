@@ -28,8 +28,8 @@ public class Runner {
                     List<User> users = new ArrayList<>();
                     while (rs.next()) {
                         User us = new User();
-                        us.setName(rs.getString("name"));
-                        us.setSurname(rs.getString("surname"));
+//                        us.setName(rs.getString("name"));
+//                        us.setSurname(rs.getString("surname"));
                         us.setLogin(rs.getString("login"));
                         us.setPassword(rs.getString("password"));
                         us.setRole(Role.getByIdentity(rs.getInt("role")));

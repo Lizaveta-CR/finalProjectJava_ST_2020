@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Product class
  */
-public class ProductItem {
+public class ProductItem extends Entity{
     private Product product;
     private BigDecimal price;
     private Set<Producer> producers = new HashSet<>();

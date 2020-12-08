@@ -1,7 +1,7 @@
 package by.tsvirko.musicShop.domain;
 
 //TODO: а надо ли?
-public class ProductRate {
+public class ProductRate extends Entity {
     private Buyer buyer;
     private Product product;
     private Integer mark;
