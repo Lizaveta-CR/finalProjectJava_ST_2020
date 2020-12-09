@@ -4,7 +4,7 @@ package by.tsvirko.musicShop.dao;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 
 public interface TransactionFactory {
-	Transaction createTransaction() throws PersistentException;
+    Transaction createTransaction();
 
-	void close();
+    void close() throws PersistentException;
 }
