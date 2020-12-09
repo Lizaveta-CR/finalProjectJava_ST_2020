@@ -32,7 +32,7 @@ public class ConnectionPool {
         this.url = resource.getString("db.url");
         this.user = resource.getString("db.user");
         this.password = resource.getString("db.password");
-        this.poolSize = Integer.parseInt(resource.getString("db.poolSize"));
+        this.poolSize = Integer.parseInt(resource.getString("db.poolsize"));
         this.maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
         this.checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
     }

@@ -2,9 +2,10 @@ USE musicShop_db;
 
 DELETE
 FROM users;
-INSERT INTO users(login, password, role, name, surname)
-VALUES ('admin1', 'e00cf25ad42683b3df678c61f42c6bda', 0, 'Marina', 'Velikaya'),
-       ('manager1', 'c240642ddef994358c96da82c0361a58', 1, 'Dasha', 'Volovetz');
+INSERT INTO users(login, password, role)
+VALUES ('admin1', 'e00cf25ad42683b3df678c61f42c6bda', 0),
+       ('manager1', 'c240642ddef994358c96da82c0361a58', 1);
+
 DELETE
 FROM buyers;
 INSERT INTO buyers(buyer_id, email, password, telephone, balance, bonus, name, surname)

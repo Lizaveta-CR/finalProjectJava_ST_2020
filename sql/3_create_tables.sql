@@ -1,5 +1,5 @@
 USE musicShop_db;
-
+DROP TABLE users;
 CREATE TABLE users
 (
     user_id  INTEGER      NOT NULL AUTO_INCREMENT,
