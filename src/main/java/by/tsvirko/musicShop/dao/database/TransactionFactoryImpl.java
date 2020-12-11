@@ -17,14 +17,15 @@ public class TransactionFactoryImpl implements TransactionFactory {
     private Connection connection;
 
     /**
-     * TransactionFactoryImpl constructor. Gets connection from ConnectionPool class and sets auto commit into false.
+     * TransactionFactoryImpl constructor. Gets connection from ConnectionPool class and sets auto commit.
      *
      * @throws PersistentException if it is impossible to turn off autocommiting
      */
-    public TransactionFactoryImpl() throws PersistentException {
+    //TODO: подумать, ибо, например, в выборке необязательно setAutoCommit( false)
+    public TransactionFactoryImpl(boolean isAutoCommit) throws PersistentException {
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(isAutoCommit);
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("It is impossible to turn off autocommiting for database connection", e);
             throw new PersistentException(e);
@@ -44,16 +45,13 @@ public class TransactionFactoryImpl implements TransactionFactory {
 
     /**
      * Closes connection
-     *
-     * @throws PersistentException if it is impossible to close connection"
      */
     @Override
-    public void close() throws PersistentException {
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
             logger.error("It is impossible to close connection");
-            throw new PersistentException(e);
         }
     }
 }

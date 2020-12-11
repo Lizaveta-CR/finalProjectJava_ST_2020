@@ -19,7 +19,8 @@ import java.util.List;
 
 public class UserDAOImpl extends BaseDao implements UserDAO {
     private static Logger logger = LogManager.getLogger(UserDAOImpl.class);
-    private static final String SQL_INSERT_USERS = "INSERT INTO musicShop_db.users (login, password, role) VALUES (?, ?,?)";
+    private static final String SQL_INSERT_USERS = "INSERT INTO users (login, password, role) VALUES (?, ?,?)";
+    private static final String SQL_UPDATE_USERS = "UPDATE users SET login = ?, password = ?, role = ? WHERE user_id = ?";
 
     @Override
     public List<User> read() {
@@ -40,7 +41,6 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SQL_INSERT_USERS, Statement.RETURN_GENERATED_KEYS);
-//            statement.setInt(1, entity.getId());
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
             statement.setInt(3, entity.getRole().getIdentity());
@@ -50,11 +50,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
 
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
-            }
-//            if (resultSet.next()) {
-//                return resultSet.getInt(1);
-//            }
-            else {
+            } else {
                 logger.error("There is no autoincremented index after trying to add record into table `users`");
                 throw new PersistentException();
             }
@@ -83,25 +79,41 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
 
     @Override
     public void update(User entity) throws PersistentException {
-
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_UPDATE_USERS);
+            statement.setString(1, entity.getLogin());
+            statement.setString(2, entity.getPassword());
+            statement.setInt(3, entity.getRole().getIdentity());
+            statement.setInt(4, entity.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistentException(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     @Override
     public void delete(Integer identity) throws PersistentException {
-
     }
 
     public static void main(String[] args) throws PersistentException, ConnectionPoolException {
         User user = new User();
-        user.setLogin("test2");
-        user.setPassword("test1Pass");
+        user.setId(3);
+        user.setLogin("test555");
+        user.setPassword("test555Pass");
         user.setRole(Role.BUYER);
         ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl();
+        TransactionFactory factory = new TransactionFactoryImpl(false);
         Transaction transaction = factory.createTransaction();
         UserDAO dao = transaction.createDao(UserDAO.class);
-        Integer integer = dao.create(user);
+        dao.update(user);
         transaction.commit();
-        System.out.println(integer);
+//        System.out.println(integer);
     }
 }
