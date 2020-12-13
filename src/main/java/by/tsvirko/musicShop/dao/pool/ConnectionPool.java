@@ -14,9 +14,13 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ConnectionPool {
+/**
+ * Connection pool class: so that every time you execute a request, you don't have to create a new connection.
+ */
+final public class ConnectionPool {
     private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
 
+    private static final String DATASOURCE_NAME = "database";
     private static final ReentrantLock lock = new ReentrantLock();
     private String url;
     private String user;
@@ -24,11 +28,21 @@ public class ConnectionPool {
     private int poolSize;
     private int maxSize;
     private int checkConnectionTimeout;
+    /**
+     * Available connections
+     */
     private BlockingQueue<PooledConnection> freeConnections = new LinkedBlockingQueue<>();
+    /**
+     * Used connections
+     */
     private Set<PooledConnection> usedConnections = new ConcurrentSkipListSet<>();
 
+    /**
+     * ConnectionPool constructor,which initializes fields with database.properties parameters
+     */
+    //TODO: перенести в DispatcherServlet
     private ConnectionPool() {
-        ResourceBundle resource = ResourceBundle.getBundle("database");
+        ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
         this.url = resource.getString("db.url");
         this.user = resource.getString("db.user");
         this.password = resource.getString("db.password");
@@ -45,6 +59,7 @@ public class ConnectionPool {
     public void initPoolData() throws ConnectionPoolException {
         try {
             destroy();
+            //это делается автоматически, хотя раньше надо было прописывать явно
 //            Class.forName(driverClass);
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);

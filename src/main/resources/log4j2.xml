@@ -23,9 +23,9 @@
         <Logger name="by.tsvirko.musicShop.dao" level="fatal" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
-        <!--        <Logger name="by.tsvirko.controller" level="error" additivity="true">-->
-        <!--            <AppenderRef ref="TxtFile"/>-->
-        <!--        </Logger>-->
+                <Logger name="by.tsvirko.musicShop.service" level="error" additivity="true">
+                    <AppenderRef ref="TxtFile"/>
+                </Logger>
     </Loggers>
 </Configuration>
 
