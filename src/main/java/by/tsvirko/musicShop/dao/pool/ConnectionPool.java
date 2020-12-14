@@ -33,7 +33,7 @@ final public class ConnectionPool {
      */
     private BlockingQueue<PooledConnection> freeConnections = new LinkedBlockingQueue<>();
     /**
-     * Used connections
+     * Used connections (we work with this connections)
      */
     private Set<PooledConnection> usedConnections = new ConcurrentSkipListSet<>();
 
@@ -104,7 +104,7 @@ final public class ConnectionPool {
             }
         }
         usedConnections.add(connection);
-        logger.info(String.format("Connection was received from pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
+        logger.debug(String.format("Connection was received from pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
         return connection;
     }
 
