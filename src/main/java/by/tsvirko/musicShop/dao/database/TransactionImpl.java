@@ -29,12 +29,11 @@ public class TransactionImpl implements Transaction {
 
     /**
      * Creates Dao
-     *
+     * @SuppressWarnings("unchecked") tells the compiler that the programmer believes the code to be safe and won't cause unexpected exceptions
      * @param key - given dao interface
      * @return BaseDAO with setted connection
      * @throws PersistentException
      */
-//tells the compiler that the programmer believes the code to be safe and won't cause unexpected exceptions
     @SuppressWarnings("unchecked")
     @Override
     public <Type extends Dao<?>> Type createDao(Class<Type> key) throws PersistentException {

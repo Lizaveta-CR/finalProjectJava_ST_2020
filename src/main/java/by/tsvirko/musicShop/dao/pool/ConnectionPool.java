@@ -83,33 +83,28 @@ final public class ConnectionPool {
         PooledConnection connection = null;
         while (connection == null) {
             try {
-                lock.lock();
-                try {
-                    if (!freeConnections.isEmpty()) {
-                        connection = freeConnections.take();
-                        if (!connection.isValid(checkConnectionTimeout)) {
-                            try {
-                                connection.getConnection().close();
-                            } catch (SQLException e) {
-                            }
-                            connection = null;
+                if (!freeConnections.isEmpty()) {
+                    connection = freeConnections.take();
+                    if (!connection.isValid(checkConnectionTimeout)) {
+                        try {
+                            connection.getConnection().close();
+                        } catch (SQLException e) {
                         }
-                    } else if (usedConnections.size() < maxSize) {
-                        connection = createConnection();
-                    } else {
-                        logger.error("The limit of number of database connections is exceeded");
-                        throw new ConnectionPoolException();
+                        connection = null;
                     }
-                } catch (InterruptedException | SQLException e) {
-                    logger.error("It is impossible to connect to a database", e);
-                    throw new ConnectionPoolException(e);
+                } else if (usedConnections.size() < maxSize) {
+                    connection = createConnection();
+                } else {
+                    logger.error("The limit of number of database connections is exceeded");
+                    throw new ConnectionPoolException();
                 }
-            } finally {
-                lock.unlock();
+            } catch (InterruptedException | SQLException e) {
+                logger.error("It is impossible to connect to a database", e);
+                throw new ConnectionPoolException(e);
             }
         }
         usedConnections.add(connection);
-        logger.debug(String.format("Connection was received from pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
+        logger.info(String.format("Connection was received from pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
         return connection;
     }
 
@@ -151,7 +146,7 @@ final public class ConnectionPool {
                 connection.setAutoCommit(true);
                 usedConnections.remove(connection);
                 freeConnections.put(connection);
-                logger.debug(String.format("Connection was returned into pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
+                logger.info(String.format("Connection was returned into pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
             }
         } catch (SQLException | InterruptedException e1) {
             logger.warn("It is impossible to return database connection into pool", e1);
@@ -172,6 +167,7 @@ final public class ConnectionPool {
             try {
                 connection.getConnection().close();
             } catch (SQLException e) {
+                logger.error("Impossible to close connection. Database access error", e);
             }
         }
         usedConnections.clear();
