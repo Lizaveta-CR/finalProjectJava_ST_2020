@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl extends BaseDao implements UserDAO {
@@ -22,10 +23,44 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
     private static final String SQL_INSERT_USERS = "INSERT INTO users (login, name,surname,password, role) VALUES (?, ?,?,?,?)";
     private static final String SQL_UPDATE_USERS = "UPDATE users SET login = ?, name =? ,surname=?, password = ?, role = ? WHERE id = ?";
     private static final String SQL_DELETE_USERS = "DELETE FROM users WHERE id = ?";
+    private static final String SQL_READ_ALL_USERS = "SELECT * FROM users";
+
 
     @Override
-    public List<User> read() {
-        return null;
+    public List<User> read() throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_READ_ALL_USERS);
+            resultSet = statement.executeQuery();
+            List<User> users = new ArrayList<>();
+            User user = null;
+            while (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setLogin(resultSet.getString("login"));
+                user.setName(resultSet.getString("name"));
+                user.setSurname(resultSet.getString("surname"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(Role.getByIdentity(resultSet.getInt("role")));
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**
@@ -132,7 +167,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
         TransactionFactory factory = new TransactionFactoryImpl(false);
         Transaction transaction = factory.createTransaction();
         UserDAO dao = transaction.createDao(UserDAO.class);
-        dao.delete(4);
+        dao.read().forEach(System.out::println);
         transaction.commit();
 //        System.out.println(integer);
     }
