@@ -14,8 +14,6 @@ public class Buyer extends Person {
     private BigDecimal bonus = new BigDecimal(0.00);
     private Boolean enabled = true;
     private List<Order> orders = new ArrayList<>();
-//    private List<ProductItem> likes = new ArrayList<>(0);
-//    private Bucket bucket;
 
     public Long getTelephone() {
         return telephone;

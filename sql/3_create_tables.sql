@@ -95,7 +95,7 @@ CREATE table orders
     CONSTRAINT UC_Order UNIQUE (order_id, buyer_id),
     CONSTRAINT FK_Order_Buyer FOREIGN KEY (buyer_id) REFERENCES buyers (buyer_id)
 );
-# DROP TABLE order_items;
+
 CREATE TABLE order_items
 (
     order_id   INTEGER        NOT NULL,
