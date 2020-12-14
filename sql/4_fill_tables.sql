@@ -1,7 +1,8 @@
 USE musicShop_db;
 
 INSERT INTO users(id, login, name, surname, password, role)
-VALUES (1, 'admin1', 'Marya', 'Slavnaya', 'e00cf25ad42683b3df678c61f42c6bda', 0),
+VALUES
+       (1, 'admin1', 'Marya', 'Slavnaya', 'e00cf25ad42683b3df678c61f42c6bda', 0),
        (2, 'manager1', 'Alexey', 'Tsar', 'c240642ddef994358c96da82c0361a58', 1),
        (3, 'elizTs', 'Elizaveta', 'Tsvirko', 'd6b92323c10ad6f5422e5e5bb8e46bf1', 2);
 

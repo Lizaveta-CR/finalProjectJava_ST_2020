@@ -1,5 +1,6 @@
 package by.tsvirko.musicShop.dao.database;
 
+import by.tsvirko.musicShop.dao.BuyerDAO;
 import by.tsvirko.musicShop.dao.Dao;
 import by.tsvirko.musicShop.dao.Transaction;
 import by.tsvirko.musicShop.dao.UserDAO;
@@ -19,6 +20,7 @@ public class TransactionImpl implements Transaction {
 
     static {
         classes.put(UserDAO.class, UserDAOImpl.class);
+        classes.put(BuyerDAO.class, BuyerDAOImpl.class);
     }
 
     private Connection connection;

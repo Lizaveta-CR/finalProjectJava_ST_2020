@@ -9,7 +9,7 @@ public class Address extends Entity {
     private String street;
     private int apartment_number;
     private int house_number;
-    private Buyer buyer;
+//    private Buyer buyer;
 
     public String getCountry() {
         return country;
@@ -51,11 +51,22 @@ public class Address extends Entity {
         this.house_number = house_number;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
-    }
+//    public Buyer getBuyer() {
+//        return buyer;
+//    }
+//
+//    public void setBuyer(Buyer buyer) {
+//        this.buyer = buyer;
+//    }
 
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
+    @Override
+    public String toString() {
+        return "Address{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", apartment_number=" + apartment_number +
+                ", house_number=" + house_number +
+                '}';
     }
 }

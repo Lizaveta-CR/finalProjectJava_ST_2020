@@ -28,11 +28,12 @@ CREATE TABLE buyers
 #     for blocking
     enabled   BOOLEAN        DEFAULT true NOT NULL,
     CONSTRAINT PK_Buyer PRIMARY KEY (buyer_id),
-    CONSTRAINT FK_Buyer FOREIGN KEY (buyer_id) REFERENCES users (id)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
     CONSTRAINT UC_User UNIQUE (email)
 );
+ALTER TABLE buyers
+    ADD CONSTRAINT FK_Buyer FOREIGN KEY (buyer_id) REFERENCES users (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
 
 CREATE TABLE addresses
 (
@@ -44,12 +45,14 @@ CREATE TABLE addresses
     apartment_number INTEGER(100) NOT NULL,
     house_number     INTEGER(100),
     CONSTRAINT PK_Address PRIMARY KEY (buyer_id),
-    CONSTRAINT FK_Address_Buyer FOREIGN KEY (buyer_id)
-        REFERENCES buyers (buyer_id)
-        ON UPDATE CASCADE,
     CONSTRAINT FK_Address_Country FOREIGN KEY (country_id) REFERENCES countries (id)
         ON UPDATE CASCADE
 );
+ALTER TABLE addresses
+    ADD CONSTRAINT FK_Address_Buyer FOREIGN KEY (buyer_id)
+        REFERENCES buyers (buyer_id)
+        ON UPDATE CASCADE ON DELETE CASCADE;
+
 # DROP TABLE products;
 CREATE TABLE products
 (

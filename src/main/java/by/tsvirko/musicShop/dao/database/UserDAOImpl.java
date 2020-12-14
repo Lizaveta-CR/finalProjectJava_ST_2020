@@ -1,11 +1,7 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.UserDAO;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
@@ -20,9 +16,9 @@ import java.util.List;
 
 public class UserDAOImpl extends BaseDao implements UserDAO {
     private static Logger logger = LogManager.getLogger(UserDAOImpl.class);
-    private static final String SQL_INSERT_USERS = "INSERT INTO users (login, name,surname,password, role) VALUES (?, ?,?,?,?)";
-    private static final String SQL_UPDATE_USERS = "UPDATE users SET login = ?, name =? ,surname=?, password = ?, role = ? WHERE id = ?";
-    private static final String SQL_DELETE_USERS = "DELETE FROM users WHERE id = ?";
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, name,surname,password, role) VALUES (?, ?,?,?,?)";
+    private static final String SQL_UPDATE_USER = "UPDATE users SET login = ?, name =? ,surname=?, password = ?, role = ? WHERE id = ?";
+    private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
     private static final String SQL_READ_ALL_USERS = "SELECT * FROM users";
 
 
@@ -76,7 +72,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_INSERT_USERS, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(SQL_INSERT_USER, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
             statement.setString(3, entity.getName());
@@ -119,7 +115,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
     public void update(User entity) throws PersistentException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(SQL_UPDATE_USERS);
+            statement = connection.prepareStatement(SQL_UPDATE_USER);
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
             statement.setString(3, entity.getName());
@@ -142,7 +138,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
     public void delete(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(SQL_DELETE_USERS);
+            statement = connection.prepareStatement(SQL_DELETE_USER);
             statement.setInt(1, identity);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -154,21 +150,5 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-    }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-//        User user = new User();
-//        user.setLogin("test555");
-//        user.setPassword("test555Pass");
-//        user.setName("test");
-//        user.setSurname("test");
-//        user.setRole(Role.BUYER);
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-        UserDAO dao = transaction.createDao(UserDAO.class);
-        dao.read().forEach(System.out::println);
-        transaction.commit();
-//        System.out.println(integer);
     }
 }
