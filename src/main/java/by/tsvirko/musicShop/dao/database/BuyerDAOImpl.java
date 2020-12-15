@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
-    private static Logger logger = LogManager.getLogger(UserDAOImpl.class);
+    private static Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
+
     private static final String SQL_INSERT_BUYER = "INSERT INTO buyers (buyer_id,email, telephone,balance,bonus, enabled) VALUES (?, ?,?,?,?,?)";
     private static final String SQL_UPDATE_BUYER = "UPDATE buyers SET email = ?, telephone =? ,balance=?, bonus = ?, enabled = ? WHERE buyer_id = ?";
     private static final String SQL_DELETE_BUYER = "DELETE FROM buyers WHERE buyer_id = ?";
@@ -157,24 +158,5 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-    }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-        Buyer user = new Buyer();
-        user.setId(3);
-//        user.setBonus(new BigDecimal(0));
-//        user.setEmail("test555");
-//        user.setTelephone(1234564L);
-//        user.setBalance(new BigDecimal(1111.1));
-//        user.setSurname("test");
-//        user.setEnabled(Role.BUYER);
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-//        UserDAO dao = transaction.createDao(UserDAO.class);
-//        dao.read().forEach(System.out::println);
-//        dao.delete(3);
-        transaction.commit();
-//        System.out.println(integer);
     }
 }
