@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
-    private static Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
+    private static final Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
 
     private static final String SQL_INSERT_BUYER = "INSERT INTO buyers (buyer_id,email, telephone,balance,bonus, enabled) VALUES (?, ?,?,?,?,?)";
     private static final String SQL_UPDATE_BUYER = "UPDATE buyers SET email = ?, telephone =? ,balance=?, bonus = ?, enabled = ? WHERE buyer_id = ?";
@@ -48,6 +48,7 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
                 user.setEnabled(resultSetBuyer.getBoolean("enabled"));
                 buyers.add(user);
             }
+            logger.debug("Buyers were read");
             return buyers;
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
@@ -110,6 +111,7 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
+            logger.debug("Buyer with id= " + index + " was created");
             return index;
         }
     }
@@ -140,6 +142,7 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
+        logger.debug("Buyer with id= " + entity.getId() + " was updated");
     }
 
     @Override
@@ -158,5 +161,6 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
+        logger.debug("Buyer with id= " + identity + " was deleted");
     }
 }

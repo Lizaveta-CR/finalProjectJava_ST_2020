@@ -1,9 +1,6 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.BuyerDAO;
-import by.tsvirko.musicShop.dao.Dao;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.UserDAO;
+import by.tsvirko.musicShop.dao.*;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,13 +11,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TransactionImpl implements Transaction {
-    private static Logger logger = LogManager.getLogger(TransactionImpl.class);
+    private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
     private static Map<Class<? extends Dao<?>>, Class<? extends BaseDao>> classes = new ConcurrentHashMap<>();
 
     static {
         classes.put(UserDAO.class, UserDAOImpl.class);
         classes.put(BuyerDAO.class, BuyerDAOImpl.class);
+        classes.put(ProductDAO.class, ProductDAOImpl.class);
     }
 
     private Connection connection;

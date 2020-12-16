@@ -24,12 +24,11 @@ INSERT INTO guitar_categories(id, name)
 VALUES (1, 'Acoustic');
 
 INSERT
-INTO products(category_id, model, available, description, img, price)
-VALUES (1, 'Fender CD-60S Natural', true,
+INTO products(id,category_id, model, available, description, img, price)
+VALUES (1,1, 'Fender CD-60S Natural', true,
         'Гитара акустическая Fender CD-60S Natural.Данная версия гитар Classic Design от компании Fender получила ряд замечательных "фишек": топ из массива ели,
         нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.',
         'Fender CD-60S Natural.jpeg', 1239.99);
-
 
 # INSERT INTO producers(id, name, country_id)
 # VALUES (1, 'Takamine', 1);

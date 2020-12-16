@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionFactoryImpl implements TransactionFactory {
-    private static Logger logger = LogManager.getLogger(TransactionFactoryImpl.class);
+    private static final Logger logger = LogManager.getLogger(TransactionFactoryImpl.class);
 
     private Connection connection;
 

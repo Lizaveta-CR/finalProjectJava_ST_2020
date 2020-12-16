@@ -6,24 +6,24 @@ import java.math.BigDecimal;
  * ProductItem class
  */
 public class Product extends Entity {
-    private String name;
-    private String category;
+    private String type;
+    private Integer categoryNum;
     private String model;
     private Boolean available;
     private String description;
     private String image_url;
     private BigDecimal price;
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategoryNum() {
+        return categoryNum;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryNum(Integer categoryNum) {
+        this.categoryNum = categoryNum;
     }
 
     public String getModel() {
@@ -54,8 +54,8 @@ public class Product extends Entity {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
     public BigDecimal getPrice() {
@@ -68,5 +68,18 @@ public class Product extends Entity {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + type + '\'' +
+                ", categoryNum=" + categoryNum +
+                ", model='" + model + '\'' +
+                ", available=" + available +
+                ", description='" + description + '\'' +
+                ", image_url='" + image_url + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

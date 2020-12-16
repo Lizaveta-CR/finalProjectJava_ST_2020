@@ -1,12 +1,19 @@
 package by.tsvirko.musicShop.dao.database;
 
+import by.tsvirko.musicShop.dao.ProductDAO;
+import by.tsvirko.musicShop.dao.Transaction;
+import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.UserDAO;
+import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.dao.pool.ConnectionPool;
+import by.tsvirko.musicShop.domain.Product;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl extends BaseDao implements UserDAO {
-    private static Logger logger = LogManager.getLogger(UserDAOImpl.class);
+    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
+
     private static final String SQL_INSERT_USER = "INSERT INTO users (login, name,surname,password, role) VALUES (?, ?,?,?,?)";
     private static final String SQL_UPDATE_USER = "UPDATE users SET login = ?, name =? ,surname=?, password = ?, role = ? WHERE id = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
@@ -41,6 +49,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
                 user.setRole(Role.getByIdentity(resultSet.getInt("role")));
                 users.add(user);
             }
+            logger.debug("Users were read");
             return users;
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
@@ -102,6 +111,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
+            logger.debug("User with id= " + index + " was created");
             return index;
         }
     }
@@ -131,6 +141,7 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
+            logger.debug("User with id= " + entity.getId() + " was updated");
         }
     }
 
@@ -149,6 +160,29 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
+        }
+        logger.debug("User with id= " + identity + " was deleted");
+    }
+
+    public static void main(String[] args) {
+        User user = new User();
+//        user.setId(3);
+        user.setLogin("test3");
+        user.setPassword("test1Pass");
+        user.setName("userName");
+        user.setSurname("userSurname");
+        user.setRole(Role.BUYER);
+        try {
+            ConnectionPool.getInstance().initPoolData();
+            TransactionFactory factory = new TransactionFactoryImpl(false);
+            Transaction transaction = factory.createTransaction();
+            UserDAO dao = transaction.createDao(UserDAO.class);
+            dao.delete(1);
+            transaction.commit();
+//            System.out.println(integer);
+
+        } catch (ConnectionPoolException | PersistentException e) {
+            System.err.println(e);
         }
     }
 }
