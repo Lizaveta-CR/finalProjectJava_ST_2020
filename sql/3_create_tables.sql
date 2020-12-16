@@ -52,7 +52,6 @@ CREATE TABLE addresses
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
 # DROP TABLE products;
 CREATE TABLE products
 (
@@ -146,10 +145,10 @@ CREATE TABLE product_rates
 
 CREATE TABLE countries
 (
-    id           INTEGER     NOT NULL AUTO_INCREMENT,
-    country_code CHAR(2)     NOT NULL,
-    country_name VARCHAR(20) NOT NULL,
-    CONSTRAINT UNx_Countries UNIQUE (country_code, country_name),
+    id   INTEGER     NOT NULL AUTO_INCREMENT,
+    code CHAR(2)     NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    CONSTRAINT UNx_Countries UNIQUE (code, name),
     CONSTRAINT PK_Countries PRIMARY KEY (id)
 );
 

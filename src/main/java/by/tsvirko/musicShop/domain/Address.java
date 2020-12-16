@@ -6,6 +6,7 @@ package by.tsvirko.musicShop.domain;
 public class Address extends Entity {
     private String country;
     private String city;
+    private int zipCode;
     private String street;
     private int apartment_number;
     private int house_number;
@@ -25,6 +26,14 @@ public class Address extends Entity {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getStreet() {
@@ -59,11 +68,13 @@ public class Address extends Entity {
 //        this.buyer = buyer;
 //    }
 
+
     @Override
     public String toString() {
         return "Address{" +
                 "country='" + country + '\'' +
                 ", city='" + city + '\'' +
+                ", zipCode=" + zipCode +
                 ", street='" + street + '\'' +
                 ", apartment_number=" + apartment_number +
                 ", house_number=" + house_number +
