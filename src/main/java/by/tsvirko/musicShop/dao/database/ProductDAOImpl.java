@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAOImpl extends BaseDao implements ProductDAO {
+public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final Logger logger = LogManager.getLogger(ProductDAOImpl.class);
 
     private static final String SQL_INSERT_PRODUCT = "INSERT INTO products (category_id,model, available,description,img, price) VALUES (?, ?,?,?,?,?)";

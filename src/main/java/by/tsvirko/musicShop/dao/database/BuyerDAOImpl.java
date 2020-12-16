@@ -1,23 +1,17 @@
 package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.BuyerDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
-import by.tsvirko.musicShop.dao.UserDAO;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Address;
 import by.tsvirko.musicShop.domain.Buyer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
+public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
     private static final Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
 
     private static final String SQL_INSERT_BUYER = "INSERT INTO buyers (buyer_id,email, telephone,balance,bonus, enabled) VALUES (?, ?,?,?,?,?)";

@@ -1,19 +1,12 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.ProductDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.UserDAO;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
-import by.tsvirko.musicShop.domain.Product;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl extends BaseDao implements UserDAO {
+public class UserDAOImpl extends BaseDAO implements UserDAO {
     private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
 
     private static final String SQL_INSERT_USER = "INSERT INTO users (login, name,surname,password, role) VALUES (?, ?,?,?,?)";

@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionImpl implements Transaction {
     private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
-    private static Map<Class<? extends Dao<?>>, Class<? extends BaseDao>> classes = new ConcurrentHashMap<>();
+    private static Map<Class<? extends Dao<?>>, Class<? extends BaseDAO>> classes = new ConcurrentHashMap<>();
 
     static {
         classes.put(UserDAO.class, UserDAOImpl.class);
@@ -37,10 +37,10 @@ public class TransactionImpl implements Transaction {
     @SuppressWarnings("unchecked")
     @Override
     public <Type extends Dao<?>> Type createDao(Class<Type> key) throws PersistentException {
-        Class<? extends BaseDao> value = classes.get(key);
+        Class<? extends BaseDAO> value = classes.get(key);
         if (value != null) {
             try {
-                BaseDao dao = value.newInstance();
+                BaseDAO dao = value.newInstance();
                 dao.setConnection(connection);
                 return (Type) dao;
             } catch (InstantiationException | IllegalAccessException e) {
