@@ -29,7 +29,12 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
     private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
     private static final String SQL_READ_ALL_USERS = "SELECT * FROM users";
 
-
+    /**
+     * Reads all users from 'users' table
+     *
+     * @return users list
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<User> read() throws PersistentException {
         PreparedStatement statement = null;
@@ -121,6 +126,11 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
         return null;
     }
 
+    /**
+     * Updates user in database
+     * @param entity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void update(User entity) throws PersistentException {
         PreparedStatement statement = null;
@@ -145,6 +155,11 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
         }
     }
 
+    /**
+     * Deletes user by identity
+     * @param identity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void delete(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
@@ -162,27 +177,5 @@ public class UserDAOImpl extends BaseDao implements UserDAO {
             }
         }
         logger.debug("User with id= " + identity + " was deleted");
-    }
-
-    public static void main(String[] args) {
-        User user = new User();
-//        user.setId(3);
-        user.setLogin("test3");
-        user.setPassword("test1Pass");
-        user.setName("userName");
-        user.setSurname("userSurname");
-        user.setRole(Role.BUYER);
-        try {
-            ConnectionPool.getInstance().initPoolData();
-            TransactionFactory factory = new TransactionFactoryImpl(false);
-            Transaction transaction = factory.createTransaction();
-            UserDAO dao = transaction.createDao(UserDAO.class);
-            dao.delete(1);
-            transaction.commit();
-//            System.out.println(integer);
-
-        } catch (ConnectionPoolException | PersistentException e) {
-            System.err.println(e);
-        }
     }
 }

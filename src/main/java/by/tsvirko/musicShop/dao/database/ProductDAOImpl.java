@@ -22,6 +22,13 @@ public class ProductDAOImpl extends BaseDao implements ProductDAO {
     private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT name FROM guitar_categories WHERE id = ?";
     private static final String SQL_READ_ALL_PRODUCTS = "SELECT * FROM products";
 
+    /**
+     * Creates product in database
+     *
+     * @param entity
+     * @return generated key
+     * @throws PersistentException if a database access error occurs
+     */
     @Override
     public Integer create(Product entity) throws PersistentException {
         Integer index = null;
@@ -68,6 +75,12 @@ public class ProductDAOImpl extends BaseDao implements ProductDAO {
         return null;
     }
 
+    /**
+     * Updates product in database
+     *
+     * @param entity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void update(Product entity) throws PersistentException {
         PreparedStatement statement = null;
@@ -93,6 +106,12 @@ public class ProductDAOImpl extends BaseDao implements ProductDAO {
         logger.debug("Product with id= " + entity.getId() + " was updated");
     }
 
+    /**
+     * Deletes product by identity
+     *
+     * @param identity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void delete(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
@@ -112,6 +131,12 @@ public class ProductDAOImpl extends BaseDao implements ProductDAO {
         logger.debug("Product with id= " + identity + " was deleted");
     }
 
+    /**
+     * Reads all products from 'products' table
+     *
+     * @return users list
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<Product> read() throws PersistentException {
         PreparedStatement statement = null;
@@ -152,6 +177,13 @@ public class ProductDAOImpl extends BaseDao implements ProductDAO {
         }
     }
 
+    /**
+     * Reads name (type category) from guitar_categories table (constant values)
+     *
+     * @param identity
+     * @return
+     * @throws PersistentException if database error occurs
+     */
     private String readTypeCategory(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

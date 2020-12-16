@@ -25,7 +25,12 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
     private static final String SQL_DELETE_BUYER = "DELETE FROM buyers WHERE buyer_id = ?";
     private static final String SQL_READ_ALL_BUYERS = "SELECT * FROM buyers";
 
-
+    /**
+     * Reads all buyers from 'buyers' table
+     *
+     * @return buyers list
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<Buyer> read() throws PersistentException {
         PreparedStatement statementReadBuyer = null;
@@ -121,6 +126,12 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
         return null;
     }
 
+    /**
+     * Updates buyer in database
+     *
+     * @param entity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void update(Buyer entity) throws PersistentException {
         PreparedStatement statement = null;
@@ -145,6 +156,11 @@ public class BuyerDAOImpl extends BaseDao implements BuyerDAO {
         logger.debug("Buyer with id= " + entity.getId() + " was updated");
     }
 
+    /**
+     * Deletes buyers from 'buyer' table by identity
+     * @param identity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void delete(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
