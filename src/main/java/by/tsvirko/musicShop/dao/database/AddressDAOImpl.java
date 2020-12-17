@@ -23,7 +23,15 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private static final String SQL_READ_COUNTRY_ID_BY_NAME = "SELECT id FROM countries WHERE name = ?";
     private static final String SQL_READ_COUNTRY_NAME_BY_ID = "SELECT name FROM countries WHERE id = ?";
     private static final String SQL_READ_ALL_ADDRESSES = "SELECT * FROM addresses";
+    private static final String SQL_DELETE_ADDRESS = "DELETE FROM addresses WHERE buyer_id = ?";
+    private static final String SQL_UPDATE_ADDRESS = "UPDATE addresses SET country_id = ?, city =? ,zip_code=?, street = ?, apartment_number = ?,house_number = ? WHERE buyer_id = ?";
 
+    /**
+     * Reads all addresses from 'addresses' table
+     *
+     * @return addresses list
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<Address> read() throws PersistentException {
         PreparedStatement statement = null;
@@ -105,21 +113,66 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         return null;
     }
 
+    /**
+     * Updates address in database
+     *
+     * @param entity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public void update(Address entity) throws PersistentException {
-
-    }
-
-    @Override
-    public void delete(Integer identity) throws PersistentException {
-
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_UPDATE_ADDRESS);
+            statement.setInt(1, (Integer) readCountry("id", entity.getCountry()));
+            statement.setString(2, entity.getCity());
+            statement.setInt(3, entity.getZipCode());
+            statement.setString(4, entity.getStreet());
+            statement.setInt(5, entity.getApartment_number());
+            statement.setInt(6, entity.getHouse_number());
+            statement.setInt(7, entity.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistentException(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+        logger.debug("Address with id= " + entity.getId() + " was updated");
     }
 
     /**
-     * Reads from countries table id by country name
-     * <p>
-     * //     * @param country
+     * Deletes address from 'addresses' table by identity
      *
+     * @param identity
+     * @throws PersistentException if database error occurs
+     */
+    @Override
+    public void delete(Integer identity) throws PersistentException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_DELETE_ADDRESS);
+            statement.setInt(1, identity);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistentException(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+        logger.debug("Address with id= " + identity + " was deleted");
+    }
+
+    /**
+     * Reads from countries table by given parameters
+     *
+     * @param param - what we want to read, value - parameter that helps up to search
      * @return
      * @throws PersistentException if database error occurs
      */
@@ -170,19 +223,20 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         address.setId(4);
         address.setCountry("Belarus");
         address.setCity("Minsk");
-        address.setZipCode(220007);
-        address.setStreet("Peramoha");
-        address.setApartment_number(11);
-        address.setHouse_number(2);
+        address.setZipCode(220005);
+        address.setStreet("Lenina");
+        address.setApartment_number(13);
+        address.setHouse_number(9);
 
         ConnectionPool.getInstance().initPoolData();
         TransactionFactory factory = new TransactionFactoryImpl(false);
         Transaction transaction = factory.createTransaction();
         AddressDAO dao = transaction.createDao(AddressDAO.class);
 //        dao.read().forEach(System.out::println);
-//        dao.delete(6);
-        Integer integer = dao.create(address);
+//        dao.delete(4);
+        dao.update(address);
+//        Integer integer = dao.create(address);
         transaction.commit();
-        System.out.println(integer);
+//        System.out.println(integer);
     }
 }
