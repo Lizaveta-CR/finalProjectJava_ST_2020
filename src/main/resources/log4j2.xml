@@ -17,10 +17,13 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="all">
+        <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="by.tsvirko.musicShop.dao" level="error" additivity="true">
+        <Logger name="by.tsvirko.musicShop.dao.database" level="debug" additivity="true">
+            <AppenderRef ref="TxtFile"/>
+        </Logger>
+        <Logger name="by.tsvirko.musicShop.dao.pool" level="error" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
         <Logger name="by.tsvirko.musicShop.service" level="error" additivity="true">

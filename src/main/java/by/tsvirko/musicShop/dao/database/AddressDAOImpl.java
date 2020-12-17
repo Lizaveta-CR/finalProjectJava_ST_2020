@@ -232,9 +232,9 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         TransactionFactory factory = new TransactionFactoryImpl(false);
         Transaction transaction = factory.createTransaction();
         AddressDAO dao = transaction.createDao(AddressDAO.class);
-//        dao.read().forEach(System.out::println);
+        dao.read().forEach(System.out::println);
 //        dao.delete(4);
-        dao.update(address);
+//        dao.update(address);
 //        Integer integer = dao.create(address);
         transaction.commit();
 //        System.out.println(integer);
