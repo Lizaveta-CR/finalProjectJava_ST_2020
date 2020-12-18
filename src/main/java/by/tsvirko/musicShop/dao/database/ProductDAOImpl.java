@@ -1,12 +1,7 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.OrderDAO;
 import by.tsvirko.musicShop.dao.ProductDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -223,6 +218,14 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
         return type;
     }
 
+    /**
+     * Reads category child name from given table
+     *
+     * @param childName - category child table name
+     * @param identity  - category(child) id
+     * @return
+     * @throws PersistentException
+     */
     private String readChildCategoryType(String childName, Integer identity) throws PersistentException {
         String sql = "SELECT name FROM " + childName + " WHERE id = ?";
 
