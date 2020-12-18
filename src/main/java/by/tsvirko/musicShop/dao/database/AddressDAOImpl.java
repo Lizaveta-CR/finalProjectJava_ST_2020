@@ -217,26 +217,4 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         }
         return null;
     }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-        Address address = new Address();
-        address.setId(4);
-        address.setCountry("Belarus");
-        address.setCity("Minsk");
-        address.setZipCode(220005);
-        address.setStreet("Lenina");
-        address.setApartment_number(13);
-        address.setHouse_number(9);
-
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-        AddressDAO dao = transaction.createDao(AddressDAO.class);
-        dao.read().forEach(System.out::println);
-//        dao.delete(4);
-//        dao.update(address);
-//        Integer integer = dao.create(address);
-        transaction.commit();
-//        System.out.println(integer);
-    }
 }

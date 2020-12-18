@@ -43,8 +43,8 @@ VALUES (1, 1, 'Fender CD-60S Natural', true,
 # DELETE
 # FROM orders;
 #
-# INSERT INTO orders(order_id, date, buyer_id, price)
-# VALUES (1, '2013-08-05 18:19:03', 1, 100.22);
+INSERT INTO orders(date, buyer_id, price)
+VALUES ('2013-08-05 18:19:03', 3, 1239.99);
 #
 # DELETE
 # FROM order_items;

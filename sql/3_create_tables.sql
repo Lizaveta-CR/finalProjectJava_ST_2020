@@ -52,7 +52,6 @@ CREATE TABLE addresses
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-# DROP TABLE products;
 CREATE TABLE products
 (
     id          INTEGER                    NOT NULL AUTO_INCREMENT,
@@ -85,29 +84,34 @@ CREATE INDEX idx_name ON producers (name);
 
 CREATE table orders
 (
-    order_id INTEGER        NOT NULL AUTO_INCREMENT,
-    buyer_id INTEGER,
+    id       INTEGER        NOT NULL AUTO_INCREMENT,
+    buyer_id INTEGER NOT NULL,
 #     Or orders_items?
-    date     TIMESTAMP(6)   NOT NULL,
+    date     DATE,
     price    DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT PK_Order PRIMARY KEY (order_id),
-    CONSTRAINT UC_Order UNIQUE (order_id, buyer_id),
+    CONSTRAINT PK_Order PRIMARY KEY (id),
+    CONSTRAINT UC_Order UNIQUE (id, buyer_id),
     CONSTRAINT FK_Order_Buyer FOREIGN KEY (buyer_id) REFERENCES buyers (buyer_id)
 );
 
+
 CREATE TABLE order_items
 (
-    order_id   INTEGER        NOT NULL,
+    id         INTEGER        NOT NULL,
     product_id INTEGER        NOT NULL,
     price      DECIMAL(10, 2) NOT NULL,
     amount     INTEGER        NOT NULL CHECK ( amount > 0 ),
-    CONSTRAINT PK_OrderItem PRIMARY KEY (order_id, product_id),
+    CONSTRAINT PK_OrderItem PRIMARY KEY (id, product_id),
     CONSTRAINT FK_OrderItem_Order
-        FOREIGN KEY FK_Order (order_id) REFERENCES orders (order_id)
-            ON UPDATE CASCADE ON DELETE RESTRICT,
+        FOREIGN KEY FK_Order (id) REFERENCES orders (id)
+            ON
+                UPDATE CASCADE
+            ON
+                DELETE RESTRICT,
     CONSTRAINT FK_OrderItem_Product
-        FOREIGN KEY FK_Product (product_id) REFERENCES products (id)
-            ON DELETE RESTRICT ON UPDATE CASCADE
+        FOREIGN KEY (product_id) REFERENCES products (id)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE
 );
 
 CREATE TABLE producer_items
@@ -160,6 +164,7 @@ CREATE TABLE categories
     CONSTRAINT PK_category PRIMARY KEY (id),
     CONSTRAINT UQ_name UNIQUE (name)
 );
+
 CREATE TABLE guitar_categories
 (
     id   INTEGER     NOT NULL,
@@ -170,3 +175,5 @@ CREATE TABLE guitar_categories
         FOREIGN KEY (id) REFERENCES products (id)
             ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+# ANALYZE TABLE products;

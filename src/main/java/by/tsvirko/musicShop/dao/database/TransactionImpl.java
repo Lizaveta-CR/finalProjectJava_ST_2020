@@ -20,6 +20,7 @@ public class TransactionImpl implements Transaction {
         classes.put(BuyerDAO.class, BuyerDAOImpl.class);
         classes.put(ProductDAO.class, ProductDAOImpl.class);
         classes.put(AddressDAO.class, AddressDAOImpl.class);
+        classes.put(OrderDAO.class, OrderDAOImpl.class);
     }
 
     private Connection connection;
@@ -30,10 +31,11 @@ public class TransactionImpl implements Transaction {
 
     /**
      * Creates Dao
-     * @SuppressWarnings("unchecked") tells the compiler that the programmer believes the code to be safe and won't cause unexpected exceptions
+     *
      * @param key - given dao interface
      * @return BaseDAO with setted connection
      * @throws PersistentException
+     * @SuppressWarnings("unchecked") tells the compiler that the programmer believes the code to be safe and won't cause unexpected exceptions
      */
     @SuppressWarnings("unchecked")
     @Override

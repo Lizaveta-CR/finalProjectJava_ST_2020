@@ -29,4 +29,30 @@ public class Order extends Entity {
     public void setProductIts(Set<Product> productIts) {
         this.productIts = productIts;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "buyer=" + buyer +
+                ", price=" + price +
+                ", date=" + date +
+                ", productIts=" + productIts +
+                '}';
+    }
 }
