@@ -1,6 +1,5 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.BuyerDAO;
 import by.tsvirko.musicShop.dao.OrderDAO;
 import by.tsvirko.musicShop.dao.Transaction;
 import by.tsvirko.musicShop.dao.TransactionFactory;

@@ -1,7 +1,12 @@
 package by.tsvirko.musicShop.dao.database;
 
+import by.tsvirko.musicShop.dao.OrderDAO;
 import by.tsvirko.musicShop.dao.ProductDAO;
+import by.tsvirko.musicShop.dao.Transaction;
+import by.tsvirko.musicShop.dao.TransactionFactory;
+import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +24,9 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final String SQL_INSERT_PRODUCT = "INSERT INTO products (category_id,model, available,description,img, price) VALUES (?, ?,?,?,?,?)";
     private static final String SQL_UPDATE_PRODUCT = "UPDATE products SET category_id = ?, model =? ,available=?, description = ?, img = ?, price = ? WHERE id = ?";
     private static final String SQL_DELETE_PRODUCT = "DELETE FROM products WHERE id = ?";
-    private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT name FROM guitar_categories WHERE id = ?";
     private static final String SQL_READ_ALL_PRODUCTS = "SELECT * FROM products";
+
+    private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT child_table FROM categories WHERE id = ?";
 
     /**
      * Creates product in database
@@ -149,7 +155,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             while (resultSet.next()) {
                 product = new Product();
                 product.setId(resultSet.getInt("id"));
-                product.setType(readTypeCategory(product.getId()));
+                product.setType(readCategoryChild(product.getId()));
                 product.setCategoryNum(resultSet.getInt("category_id"));
                 product.setModel(resultSet.getString("model"));
                 product.setAvailable(resultSet.getBoolean("available"));
@@ -178,19 +184,54 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     }
 
     /**
-     * Reads name (type category) from guitar_categories table (constant values)
+     * Reads name (child category) from child_categories table (constant values)
      *
-     * @param identity
+     * @param category_id
      * @return
      * @throws PersistentException if database error occurs
      */
-    private String readTypeCategory(Integer identity) throws PersistentException {
+    private String readCategoryChild(Integer category_id) throws PersistentException {
+        PreparedStatement statementParent = null;
+        ResultSet resultSetParent = null;
+
+        String type = null;
+        try {
+            statementParent = connection.prepareStatement(SQL_READ_PRODUCT_CATEGORY);
+            statementParent.setInt(1, category_id);
+            resultSetParent = statementParent.executeQuery();
+
+            if (resultSetParent.next()) {
+                type = readChildCategoryType(resultSetParent.getString(1), category_id);
+            }
+            logger.debug("Category was read");
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSetParent.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statementParent.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+        logger.debug("Categories' child's type was read");
+        return type;
+    }
+
+    private String readChildCategoryType(String childName, Integer identity) throws PersistentException {
+        String sql = "SELECT name FROM " + childName + " WHERE id = ?";
+
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        String name = null;
 
+        String name = null;
         try {
-            statement = connection.prepareStatement(SQL_READ_PRODUCT_CATEGORY);
+            statement = connection.prepareStatement(sql);
             statement.setInt(1, identity);
             resultSet = statement.executeQuery();
 
@@ -213,7 +254,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("Category was read");
+        logger.debug("Child's type was read");
         return name;
     }
 }
