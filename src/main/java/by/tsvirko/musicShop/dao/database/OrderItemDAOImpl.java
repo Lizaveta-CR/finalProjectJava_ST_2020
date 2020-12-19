@@ -25,7 +25,6 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     private static final String SQL_DELETE_ORDER_ITEM = "DELETE FROM order_items WHERE id=?";
     private static final String SQL_DELETE_ORDER_ITEM_PRODUCT = "DELETE FROM order_items WHERE id=? AND product_id=?";
     private static final String SQL_READ_ORDER_ITEM = "SELECT* FROM order_items";
-    //    private static final String SQL_UPDATE_ORDER_ITEM = "UPDATE order_items SET product_id =? ,price=?,amount=? WHERE id = ?";
     private static final String SQL_UPDATE_ORDER_ITEM = "UPDATE order_items SET price=?,amount=? WHERE id = ? AND  product_id =?";
 
     /**
@@ -191,26 +190,5 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             }
         }
         logger.debug("OrderItem with id= " + orderIdentity + " was deleted");
-    }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-        OrderItem order = new OrderItem();
-        Product product = new Product();
-        product.setId(1);
-        order.setProduct(product);
-        order.setId(1);
-        order.setPrice(new BigDecimal(80.11));
-        order.setAmount((byte) 5);
-
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-        OrderItemDAO dao = transaction.createDao(OrderItemDAO.class);
-//        dao.read().forEach(System.out::println);
-//        dao.delete(2);
-        dao.update(order);
-//        Integer integer = dao.create(order);
-        transaction.commit();
-//        System.out.println(integer);
     }
 }
