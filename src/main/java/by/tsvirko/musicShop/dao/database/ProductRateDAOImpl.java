@@ -1,12 +1,7 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.ProducerItemDAO;
 import by.tsvirko.musicShop.dao.ProductRateDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +14,6 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     private static final String SQL_INSERT_PRODUCT_RATE = "INSERT INTO product_rates (mark,product_id, buyer_id) VALUES (?, ?,?)";
     private static final String SQL_UPDATE_PRODUCT_RATE = "UPDATE product_rates SET mark = ? WHERE id = ?";
     private static final String SQL_DELETE_PRODUCT_RATE = "DELETE FROM product_rates WHERE id = ?";
-    private static final String SQL_READ_ALL_PRODUCTS = "SELECT * FROM products";
 
     /**
      * Creates product rate in database

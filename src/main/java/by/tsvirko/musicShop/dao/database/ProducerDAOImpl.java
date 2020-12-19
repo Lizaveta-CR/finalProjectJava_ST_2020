@@ -1,11 +1,7 @@
 package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.ProducerDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Producer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
