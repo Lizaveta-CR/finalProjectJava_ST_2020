@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class OrderItem extends Entity {
     private Product product;
     private BigDecimal price;
-    private Integer amount;
+    private Byte amount;
 
     public Product getProduct() {
         return product;
@@ -19,11 +19,28 @@ public class OrderItem extends Entity {
         this.product = product;
     }
 
-    public Integer getAmount() {
+    public Byte getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Byte amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "product=" + product +
+                ", price=" + price +
+                ", amount=" + amount +
+                '}';
     }
 }

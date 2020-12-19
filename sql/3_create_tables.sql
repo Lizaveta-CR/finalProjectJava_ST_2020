@@ -85,7 +85,7 @@ CREATE INDEX idx_name ON producers (name);
 CREATE table orders
 (
     id       INTEGER        NOT NULL AUTO_INCREMENT,
-    buyer_id INTEGER NOT NULL,
+    buyer_id INTEGER        NOT NULL,
 #     Or orders_items?
     date     DATE,
     price    DECIMAL(10, 2) NOT NULL,
@@ -100,17 +100,18 @@ CREATE TABLE order_items
     id         INTEGER        NOT NULL,
     product_id INTEGER        NOT NULL,
     price      DECIMAL(10, 2) NOT NULL,
-    amount     INTEGER        NOT NULL CHECK ( amount > 0 ),
+    amount     TINYINT        NOT NULL,
     CONSTRAINT PK_OrderItem PRIMARY KEY (id, product_id),
+    CONSTRAINT CHK_OrderItems_Amount CHECK ( amount > 0 ),
     CONSTRAINT FK_OrderItem_Order
         FOREIGN KEY FK_Order (id) REFERENCES orders (id)
             ON
                 UPDATE CASCADE
             ON
-                DELETE RESTRICT,
+                DELETE CASCADE,
     CONSTRAINT FK_OrderItem_Product
         FOREIGN KEY (product_id) REFERENCES products (id)
-            ON DELETE RESTRICT
+            ON DELETE CASCADE
             ON UPDATE CASCADE
 );
 

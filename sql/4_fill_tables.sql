@@ -29,7 +29,11 @@ INTO products(id, category_id, model, available, description, img, price)
 VALUES (1, 1, 'Fender CD-60S Natural', true,
         'Гитара акустическая Fender CD-60S Natural.Данная версия гитар Classic Design от компании Fender получила ряд замечательных "фишек": топ из массива ели,
         нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.',
-        'Fender CD-60S Natural.jpeg', 1239.99);
+        'Fender CD-60S Natural.jpeg', 1239.99),
+       (2, 1, 'Fender CD-60D Natural', true,
+        'Гитара акустическая Fender CD-60S Natural.Данная версия гитар Classic Design от компании Fender получила ряд замечательных "фишек": топ из массива ели,
+        нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.',
+        'Fender CD-60S Natural.jpeg', 1219);
 
 # INSERT INTO producers(id, name, country_id)
 # VALUES (1, 'Takamine', 1);
@@ -45,12 +49,12 @@ VALUES (1, 1, 'Fender CD-60S Natural', true,
 #
 INSERT INTO orders(date, buyer_id, price)
 VALUES ('2013-08-05 18:19:03', 3, 1239.99);
-#
-# DELETE
-# FROM order_items;
-#
-# INSERT INTO order_items(order_id, product_id, amount)
-# VALUES (1, 1, 1);
+
+DELETE
+FROM order_items;
+
+INSERT INTO order_items(id, product_id, amount, price)
+VALUES (1, 1, 1, 1239.99);
 #
 # DELETE
 # FROM product_rates;

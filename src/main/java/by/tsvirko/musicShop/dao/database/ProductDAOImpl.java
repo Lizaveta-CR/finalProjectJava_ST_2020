@@ -52,6 +52,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 logger.error("There is no autoincremented index after trying to add record into table `users`");
                 throw new PersistentException();
             }
+            logger.debug("Product with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
@@ -66,7 +67,6 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            logger.debug("Product with id= " + index + " was created");
             return index;
         }
     }

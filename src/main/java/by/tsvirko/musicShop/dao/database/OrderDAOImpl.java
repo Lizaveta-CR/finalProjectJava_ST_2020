@@ -1,11 +1,7 @@
 package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.OrderDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Buyer;
 import by.tsvirko.musicShop.domain.Order;
 import org.apache.logging.log4j.LogManager;
@@ -100,6 +96,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 logger.error("There is no autoincremented index after trying to add record into table `users`");
                 throw new PersistentException();
             }
+            logger.debug("Order with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
@@ -109,7 +106,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            logger.debug("Order with id= " + index + " was created");
             return index;
         }
     }
@@ -170,26 +166,5 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             }
         }
         logger.debug("Order with id= " + identity + " was deleted");
-    }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-//        Order order = new Order();
-//        Buyer buyer = new Buyer();
-//        buyer.setId(4);
-//        order.setId(3);
-//        order.setBuyer(buyer);
-//        order.setDate(new java.util.Date());
-//        order.setPrice(new BigDecimal(667.90));
-
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-        OrderDAO dao = transaction.createDao(OrderDAO.class);
-        dao.read().forEach(System.out::println);
-//        dao.delete(3);
-//        dao.update(order);
-//        Integer integer = dao.create(order);
-        transaction.commit();
-//        System.out.println(integer);
     }
 }

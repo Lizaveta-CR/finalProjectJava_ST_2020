@@ -94,6 +94,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             statement.executeUpdate();
 
             index = entity.getId();
+            logger.debug("Address with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
@@ -103,7 +104,6 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            logger.debug("Address with id= " + index + " was created");
             return index;
         }
     }
