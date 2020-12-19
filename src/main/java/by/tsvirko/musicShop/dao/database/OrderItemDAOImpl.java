@@ -39,14 +39,14 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             OrderItem order = null;
             while (resultSet.next()) {
                 order = new OrderItem();
-                order.setId(resultSet.getInt("id"));
+                order.setId(resultSet.getInt(Field.ID.value()));
 
                 Product product = new Product();
-                product.setId(resultSet.getInt("product_id"));
+                product.setId(resultSet.getInt(Field.PRODUCT_ID.value()));
                 order.setProduct(product);
 
-                order.setPrice(resultSet.getBigDecimal("price"));
-                order.setAmount(resultSet.getByte("amount"));
+                order.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
+                order.setAmount(resultSet.getByte(Field.AMOUNT.value()));
                 orders.add(order);
             }
             logger.debug("OrderItems were read");

@@ -39,7 +39,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
         try {
             statement = connection.prepareStatement(SQL_INSERT_PRODUCER, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getName());
-            statement.setInt(2, (Integer) readCountry("id", entity.getCountry()));
+            statement.setInt(2, (Integer) readCountry(Field.ID, entity.getCountry()));
             statement.executeUpdate();
 
             resultSet = statement.getGeneratedKeys();
@@ -81,7 +81,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
         try {
             statement = connection.prepareStatement(SQL_UPDATE_PRODUCER);
             statement.setString(1, entity.getName());
-            statement.setInt(2, (Integer) readCountry("id", entity.getCountry()));
+            statement.setInt(2, (Integer) readCountry(Field.ID, entity.getCountry()));
             statement.setInt(3, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -139,9 +139,9 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
 
             while (resultSet.next()) {
                 producer = new Producer();
-                producer.setId(resultSet.getInt("id"));
-                producer.setName(resultSet.getString("name"));
-                producer.setCountry((String) readCountry("name", resultSet.getInt("country_id")));
+                producer.setId(resultSet.getInt(Field.ID.value()));
+                producer.setName(resultSet.getString(Field.NAME.value()));
+                producer.setCountry((String) readCountry(Field.NAME, resultSet.getInt("country_id")));
                 producers.add(producer);
             }
             logger.debug("Producers were read");
@@ -170,13 +170,13 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
      * @return
      * @throws PersistentException if database error occurs
      */
-    private <T extends Object> Object readCountry(String param, Object value) throws PersistentException {
+    private <T extends Object> Object readCountry(Field param, Object value) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
             switch (param) {
-                case "id":
+                case ID:
                     statement = connection.prepareStatement(SQL_READ_COUNTRY_ID_BY_NAME);
                     statement.setString(1, (String) value);
                     resultSet = statement.executeQuery();
@@ -185,7 +185,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
                         return resultSet.getInt(1);
                     }
                     break;
-                case "name":
+                case NAME:
                     statement = connection.prepareStatement(SQL_READ_COUNTRY_NAME_BY_ID);
                     statement.setInt(1, (Integer) value);
                     resultSet = statement.executeQuery();

@@ -36,14 +36,14 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             Order order = null;
             while (resultSet.next()) {
                 order = new Order();
-                order.setId(resultSet.getInt("id"));
+                order.setId(resultSet.getInt(Field.ID.value()));
 
                 Buyer buyer = new Buyer();
-                buyer.setId(resultSet.getInt("buyer_id"));
+                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
                 order.setBuyer(buyer);
 
-                order.setDate(resultSet.getDate("date"));
-                order.setPrice(resultSet.getBigDecimal("price"));
+                order.setDate(resultSet.getDate(Field.DATE.value()));
+                order.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
                 orders.add(order);
             }
             logger.debug("Orders were read");
@@ -96,7 +96,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 logger.error("There is no autoincremented index after trying to add record into table `users`");
                 throw new PersistentException();
             }
-            logger.debug("Order with id= " + index + " was created");
             logger.debug("Order with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");

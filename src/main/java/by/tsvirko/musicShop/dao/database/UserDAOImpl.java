@@ -39,12 +39,12 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             User user = null;
             while (resultSet.next()) {
                 user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setLogin(resultSet.getString("login"));
-                user.setName(resultSet.getString("name"));
-                user.setSurname(resultSet.getString("surname"));
-                user.setPassword(resultSet.getString("password"));
-                user.setRole(Role.getByIdentity(resultSet.getInt("role")));
+                user.setId(resultSet.getInt(Field.ID.value()));
+                user.setLogin(resultSet.getString(Field.LOGIN.value()));
+                user.setName(resultSet.getString(Field.NAME.value()));
+                user.setSurname(resultSet.getString(Field.SURNAME.value()));
+                user.setPassword(resultSet.getString(Field.PASSWORD.value()));
+                user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
                 users.add(user);
             }
             logger.debug("Users were read");
@@ -121,6 +121,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 
     /**
      * Updates user in database
+     *
      * @param entity
      * @throws PersistentException if database error occurs
      */
@@ -150,6 +151,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 
     /**
      * Deletes user by identity
+     *
      * @param identity
      * @throws PersistentException if database error occurs
      */

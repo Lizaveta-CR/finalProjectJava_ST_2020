@@ -36,15 +36,15 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             Buyer user = null;
             while (resultSetBuyer.next()) {
                 user = new Buyer();
-                user.setId(resultSetBuyer.getInt("buyer_id"));
+                user.setId(resultSetBuyer.getInt(Field.BUYER_ID.value()));
                 Address address = new Address();
                 address.setId(user.getId());
                 user.setAddress(address);
-                user.setEmail(resultSetBuyer.getString("email"));
-                user.setTelephone(resultSetBuyer.getLong("telephone"));
-                user.setBalance(resultSetBuyer.getBigDecimal("balance"));
-                user.setBonus(resultSetBuyer.getBigDecimal("bonus"));
-                user.setEnabled(resultSetBuyer.getBoolean("enabled"));
+                user.setEmail(resultSetBuyer.getString(Field.EMAIL.value()));
+                user.setTelephone(resultSetBuyer.getLong(Field.TELEPHONE.value()));
+                user.setBalance(resultSetBuyer.getBigDecimal(Field.BALANCE.value()));
+                user.setBonus(resultSetBuyer.getBigDecimal(Field.BONUS.value()));
+                user.setEnabled(resultSetBuyer.getBoolean(Field.ENABLED.value()));
                 buyers.add(user);
             }
             logger.debug("Buyers were read");
@@ -152,6 +152,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
 
     /**
      * Deletes buyer from 'buyers' table by identity
+     *
      * @param identity
      * @throws PersistentException if database error occurs
      */

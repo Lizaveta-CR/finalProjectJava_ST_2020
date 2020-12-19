@@ -39,13 +39,13 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             Address address = null;
             while (resultSet.next()) {
                 address = new Address();
-                address.setId(resultSet.getInt("buyer_id"));
-                address.setCountry((String) readCountry("name", resultSet.getInt("country_id")));
-                address.setCity(resultSet.getString("city"));
-                address.setZipCode(resultSet.getInt("zip_code"));
-                address.setStreet(resultSet.getString("street"));
-                address.setApartment_number(resultSet.getInt("apartment_number"));
-                address.setHouse_number(resultSet.getInt("house_number"));
+                address.setId(resultSet.getInt(Field.BUYER_ID.value()));
+                address.setCountry((String) readCountry(Field.NAME, resultSet.getInt(Field.COUNTRY_ID.value())));
+                address.setCity(resultSet.getString(Field.CITY.value()));
+                address.setZipCode(resultSet.getInt(Field.ZIP_CODE.value()));
+                address.setStreet(resultSet.getString(Field.STREET.value()));
+                address.setApartment_number(resultSet.getInt(Field.APARTMENT_NUMBER.value()));
+                address.setHouse_number(resultSet.getInt(Field.HOUSE_NUMBER.value()));
                 addresses.add(address);
             }
             logger.debug("Addresses were read");
@@ -81,7 +81,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         try {
             statement = connection.prepareStatement(SQL_INSERT_ADDRESS);
             statement.setInt(1, entity.getId());
-            statement.setInt(2, (Integer) readCountry("id", entity.getCountry()));
+            statement.setInt(2, (Integer) readCountry(Field.ID, entity.getCountry()));
             statement.setString(3, entity.getCity());
             statement.setInt(4, entity.getZipCode());
             statement.setString(5, entity.getStreet());
@@ -120,7 +120,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_UPDATE_ADDRESS);
-            statement.setInt(1, (Integer) readCountry("id", entity.getCountry()));
+            statement.setInt(1, (Integer) readCountry(Field.ID, entity.getCountry()));
             statement.setString(2, entity.getCity());
             statement.setInt(3, entity.getZipCode());
             statement.setString(4, entity.getStreet());
@@ -172,13 +172,13 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      * @return
      * @throws PersistentException if database error occurs
      */
-    private <T extends Object> Object readCountry(String param, Object value) throws PersistentException {
+    private <T extends Object> Object readCountry(Field param, Object value) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
             switch (param) {
-                case "id":
+                case ID:
                     statement = connection.prepareStatement(SQL_READ_COUNTRY_ID_BY_NAME);
                     statement.setString(1, (String) value);
                     resultSet = statement.executeQuery();
@@ -187,7 +187,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
                         return resultSet.getInt(1);
                     }
                     break;
-                case "name":
+                case NAME:
                     statement = connection.prepareStatement(SQL_READ_COUNTRY_NAME_BY_ID);
                     statement.setInt(1, (Integer) value);
                     resultSet = statement.executeQuery();

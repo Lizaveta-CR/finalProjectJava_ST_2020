@@ -149,14 +149,14 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             Product product = null;
             while (resultSet.next()) {
                 product = new Product();
-                product.setId(resultSet.getInt("id"));
+                product.setId(resultSet.getInt(Field.ID.value()));
                 product.setType(readCategoryChild(product.getId()));
-                product.setCategoryNum(resultSet.getInt("category_id"));
-                product.setModel(resultSet.getString("model"));
-                product.setAvailable(resultSet.getBoolean("available"));
-                product.setDescription(resultSet.getString("description"));
-                product.setImage_url(resultSet.getString("img"));
-                product.setPrice(resultSet.getBigDecimal("price"));
+                product.setCategoryNum(resultSet.getInt(Field.CATEGORY_ID.value()));
+                product.setModel(resultSet.getString(Field.MODEL.value()));
+                product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
+                product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
+                product.setImage_url(resultSet.getString(Field.IMG.value()));
+                product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
                 products.add(product);
             }
             logger.debug("Products were read");
