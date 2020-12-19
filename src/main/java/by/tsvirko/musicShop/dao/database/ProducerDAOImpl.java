@@ -6,7 +6,6 @@ import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.dao.pool.ConnectionPool;
-import by.tsvirko.musicShop.domain.Address;
 import by.tsvirko.musicShop.domain.Producer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
