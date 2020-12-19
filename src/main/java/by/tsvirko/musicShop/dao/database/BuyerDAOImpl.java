@@ -162,6 +162,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             statement = connection.prepareStatement(SQL_DELETE_BUYER);
             statement.setInt(1, identity);
             statement.executeUpdate();
+            logger.debug("Buyer with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
@@ -171,6 +172,5 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("Buyer with id= " + identity + " was deleted");
     }
 }

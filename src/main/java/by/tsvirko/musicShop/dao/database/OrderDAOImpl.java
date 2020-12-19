@@ -97,6 +97,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 throw new PersistentException();
             }
             logger.debug("Order with id= " + index + " was created");
+            logger.debug("Order with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
@@ -156,6 +157,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             statement = connection.prepareStatement(SQL_DELETE_ORDER);
             statement.setInt(1, identity);
             statement.executeUpdate();
+            logger.debug("Order with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
@@ -165,6 +167,5 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("Order with id= " + identity + " was deleted");
     }
 }

@@ -1,17 +1,12 @@
 package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.OrderItemDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.OrderItem;
 import by.tsvirko.musicShop.domain.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -180,6 +175,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             statement = connection.prepareStatement(SQL_DELETE_ORDER_ITEM);
             statement.setInt(1, orderIdentity);
             statement.executeUpdate();
+            logger.debug("OrderItem with id= " + orderIdentity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
@@ -189,6 +185,5 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("OrderItem with id= " + orderIdentity + " was deleted");
     }
 }

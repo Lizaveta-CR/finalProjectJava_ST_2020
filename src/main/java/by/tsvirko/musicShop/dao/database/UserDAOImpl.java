@@ -160,6 +160,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             statement = connection.prepareStatement(SQL_DELETE_USER);
             statement.setInt(1, identity);
             statement.executeUpdate();
+            logger.debug("User with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
@@ -169,6 +170,5 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("User with id= " + identity + " was deleted");
     }
 }

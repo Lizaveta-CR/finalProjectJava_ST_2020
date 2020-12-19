@@ -53,6 +53,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 throw new PersistentException();
             }
             logger.debug("Product with id= " + index + " was created");
+            logger.debug("Product with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
@@ -120,6 +121,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             statement = connection.prepareStatement(SQL_DELETE_PRODUCT);
             statement.setInt(1, identity);
             statement.executeUpdate();
+            logger.debug("Product with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
@@ -129,7 +131,6 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("Product with id= " + identity + " was deleted");
     }
 
     /**
