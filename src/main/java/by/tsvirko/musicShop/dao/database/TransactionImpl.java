@@ -24,6 +24,7 @@ public class TransactionImpl implements Transaction {
         classes.put(OrderItemDAO.class, OrderItemDAOImpl.class);
         classes.put(ProducerDAO.class, ProducerDAOImpl.class);
         classes.put(ProducerItemDAO.class, ProducerItemDAOImpl.class);
+        classes.put(ProductRateDAO.class, ProductRateDAOImpl.class);
     }
 
     private Connection connection;

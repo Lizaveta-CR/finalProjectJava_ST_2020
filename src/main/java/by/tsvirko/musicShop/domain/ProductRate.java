@@ -1,10 +1,9 @@
 package by.tsvirko.musicShop.domain;
 
-//TODO: а надо ли?
 public class ProductRate extends Entity {
     private Buyer buyer;
     private Product product;
-    private Integer mark;
+    private byte mark;
 
     public Buyer getBuyer() {
         return buyer;
@@ -22,11 +21,11 @@ public class ProductRate extends Entity {
         this.product = product;
     }
 
-    public Integer getMark() {
+    public byte getMark() {
         return mark;
     }
 
-    public void setMark(Integer mark) {
+    public void setMark(byte mark) {
         this.mark = mark;
     }
 }

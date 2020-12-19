@@ -66,24 +66,4 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
     public void delete(Integer identity) throws PersistentException {
         logger.error("Unable operation");
     }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-        Producer producer = new Producer();
-        producer.setId(2);
-        Product pr = new Product();
-        pr.setId(1);
-        ProducerItem pi = new ProducerItem();
-        pi.setProducer(producer);
-        pi.setProduct(pr);
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-        ProducerItemDAO dao = transaction.createDao(ProducerItemDAO.class);
-//        dao.read().forEach(System.out::println);
-//        dao.delete(1);
-//        dao.update(producer);
-        Integer integer = dao.create(pi);
-        transaction.commit();
-//        System.out.println(integer);
-    }
 }

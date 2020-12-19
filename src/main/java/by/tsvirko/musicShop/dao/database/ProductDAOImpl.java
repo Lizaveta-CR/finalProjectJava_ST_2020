@@ -53,7 +53,6 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 throw new PersistentException();
             }
             logger.debug("Product with id= " + index + " was created");
-            logger.debug("Product with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);

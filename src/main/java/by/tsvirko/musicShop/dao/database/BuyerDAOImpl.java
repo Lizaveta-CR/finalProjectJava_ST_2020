@@ -151,7 +151,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
     }
 
     /**
-     * Deletes buyers from 'buyer' table by identity
+     * Deletes buyer from 'buyers' table by identity
      * @param identity
      * @throws PersistentException if database error occurs
      */
