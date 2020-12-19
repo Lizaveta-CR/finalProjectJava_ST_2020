@@ -215,22 +215,4 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
         }
         return null;
     }
-
-    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
-        Producer producer = new Producer();
-        producer.setId(1);
-        producer.setName("Bel");
-        producer.setCountry("Belarus");
-
-        ConnectionPool.getInstance().initPoolData();
-        TransactionFactory factory = new TransactionFactoryImpl(false);
-        Transaction transaction = factory.createTransaction();
-        ProducerDAO dao = transaction.createDao(ProducerDAO.class);
-        dao.read().forEach(System.out::println);
-//        dao.delete(1);
-//        dao.update(producer);
-//        Integer integer = dao.create(producer);
-        transaction.commit();
-//        System.out.println(integer);
-    }
 }

@@ -35,18 +35,16 @@ VALUES (1, 1, 'Fender CD-60S Natural', true,
         нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.',
         'Fender CD-60S Natural.jpeg', 1219);
 
-# INSERT INTO producers(id, name, country_id)
-# VALUES (1, 'Takamine', 1);
+INSERT INTO producers(id, name, country_id)
+VALUES (1, 'Takamine', 1);
 #
 # DELETE
 # FROM producer_items;
-# INSERT INTO producer_items(producer_id, product_id, price)
-# VALUES (1, 1, 100.22),
-#        (1, 2, 123.99);
+INSERT INTO producer_items(producer_id, product_id)
+VALUES (1, 1);
 #
-# DELETE
-# FROM orders;
 #
+
 INSERT INTO orders(date, buyer_id, price)
 VALUES ('2013-08-05 18:19:03', 3, 1239.99);
 

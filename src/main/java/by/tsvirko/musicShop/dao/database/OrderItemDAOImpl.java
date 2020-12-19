@@ -99,7 +99,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
      * Creates order_item in database
      *
      * @param entity
-     * @return generated key
+     * @return entities' orders' key
      * @throws PersistentException if a database access error occurs
      */
     @Override

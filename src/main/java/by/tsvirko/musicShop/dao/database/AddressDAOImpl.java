@@ -75,7 +75,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      * Creates address in database
      *
      * @param entity
-     * @return generated key
+     * @return entity key
      * @throws PersistentException if a database access error occurs
      */
     @Override
