@@ -1,5 +1,5 @@
 USE musicShop_db;
-
+# TODO: поменять пароли в связи с хешированием
 INSERT INTO users(id, login, name, surname, password, role)
 VALUES (1, 'admin1', 'Marya', 'Slavnaya', 'e00cf25ad42683b3df678c61f42c6bda', 0),
        (2, 'manager1', 'Alexey', 'Tsar', 'c240642ddef994358c96da82c0361a58', 1),

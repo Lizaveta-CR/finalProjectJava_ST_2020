@@ -30,10 +30,11 @@ public class ServiceFactoryImpl implements ServiceFactory {
         if (value != null) {
             try {
 //                ClassLoader classLoader = value.getClassLoader();
-                Class<?>[] interfaces = {key};
+//                Class<?>[] interfaces = {key};
                 Transaction transaction = factory.createTransaction();
                 ServiceImpl service = value.newInstance();
                 service.setTransaction(transaction);
+                return (Type) service;
 //                InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
 //                return (Type) Proxy.newProxyInstance(classLoader, interfaces, handler);
             } catch (InstantiationException | IllegalAccessException e) {
