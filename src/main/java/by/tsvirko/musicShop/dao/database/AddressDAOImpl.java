@@ -1,8 +1,16 @@
 package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.AddressDAO;
+import by.tsvirko.musicShop.dao.ProductRateDAO;
+import by.tsvirko.musicShop.dao.Transaction;
+import by.tsvirko.musicShop.dao.TransactionFactory;
+import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Address;
+import by.tsvirko.musicShop.domain.Buyer;
+import by.tsvirko.musicShop.domain.Product;
+import by.tsvirko.musicShop.domain.ProductRate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -212,5 +220,17 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             }
         }
         return null;
+    }
+    public static void main(String[] args) throws PersistentException, ConnectionPoolException {
+        ConnectionPool.getInstance().initPoolData();
+        TransactionFactory factory = new TransactionFactoryImpl(false);
+        Transaction transaction = factory.createTransaction();
+        AddressDAO dao = transaction.createDao(AddressDAO.class);
+        dao.read().forEach(System.out::println);
+//        dao.delete(3);
+//        dao.update(productRate);
+//        Integer integer = dao.create(productRate);
+        transaction.commit();
+//        System.out.println(integer);
     }
 }

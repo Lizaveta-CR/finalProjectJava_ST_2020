@@ -1,7 +1,15 @@
 package by.tsvirko.musicShop.dao.database;
 
+import by.tsvirko.musicShop.dao.ProductRateDAO;
+import by.tsvirko.musicShop.dao.Transaction;
+import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.UserDAO;
+import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.dao.pool.ConnectionPool;
+import by.tsvirko.musicShop.domain.Buyer;
+import by.tsvirko.musicShop.domain.Product;
+import by.tsvirko.musicShop.domain.ProductRate;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +29,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     private static final String SQL_UPDATE_USER = "UPDATE users SET login = ?, name =? ,surname=?, password = ?, role = ? WHERE id = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
     private static final String SQL_READ_ALL_USERS = "SELECT * FROM users";
+    private static final String SQL_SELECT_USERS = "SELECT login, name,surname,password, role FROM users WHERE id = ?";
 
     /**
      * Reads all users from 'users' table
@@ -114,9 +123,48 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         }
     }
 
+    /**
+     * Reads user by identity
+     *
+     * @param identity
+     * @return
+     * @throws PersistentException
+     */
     @Override
     public User read(Integer identity) throws PersistentException {
-        return null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_SELECT_USERS);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(identity);
+                user.setLogin(resultSet.getString(Field.LOGIN.value()));
+                user.setName(resultSet.getString(Field.NAME.value()));
+                user.setSurname(resultSet.getString(Field.SURNAME.value()));
+                user.setPassword(resultSet.getString(Field.PASSWORD.value()));
+                user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
+            }
+            logger.debug("User with id=" + identity + " was read");
+            return user;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**

@@ -46,7 +46,8 @@ public class TransactionImpl implements Transaction {
             dao.setConnection(connection);
             return (Type) dao;
         }
-        return null;
+        logger.error("Dao can not be created");
+        throw new PersistentException("No dao instance");
     }
 
     /**
