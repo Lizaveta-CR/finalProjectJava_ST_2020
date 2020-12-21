@@ -7,28 +7,37 @@ import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class UserServiceImpl extends ServiceImpl implements UserService {
-    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
+
+    @Override
+    public List<User> findAll() throws ServicePersistentException {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer identity) throws ServicePersistentException {
+        UserDAO dao;
+        try {
+            dao = transaction.createDao(UserDAO.class);
+            dao.delete(identity);
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
 
     @Override
     public void save(User user) throws ServicePersistentException {
         UserDAO dao;
         try {
             dao = transaction.createDao(UserDAO.class);
-        } catch (PersistentException e) {
-            //TODO: change loger level
-            logger.debug("It is impossible to create data access object in " + getClass().getName(), e);
-            throw new ServicePersistentException(e);
-        }
-        try {
             if (user.getId() != null) {
                 dao.update(user);
             } else {
                 user.setId(dao.create(user));
             }
         } catch (PersistentException e) {
-            //TODO: change loger level
-            logger.debug("It is impossible to save user", e);
             throw new ServicePersistentException(e);
         }
     }

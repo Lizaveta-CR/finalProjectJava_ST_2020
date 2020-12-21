@@ -13,18 +13,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionImpl implements Transaction {
     private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
-    private static Map<Class<? extends Dao<?>>, Class<? extends BaseDAO>> classes = new ConcurrentHashMap<>();
+    private static Map<Class<? extends Dao<?>>, BaseDAO> classes = new ConcurrentHashMap<>();
 
     static {
-        classes.put(UserDAO.class, UserDAOImpl.class);
-        classes.put(BuyerDAO.class, BuyerDAOImpl.class);
-        classes.put(ProductDAO.class, ProductDAOImpl.class);
-        classes.put(AddressDAO.class, AddressDAOImpl.class);
-        classes.put(OrderDAO.class, OrderDAOImpl.class);
-        classes.put(OrderItemDAO.class, OrderItemDAOImpl.class);
-        classes.put(ProducerDAO.class, ProducerDAOImpl.class);
-        classes.put(ProducerItemDAO.class, ProducerItemDAOImpl.class);
-        classes.put(ProductRateDAO.class, ProductRateDAOImpl.class);
+        classes.put(UserDAO.class, new UserDAOImpl());
+        classes.put(BuyerDAO.class, new BuyerDAOImpl());
+        classes.put(ProductDAO.class, new ProductDAOImpl());
+        classes.put(AddressDAO.class, new AddressDAOImpl());
+        classes.put(OrderDAO.class, new OrderDAOImpl());
+        classes.put(OrderItemDAO.class, new OrderItemDAOImpl());
+        classes.put(ProducerDAO.class, new ProducerDAOImpl());
+        classes.put(ProducerItemDAO.class, new ProducerItemDAOImpl());
+        classes.put(ProductRateDAO.class, new ProductRateDAOImpl());
     }
 
     private Connection connection;
@@ -38,22 +38,13 @@ public class TransactionImpl implements Transaction {
      *
      * @param key - given dao interface
      * @return BaseDAO with setted connection
-     * @throws PersistentException
-     * @SuppressWarnings("unchecked") tells the compiler that the programmer believes the code to be safe and won't cause unexpected exceptions
      */
-    @SuppressWarnings("unchecked")
     @Override
     public <Type extends Dao<?>> Type createDao(Class<Type> key) throws PersistentException {
-        Class<? extends BaseDAO> value = classes.get(key);
-        if (value != null) {
-            try {
-                BaseDAO dao = value.newInstance();
-                dao.setConnection(connection);
-                return (Type) dao;
-            } catch (InstantiationException | IllegalAccessException e) {
-                logger.error("It is impossible to create data access object", e);
-                throw new PersistentException(e);
-            }
+        BaseDAO dao = classes.get(key);
+        if (dao != null) {
+            dao.setConnection(connection);
+            return (Type) dao;
         }
         return null;
     }
