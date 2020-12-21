@@ -1,5 +1,7 @@
 package by.tsvirko.musicShop.service;
 
+import by.tsvirko.musicShop.service.exception.PasswordException;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
@@ -29,23 +31,27 @@ public class PasswordUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static String hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static String hashPassword(String password) throws PasswordException {
         char[] chars = password.toCharArray();
         byte[] salt = getSalt().getBytes();
 
         PBEKeySpec spec = new PBEKeySpec(chars, salt, ITERATIONS, KEY_LENGTH);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance(KEY_ALGORITHM);
-        byte[] hash = skf.generateSecret(spec).getEncoded();
-        return ITERATIONS + ":" + toHex(hash);
+        SecretKeyFactory skf = null;
+        try {
+            skf = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+            byte[] hash = skf.generateSecret(spec).getEncoded();
+            return ITERATIONS + ":" + toHex(hash);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new PasswordException(e);
+        }
     }
 
     /**
      * Gets salt value that should append to the password
      *
      * @return salt value - byte array
-     * @throws NoSuchAlgorithmException
      */
-    private static String getSalt() throws NoSuchAlgorithmException {
+    private static String getSalt() {
         return SALT;
     }
 
@@ -54,9 +60,8 @@ public class PasswordUtil {
      *
      * @param array - array to be converted
      * @return converted string
-     * @throws NoSuchAlgorithmException
      */
-    private static String toHex(byte[] array) throws NoSuchAlgorithmException {
+    private static String toHex(byte[] array) {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
         int paddingLength = (array.length * 2) - hex.length();
