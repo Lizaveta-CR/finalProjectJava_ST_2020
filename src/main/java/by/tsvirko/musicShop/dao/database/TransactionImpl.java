@@ -13,18 +13,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionImpl implements Transaction {
     private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
-    private static Map<Class<? extends Dao<?>>, BaseDAO> classes = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends Dao<?>>, BaseDAO> CLASSES = new ConcurrentHashMap<>();
 
     static {
-        classes.put(UserDAO.class, new UserDAOImpl());
-        classes.put(BuyerDAO.class, new BuyerDAOImpl());
-        classes.put(ProductDAO.class, new ProductDAOImpl());
-        classes.put(AddressDAO.class, new AddressDAOImpl());
-        classes.put(OrderDAO.class, new OrderDAOImpl());
-        classes.put(OrderItemDAO.class, new OrderItemDAOImpl());
-        classes.put(ProducerDAO.class, new ProducerDAOImpl());
-        classes.put(ProducerItemDAO.class, new ProducerItemDAOImpl());
-        classes.put(ProductRateDAO.class, new ProductRateDAOImpl());
+        CLASSES.put(UserDAO.class, new UserDAOImpl());
+        CLASSES.put(BuyerDAO.class, new BuyerDAOImpl());
+        CLASSES.put(ProductDAO.class, new ProductDAOImpl());
+        CLASSES.put(AddressDAO.class, new AddressDAOImpl());
+        CLASSES.put(OrderDAO.class, new OrderDAOImpl());
+        CLASSES.put(OrderItemDAO.class, new OrderItemDAOImpl());
+        CLASSES.put(ProducerDAO.class, new ProducerDAOImpl());
+        CLASSES.put(ProducerItemDAO.class, new ProducerItemDAOImpl());
+        CLASSES.put(ProductRateDAO.class, new ProductRateDAOImpl());
     }
 
     private Connection connection;
@@ -41,7 +41,7 @@ public class TransactionImpl implements Transaction {
      */
     @Override
     public <Type extends Dao<?>> Type createDao(Class<Type> key) throws PersistentException {
-        BaseDAO dao = classes.get(key);
+        BaseDAO dao = CLASSES.get(key);
         if (dao != null) {
             dao.setConnection(connection);
             return (Type) dao;

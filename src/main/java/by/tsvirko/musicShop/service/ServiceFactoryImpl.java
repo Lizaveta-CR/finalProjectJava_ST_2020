@@ -2,6 +2,7 @@ package by.tsvirko.musicShop.service;
 
 import by.tsvirko.musicShop.dao.Transaction;
 import by.tsvirko.musicShop.dao.TransactionFactory;
+import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,10 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServiceFactoryImpl implements ServiceFactory {
     private static final Logger logger = LogManager.getLogger(ServiceFactoryImpl.class);
 
-    private static final Map<Class<? extends Service>, Class<? extends ServiceImpl>> SERVICES = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends Service>, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
 
     static {
-        SERVICES.put(UserService.class, UserServiceImpl.class);
+        SERVICES.put(UserService.class, new UserServiceImpl());
     }
 
     private TransactionFactory factory;
@@ -24,25 +25,15 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <Type extends Service> Type getService(Class<Type> key) {
-        Class<? extends ServiceImpl> value = SERVICES.get(key);
+    public <Type extends Service> Type getService(Class<Type> key) throws ServicePersistentException {
+        ServiceImpl value = SERVICES.get(key);
         if (value != null) {
-            try {
-//                ClassLoader classLoader = value.getClassLoader();
-//                Class<?>[] interfaces = {key};
-                Transaction transaction = factory.createTransaction();
-                ServiceImpl service = value.newInstance();
-                service.setTransaction(transaction);
-                return (Type) service;
-//                InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
-//                return (Type) Proxy.newProxyInstance(classLoader, interfaces, handler);
-            } catch (InstantiationException | IllegalAccessException e) {
-                //TODO:logger
-                e.printStackTrace();
-            }
+            Transaction transaction = factory.createTransaction();
+            value.setTransaction(transaction);
+            return (Type) value;
         }
-        return null;
+        logger.error("Can not return service instance");
+        throw new ServicePersistentException("Service can not be returned");
     }
 
     @Override

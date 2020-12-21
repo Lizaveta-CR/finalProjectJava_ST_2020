@@ -16,7 +16,13 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() throws ServicePersistentException {
-        return null;
+        UserDAO dao;
+        try {
+            dao = transaction.createDao(UserDAO.class);
+            return dao.read();
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
+        }
     }
 
     @Override
