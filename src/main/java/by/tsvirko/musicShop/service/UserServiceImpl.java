@@ -1,15 +1,12 @@
 package by.tsvirko.musicShop.service;
 
 import by.tsvirko.musicShop.dao.UserDAO;
+import by.tsvirko.musicShop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.service.exception.PasswordException;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
@@ -31,6 +28,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try {
             dao = transaction.createDao(UserDAO.class);
             dao.delete(identity);
+            transaction.commit();
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
@@ -54,8 +52,21 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 user.setPassword(PasswordUtil.hashPassword(new String()));
                 user.setId(dao.create(user));
             }
+            transaction.commit();
         } catch (PersistentException | PasswordException e) {
             throw new ServicePersistentException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
+            UserService service = serviceFactory.getService(UserService.class);
+            service.findAll().forEach(System.out::println);
+//            service.delete(4);
+//            service.delete(1);
+        } catch (PersistentException | ServicePersistentException e) {
+            e.printStackTrace();
         }
     }
 }

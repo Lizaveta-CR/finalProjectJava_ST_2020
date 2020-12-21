@@ -21,11 +21,10 @@ public class TransactionFactoryImpl implements TransactionFactory {
      *
      * @throws PersistentException if it is impossible to turn off autocommiting
      */
-    //TODO: подумать, ибо, например, в выборке необязательно setAutoCommit( false)
-    public TransactionFactoryImpl(boolean isAutoCommit) throws PersistentException {
+    public TransactionFactoryImpl() throws PersistentException {
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(isAutoCommit);
+            connection.setAutoCommit(false);
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("It is impossible to turn off autocommiting for database connection", e);
             throw new PersistentException(e);

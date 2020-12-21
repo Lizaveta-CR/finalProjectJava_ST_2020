@@ -6,7 +6,7 @@ CREATE TABLE users
     login    VARCHAR(255)                NOT NULL,
     name     VARCHAR(255) DEFAULT 'user' NOT NULL,
     surname  VARCHAR(255) DEFAULT ''     NOT NULL,
-    password CHAR(32)                    NOT NULL,
+    password CHAR(36)                    NOT NULL,
     /*
      * 0 - администратор (Role.ADMINISTRATOR)
      * 1 - менеджер (Role.MANAGER)

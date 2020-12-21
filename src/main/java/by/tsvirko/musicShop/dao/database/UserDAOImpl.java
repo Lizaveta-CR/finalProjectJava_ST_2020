@@ -179,9 +179,9 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         try {
             statement = connection.prepareStatement(SQL_UPDATE_USER);
             statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setString(3, entity.getName());
-            statement.setString(4, entity.getSurname());
+            statement.setString(2, entity.getName());
+            statement.setString(3, entity.getSurname());
+            statement.setString(4, entity.getPassword());
             statement.setInt(5, entity.getRole().getIdentity());
             statement.setInt(6, entity.getId());
             statement.executeUpdate();
