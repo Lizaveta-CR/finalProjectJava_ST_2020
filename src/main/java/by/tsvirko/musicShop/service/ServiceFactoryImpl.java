@@ -16,6 +16,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
     static {
         SERVICES.put(UserService.class, new UserServiceImpl());
+        SERVICES.put(BuyerService.class, new BuyerServiceImpl());
     }
 
     private TransactionFactory factory;

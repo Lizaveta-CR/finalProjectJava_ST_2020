@@ -40,11 +40,16 @@ public class TransactionImpl implements Transaction {
      * @return BaseDAO with setted connection
      */
     @Override
-    public <Type extends Dao<?>> Type createDao(Class<Type> key) throws PersistentException {
+    public <Type extends Dao<?>> Type createDao(Class<Type> key, boolean isAutoCommit) throws PersistentException {
         BaseDAO dao = CLASSES.get(key);
         if (dao != null) {
-            dao.setConnection(connection);
-            return (Type) dao;
+            try {
+                connection.setAutoCommit(isAutoCommit);
+                dao.setConnection(connection);
+                return (Type) dao;
+            } catch (SQLException e) {
+                logger.error("Commit can not be setted");
+            }
         }
         logger.error("Dao can not be created");
         throw new PersistentException("No dao instance");

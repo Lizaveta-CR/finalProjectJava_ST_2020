@@ -14,7 +14,7 @@ import java.util.Objects;
  * Buyer class
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString
+//@ToString
 @Getter
 @Setter
 public class Buyer extends Person {
@@ -24,4 +24,20 @@ public class Buyer extends Person {
     private BigDecimal bonus = new BigDecimal(0.00);
     private Boolean enabled = true;
     private List<Order> orders = new ArrayList<>();
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
+    @Override
+    public String toString() {
+        return "Buyer{" +
+                "telephone=" + telephone +
+                ", balance=" + balance +
+                ", address=" + address +
+                ", bonus=" + bonus +
+                ", enabled=" + enabled +
+                ", orders=" + orders +
+                '}';
+    }
 }

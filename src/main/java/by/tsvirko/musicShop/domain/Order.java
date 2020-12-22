@@ -15,7 +15,6 @@ import java.util.Set;
  * Order class
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString
 @Getter
 @Setter
 public class Order extends Entity {
@@ -23,4 +22,13 @@ public class Order extends Entity {
     private BigDecimal price;
     private Date date;
     private Set<Product> productIts = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "price=" + price +
+                ", date=" + date +
+                ", productIts=" + productIts +
+                '}';
+    }
 }

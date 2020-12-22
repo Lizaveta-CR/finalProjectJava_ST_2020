@@ -15,7 +15,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public List<User> findAll() throws ServicePersistentException {
         UserDAO dao;
         try {
-            dao = transaction.createDao(UserDAO.class);
+            dao = transaction.createDao(UserDAO.class, true);
             return dao.read();
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
@@ -26,7 +26,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public void delete(Integer identity) throws ServicePersistentException {
         UserDAO dao;
         try {
-            dao = transaction.createDao(UserDAO.class);
+            dao = transaction.createDao(UserDAO.class, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -38,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public void save(User user) throws ServicePersistentException {
         UserDAO dao;
         try {
-            dao = transaction.createDao(UserDAO.class);
+            dao = transaction.createDao(UserDAO.class, false);
             if (user.getId() != null) {
                 if (user.getPassword() != null) {
                     user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public static void main(String[] args) {
         try {
             ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-            UserService service = serviceFactory.getService(UserService.class);
+            BuyerService service = serviceFactory.getService(BuyerService.class);
             service.findAll().forEach(System.out::println);
 //            service.delete(4);
 //            service.delete(1);

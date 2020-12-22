@@ -11,4 +11,6 @@ public interface BuyerService extends Service {
     void delete(Integer identity) throws ServicePersistentException;
 
     void save(Buyer buyer) throws ServicePersistentException;
+
+    void update(Buyer buyer) throws ServicePersistentException;
 }

@@ -4,7 +4,7 @@ package by.tsvirko.musicShop.dao;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 
 public interface Transaction {
-    <Type extends Dao<?>> Type createDao(Class<Type> key) throws PersistentException;
+    <Type extends Dao<?>> Type createDao(Class<Type> key, boolean isAutocommit) throws PersistentException;
 
     //подтверждает выполнение SQL-запросов
     void commit() throws PersistentException;
