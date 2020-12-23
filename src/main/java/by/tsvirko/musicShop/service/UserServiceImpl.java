@@ -4,6 +4,7 @@ import by.tsvirko.musicShop.dao.UserDAO;
 import by.tsvirko.musicShop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.User;
+import by.tsvirko.musicShop.domain.enums.Role;
 import by.tsvirko.musicShop.service.exception.PasswordException;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 
@@ -63,8 +64,6 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
             BuyerService service = serviceFactory.getService(BuyerService.class);
             service.findAll().forEach(System.out::println);
-//            service.delete(4);
-//            service.delete(1);
         } catch (PersistentException | ServicePersistentException e) {
             e.printStackTrace();
         }

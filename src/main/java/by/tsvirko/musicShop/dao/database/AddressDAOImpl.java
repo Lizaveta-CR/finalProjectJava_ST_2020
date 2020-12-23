@@ -3,6 +3,8 @@ package by.tsvirko.musicShop.dao.database;
 import by.tsvirko.musicShop.dao.AddressDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.Address;
+import by.tsvirko.musicShop.domain.User;
+import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +23,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private static final String SQL_READ_ALL_ADDRESSES = "SELECT * FROM addresses";
     private static final String SQL_DELETE_ADDRESS = "DELETE FROM addresses WHERE buyer_id = ?";
     private static final String SQL_UPDATE_ADDRESS = "UPDATE addresses SET country_id = ?, city =? ,zip_code=?, street = ?, apartment_number = ?,house_number = ? WHERE buyer_id = ?";
+    private static final String SQL_SELECT_ADDRESSES = "SELECT country_id, city,zip_code,street, apartment_number, house_number FROM addresses WHERE buyer_id = ?";
 
     /**
      * Reads all addresses from 'addresses' table
@@ -106,7 +109,40 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
 
     @Override
     public Address read(Integer identity) throws PersistentException {
-        return null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_SELECT_ADDRESSES);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+            Address address = null;
+            if (resultSet.next()) {
+                address = new Address();
+                address.setId(identity);
+                address.setCountry((String) readCountry(Field.NAME, resultSet.getInt(Field.COUNTRY_ID.value())));
+                address.setCity(resultSet.getString(Field.CITY.value()));
+                address.setZipCode(resultSet.getInt(Field.ZIP_CODE.value()));
+                address.setStreet(resultSet.getString(Field.STREET.value()));
+                address.setApartment_number(resultSet.getInt(Field.APARTMENT_NUMBER.value()));
+                address.setHouse_number(resultSet.getInt(Field.HOUSE_NUMBER.value()));
+            }
+            logger.debug("Address with id=" + identity + " was read");
+            return address;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**

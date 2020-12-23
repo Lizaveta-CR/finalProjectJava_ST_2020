@@ -4,10 +4,11 @@ INSERT INTO users(id, login, name, surname, password, role)
 VALUES (1, 'admin1', 'Marya', 'Slavnaya', 'e00cf25ad42683b3df678c61f42c6bda', 0),
        (2, 'manager1', 'Alexey', 'Tsar', 'c240642ddef994358c96da82c0361a58', 1),
        (3, 'elizTs', 'Elizaveta', 'Tsvirko', 'd6b92323c10ad6f5422e5e5bb8e46bf1', 2),
-       (4, 'ksuSok', 'Kseniya', 'Sokol', '61f2a3eb792c5e4571502acfa79d8288', 2);
+       (6, 'ksuSok', 'Kseniya', 'Sokol', '61f2a3eb792c5e4571502acfa79d8288', 2);
 INSERT INTO buyers(buyer_id, email, telephone, balance, enabled)
-VALUES (3, 'elizTs@gmail.com', 375445684811, 100.10, true),
-       (4, 'ksuhaSokol@gmail.com', 375441291821, 220.11, true);
+VALUES
+#        (3, 'elizTs@gmail.com', 375445684811, 100.10, true),
+(6, 'ksuhaSokol@gmail.com', 375441291821, 220.11, true);
 
 
 INSERT INTO countries(id, code, name)
@@ -15,7 +16,8 @@ VALUES (1, 'BY', 'Belarus');
 
 INSERT
 INTO addresses(buyer_id, country_id, city, zip_code, street, apartment_number, house_number)
-VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12);
+VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
+       (6, 1, 'Minsk', 220005, 'Pobeda', 11, 29);
 
 INSERT INTO categories(id, name, child_table)
 VALUES (1, 'Guitars', 'guitar_categories');

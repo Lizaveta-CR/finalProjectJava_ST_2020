@@ -66,19 +66,20 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     private void buildList(List<Buyer> buyers) throws PersistentException {
         AddressDAO addressDAO = transaction.createDao(AddressDAO.class, false);
         OrderDAO orderDAO = transaction.createDao(OrderDAO.class, false);
-        ProductDAO productDAO = transaction.createDao(ProductDAO.class, false);
+//        ProductDAO productDAO = transaction.createDao(ProductDAO.class, false);
         List<Order> orderList = orderDAO.read();
         Map<Integer, List<Order>> ordersMap = new HashMap<>();
         List<Order> buyerOrderList;
 
         Map<Integer, Address> addressMap = new HashMap<>();
-        Address address;
+        Address buyerAddress;
 
-        List<Product> productList = productDAO.read();
-        Map<Integer, List<Product>> productMap = new HashMap<>();
-        List<Product> orderProductList;
+//        List<Product> productList = productDAO.read();
+//        Map<Integer, List<Product>> productMap = new HashMap<>();
+//        List<Product> orderProductList;
 
         Integer identity;
+        Integer addressIdentity;
         for (Order order : orderList) {
             identity = order.getBuyer().getId();
             buyerOrderList = ordersMap.get(identity);
@@ -97,6 +98,18 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
                     buyer.addOrder(order);
                 }
             }
+            if (buyer.getAddress() != null) {
+                addressIdentity = buyer.getAddress().getId();
+                if (addressIdentity != null) {
+                    buyerAddress = addressMap.get(addressIdentity);
+                    if (buyerAddress == null) {
+                        buyerAddress = addressDAO.read(addressIdentity);
+                        addressMap.put(addressIdentity, buyerAddress);
+                    }
+                    buyer.setAddress(buyerAddress);
+                }
+            }
+
         }
     }
 }
