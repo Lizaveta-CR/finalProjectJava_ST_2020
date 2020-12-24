@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+//TODO: remove NullPointer
 public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
     private static final Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
 

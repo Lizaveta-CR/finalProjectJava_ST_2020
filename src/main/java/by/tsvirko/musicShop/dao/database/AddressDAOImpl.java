@@ -59,13 +59,17 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -101,7 +105,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         } finally {
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
             return index;
@@ -135,12 +139,12 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         } finally {
             try {
                 resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -170,7 +174,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         } finally {
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -196,7 +200,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         } finally {
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -239,12 +243,12 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         } finally {
             try {
                 resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
