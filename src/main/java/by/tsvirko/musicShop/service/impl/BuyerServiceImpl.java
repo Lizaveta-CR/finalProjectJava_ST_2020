@@ -1,8 +1,9 @@
-package by.tsvirko.musicShop.service;
+package by.tsvirko.musicShop.service.impl;
 
 import by.tsvirko.musicShop.dao.*;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.*;
+import by.tsvirko.musicShop.service.BuyerService;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 
 import java.util.*;
@@ -72,7 +73,6 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         List<OrderItem> orderItems = orderItemDAO.read();
         Map<Integer, Set<Product>> productOrderMap = new HashMap<>();
         Set<Product> orderProductList = null;
-
 
         Integer identity;
         Integer itemIdentity;

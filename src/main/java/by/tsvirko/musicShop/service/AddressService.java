@@ -1,0 +1,16 @@
+package by.tsvirko.musicShop.service;
+
+import by.tsvirko.musicShop.domain.Address;
+import by.tsvirko.musicShop.domain.User;
+import by.tsvirko.musicShop.service.exception.ServicePersistentException;
+
+import java.util.List;
+
+public interface AddressService extends Service {
+    List<Address> findAll() throws ServicePersistentException;
+
+    void delete(Integer identity) throws ServicePersistentException;
+
+    void save(Address address) throws ServicePersistentException;
+}
+
