@@ -2,6 +2,7 @@ package by.tsvirko.musicShop.service.impl;
 
 import by.tsvirko.musicShop.dao.Transaction;
 import by.tsvirko.musicShop.dao.TransactionFactory;
+import by.tsvirko.musicShop.domain.OrderItem;
 import by.tsvirko.musicShop.service.*;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +21,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
         SERVICES.put(BuyerService.class, new BuyerServiceImpl());
         SERVICES.put(AddressService.class, new AddressServiceImpl());
         SERVICES.put(OrderService.class, new OrderServiceImpl());
+        SERVICES.put(OrderItemService.class, new OrderItemServiceImpl());
+        SERVICES.put(ProducerService.class, new ProducerServiceImpl());
+        SERVICES.put(ProducerItemService.class, new ProducerItemServiceImpl());
     }
 
     private TransactionFactory factory;

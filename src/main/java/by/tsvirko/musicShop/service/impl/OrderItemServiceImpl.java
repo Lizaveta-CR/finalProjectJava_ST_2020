@@ -17,6 +17,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             } else {
                 dao.create(order);
             }
+            transaction.commit();
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }

@@ -73,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public static void main(String[] args) {
         try {
             ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-            OrderService service = serviceFactory.getService(OrderService.class);
+            ProducerService service = serviceFactory.getService(ProducerService.class);
             service.findAll().forEach(System.out::println);
         } catch (PersistentException | ServicePersistentException e) {
             e.printStackTrace();
