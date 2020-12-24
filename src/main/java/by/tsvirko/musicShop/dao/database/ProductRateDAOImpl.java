@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.Optional;
 
 public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     private static final Logger logger = LogManager.getLogger(ProductRateDAOImpl.class);
@@ -66,7 +67,7 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     }
 
     @Override
-    public ProductRate read(Integer identity) throws PersistentException {
+    public Optional<ProductRate> read(Integer identity) throws PersistentException {
         return null;
     }
 

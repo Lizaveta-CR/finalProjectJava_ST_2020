@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
     private static final Logger logger = LogManager.getLogger(ProducerItemDAOImpl.class);
@@ -46,7 +47,7 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
     }
 
     @Override
-    public ProducerItem read(Integer identity) throws PersistentException {
+    public Optional<ProducerItem> read(Integer identity) throws PersistentException {
         logger.error("Unable operation");
         throw new PersistentException("Unable to perform read() operation with ProducerItem");
     }

@@ -3,7 +3,6 @@ package by.tsvirko.musicShop.service.impl;
 import by.tsvirko.musicShop.dao.AddressDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.Address;
-import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.service.AddressService;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 

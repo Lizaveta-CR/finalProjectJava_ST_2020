@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //TODO: не отлавливать NullPointer, делать через if
 public class UserDAOImpl extends BaseDAO implements UserDAO {
@@ -31,7 +32,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      * @throws PersistentException if database error occurs
      */
     @Override
-    public List<User> read() throws PersistentException {
+    public Optional<List<User>> read() throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -50,20 +51,19 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 users.add(user);
             }
             logger.debug("Users were read");
-            return users;
+            return Optional.ofNullable(users);
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
         } finally {
             try {
-                //TODO: resultSet закроется автоматически закрывается после statement, но лучше закрывать, ибо statement может быть один использован несколько раз
                 resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -105,12 +105,12 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         } finally {
             try {
                 resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
             return index;
@@ -125,7 +125,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      * @throws PersistentException
      */
     @Override
-    public User read(Integer identity) throws PersistentException {
+    public Optional<User> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -143,19 +143,19 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
             }
             logger.debug("User with id=" + identity + " was read");
-            return user;
+            return Optional.ofNullable(user);
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);
         } finally {
             try {
                 resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -184,7 +184,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         } finally {
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
             logger.debug("User with id= " + entity.getId() + " was updated");
@@ -210,7 +210,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         } finally {
             try {
                 statement.close();
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }

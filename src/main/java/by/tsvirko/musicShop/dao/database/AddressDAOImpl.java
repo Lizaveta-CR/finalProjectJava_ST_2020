@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private static final Logger logger = LogManager.getLogger(AddressDAOImpl.class);
@@ -108,7 +109,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     }
 
     @Override
-    public Address read(Integer identity) throws PersistentException {
+    public Optional<Address> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -127,7 +128,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
                 address.setHouse_number(resultSet.getInt(Field.HOUSE_NUMBER.value()));
             }
             logger.debug("Address with id=" + identity + " was read");
-            return address;
+            return Optional.ofNullable(address);
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);

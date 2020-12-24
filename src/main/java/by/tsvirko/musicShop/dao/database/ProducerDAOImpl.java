@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
     private static final Logger logger = LogManager.getLogger(ProducerDAOImpl.class);
@@ -65,7 +66,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
     }
 
     @Override
-    public Producer read(Integer identity) throws PersistentException {
+    public Optional<Producer> read(Integer identity) throws PersistentException {
         return null;
     }
 

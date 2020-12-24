@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final Logger logger = LogManager.getLogger(ProductDAOImpl.class);
@@ -73,7 +74,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     }
 
     @Override
-    public Product read(Integer identity) throws PersistentException {
+    public Optional<Product> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -94,7 +95,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
             }
             logger.debug("Product with id=" + identity + " was read");
-            return product;
+            return Optional.ofNullable(product);
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);

@@ -169,9 +169,8 @@ CREATE TABLE categories
 CREATE TABLE guitar_categories
 (
     id   INTEGER     NOT NULL,
-    name VARCHAR(20) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL,
     CONSTRAINT PK_category PRIMARY KEY (id),
-    CONSTRAINT UQ_name UNIQUE (name),
     CONSTRAINT FK_guitar_categories_product
         FOREIGN KEY (id) REFERENCES products (id)
             ON DELETE CASCADE ON UPDATE CASCADE

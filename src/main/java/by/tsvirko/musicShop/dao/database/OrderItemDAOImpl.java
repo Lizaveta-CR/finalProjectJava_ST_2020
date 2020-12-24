@@ -3,7 +3,6 @@ package by.tsvirko.musicShop.dao.database;
 import by.tsvirko.musicShop.dao.OrderItemDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.OrderItem;
-import by.tsvirko.musicShop.domain.Producer;
 import by.tsvirko.musicShop.domain.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     private static final Logger logger = LogManager.getLogger(OrderItemDAOImpl.class);
@@ -21,7 +21,6 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     private static final String SQL_DELETE_ORDER_ITEM = "DELETE FROM order_items WHERE id=?";
     private static final String SQL_DELETE_ORDER_ITEM_PRODUCT = "DELETE FROM order_items WHERE id=? AND product_id=?";
     private static final String SQL_READ_ORDER_ITEM = "SELECT* FROM order_items";
-    //TODO: неправильный запрос!
 
     private static final String SQL_READ_PRODUCTS_BY_ORDER = "SELECT p.id,p.category_id,p.model,p.available,p.description,p.img, p.price FROM products p INNER JOIN order_items o  ON o.product_id = p.id WHERE o.id =?";
     private static final String SQL_UPDATE_ORDER_ITEM = "UPDATE order_items SET price=?,amount=? WHERE id = ? AND  product_id =?";
@@ -172,7 +171,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     }
 
     @Override
-    public OrderItem read(Integer identity) throws PersistentException {
+    public Optional<OrderItem> read(Integer identity) throws PersistentException {
         return null;
     }
 

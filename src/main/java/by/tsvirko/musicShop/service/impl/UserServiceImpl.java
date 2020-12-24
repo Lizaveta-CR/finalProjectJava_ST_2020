@@ -9,6 +9,7 @@ import by.tsvirko.musicShop.service.exception.PasswordException;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
 
@@ -17,7 +18,12 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         UserDAO dao;
         try {
             dao = transaction.createDao(UserDAO.class, true);
-            return dao.read();
+            Optional<List<User>> list = dao.read();
+            if (list.isPresent()) {
+                return list.get();
+            } else {
+                throw new ServicePersistentException();
+            }
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
@@ -44,8 +50,13 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 if (user.getPassword() != null) {
                     user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
                 } else {
-                    User oldUser = dao.read(user.getId());
-                    user.setPassword(oldUser.getPassword());
+                    Optional<User> oldUserOptional = dao.read(user.getId());
+                    if (oldUserOptional.isPresent()) {
+                        User oldUser = oldUserOptional.get();
+                        user.setPassword(oldUser.getPassword());
+                    } else {
+                        throw new ServicePersistentException("User can not be saved");
+                    }
                 }
                 dao.update(user);
             } else {
@@ -62,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public static void main(String[] args) {
         try {
             ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-            BuyerService service = serviceFactory.getService(BuyerService.class);
+            OrderService service = serviceFactory.getService(OrderService.class);
             service.findAll().forEach(System.out::println);
         } catch (PersistentException | ServicePersistentException e) {
             e.printStackTrace();

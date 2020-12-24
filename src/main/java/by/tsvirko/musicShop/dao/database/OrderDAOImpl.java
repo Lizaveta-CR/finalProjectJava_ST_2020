@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     private static final Logger logger = LogManager.getLogger(OrderDAOImpl.class);
@@ -111,7 +112,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     }
 
     @Override
-    public Order read(Integer identity) throws PersistentException {
+    public Optional<Order> read(Integer identity) throws PersistentException {
         return null;
     }
 

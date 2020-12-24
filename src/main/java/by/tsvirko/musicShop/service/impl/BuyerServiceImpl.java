@@ -109,7 +109,13 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
                 if (addressIdentity != null) {
                     buyerAddress = addressMap.get(addressIdentity);
                     if (buyerAddress == null) {
-                        buyerAddress = addressDAO.read(addressIdentity);
+                        Optional<Address> addressOptional = addressDAO.read(addressIdentity);
+                        if (addressOptional.isPresent()) {
+                            buyerAddress = addressOptional.get();
+                        } else {
+                            buyerAddress = new Address();
+                            buyerAddress.setId(buyer.getId());
+                        }
                         addressMap.put(addressIdentity, buyerAddress);
                     }
                     buyer.setAddress(buyerAddress);
