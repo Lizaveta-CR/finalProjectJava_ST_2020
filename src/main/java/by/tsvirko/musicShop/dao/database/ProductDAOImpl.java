@@ -222,7 +222,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      * @return
      * @throws PersistentException if database error occurs
      */
-    private String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException {
+    public String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException {
         PreparedStatement statementParent = null;
         ResultSet resultSetParent = null;
 

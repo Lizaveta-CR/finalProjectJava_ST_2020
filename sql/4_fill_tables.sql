@@ -47,17 +47,27 @@ VALUES (1, 1);
 #
 
 INSERT INTO orders(date, buyer_id, price)
-VALUES ('2013-08-05 18:19:03', 3, 1239.99);
+VALUES
+#        ('2013-08-05 18:19:03', 3, 1239.99),
+('2013-08-05 18:19:03', 6, 1239.99);
 
 DELETE
 FROM order_items;
 
 INSERT INTO order_items(id, product_id, amount, price)
-VALUES (1, 1, 1, 1239.99),
-       (1, 2, 1, 1219);
+VALUES
+#        (1, 1, 1, 1239.99),
+#        (1, 2, 1, 1219),
+(5, 2, 1, 1219);
 #
 # DELETE
 # FROM product_rates;
 #
 # INSERT INTO product_rates(rate_id, value, product_id, buyer_id)
 # VALUES (1, 10, 1, 1);
+# TODO:!!!!!
+SELECT p.id, p.price, p.model, p.category_id
+FROM products p
+         INNER JOIN order_items o
+                    ON o.product_id = p.id
+WHERE o.id = 5;

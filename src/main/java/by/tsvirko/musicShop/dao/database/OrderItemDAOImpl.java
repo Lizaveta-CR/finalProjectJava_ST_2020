@@ -3,6 +3,7 @@ package by.tsvirko.musicShop.dao.database;
 import by.tsvirko.musicShop.dao.OrderItemDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.OrderItem;
+import by.tsvirko.musicShop.domain.Producer;
 import by.tsvirko.musicShop.domain.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +21,12 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     private static final String SQL_DELETE_ORDER_ITEM = "DELETE FROM order_items WHERE id=?";
     private static final String SQL_DELETE_ORDER_ITEM_PRODUCT = "DELETE FROM order_items WHERE id=? AND product_id=?";
     private static final String SQL_READ_ORDER_ITEM = "SELECT* FROM order_items";
+    //TODO: неправильный запрос!
+
+    private static final String SQL_READ_PRODUCTS_BY_ORDER = "SELECT p.id,p.category_id,p.model,p.available,p.description,p.img, p.price FROM products p INNER JOIN order_items o  ON o.product_id = p.id WHERE o.id =?";
     private static final String SQL_UPDATE_ORDER_ITEM = "UPDATE order_items SET price=?,amount=? WHERE id = ? AND  product_id =?";
+
+    private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT child_table FROM categories WHERE id = ?";
 
     /**
      * Reads all orders from 'orders' table
@@ -93,6 +99,42 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             }
         }
         logger.debug("OrderItem with id= " + orderIdentity + "," + productIdentity + " was deleted");
+    }
+
+    @Override
+    public List<Product> readProductsByOrder(Integer orderIdentity) throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_READ_PRODUCTS_BY_ORDER);
+            statement.setInt(1, orderIdentity);
+            resultSet = statement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            Product product = null;
+            while (resultSet.next()) {
+                product = new Product();
+                product.setId(resultSet.getInt(Field.ID.value()));
+                int category_id = resultSet.getInt(Field.CATEGORY_ID.value());
+                product.setType(readCategoryChild(category_id, product.getId()));
+                product.setCategoryNum(category_id);
+                product.setModel(resultSet.getString(Field.MODEL.value()));
+                product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
+                product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
+                product.setImage_url(resultSet.getString(Field.IMG.value()));
+                product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
+                products.add(product);
+            }
+            logger.debug("Products from OrderItem with id=" + orderIdentity + " were read");
+            return products;
+        } catch (SQLException e) {
+            throw new PersistentException(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**
@@ -185,5 +227,88 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
+    }
+
+    /**
+     * Reads name (child category) from child_categories table (constant values)
+     *
+     * @param category_id
+     * @return
+     * @throws PersistentException if database error occurs
+     */
+    public String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException {
+        PreparedStatement statementParent = null;
+        ResultSet resultSetParent = null;
+
+        String type = null;
+        try {
+            statementParent = connection.prepareStatement(SQL_READ_PRODUCT_CATEGORY);
+            statementParent.setInt(1, category_id);
+            resultSetParent = statementParent.executeQuery();
+
+            if (resultSetParent.next()) {
+                type = readChildCategoryType(resultSetParent.getString(1), product_id);
+            }
+            logger.debug("Category was read");
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSetParent.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statementParent.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+        logger.debug("Categories' child's type was read");
+        return type;
+    }
+
+    /**
+     * Reads category child name from given table
+     *
+     * @param childName - category child table name
+     * @param identity  - category(child) id
+     * @return
+     * @throws PersistentException
+     */
+    private String readChildCategoryType(String childName, Integer identity) throws PersistentException {
+        String sql = "SELECT name FROM " + childName + " WHERE id = ?";
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        String name = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                name = resultSet.getString(1);
+            }
+            logger.debug("Category was read");
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+        logger.debug("Child's type was read");
+        return name;
     }
 }
