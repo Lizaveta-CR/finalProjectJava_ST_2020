@@ -53,7 +53,8 @@ DELETE
 FROM order_items;
 
 INSERT INTO order_items(id, product_id, amount, price)
-VALUES (1, 1, 1, 1239.99);
+VALUES (1, 1, 1, 1239.99),
+       (1, 2, 1, 1219);
 #
 # DELETE
 # FROM product_rates;

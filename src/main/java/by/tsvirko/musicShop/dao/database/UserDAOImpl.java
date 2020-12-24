@@ -1,15 +1,7 @@
 package by.tsvirko.musicShop.dao.database;
 
-import by.tsvirko.musicShop.dao.ProductRateDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.UserDAO;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
-import by.tsvirko.musicShop.domain.Buyer;
-import by.tsvirko.musicShop.domain.Product;
-import by.tsvirko.musicShop.domain.ProductRate;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: не отлавливать NullPointer, делать через if
 public class UserDAOImpl extends BaseDAO implements UserDAO {
     private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
 
@@ -63,6 +56,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new PersistentException(e);
         } finally {
             try {
+                //TODO: resultSet закроется автоматически закрывается после statement, но лучше закрывать, ибо statement может быть один использован несколько раз
                 resultSet.close();
             } catch (SQLException | NullPointerException e) {
                 logger.error("Database access connection failed. Impossible to close result set");

@@ -2,16 +2,10 @@ package by.tsvirko.musicShop.service;
 
 import by.tsvirko.musicShop.dao.*;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.domain.Address;
-import by.tsvirko.musicShop.domain.Buyer;
-import by.tsvirko.musicShop.domain.Order;
-import by.tsvirko.musicShop.domain.Product;
+import by.tsvirko.musicShop.domain.*;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
@@ -66,7 +60,8 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     private void buildList(List<Buyer> buyers) throws PersistentException {
         AddressDAO addressDAO = transaction.createDao(AddressDAO.class, false);
         OrderDAO orderDAO = transaction.createDao(OrderDAO.class, false);
-//        ProductDAO productDAO = transaction.createDao(ProductDAO.class, false);
+        ProductDAO productDAO = transaction.createDao(ProductDAO.class, false);
+        OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, false);
         List<Order> orderList = orderDAO.read();
         Map<Integer, List<Order>> ordersMap = new HashMap<>();
         List<Order> buyerOrderList;
@@ -74,11 +69,13 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         Map<Integer, Address> addressMap = new HashMap<>();
         Address buyerAddress;
 
-//        List<Product> productList = productDAO.read();
-//        Map<Integer, List<Product>> productMap = new HashMap<>();
-//        List<Product> orderProductList;
+        List<OrderItem> orderItems = orderItemDAO.read();
+        Map<Integer, Set<Product>> productOrderMap = new HashMap<>();
+        Set<Product> orderProductList = null;
+
 
         Integer identity;
+        Integer itemIdentity;
         Integer addressIdentity;
         for (Order order : orderList) {
             identity = order.getBuyer().getId();
@@ -87,6 +84,17 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
                 buyerOrderList = new ArrayList<>();
                 ordersMap.put(identity, buyerOrderList);
             }
+            for (OrderItem item : orderItems) {
+                itemIdentity = item.getId();
+                orderProductList = productOrderMap.get(itemIdentity);
+                if (orderProductList == null) {
+                    orderProductList = new HashSet<>();
+                    productOrderMap.put(itemIdentity, orderProductList);
+                }
+                Product product = productDAO.read(item.getProduct().getId());
+                orderProductList.add(product);
+            }
+            order.setProductIts(orderProductList);
             buyerOrderList.add(order);
         }
         for (Buyer buyer : buyers) {

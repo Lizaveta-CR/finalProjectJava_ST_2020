@@ -20,6 +20,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final String SQL_UPDATE_PRODUCT = "UPDATE products SET category_id = ?, model =? ,available=?, description = ?, img = ?, price = ? WHERE id = ?";
     private static final String SQL_DELETE_PRODUCT = "DELETE FROM products WHERE id = ?";
     private static final String SQL_READ_ALL_PRODUCTS = "SELECT * FROM products";
+    private static final String SQL_SELECT_PRODUCTS = "SELECT category_id, model,available,description, img, price FROM products WHERE id = ?";
 
     private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT child_table FROM categories WHERE id = ?";
 
@@ -73,7 +74,42 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
 
     @Override
     public Product read(Integer identity) throws PersistentException {
-        return null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_SELECT_PRODUCTS);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+            Product product = null;
+            if (resultSet.next()) {
+                product = new Product();
+                product.setId(identity);
+                int category_id = resultSet.getInt(Field.CATEGORY_ID.value());
+                product.setType(readCategoryChild(category_id, product.getId()));
+                product.setCategoryNum(category_id);
+                product.setModel(resultSet.getString(Field.MODEL.value()));
+                product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
+                product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
+                product.setImage_url(resultSet.getString(Field.IMG.value()));
+                product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
+            }
+            logger.debug("Product with id=" + identity + " was read");
+            return product;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**
@@ -150,8 +186,9 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             while (resultSet.next()) {
                 product = new Product();
                 product.setId(resultSet.getInt(Field.ID.value()));
-                product.setType(readCategoryChild(product.getId()));
-                product.setCategoryNum(resultSet.getInt(Field.CATEGORY_ID.value()));
+                int category_id = resultSet.getInt(Field.CATEGORY_ID.value());
+                product.setType(readCategoryChild(category_id, product.getId()));
+                product.setCategoryNum(category_id);
                 product.setModel(resultSet.getString(Field.MODEL.value()));
                 product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
                 product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
@@ -185,7 +222,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      * @return
      * @throws PersistentException if database error occurs
      */
-    private String readCategoryChild(Integer category_id) throws PersistentException {
+    private String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException {
         PreparedStatement statementParent = null;
         ResultSet resultSetParent = null;
 
@@ -196,7 +233,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             resultSetParent = statementParent.executeQuery();
 
             if (resultSetParent.next()) {
-                type = readChildCategoryType(resultSetParent.getString(1), category_id);
+                type = readChildCategoryType(resultSetParent.getString(1), product_id);
             }
             logger.debug("Category was read");
         } catch (SQLException e) {
