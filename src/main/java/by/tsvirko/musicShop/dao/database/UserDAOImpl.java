@@ -179,6 +179,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             statement.setInt(5, entity.getRole().getIdentity());
             statement.setInt(6, entity.getId());
             statement.executeUpdate();
+            logger.debug("User with id= " + entity.getId() + " was updated");
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
@@ -187,7 +188,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            logger.debug("User with id= " + entity.getId() + " was updated");
         }
     }
 

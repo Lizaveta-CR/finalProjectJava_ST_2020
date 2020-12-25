@@ -20,12 +20,12 @@ import java.util.concurrent.locks.ReentrantLock;
 final public class ConnectionPool {
     private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
 
-    private static final String DATASOURCE_NAME = "database";
+    //    private static final String DATASOURCE_NAME = "database";
     private static final ReentrantLock lock = new ReentrantLock();
+    //    private String dataSourceName;
     private String url;
     private String user;
     private String password;
-    private int poolSize;
     private int maxSize;
     private int checkConnectionTimeout;
     /**
@@ -38,17 +38,16 @@ final public class ConnectionPool {
     private Set<PooledConnection> usedConnections = new ConcurrentSkipListSet<>();
 
     /**
-     * ConnectionPool constructor,which initializes fields with database.properties parameters
+     * ConnectionPool constructor
      */
-    //TODO: перенести в DispatcherServlet
     private ConnectionPool() {
-        ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
-        this.url = resource.getString("db.url");
-        this.user = resource.getString("db.user");
-        this.password = resource.getString("db.password");
-        this.poolSize = Integer.parseInt(resource.getString("db.poolsize"));
-        this.maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
-        this.checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
+//        ResourceBundle resource = ResourceBundle.getBundle("database");
+//        this.url = resource.getString("db.url");
+//        this.user = resource.getString("db.user");
+//        this.password = resource.getString("db.password");
+//        this.poolSize = Integer.parseInt(resource.getString("db.poolsize"));
+//        this.maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
+//        this.checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
     }
 
     /**
@@ -56,15 +55,18 @@ final public class ConnectionPool {
      *
      * @throws ConnectionPoolException if initializing error occurs
      */
-    public void initPoolData() throws ConnectionPoolException {
+    public void initPoolData(String url, String user, String password, int poolSize, int maxSize, int checkConnectionTimeout) throws ConnectionPoolException {
         try {
             destroy();
-            //это делается автоматически, хотя раньше надо было прописывать явно
-//            Class.forName(driverClass);
+            this.url = url;
+            this.user = user;
+            this.password = password;
+            this.maxSize = maxSize;
+            this.checkConnectionTimeout = checkConnectionTimeout;
             for (int i = 0; i < poolSize; i++) {
-                Connection connection = DriverManager.getConnection(url, user, password);
-                PooledConnection pooledConnection = new PooledConnection(connection);
-                freeConnections.put(pooledConnection);
+//                Connection connection = DriverManager.getConnection(url, user, password);
+//                PooledConnection pooledConnection = new PooledConnection(connection);
+                freeConnections.put(createConnection());
             }
         } catch (SQLException | InterruptedException e) {
             logger.fatal("Error initializing connection pool", e);
