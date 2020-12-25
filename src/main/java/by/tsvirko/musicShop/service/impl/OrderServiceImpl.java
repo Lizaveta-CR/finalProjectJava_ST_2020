@@ -36,13 +36,16 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
 
     @Override
     public void save(Order order) throws ServicePersistentException {
-        OrderDAO dao;
         try {
-            dao = transaction.createDao(OrderDAO.class, false);
+            OrderDAO orderDAO = transaction.createDao(OrderDAO.class, false);
             if (order.getId() != null) {
-                dao.update(order);
+                orderDAO.update(order);
             } else {
-                order.setId(dao.create(order));
+                BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
+                Integer buyerIdentity = order.getBuyer().getId();
+                //TODO: как быть с бонусом? У покупателя вычесть стоимость товара
+                Optional<Buyer> buyer = buyerDAO.read(buyerIdentity);
+                order.setId(orderDAO.create(order));
             }
             transaction.commit();
         } catch (PersistentException e) {

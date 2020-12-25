@@ -4,6 +4,7 @@ import by.tsvirko.musicShop.dao.BuyerDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.Address;
 import by.tsvirko.musicShop.domain.Buyer;
+import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
     private static final String SQL_UPDATE_BUYER = "UPDATE buyers SET email = ?, telephone =? ,balance=?, bonus = ?, enabled = ? WHERE buyer_id = ?";
     private static final String SQL_DELETE_BUYER = "DELETE FROM buyers WHERE buyer_id = ?";
     private static final String SQL_READ_ALL_BUYERS = "SELECT * FROM buyers";
+    private static final String SQL_SELECT_BUYERS = "SELECT email, telephone,balance,bonus, enabled FROM buyers WHERE buyer_id = ?";
 
     /**
      * Reads all buyers from 'buyers' table
@@ -119,7 +121,39 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
 
     @Override
     public Optional<Buyer> read(Integer identity) throws PersistentException {
-        return null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_SELECT_BUYERS);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+            Buyer buyer = null;
+            if (resultSet.next()) {
+                buyer = new Buyer();
+                buyer.setId(identity);
+                buyer.setEmail(resultSet.getString(Field.EMAIL.value()));
+                buyer.setTelephone(resultSet.getLong(Field.TELEPHONE.value()));
+                buyer.setBalance(resultSet.getBigDecimal(Field.BALANCE.value()));
+                buyer.setBonus(resultSet.getBigDecimal(Field.BONUS.value()));
+                buyer.setEnabled(resultSet.getBoolean(Field.ENABLED.value()));
+            }
+            logger.debug("Buyer with id=" + identity + " was read");
+            return Optional.ofNullable(buyer);
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**
