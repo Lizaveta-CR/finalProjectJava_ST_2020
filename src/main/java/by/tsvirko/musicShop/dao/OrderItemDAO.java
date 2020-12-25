@@ -6,7 +6,7 @@ import by.tsvirko.musicShop.domain.Product;
 
 import java.util.List;
 
-public interface OrderItemDAO extends Dao<OrderItem> {
+public interface OrderItemDAO extends Dao<Integer, OrderItem> {
     List<OrderItem> read() throws PersistentException;
 
     void delete(Integer orderIdentity, Integer productIdentity) throws PersistentException;

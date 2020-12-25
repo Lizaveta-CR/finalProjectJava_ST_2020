@@ -6,7 +6,7 @@ import by.tsvirko.musicShop.domain.Product;
 
 import java.util.List;
 
-public interface ProductDAO extends Dao<Product> {
+public interface ProductDAO extends Dao<Integer, Product> {
     List<Product> read() throws PersistentException;
 
 //    String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException;

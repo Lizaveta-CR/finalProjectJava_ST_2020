@@ -6,7 +6,7 @@ import by.tsvirko.musicShop.domain.User;
 
 import java.util.List;
 
-public interface BuyerDAO extends Dao<Buyer> {
-    List<Buyer > read() throws PersistentException;
+public interface BuyerDAO extends Dao<Integer, Buyer> {
+    List<Buyer> read() throws PersistentException;
 
 }

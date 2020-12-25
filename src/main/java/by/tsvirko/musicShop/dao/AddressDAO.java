@@ -6,6 +6,6 @@ import by.tsvirko.musicShop.domain.Buyer;
 
 import java.util.List;
 
-public interface AddressDAO extends Dao<Address> {
+public interface AddressDAO extends Dao<Integer, Address> {
     List<Address> read() throws PersistentException;
 }

@@ -6,6 +6,6 @@ import by.tsvirko.musicShop.domain.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserDAO extends Dao<User> {
+public interface UserDAO extends Dao<Integer, User> {
     Optional<List<User>> read() throws PersistentException;
 }

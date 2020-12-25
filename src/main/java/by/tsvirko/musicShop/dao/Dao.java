@@ -8,14 +8,14 @@ import java.util.Optional;
 /**
  * Interface, which allows to create objects, which are responsible for date extraction
  *
- * @param <Type> - class extending Entity
+ * @param <Key>-database key type,<Type> - class extending Entity
  */
-public interface Dao<Type extends Entity> {
+public interface Dao<Key, Type extends Entity> {
     Integer create(Type entity) throws PersistentException;
 
-    Optional<Type> read(Integer identity) throws PersistentException;
+    Optional<Type> read(Key identity) throws PersistentException;
 
     void update(Type entity) throws PersistentException;
 
-    void delete(Integer identity) throws PersistentException;
+    void delete(Key identity) throws PersistentException;
 }
