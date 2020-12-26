@@ -67,6 +67,8 @@ CREATE TABLE products
         FOREIGN KEY (category_id) REFERENCES categories (id)
             ON DELETE CASCADE ON UPDATE CASCADE
 );
+ALTER TABLE products
+    DROP FOREIGN KEY FK_Product_Category;
 
 CREATE TABLE producers
 (
@@ -156,7 +158,7 @@ CREATE TABLE countries
     CONSTRAINT UNx_Countries UNIQUE (code, name),
     CONSTRAINT PK_Countries PRIMARY KEY (id)
 );
-
+DROP TABLE categories;
 CREATE TABLE categories
 (
     id          INTEGER     NOT NULL AUTO_INCREMENT,

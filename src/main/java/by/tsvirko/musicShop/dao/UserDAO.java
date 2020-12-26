@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDAO extends Dao<Integer, User> {
-    Optional<List<User>> read() throws PersistentException;
+    List<User> read() throws PersistentException;
 }

@@ -48,17 +48,16 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
 
     @Override
     public Optional<ProducerItem> read(Integer identity) throws PersistentException {
-        logger.error("Unable operation");
         throw new PersistentException("Unable to perform read() operation with ProducerItem");
     }
 
     @Override
     public void update(ProducerItem entity) throws PersistentException {
-        logger.error("Unable operation");
+        throw new PersistentException("Unable to perform update() operation with ProducerItem");
     }
 
     @Override
     public void delete(Integer identity) throws PersistentException {
-        logger.error("Unable operation");
+        throw new PersistentException("Unable to perform delete() operation with ProducerItem");
     }
 }

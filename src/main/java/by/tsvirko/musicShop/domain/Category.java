@@ -1,9 +1,18 @@
 package by.tsvirko.musicShop.domain;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category extends Entity implements Component<Category> {
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Getter
+@Setter
+public class Category extends Entity<Integer> implements Component<Category> {
     private String name;
     private List<Component> components;
 
@@ -27,12 +36,8 @@ public class Category extends Entity implements Component<Category> {
     }
 
     @Override
-    public Category collect() {
-        return null;
+    public int getSize() {
+        return components.size();
     }
 
-    @Override
-    public int getSize() {
-        return 0;
-    }
 }

@@ -32,7 +32,8 @@ public enum Field {
     LOGIN("login"),
     SURNAME("surname"),
     PASSWORD("password"),
-    ROLE("role");
+    ROLE("role"),
+    PARENT_ID("parent_id");
 
     private final String value;
 

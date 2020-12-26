@@ -168,4 +168,13 @@ final public class ConnectionPool {
     protected void finalize() throws Throwable {
         destroy();
     }
+
+    /**
+     * Provides count of available connections which can be picked from this pool now
+     *
+     * @return available connection count
+     */
+    public int getAvailableConnectionsCount() {
+        return freeConnections.size();
+    }
 }

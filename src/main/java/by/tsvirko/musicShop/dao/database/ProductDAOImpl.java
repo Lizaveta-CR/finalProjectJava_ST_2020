@@ -20,6 +20,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final String SQL_INSERT_PRODUCT = "INSERT INTO products (category_id,model, available,description,img, price) VALUES (?, ?,?,?,?,?)";
     private static final String SQL_UPDATE_PRODUCT = "UPDATE products SET category_id = ?, model =? ,available=?, description = ?, img = ?, price = ? WHERE id = ?";
     private static final String SQL_DELETE_PRODUCT = "DELETE FROM products WHERE id = ?";
+    //TODO: delete '*'
     private static final String SQL_READ_ALL_PRODUCTS = "SELECT * FROM products";
     private static final String SQL_SELECT_PRODUCTS = "SELECT category_id, model,available,description, img, price FROM products WHERE id = ?";
 
@@ -32,6 +33,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      * @return generated key
      * @throws PersistentException if a database access error occurs
      */
+    //TODO:insert into type_categories (entity.getType)!!!!!!!!!!(where category_id=?)
     @Override
     public Integer create(Product entity) throws PersistentException {
         Integer index = null;

@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface BuyerDAO extends Dao<Integer, Buyer> {
     List<Buyer> read() throws PersistentException;
-
 }

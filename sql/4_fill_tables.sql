@@ -19,12 +19,13 @@ INTO addresses(buyer_id, country_id, city, zip_code, street, apartment_number, h
 VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
        (6, 1, 'Minsk', 220005, 'Pobeda', 11, 29);
 
-INSERT INTO categories(id, name, child_table)
-VALUES (1, 'Guitars', 'guitar_categories');
-
-INSERT INTO guitar_categories(id, name)
-VALUES (1, 'Acoustic');
-
+DELETE
+FROM categories;
+INSERT INTO categories(id, name, parent_id)
+VALUES (2, 'Instruments', NULL),
+       (3, 'Guitars', 2),
+       (6, 'Acoustic', 3);
+# TODO:change category_id
 INSERT
 INTO products(id, category_id, model, available, description, img, price)
 VALUES (1, 1, 'Fender CD-60S Natural', true,

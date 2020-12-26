@@ -32,7 +32,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      * @throws PersistentException if database error occurs
      */
     @Override
-    public Optional<List<User>> read() throws PersistentException {
+    public List<User> read() throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -51,7 +51,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 users.add(user);
             }
             logger.debug("Users were read");
-            return Optional.ofNullable(users);
+            return users;
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);

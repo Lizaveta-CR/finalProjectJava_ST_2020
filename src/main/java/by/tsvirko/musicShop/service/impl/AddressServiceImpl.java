@@ -13,7 +13,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     public List<Address> findAll() throws ServicePersistentException {
         AddressDAO dao;
         try {
-            dao = transaction.createDao(AddressDAO.class, false);
+            dao = transaction.createDao(AddressDAO.class, true);
             return dao.read();
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);

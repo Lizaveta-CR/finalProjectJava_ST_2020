@@ -12,7 +12,7 @@ public interface Component<T> {
 
     void remove(Component c);
 
-    T collect();
+//    T collect();
 
     int getSize();
 }

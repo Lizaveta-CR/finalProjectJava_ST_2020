@@ -18,11 +18,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         UserDAO dao;
         try {
             dao = transaction.createDao(UserDAO.class, true);
-            Optional<List<User>> list = dao.read();
-            if (list.isPresent()) {
-                return list.get();
+            List<User> list = dao.read();
+            if (!list.isEmpty()) {
+                return list;
             } else {
-                throw new ServicePersistentException();
+                throw new ServicePersistentException("List is empty");
             }
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);

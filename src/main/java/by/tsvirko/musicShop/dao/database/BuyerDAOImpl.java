@@ -1,7 +1,11 @@
 package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.BuyerDAO;
+import by.tsvirko.musicShop.dao.Transaction;
+import by.tsvirko.musicShop.dao.TransactionFactory;
+import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.dao.pool.ConnectionPool;
 import by.tsvirko.musicShop.domain.Address;
 import by.tsvirko.musicShop.domain.Buyer;
 import by.tsvirko.musicShop.domain.enums.Role;
@@ -210,4 +214,5 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             }
         }
     }
+
 }

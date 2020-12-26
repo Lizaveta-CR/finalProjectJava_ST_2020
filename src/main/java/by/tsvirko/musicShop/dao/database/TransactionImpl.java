@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionImpl implements Transaction {
     private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
-    private static final Map<Class<? extends Dao<?>>, BaseDAO> CLASSES = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends Dao<?, ?>>, BaseDAO> CLASSES = new ConcurrentHashMap<>();
 
     static {
         CLASSES.put(UserDAO.class, new UserDAOImpl());
@@ -25,6 +25,7 @@ public class TransactionImpl implements Transaction {
         CLASSES.put(ProducerDAO.class, new ProducerDAOImpl());
         CLASSES.put(ProducerItemDAO.class, new ProducerItemDAOImpl());
         CLASSES.put(ProductRateDAO.class, new ProductRateDAOImpl());
+        CLASSES.put(CategoryDAO.class, new CategoryDAOImpl());
     }
 
     private Connection connection;
@@ -40,7 +41,7 @@ public class TransactionImpl implements Transaction {
      * @return BaseDAO with setted connection
      */
     @Override
-    public <Type extends Dao<?>> Type createDao(Class<Type> key, boolean isAutoCommit) throws PersistentException {
+    public <Type extends Dao<?, ?>> Type createDao(Class<Type> key, boolean isAutoCommit) throws PersistentException {
         BaseDAO dao = CLASSES.get(key);
         if (dao != null) {
             try {
