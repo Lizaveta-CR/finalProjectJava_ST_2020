@@ -57,12 +57,16 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
@@ -104,17 +108,22 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            return index;
         }
+        return index;
+
     }
 
     /**
@@ -149,12 +158,16 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
@@ -184,7 +197,9 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
@@ -209,7 +224,9 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }

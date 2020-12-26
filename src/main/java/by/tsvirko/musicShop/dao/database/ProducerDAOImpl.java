@@ -57,12 +57,21 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            return index;
         }
+        return index;
     }
 
     @Override
@@ -89,8 +98,10 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -115,8 +126,10 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -152,13 +165,17 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -200,13 +217,17 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }

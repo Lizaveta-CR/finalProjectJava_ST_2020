@@ -38,12 +38,15 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            return null;
         }
+        return null;
+
     }
 
     @Override

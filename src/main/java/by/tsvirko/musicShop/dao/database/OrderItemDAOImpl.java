@@ -61,13 +61,17 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -92,8 +96,10 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -129,8 +135,17 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -162,12 +177,14 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
-            return index;
         }
+        return index;
     }
 
     @Override
@@ -195,8 +212,10 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -221,8 +240,10 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -254,13 +275,17 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSetParent.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSetParent != null) {
+                    resultSetParent.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statementParent.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statementParent != null) {
+                    statementParent.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
@@ -297,13 +322,17 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             throw new PersistentException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close result set");
             }
             try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
