@@ -15,7 +15,7 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-public class User extends Entity {
+public class User extends Entity<Integer> {
     private String name;
     private String surname;
     private String login;

@@ -157,23 +157,13 @@ CREATE TABLE countries
     CONSTRAINT PK_Countries PRIMARY KEY (id)
 );
 
+
 CREATE TABLE categories
 (
-    id          INTEGER     NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(20) NOT NULL UNIQUE,
-    child_table VARCHAR(20) NOT NULL,
-    CONSTRAINT PK_category PRIMARY KEY (id),
-    CONSTRAINT UQ_name UNIQUE (name)
-);
-
-CREATE TABLE guitar_categories
-(
-    id   INTEGER     NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    CONSTRAINT PK_category PRIMARY KEY (id),
-    CONSTRAINT FK_guitar_categories_product
-        FOREIGN KEY (id) REFERENCES products (id)
-            ON DELETE CASCADE ON UPDATE CASCADE
+    id        INTEGER     NOT NULL AUTO_INCREMENT,
+    name      VARCHAR(20) NOT NULL,
+    parent_id INT DEFAULT NULL,
+    CONSTRAINT PK_category PRIMARY KEY (id)
 );
 
 # ANALYZE TABLE products;

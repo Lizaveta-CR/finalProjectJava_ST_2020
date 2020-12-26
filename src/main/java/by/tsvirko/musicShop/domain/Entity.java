@@ -15,6 +15,6 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-abstract public class Entity implements Serializable {
-    private Integer id;
+abstract public class Entity<T> implements Serializable {
+    private T id;
 }

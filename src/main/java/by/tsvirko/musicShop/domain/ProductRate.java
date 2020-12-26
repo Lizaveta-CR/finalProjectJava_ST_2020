@@ -14,7 +14,7 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-public class ProductRate extends Entity {
+public class ProductRate extends Entity <Integer>{
     private Buyer buyer;
     private Product product;
     private byte mark;

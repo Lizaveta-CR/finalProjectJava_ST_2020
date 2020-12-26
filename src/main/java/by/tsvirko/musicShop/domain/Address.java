@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class Address extends Entity {
+public class Address extends Entity<Integer> {
     private String country;
     private String city;
     private int zipCode;

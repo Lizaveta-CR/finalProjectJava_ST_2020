@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
-public class Producer extends Entity {
+public class Producer extends Entity<Integer> {
     private String name;
     private String country;
     private Set<Product> products = new HashSet<>();

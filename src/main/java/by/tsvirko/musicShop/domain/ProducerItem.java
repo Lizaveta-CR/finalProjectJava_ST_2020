@@ -17,7 +17,7 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
-public class ProducerItem extends Entity {
+public class ProducerItem extends Entity<Integer> {
     private Product product;
     private Producer producer;
 }

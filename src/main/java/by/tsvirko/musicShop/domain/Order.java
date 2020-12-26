@@ -17,7 +17,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-public class Order extends Entity {
+public class Order extends Entity<Integer> {
     private Buyer buyer;
     private BigDecimal price;
     private Date date;

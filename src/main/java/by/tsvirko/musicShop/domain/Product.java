@@ -15,7 +15,7 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-public class Product extends Entity {
+public class Product extends Entity<Integer> {
     private String type;
     private Integer categoryNum;
     private String model;

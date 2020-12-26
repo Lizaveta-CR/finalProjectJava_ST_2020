@@ -15,7 +15,7 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-public class OrderItem extends Entity {
+public class OrderItem extends Entity<Integer> {
     private Product product;
     private BigDecimal price;
     private Byte amount;
