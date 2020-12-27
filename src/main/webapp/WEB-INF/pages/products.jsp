@@ -13,6 +13,7 @@
     <title>Products</title>
 </head>
 <body>
+
 <c:forEach var="product" items="${products}">
     ${product.id}
     ${product.category}

@@ -1,7 +1,7 @@
 package by.tsvirko.musicShop.controller;
 
-import by.tsvirko.musicShop.controller.command.Command;
-import by.tsvirko.musicShop.controller.command.CommandProvider;
+import by.tsvirko.musicShop.controller.command.CommandManager;
+import by.tsvirko.musicShop.controller.command.CommandManagerFactory;
 import by.tsvirko.musicShop.controller.command.exception.CommandException;
 import by.tsvirko.musicShop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
@@ -26,9 +26,7 @@ public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
 
     private static final String DATASOURCE_NAME = "database";
-    private static final String COMMAND_NAME = "command";
-    //TODO: заменить фабрикой in process()  и добавить туда getFactory() with Trans... !
-    private final CommandProvider commandProvider = new CommandProvider();
+    private static final String COMMAND_PARAMETER = "command";
 
     @Override
     public void init() {
@@ -42,7 +40,7 @@ public class DispatcherServlet extends HttpServlet {
         int checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
 
         try {
-            ConnectionPool.getInstance().initPoolData(driver,url, user, password, poolSize, maxSize, checkConnectionTimeout);
+            ConnectionPool.getInstance().initPoolData(driver, url, user, password, poolSize, maxSize, checkConnectionTimeout);
         } catch (ConnectionPoolException e) {
             logger.error("It is impossible to initialize application", e);
             destroy();
@@ -64,18 +62,22 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String commandName = null;
-        Command command = null;
         String page = null;
         try {
-            commandName = req.getParameter(COMMAND_NAME);
-            command = commandProvider.getCommand(commandName);
-            page = command.execute(req, resp);
-        } catch (CommandException e) {
-            page = "WEB-INF/error/error.jsp";
+            CommandManager manager = CommandManagerFactory.getManager(getFactory());
+            String parameter = req.getParameter(COMMAND_PARAMETER);
+            if (parameter != null) {
+                page = manager.execute(parameter, req, resp);
+            } else {
+                page = "/WEB-INF/error/error.jsp";
+            }
+        } catch (CommandException | PersistentException e) {
+            logger.error("It is impossible to process request", e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         if (dispatcher != null) {
+            logger.debug(String.format("Request for URI %s is forwarded to JSP %s", req.getRequestURI(), page));
             dispatcher.forward(req, resp);
         }
     }
