@@ -3,6 +3,7 @@ package by.tsvirko.musicShop.dao.database;
 import by.tsvirko.musicShop.dao.AddressDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.Address;
+import by.tsvirko.musicShop.domain.Country;
 import by.tsvirko.musicShop.domain.User;
 import by.tsvirko.musicShop.domain.enums.Role;
 import org.apache.logging.log4j.LogManager;
@@ -19,8 +20,6 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private static final Logger logger = LogManager.getLogger(AddressDAOImpl.class);
 
     private static final String SQL_INSERT_ADDRESS = "INSERT INTO addresses (buyer_id,country_id, city,zip_code,street, apartment_number,house_number) VALUES (?, ?,?,?,?,?,?)";
-    private static final String SQL_READ_COUNTRY_ID_BY_NAME = "SELECT id FROM countries WHERE name = ?";
-    private static final String SQL_READ_COUNTRY_NAME_BY_ID = "SELECT name FROM countries WHERE id = ?";
     private static final String SQL_READ_ALL_ADDRESSES = "SELECT * FROM addresses";
     private static final String SQL_DELETE_ADDRESS = "DELETE FROM addresses WHERE buyer_id = ?";
     private static final String SQL_UPDATE_ADDRESS = "UPDATE addresses SET country_id = ?, city =? ,zip_code=?, street = ?, apartment_number = ?,house_number = ? WHERE buyer_id = ?";
@@ -44,7 +43,9 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             while (resultSet.next()) {
                 address = new Address();
                 address.setId(resultSet.getInt(Field.BUYER_ID.value()));
-                address.setCountry((String) readCountry(Field.NAME, resultSet.getInt(Field.COUNTRY_ID.value())));
+                Country country = new Country();
+                country.setId(resultSet.getInt(Field.COUNTRY_ID.value()));
+                address.setCountry(country);
                 address.setCity(resultSet.getString(Field.CITY.value()));
                 address.setZipCode(resultSet.getInt(Field.ZIP_CODE.value()));
                 address.setStreet(resultSet.getString(Field.STREET.value()));
@@ -89,7 +90,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         try {
             statement = connection.prepareStatement(SQL_INSERT_ADDRESS);
             statement.setInt(1, entity.getId());
-            statement.setInt(2, (Integer) readCountry(Field.ID, entity.getCountry()));
+            statement.setInt(2, entity.getCountry().getId());
             statement.setString(3, entity.getCity());
             statement.setInt(4, entity.getZipCode());
             statement.setString(5, entity.getStreet());
@@ -126,7 +127,9 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             if (resultSet.next()) {
                 address = new Address();
                 address.setId(identity);
-                address.setCountry((String) readCountry(Field.NAME, resultSet.getInt(Field.COUNTRY_ID.value())));
+                Country country = new Country();
+                country.setId(resultSet.getInt(Field.COUNTRY_ID.value()));
+                address.setCountry(country);
                 address.setCity(resultSet.getString(Field.CITY.value()));
                 address.setZipCode(resultSet.getInt(Field.ZIP_CODE.value()));
                 address.setStreet(resultSet.getString(Field.STREET.value()));
@@ -167,7 +170,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_UPDATE_ADDRESS);
-            statement.setInt(1, (Integer) readCountry(Field.ID, entity.getCountry()));
+            statement.setInt(1, entity.getCountry().getId());
             statement.setString(2, entity.getCity());
             statement.setInt(3, entity.getZipCode());
             statement.setString(4, entity.getStreet());
@@ -214,58 +217,5 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-    }
-
-    /**
-     * Reads from countries table by given parameters
-     *
-     * @param param - what we want to read, value - parameter that helps up to search
-     * @return
-     * @throws PersistentException if database error occurs
-     */
-    private <T extends Object> Object readCountry(Field param, Object value) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            switch (param) {
-                case ID:
-                    statement = connection.prepareStatement(SQL_READ_COUNTRY_ID_BY_NAME);
-                    statement.setString(1, (String) value);
-                    resultSet = statement.executeQuery();
-
-                    if (resultSet.next()) {
-                        return resultSet.getInt(1);
-                    }
-                    break;
-                case NAME:
-                    statement = connection.prepareStatement(SQL_READ_COUNTRY_NAME_BY_ID);
-                    statement.setInt(1, (Integer) value);
-                    resultSet = statement.executeQuery();
-                    if (resultSet.next()) {
-                        return resultSet.getString(1);
-                    }
-                    break;
-            }
-        } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
-        }
-        return null;
     }
 }

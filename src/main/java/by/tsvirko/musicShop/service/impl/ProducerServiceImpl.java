@@ -2,6 +2,8 @@ package by.tsvirko.musicShop.service.impl;
 
 import by.tsvirko.musicShop.dao.*;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.domain.Category;
+import by.tsvirko.musicShop.domain.Country;
 import by.tsvirko.musicShop.domain.Producer;
 import by.tsvirko.musicShop.domain.Product;
 import by.tsvirko.musicShop.service.ProducerService;
@@ -49,24 +51,48 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
         }
     }
 
-    private void buildList(List<Producer> producers) throws PersistentException {
-        OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, false);
+    private void buildList(List<Producer> producers) throws ServicePersistentException {
+        try {
+            OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, false);
+            CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+            CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
 
-        Map<Integer, Set<Product>> productProducerMap = new HashMap<>();
-        Set<Product> orderProductList;
+            Map<Integer, Set<Product>> productProducerMap = new HashMap<>();
+            Set<Product> orderProductList;
 
-        Integer identity;
-
-        for (Producer producer : producers) {
-            identity = producer.getId();
-            orderProductList = productProducerMap.get(identity);
-            if (orderProductList == null) {
-                orderProductList = new HashSet<>();
-                productProducerMap.put(identity, orderProductList);
+            Integer identity;
+            Integer productIdentity;
+            for (Producer producer : producers) {
+                identity = producer.getId();
+                if (identity != null) {
+                    Optional<Country> country = countryDAO.read(identity);
+                    if (country.isPresent()) {
+                        producer.setCountry(country.get());
+                    }
+                    orderProductList = productProducerMap.get(identity);
+                    if (orderProductList == null) {
+                        orderProductList = new HashSet<>();
+                        productProducerMap.put(identity, orderProductList);
+                    }
+                    List<Product> products = orderItemDAO.readProductsByOrder(identity);
+                    if (!products.isEmpty()) {
+                        for (Product product : products) {
+                            productIdentity = product.getCategory().getId();
+                            if (productIdentity != null) {
+                                Optional<Category> category = categoryDAO.read(productIdentity);
+                                if (category.isPresent()) {
+                                    product.setCategory(category.get());
+                                }
+                            }
+                        }
+                        orderProductList.addAll(products);
+                        producer.setProducts(orderProductList);
+                    }
+                }
             }
-            List<Product> products = orderItemDAO.readProductsByOrder(identity);
-            orderProductList.addAll(products);
-            producer.setProducts(orderProductList);
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
         }
     }
+
 }
