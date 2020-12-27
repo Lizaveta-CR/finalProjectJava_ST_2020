@@ -46,9 +46,10 @@ final public class ConnectionPool {
      *
      * @throws ConnectionPoolException if initializing error occurs
      */
-    public void initPoolData(String url, String user, String password, int poolSize, int maxSize, int checkConnectionTimeout) throws ConnectionPoolException {
+    public void initPoolData(String driver, String url, String user, String password, int poolSize, int maxSize, int checkConnectionTimeout) throws ConnectionPoolException {
         try {
             destroy();
+            Class.forName(driver);
             this.url = url;
             this.user = user;
             this.password = password;
@@ -57,7 +58,7 @@ final public class ConnectionPool {
             for (int i = 0; i < poolSize; i++) {
                 freeConnections.put(createConnection());
             }
-        } catch (SQLException | InterruptedException e) {
+        } catch (SQLException | InterruptedException | ClassNotFoundException e) {
             logger.fatal("Error initializing connection pool", e);
             throw new ConnectionPoolException();
         }

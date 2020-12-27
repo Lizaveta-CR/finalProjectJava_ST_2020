@@ -23,12 +23,13 @@ public class AddressServiceImplTest {
     public void setUpBeforeSuite() throws ConnectionPoolException {
         ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
         String url = resource.getString("db.url");
+        String driver = resource.getString("db.driver");
         String user = resource.getString("db.user");
         String password = resource.getString("db.password");
         int poolSize = Integer.parseInt(resource.getString("db.poolsize"));
         int maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
         int checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
-        ConnectionPool.getInstance().initPoolData(url, user, password, poolSize, maxSize, checkConnectionTimeout);
+        ConnectionPool.getInstance().initPoolData(driver,url, user, password, poolSize, maxSize, checkConnectionTimeout);
     }
 
     @BeforeClass
