@@ -16,8 +16,9 @@ import java.util.Objects;
 @Getter
 @Setter
 public class Product extends Entity<Integer> {
-    private String type;
-    private Integer categoryNum;
+    private Category category;
+    //    private String type;
+//    private Integer categoryNum;
     private String model;
     private Boolean available;
     private String description;

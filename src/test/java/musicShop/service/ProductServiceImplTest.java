@@ -1,22 +1,28 @@
-package musicShop.dao;
+package musicShop.service;
 
-import by.tsvirko.musicShop.dao.CategoryDAO;
-import by.tsvirko.musicShop.dao.Transaction;
-import by.tsvirko.musicShop.dao.TransactionFactory;
 import by.tsvirko.musicShop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.dao.pool.ConnectionPool;
+import by.tsvirko.musicShop.domain.User;
+import by.tsvirko.musicShop.service.ProducerService;
+import by.tsvirko.musicShop.service.ProductService;
+import by.tsvirko.musicShop.service.ServiceFactory;
+import by.tsvirko.musicShop.service.UserService;
+import by.tsvirko.musicShop.service.exception.ServicePersistentException;
+import by.tsvirko.musicShop.service.impl.ServiceFactoryImpl;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import java.util.ResourceBundle;
 
-public class CategoryDAOTest {
+public class ProductServiceImplTest {
     private final String DATASOURCE_NAME = "database";
+    private ProductService productService;
 
-    @BeforeClass
+    @BeforeSuite
     public void setUpBeforeSuite() throws ConnectionPoolException {
         ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
         String url = resource.getString("db.url");
@@ -28,11 +34,15 @@ public class CategoryDAOTest {
         ConnectionPool.getInstance().initPoolData(url, user, password, poolSize, maxSize, checkConnectionTimeout);
     }
 
+    @BeforeClass
+    public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
+        ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
+        productService = serviceFactory.getService(ProductService.class);
+    }
+
     @Test
-    public void readTest() throws PersistentException {
-        TransactionFactory factory = new TransactionFactoryImpl();
-        Transaction transaction = factory.createTransaction();
-        CategoryDAO dao = transaction.createDao(CategoryDAO.class, true);
-        System.out.println(dao.read());
+    public void findAllTest() throws ServicePersistentException {
+//        Assert.assertNotNull(productService.findAll());
+        System.out.println(productService.findAll());
     }
 }

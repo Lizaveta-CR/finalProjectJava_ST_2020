@@ -22,20 +22,20 @@ VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
 DELETE
 FROM categories;
 INSERT INTO categories(id, name, parent_id)
-VALUES (2, 'Instruments', NULL),
-       (3, 'Guitars', 2),
-       (6, 'Acoustic', 3);
+VALUES (1, 'Instruments', NULL),
+       (2, 'Guitars', 1),
+       (3, 'Acoustic', 2),
+       (4, 'Electro', 2);
 # TODO:change category_id
 INSERT
 INTO products(id, category_id, model, available, description, img, price)
-VALUES (1, 1, 'Fender CD-60S Natural', true,
+VALUES (1, 3, 'Fender CD-60S Natural', true,
         'Гитара акустическая Fender CD-60S Natural.Данная версия гитар Classic Design от компании Fender получила ряд замечательных "фишек": топ из массива ели,
         нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.',
         'Fender CD-60S Natural.jpeg', 1239.99),
-       (2, 1, 'Fender CD-60D Natural', true,
-        'Гитара акустическая Fender CD-60S Natural.Данная версия гитар Classic Design от компании Fender получила ряд замечательных "фишек": топ из массива ели,
-        нижнюю деку и обечайки из махагони, удобный гриф из махагони и гладкую накладку из ореха с закатанными ладами.',
-        'Fender CD-60S Natural.jpeg', 1219);
+       (2, 4, 'Gibson SG Modern 2019 Blueberry Fade', true,
+        'Модели SG серии Modern включают в себя многие наработки современных гитар, полюбившиеся музыкантам, и даже кое-что от "лес полов". Эти гитары имеют корпус из махагони и стильный топ из фигурного клена класса АА - такая комбинация обеспечивает отличный резонанс и сустейн.',
+        'SG Modern 2019 Blueberry Fade.jpeg', 5279.65);
 
 INSERT INTO producers(id, name, country_id)
 VALUES (1, 'Takamine', 1);
@@ -56,10 +56,8 @@ DELETE
 FROM order_items;
 
 INSERT INTO order_items(id, product_id, amount, price)
-VALUES
-#        (1, 1, 1, 1239.99),
-#        (1, 2, 1, 1219),
-(5, 2, 1, 1219);
+VALUES (1, 1, 1, 1239.99),
+       (5, 2, 1, 1219);
 #
 # DELETE
 # FROM product_rates;

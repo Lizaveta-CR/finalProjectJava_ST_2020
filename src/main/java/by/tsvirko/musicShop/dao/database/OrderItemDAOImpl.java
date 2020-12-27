@@ -2,6 +2,7 @@ package by.tsvirko.musicShop.dao.database;
 
 import by.tsvirko.musicShop.dao.OrderItemDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
+import by.tsvirko.musicShop.domain.Category;
 import by.tsvirko.musicShop.domain.OrderItem;
 import by.tsvirko.musicShop.domain.Product;
 import org.apache.logging.log4j.LogManager;
@@ -119,9 +120,9 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             while (resultSet.next()) {
                 product = new Product();
                 product.setId(resultSet.getInt(Field.ID.value()));
-                int category_id = resultSet.getInt(Field.CATEGORY_ID.value());
-                product.setType(readCategoryChild(category_id, product.getId()));
-                product.setCategoryNum(category_id);
+                Category category = new Category();
+                category.setId(resultSet.getInt(Field.CATEGORY_ID.value()));
+                product.setCategory(category);
                 product.setModel(resultSet.getString(Field.MODEL.value()));
                 product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
                 product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
@@ -247,96 +248,5 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-    }
-
-    /**
-     * Reads name (child category) from child_categories table (constant values)
-     *
-     * @param category_id
-     * @return
-     * @throws PersistentException if database error occurs
-     */
-    public String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException {
-        PreparedStatement statementParent = null;
-        ResultSet resultSetParent = null;
-
-        String type = null;
-        try {
-            statementParent = connection.prepareStatement(SQL_READ_PRODUCT_CATEGORY);
-            statementParent.setInt(1, category_id);
-            resultSetParent = statementParent.executeQuery();
-
-            if (resultSetParent.next()) {
-                type = readChildCategoryType(resultSetParent.getString(1), product_id);
-            }
-            logger.debug("Category was read");
-        } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
-        } finally {
-            try {
-                if (resultSetParent != null) {
-                    resultSetParent.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statementParent != null) {
-                    statementParent.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
-        }
-        logger.debug("Categories' child's type was read");
-        return type;
-    }
-
-    /**
-     * Reads category child name from given table
-     *
-     * @param childName - category child table name
-     * @param identity  - category(child) id
-     * @return
-     * @throws PersistentException
-     */
-    private String readChildCategoryType(String childName, Integer identity) throws PersistentException {
-        String sql = "SELECT name FROM " + childName + " WHERE id = ?";
-
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        String name = null;
-        try {
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                name = resultSet.getString(1);
-            }
-            logger.debug("Category was read");
-        } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
-        }
-        logger.debug("Child's type was read");
-        return name;
     }
 }

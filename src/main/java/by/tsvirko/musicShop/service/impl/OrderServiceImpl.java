@@ -55,6 +55,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
 
     private void buildList(List<Order> orders) throws PersistentException {
         OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, false);
+        CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
 
         Map<Integer, Set<Product>> productOrderMap = new HashMap<>();
         Set<Product> orderProductList;
@@ -69,8 +70,20 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                 productOrderMap.put(identity, orderProductList);
             }
             List<Product> products = orderItemDAO.readProductsByOrder(identity);
-            orderProductList.addAll(products);
-            item.setProductIts(orderProductList);
+            if (!products.isEmpty()) {
+                Integer prodIdentity;
+                for (Product product : products) {
+                    prodIdentity = product.getCategory().getId();
+                    if (prodIdentity != null) {
+                        Optional<Category> category = categoryDAO.read(prodIdentity);
+                        if (category.isPresent()) {
+                            product.setCategory(category.get());
+                        }
+                    }
+                }
+                orderProductList.addAll(products);
+                item.setProductIts(orderProductList);
+            }
         }
     }
 }

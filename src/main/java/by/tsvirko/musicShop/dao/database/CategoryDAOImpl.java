@@ -15,6 +15,7 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
     private static final Logger logger = LogManager.getLogger(CategoryDAOImpl.class);
 
     private static final String SQL_READ_ALL_CATEGORIES = "SELECT id,name, parent_id FROM categories";
+    private static final String SQL_READ_CATEGORY_NAME = "SELECT name,parent_id FROM categories WHERE id=?";
 
     @Override
     public Optional<Category> read() throws PersistentException {
@@ -82,7 +83,40 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
 
     @Override
     public Optional<Category> read(Integer identity) throws PersistentException {
-        throw new PersistentException("Unable to perform read(Integer identity) operation with Category");
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_READ_CATEGORY_NAME);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+
+            Category category = null;
+            if (resultSet.next()) {
+                category = new Category();
+                category.setId(identity);
+                category.setName(resultSet.getString(Field.NAME.value()));
+            }
+            logger.debug("Category name with id= " + identity + "was read");
+            return Optional.ofNullable(category);
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     @Override

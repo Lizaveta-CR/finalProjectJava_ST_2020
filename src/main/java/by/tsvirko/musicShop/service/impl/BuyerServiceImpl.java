@@ -121,7 +121,6 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
                     buyer.setAddress(buyerAddress);
                 }
             }
-
         }
     }
 }

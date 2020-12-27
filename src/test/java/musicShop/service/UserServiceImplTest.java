@@ -41,17 +41,14 @@ public class UserServiceImplTest {
     }
 
     @BeforeTest()
-    public void createUser() throws PasswordException {
+    public void createUser() throws ServicePersistentException {
         user = new User();
         user.setId(1);
+        user.setLogin("manager1");
+        user.setName("Alexey");
         user.setSurname("Tsar");
         user.setPassword("manager1");
         user.setRole(Role.MANAGER);
-    }
-
-    @Test
-    public void saveException() {
-        Assert.assertThrows(ServicePersistentException.class, () -> userService.save(user));
     }
 
     @Test
