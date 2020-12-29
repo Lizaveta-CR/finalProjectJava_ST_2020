@@ -2,6 +2,7 @@ package by.tsvirko.musicShop.controller.command;
 
 import by.tsvirko.musicShop.controller.command.exception.CommandException;
 import by.tsvirko.musicShop.controller.command.impl.AllProductsCommand;
+import by.tsvirko.musicShop.controller.command.impl.CategoriesCommand;
 import by.tsvirko.musicShop.service.Service;
 import by.tsvirko.musicShop.service.ServiceFactory;
 
@@ -16,6 +17,7 @@ public class CommandProvider implements CommandManager {
 
     static {
         repository.put(CommandName.ALL_PRODUCTS, new AllProductsCommand());
+        repository.put(CommandName.CATEGORIES, new CategoriesCommand());
     }
 
     public CommandProvider(ServiceFactory factory) {

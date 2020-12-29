@@ -22,10 +22,12 @@ VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
 DELETE
 FROM categories;
 INSERT INTO categories(id, name, parent_id)
-VALUES (1, 'Instruments', NULL),
-       (2, 'Guitars', 1),
-       (3, 'Acoustic', 2),
-       (4, 'Electro', 2);
+VALUES
+#        (1, 'Instruments', NULL),
+#        (2, 'Guitars', 1),
+#        (3, 'Acoustic', 2),
+#        (4, 'Electro', 2),
+       (5, 'Violins', 1);
 # TODO:change category_id
 INSERT
 INTO products(id, category_id, model, available, description, img, price)

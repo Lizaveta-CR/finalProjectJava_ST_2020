@@ -26,6 +26,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         SERVICES.put(ProducerItemService.class, new ProducerItemServiceImpl());
         SERVICES.put(ProductService.class, new ProductServiceImpl());
         SERVICES.put(ProductRateService.class, new ProductRateServiceImpl());
+        SERVICES.put(CategoryService.class, new CategoryServiceImpl());
     }
 
     private TransactionFactory factory;

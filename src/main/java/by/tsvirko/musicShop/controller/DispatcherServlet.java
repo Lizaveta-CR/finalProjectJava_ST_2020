@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-@WebServlet(name = "DispatcherServlet", urlPatterns = "/")
+//@WebServlet(name = "DispatcherServlet", urlPatterns = "/")
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
 
@@ -69,7 +69,7 @@ public class DispatcherServlet extends HttpServlet {
             if (parameter != null) {
                 page = manager.execute(parameter, req, resp);
             } else {
-                page = "/WEB-INF/error/error.jsp";
+//                page = "/WEB-INF/error/error.jsp";
             }
         } catch (CommandException | PersistentException e) {
             logger.error("It is impossible to process request", e);
@@ -80,5 +80,8 @@ public class DispatcherServlet extends HttpServlet {
             logger.debug(String.format("Request for URI %s is forwarded to JSP %s", req.getRequestURI(), page));
             dispatcher.forward(req, resp);
         }
+//        else {
+//            getServletContext().getRequestDispatcher("/WEB-INF/pages/welcome.jsp").forward(req, resp);
+//        }
     }
 }
