@@ -18,6 +18,7 @@
 <body>
 <%--<c:url value="/img/main.jpg" var="imgUrl"/>--%>
 <%--<img scr='<c:out value="${imgUrl}"/>' height="200" width="300"/>--%>
+<img src='<c:url value="/img/main.jpg"></c:url>'  height="200" width="300"/>
 <%--<img src="/Users/elizaveta/IdeaProjects/finalProjectJava_ST_2020/src/main/webapp/main.jpg">--%>
 <div class="container">
     <div class="vertical-center-row">
