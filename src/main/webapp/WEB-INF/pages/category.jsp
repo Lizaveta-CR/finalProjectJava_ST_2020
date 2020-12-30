@@ -29,23 +29,53 @@
                         <a data-toggle="collapse" href="#collapse1">${parentItem.name}</a>
                     </h4>
                 </div>
+                    <%--                TODO: добавить на тип панель--%>
                 <div id="collapse1" class="panel-collapse collapse">
                     <c:forEach items="${parentItem.components}" var="childItem">
-                        <div class="panel-body"> ${childItem.name}</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <caption>${childItem.name}</caption>
+                                <thead>
+                                <tr>
+                                    <th scope="col">Picture</th>
+                                    <th scope="col">Model</th>
+                                    <th scope="col">Available</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                                </thead>
+                                <c:forEach var="product" items="${childItem.products}">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${not empty product.image_url}">
+                                                    <img src='<c:url value="/img/${product.image_url}"></c:url>'
+                                                         class="img-thumbnail"
+                                                         height="200" width="300"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src='<c:url value="/img/main.jpg"></c:url>'
+                                                         class="img-thumbnail"
+                                                         height="200" width="300"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td> ${product.model}</td>
+                                        <td> ${product.available}</td>
+                                        <td> ${product.description}</td>
+                                        <td> ${product.price}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </c:forEach>
+                            </table>
+                        </div>
                     </c:forEach>
                 </div>
             </div>
         </div>
     </div>
 </c:forEach>
-<%--<c:forEach var="component" items="${category}">--%>
-<%--    ${component.}--%>
-<%--    ${product.category}--%>
-<%--    ${product.model}--%>
-<%--    ${product.available}--%>
-<%--    ${product.description}--%>
-<%--    ${product.image_url}--%>
-<%--    ${product.price}--%>
-<%--</c:forEach>--%>
 </body>
 </html>

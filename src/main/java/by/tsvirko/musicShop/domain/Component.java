@@ -1,7 +1,9 @@
 package by.tsvirko.musicShop.domain;
 
+import java.util.List;
+
 /**
- *Sets the interface for all compound objects.
+ * Sets the interface for all compound objects.
  *
  * @param <T>
  */
@@ -11,8 +13,6 @@ public interface Component<T> {
     Object getChild(int i);
 
     void remove(Component c);
-
-//    T collect();
 
     int getSize();
 }

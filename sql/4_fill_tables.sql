@@ -27,7 +27,7 @@ VALUES
 #        (2, 'Guitars', 1),
 #        (3, 'Acoustic', 2),
 #        (4, 'Electro', 2),
-       (5, 'Violins', 1);
+(5, 'Violins', 1);
 # TODO:change category_id
 INSERT
 INTO products(id, category_id, model, available, description, img, price)
@@ -38,7 +38,7 @@ VALUES (1, 3, 'Fender CD-60S Natural', true,
        (2, 4, 'Gibson SG Modern 2019 Blueberry Fade', true,
         'Модели SG серии Modern включают в себя многие наработки современных гитар, полюбившиеся музыкантам, и даже кое-что от "лес полов". Эти гитары имеют корпус из махагони и стильный топ из фигурного клена класса АА - такая комбинация обеспечивает отличный резонанс и сустейн.',
         'SG Modern 2019 Blueberry Fade.jpeg', 5279.65);
-
+UPDATE products SET img='Gibson.jpg' WHERE id=2;
 INSERT INTO producers(id, name, country_id)
 VALUES (1, 'Takamine', 1);
 #

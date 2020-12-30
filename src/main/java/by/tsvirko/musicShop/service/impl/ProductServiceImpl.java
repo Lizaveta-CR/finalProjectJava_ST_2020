@@ -5,12 +5,13 @@ import by.tsvirko.musicShop.dao.ProductDAO;
 import by.tsvirko.musicShop.dao.exception.PersistentException;
 import by.tsvirko.musicShop.domain.Buyer;
 import by.tsvirko.musicShop.domain.Category;
+import by.tsvirko.musicShop.domain.Component;
 import by.tsvirko.musicShop.domain.Product;
 import by.tsvirko.musicShop.service.ProductService;
 import by.tsvirko.musicShop.service.exception.ServicePersistentException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductServiceImpl extends ServiceImpl implements ProductService {
     @Override
@@ -27,7 +28,6 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             throw new ServicePersistentException(e);
         }
     }
-
 
     @Override
     public void delete(Integer identity) throws ServicePersistentException {

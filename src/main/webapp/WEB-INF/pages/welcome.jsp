@@ -16,14 +16,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%--<c:url value="/img/main.jpg" var="imgUrl"/>--%>
-<%--<img scr='<c:out value="${imgUrl}"/>' height="200" width="300"/>--%>
-<img src='<c:url value="/img/main.jpg"></c:url>'  height="200" width="300"/>
-<%--<img src="/Users/elizaveta/IdeaProjects/finalProjectJava_ST_2020/src/main/webapp/main.jpg">--%>
+<div class="text-center">
+    <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" height="300" width="400"/>
+</div>
+<%--<div class="container">--%>
+<%--    <div class="col-md-4">--%>
+<%--        <div class="thumbnail">--%>
+<%--            <a href="/w3images/nature.jpg" target="_blank">--%>
+<%--                <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" class="img-responsive center-block"/>--%>
+<%--                <div class="caption">--%>
+<%--                </div>--%>
+<%--            </a>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <div class="container">
     <div class="vertical-center-row">
         <div class="page-header" style="">
-            <h1 class="text-center">Music Land</h1>
+            <h1 class="text-center">Music Land
+                <small> The best place to find your soul</small>
+            </h1>
         </div>
         <h2 class="text-center">We are happy to meet you!</h2>
         <h3 class="text-center">Choose what you want to do:</h3>
