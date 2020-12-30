@@ -29,7 +29,6 @@
                         <a data-toggle="collapse" href="#collapse1">${parentItem.name}</a>
                     </h4>
                 </div>
-                    <%--                TODO: добавить на тип панель--%>
                 <div id="collapse1" class="panel-collapse collapse">
                     <c:forEach items="${parentItem.components}" var="childItem">
                         <div class="panel-body">
