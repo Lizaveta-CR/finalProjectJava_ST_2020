@@ -1,15 +1,5 @@
 package musicShop.dao.pool;
 
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 public class ConnectionPoolTest {
 //    private final String DATASOURCE_NAME = "testdatabase";
 //    Connection connection;

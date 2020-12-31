@@ -18,7 +18,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
-        <servlet-class>by.tsvirko.musicShop.controller.DispatcherServlet</servlet-class>
+        <servlet-class>by.tsvirko.music_shop.controller.DispatcherServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
@@ -32,7 +32,7 @@
         </jsp_config>-->
     <!--    <servlet>-->
     <!--        <servlet-name>DispatcherServlet</servlet-name>-->
-    <!--        <servlet-class>by.tsvirko.musicShop.controller.DispatcherServlet</servlet-class>-->
+    <!--        <servlet-class>by.tsvirko.music_shop.controller.DispatcherServlet</servlet-class>-->
     <!--    </servlet>-->
     <!--    <servlet-mapping>-->
     <!--        <servlet-name>DispatcherServlet</servlet-name>-->

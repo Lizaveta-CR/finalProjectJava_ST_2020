@@ -1,14 +1,13 @@
 package musicShop.service;
 
-import by.tsvirko.musicShop.dao.database.TransactionFactoryImpl;
-import by.tsvirko.musicShop.dao.exception.ConnectionPoolException;
-import by.tsvirko.musicShop.dao.exception.PersistentException;
-import by.tsvirko.musicShop.dao.pool.ConnectionPool;
-import by.tsvirko.musicShop.service.AddressService;
-import by.tsvirko.musicShop.service.OrderService;
-import by.tsvirko.musicShop.service.ServiceFactory;
-import by.tsvirko.musicShop.service.exception.ServicePersistentException;
-import by.tsvirko.musicShop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
+import by.tsvirko.music_shop.dao.exception.ConnectionPoolException;
+import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.dao.pool.ConnectionPool;
+import by.tsvirko.music_shop.service.AddressService;
+import by.tsvirko.music_shop.service.ServiceFactory;
+import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;

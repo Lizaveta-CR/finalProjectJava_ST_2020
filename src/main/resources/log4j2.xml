@@ -20,16 +20,16 @@
         <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="by.tsvirko.musicShop.dao.database" level="debug" additivity="true">
+        <Logger name="by.tsvirko.music_shop.dao.database" level="debug" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
-        <Logger name="by.tsvirko.musicShop.dao.pool" level="error" additivity="true">
+        <Logger name="by.tsvirko.music_shop.dao.pool" level="error" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
-        <Logger name="by.tsvirko.musicShop.service" level="error" additivity="true">
+        <Logger name="by.tsvirko.music_shop.service" level="error" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
-        <Logger name="by.tsvirko.musicShop.controller" level="error" additivity="true">
+        <Logger name="by.tsvirko.music_shop.controller" level="error" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
     </Loggers>
