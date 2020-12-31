@@ -10,26 +10,13 @@
 <html>
 <head>
     <title>Music Land</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="text-center">
     <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" height="300" width="400"/>
 </div>
-<%--<div class="container">--%>
-<%--    <div class="col-md-4">--%>
-<%--        <div class="thumbnail">--%>
-<%--            <a href="/w3images/nature.jpg" target="_blank">--%>
-<%--                <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" class="img-responsive center-block"/>--%>
-<%--                <div class="caption">--%>
-<%--                </div>--%>
-<%--            </a>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
 <div class="container">
     <div class="vertical-center-row">
         <div class="page-header" style="">

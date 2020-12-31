@@ -12,10 +12,6 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.jpg</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
         <servlet-class>by.tsvirko.music_shop.controller.DispatcherServlet</servlet-class>
@@ -24,6 +20,11 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+
     <!--        <jsp_config>
             <taglib>
                 <taglib-uri>custom</taglib-uri>
