@@ -171,7 +171,11 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         try {
             statement = connection.prepareStatement(SQL_DELETE_ORDER);
             statement.setInt(1, identity);
-            statement.executeUpdate();
+            int num = statement.executeUpdate();
+
+            if (num == 0) {
+                throw new PersistentException("Nothing to delete");
+            }
             logger.debug("Order with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);

@@ -109,6 +109,9 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
+            if (index == null) {
+                throw new PersistentException();
+            }
             return index;
         }
     }
@@ -202,7 +205,11 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         try {
             statement = connection.prepareStatement(SQL_DELETE_ADDRESS);
             statement.setInt(1, identity);
-            statement.executeUpdate();
+            int num = statement.executeUpdate();
+
+            if (num == 0) {
+                throw new PersistentException("Nothing to delete!");
+            }
             logger.debug("Address with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);

@@ -22,12 +22,11 @@ VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
 DELETE
 FROM categories;
 INSERT INTO categories(id, name, parent_id)
-VALUES
-#        (1, 'Instruments', NULL),
-#        (2, 'Guitars', 1),
-#        (3, 'Acoustic', 2),
-#        (4, 'Electro', 2),
-(5, 'Violins', 1);
+VALUES (1, 'Instruments', NULL),
+       (2, 'Guitars', 1),
+       (3, 'Acoustic', 2),
+       (4, 'Electro', 2),
+       (5, 'Violins', 1);
 # TODO:change category_id
 INSERT
 INTO products(id, category_id, model, available, description, img, price)
@@ -38,7 +37,9 @@ VALUES (1, 3, 'Fender CD-60S Natural', true,
        (2, 4, 'Gibson SG Modern 2019 Blueberry Fade', true,
         'Модели SG серии Modern включают в себя многие наработки современных гитар, полюбившиеся музыкантам, и даже кое-что от "лес полов". Эти гитары имеют корпус из махагони и стильный топ из фигурного клена класса АА - такая комбинация обеспечивает отличный резонанс и сустейн.',
         'SG Modern 2019 Blueberry Fade.jpeg', 5279.65);
-UPDATE products SET img='Gibson.jpg' WHERE id=2;
+UPDATE products
+SET img='Gibson.jpg'
+WHERE id = 2;
 INSERT INTO producers(id, name, country_id)
 VALUES (1, 'Takamine', 1);
 #
@@ -55,7 +56,7 @@ VALUES
 ('2013-08-05 18:19:03', 6, 1239.99);
 
 DELETE
-FROM order_items;
+FROM products WHERE id=10;
 
 INSERT INTO order_items(id, product_id, amount, price)
 VALUES (1, 1, 1, 1239.99),
@@ -67,8 +68,4 @@ VALUES (1, 1, 1, 1239.99),
 # INSERT INTO product_rates(rate_id, value, product_id, buyer_id)
 # VALUES (1, 10, 1, 1);
 # TODO:!!!!!
-SELECT p.id, p.price, p.model, p.category_id
-FROM products p
-         INNER JOIN order_items o
-                    ON o.product_id = p.id
-WHERE o.id = 5;
+

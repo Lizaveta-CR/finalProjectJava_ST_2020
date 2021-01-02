@@ -24,8 +24,6 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final String SQL_READ_ALL_PRODUCTS = "SELECT id,category_id,model,available,description,img,price FROM products";
     private static final String SQL_SELECT_PRODUCTS = "SELECT category_id, model,available,description, img, price FROM products WHERE id = ?";
 
-//    private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT child_table FROM categories WHERE id = ?";
-
     /**
      * Creates product in database
      *
@@ -170,7 +168,11 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
         try {
             statement = connection.prepareStatement(SQL_DELETE_PRODUCT);
             statement.setInt(1, identity);
-            statement.executeUpdate();
+            int num = statement.executeUpdate();
+
+            if (num == 0) {
+                throw new PersistentException("Nothing to delete");
+            }
             logger.debug("Product with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);

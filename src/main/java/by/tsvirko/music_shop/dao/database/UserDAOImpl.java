@@ -218,7 +218,10 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         try {
             statement = connection.prepareStatement(SQL_DELETE_USER);
             statement.setInt(1, identity);
-            statement.executeUpdate();
+            int num = statement.executeUpdate();
+            if (num == 0) {
+                throw new PersistentException("Nothing to delete!");
+            }
             logger.debug("User with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);

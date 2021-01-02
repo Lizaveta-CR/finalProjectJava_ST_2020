@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="test_suite">
-    <test name="User service">
-        <classes>
-            <class name="musicShop.service.UserServiceImplTest">
-                <methods>
-                    <include name="saveException"/>
-                    <include name="findAll"/>
-                    <include name="delete"/>
-                </methods>
-            </class>
-        </classes>
-    </test> <!-- Test -->
-    <!--    <test name="Personal Loan">-->
-    <!--        <classes>-->
-    <!--            <class name="com.javatpoint.Personal_loan"/>-->
-    <!--        </classes>-->
-    <!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
-    <!--    <test name="Home Loan">-->
-    <!--        <classes>-->
-    <!--            <class name="com.javatpoint.Home_loan"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-</suite> <!-- Suite -->
+<suite name="TestNG main suite">
+    <suite-files>
+        <suite-file path="suites/service.xml"/>
+        <suite-file path="suites/dao.xml"/>
+    </suite-files>
+</suite>

@@ -11,5 +11,7 @@ public interface AddressService extends Service {
     void delete(Integer identity) throws ServicePersistentException;
 
     void save(Address address) throws ServicePersistentException;
+
+    void update(Address address) throws ServicePersistentException;
 }
 

@@ -42,7 +42,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             if (producer.getId() != null) {
                 dao.update(producer);
             } else {
-                dao.create(producer);
+                producer.setId(dao.create(producer));
             }
             transaction.commit();
         } catch (PersistentException e) {

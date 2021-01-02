@@ -67,8 +67,6 @@ CREATE TABLE products
         FOREIGN KEY (category_id) REFERENCES categories (id)
             ON DELETE CASCADE ON UPDATE CASCADE
 );
-ALTER TABLE products
-    DROP FOREIGN KEY FK_Product_Category;
 
 CREATE TABLE producers
 (
@@ -158,24 +156,14 @@ CREATE TABLE countries
     CONSTRAINT UNx_Countries UNIQUE (code, name),
     CONSTRAINT PK_Countries PRIMARY KEY (id)
 );
-DROP TABLE categories;
+
+
 CREATE TABLE categories
 (
-    id          INTEGER     NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(20) NOT NULL UNIQUE,
-    child_table VARCHAR(20) NOT NULL,
-    CONSTRAINT PK_category PRIMARY KEY (id),
-    CONSTRAINT UQ_name UNIQUE (name)
+    id        INTEGER     NOT NULL AUTO_INCREMENT,
+    name      VARCHAR(20) NOT NULL,
+    parent_id INT DEFAULT NULL,
+    CONSTRAINT PK_category PRIMARY KEY (id)
 );
 
-CREATE TABLE guitar_categories
-(
-    id   INTEGER     NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    CONSTRAINT PK_category PRIMARY KEY (id),
-    CONSTRAINT FK_guitar_categories_product
-        FOREIGN KEY (id) REFERENCES products (id)
-            ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-# ANALYZE TABLE products;
+ANALYZE TABLE countries;

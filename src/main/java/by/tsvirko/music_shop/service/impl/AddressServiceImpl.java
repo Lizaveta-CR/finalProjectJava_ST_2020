@@ -1,9 +1,11 @@
 package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.AddressDAO;
+import by.tsvirko.music_shop.dao.BuyerDAO;
 import by.tsvirko.music_shop.dao.CountryDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Address;
+import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -43,16 +45,24 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
 
     @Override
     public void save(Address address) throws ServicePersistentException {
-        AddressDAO dao;
         try {
-            dao = transaction.createDao(AddressDAO.class, false);
-            if (address.getId() != null) {
-                dao.update(address);
-            } else {
-                address.setId(dao.create(address));
-            }
+            AddressDAO dao = transaction.createDao(AddressDAO.class, false);
+            dao.create(address);
             transaction.commit();
         } catch (PersistentException e) {
+//            transaction.rollback();
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public void update(Address address) throws ServicePersistentException {
+        try {
+            AddressDAO dao = transaction.createDao(AddressDAO.class, false);
+            dao.update(address);
+            transaction.commit();
+        } catch (PersistentException e) {
+//            transaction.rollback();
             throw new ServicePersistentException(e);
         }
     }

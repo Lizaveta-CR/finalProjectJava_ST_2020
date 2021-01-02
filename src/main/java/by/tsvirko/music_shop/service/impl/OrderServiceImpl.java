@@ -41,10 +41,10 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             if (order.getId() != null) {
                 orderDAO.update(order);
             } else {
-                BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
-                Integer buyerIdentity = order.getBuyer().getId();
+//                BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
+//                Integer buyerIdentity = order.getBuyer().getId();
                 //TODO: как быть с бонусом? У покупателя вычесть стоимость товара
-                Optional<Buyer> buyer = buyerDAO.read(buyerIdentity);
+//                Optional<Buyer> buyer = buyerDAO.read(buyerIdentity);
                 order.setId(orderDAO.create(order));
             }
             transaction.commit();

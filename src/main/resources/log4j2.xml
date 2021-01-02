@@ -32,6 +32,9 @@
         <Logger name="by.tsvirko.music_shop.controller" level="error" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
+        <Logger name="by.tsvirko.music_shop.filter" level="error" additivity="true">
+            <AppenderRef ref="TxtFile"/>
+        </Logger>
     </Loggers>
 </Configuration>
 

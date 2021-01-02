@@ -58,8 +58,7 @@ final public class ConnectionPool {
                 freeConnections.put(createConnection());
             }
         } catch (SQLException | InterruptedException | ClassNotFoundException e) {
-            logger.fatal("Error initializing connection pool", e);
-            throw new ConnectionPoolException();
+            throw new ConnectionPoolException("Fatal: error initializing connection pool", e);
         }
     }
 
@@ -86,12 +85,10 @@ final public class ConnectionPool {
                 } else if (usedConnections.size() < maxSize) {
                     connection = createConnection();
                 } else {
-                    logger.error("The limit of number of database connections is exceeded");
-                    throw new ConnectionPoolException();
+                    throw new ConnectionPoolException("The limit of number of database connections is exceeded");
                 }
             } catch (InterruptedException | SQLException e) {
-                logger.error("It is impossible to connect to a database", e);
-                throw new ConnectionPoolException(e);
+                throw new ConnectionPoolException("It is impossible to connect to a database", e);
             }
         }
         usedConnections.add(connection);
