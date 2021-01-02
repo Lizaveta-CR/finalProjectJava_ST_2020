@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CategoriesCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             CategoryService service = factory.getService(CategoryService.class);
             Category category = service.getCategory();
@@ -22,6 +22,6 @@ public class CategoriesCommand extends Command {
         } catch (ServicePersistentException e) {
             throw new CommandException(e);
         }
-        return "/WEB-INF/pages/category.jsp";
+        return new Forward("/WEB-INF/pages/products/list.jsp", false);
     }
 }

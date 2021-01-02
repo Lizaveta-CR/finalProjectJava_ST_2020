@@ -19,11 +19,31 @@
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
+        <!--        Если поставить *.jsp, то программа зациклится, ибо самый первый запрос - "/",а он не будет обрабатываться servlet-ом-->
+        <!--                <url-pattern>*.jsp</url-pattern>-->
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.jpg</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>CommandFilter</filter-name>
+        <filter-class>by.tsvirko.music_shop.filter.CommandFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CommandFilter</filter-name>
+        <!--        <url-pattern>*.jsp</url-pattern>-->
+        <url-pattern>*.jsp</url-pattern>
+        <servlet-name>DispatcherServlet</servlet-name>
+    </filter-mapping>
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>by.tsvirko.music_shop.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
 
     <!--        <jsp_config>
             <taglib>

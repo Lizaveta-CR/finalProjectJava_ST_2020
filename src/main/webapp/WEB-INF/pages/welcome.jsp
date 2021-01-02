@@ -31,8 +31,10 @@
                 <div class="col-xs-6 col-sm-3" style="background-color:lavender;"><a href="<c:url value="#"/>"/>Login
                 </div>
                 <div class="col-xs-6 col-sm-3">
-                    <form method="post" action=<c:url value="welcome.jsp"/>/products}/>
-                        <input type="hidden" name="command" value="categories"/>
+                    <c:url value="/WEB-INF/pages/products/list.jsp" var="productsList"/>
+                    <%--                    <form method="post" action=<c:url value="welcome.jsp"/>/products/>--%>
+                    <form method="post" action="${pageContext.request.contextPath}/products/list">
+                        <%--                        <input type="hidden" name="command" value="categories"/>--%>
                         <button type="submit" class="btn btn-outline-primary">Show products</button>
                         <%--                    <button type="submit">Show products</button>--%>
                     </form>
