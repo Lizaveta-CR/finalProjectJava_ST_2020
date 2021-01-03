@@ -81,26 +81,28 @@ public class DispatcherServlet extends HttpServlet {
             CommandManager actionManager = CommandManagerFactory.getManager(getFactory());
             Command.Forward forward = actionManager.execute(command, req, resp);
             actionManager.close();
-            HttpSession session = req.getSession(false);
-            if (session != null) {
-                String requestedUri = req.getRequestURI();
-                if (forward != null && forward.isRedirect()) {
-                    String redirectedUri = req.getContextPath() + forward.getForward();
-                    logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
-                    resp.sendRedirect(redirectedUri);
-                } else {
-                    String jspPage = null;
-                    if (forward != null) {
-                        jspPage = forward.getForward();
-                    }
-                    jspPage = JSP_LOCATION + jspPage;
-                    logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));
-                    getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
-                }
+//            HttpSession session = req.getSession(false);
+//            if (session != null) {
+            String requestedUri = req.getRequestURI();
+            if (forward != null && forward.isRedirect()) {
+                String contextPath = req.getContextPath();
+                String redirectedUri = contextPath + forward.getForward();
+                logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
+                resp.sendRedirect(redirectedUri);
             } else {
-                //TODO: change to registration
-                getServletContext().getRequestDispatcher(JSP_LOCATION + "/login.jsp").forward(req, resp);
+                String jspPage = null;
+                if (forward != null) {
+                    jspPage = forward.getForward();
+                }
+                jspPage = JSP_LOCATION + jspPage;
+                logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));
+                getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
             }
+//            }
+//            else {
+//                TODO: change to registration
+//                getServletContext().getRequestDispatcher(JSP_LOCATION + "/login.jsp").forward(req, resp);
+//            }
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
 //            req.setAttribute("error", "Ошибка обработки данных");

@@ -22,6 +22,6 @@ public class CategoriesCommand extends Command {
         } catch (ServicePersistentException e) {
             throw new CommandException(e);
         }
-        return new Forward("/WEB-INF/pages/products/list.jsp", false);
+        return new Forward("/products/list.jsp", false);
     }
 }

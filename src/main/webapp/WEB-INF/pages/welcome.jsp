@@ -27,16 +27,22 @@
         <h2 class="text-center">We are happy to meet you!</h2>
         <h3 class="text-center">Choose what you want to do:</h3>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-6 col-sm-3" style="background-color:lavender;"><a href="<c:url value="#"/>"/>Login
-                </div>
+            <div class="col-xs-6 col-sm-3">
+                <c:if test="${sessionScope.authorizedUser == null}">
+                    <%--                <c:url value="login.jsp" var="loginUrl"/>--%>
+                    <div class="col-xs-6 col-sm-3" style="background-color:lavender;">
+                            <%--                    <form action="${loginUrl}" method="get">--%>
+                        <form action="${pageContext.request.contextPath}/login" method="get">
+                            <button type="submit" class="btn btn-outline-primary">Login</button>
+                        </form>
+                    </div>
+                </c:if>
                 <div class="col-xs-6 col-sm-3">
-                    <c:url value="/WEB-INF/pages/products/list.jsp" var="productsList"/>
+                    <%--                    <c:url value="products/list.jsp" var="productsListUrl"/>--%>
                     <%--                    <form method="post" action=<c:url value="welcome.jsp"/>/products/>--%>
-                    <form method="post" action="${pageContext.request.contextPath}/products/list">
-                        <%--                        <input type="hidden" name="command" value="categories"/>--%>
+                    <%--                    <form method="post" action="${productsListUrl}">--%>
+                    <form method="get" action="${pageContext.request.contextPath}/products/list">
                         <button type="submit" class="btn btn-outline-primary">Show products</button>
-                        <%--                    <button type="submit">Show products</button>--%>
                     </form>
                 </div>
             </div>

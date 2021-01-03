@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 public class MainCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward("/index.jsp",false);
+//        if (request.getSession(false).getAttribute("authorizedUser") != null) ;
+//        {
+//            request.s
+        return new Forward("/index.jsp", true);
+//        }
     }
 }

@@ -24,6 +24,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
     private static final String SQL_READ_ALL_USERS = "SELECT * FROM users";
     private static final String SQL_SELECT_USERS = "SELECT login, name,surname,password, role FROM users WHERE id = ?";
+    private static final String SQL_SELECT_USER_LOGIN_PASS = "SELECT id,name,surname, role FROM users WHERE login = ? AND password=?";
 
     /**
      * Reads all users from 'users' table
@@ -52,6 +53,55 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             }
             logger.debug("Users were read");
             return users;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+    }
+
+    /**
+     * Reads user by given password and login
+     *
+     * @param login
+     * @param password
+     * @return user
+     */
+    @Override
+    public Optional<User> read(String login, String password) throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_SELECT_USER_LOGIN_PASS);
+            statement.setString(1, login);
+            statement.setString(2, password);
+            resultSet = statement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt(Field.ID.value()));
+                user.setLogin(login);
+                user.setName(resultSet.getString(Field.NAME.value()));
+                user.setSurname(resultSet.getString(Field.SURNAME.value()));
+                user.setPassword(password);
+                user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
+            }
+            logger.debug("User with login=" + login + " was read");
+            return Optional.ofNullable(user);
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);

@@ -2,7 +2,9 @@ package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.CategoriesCommand;
+import by.tsvirko.music_shop.controller.command.impl.LoginCommand;
 import by.tsvirko.music_shop.controller.command.impl.MainCommand;
+import by.tsvirko.music_shop.controller.command.impl.ViewLoginCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,9 +26,11 @@ public class CommandFilter implements Filter {
 
     static {
         getCommands.put("/finalProject/", new MainCommand());
-        getCommands.put("/index", new MainCommand());
+//        getCommands.put("/index", new MainCommand());
+        getCommands.put("/login", new ViewLoginCommand());
 
-        postCommands.put("/products/list", new CategoriesCommand());
+        postCommands.put("/login", new LoginCommand());
+        getCommands.put("/products/list", new CategoriesCommand());
     }
 
     @Override
