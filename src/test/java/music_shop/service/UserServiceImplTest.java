@@ -43,7 +43,6 @@ public class UserServiceImplTest {
     @BeforeTest
     public void createUser() throws ServicePersistentException {
         user = new User();
-//        user.setId(1);
         user.setLogin("manager1");
         user.setName("Alexey");
         user.setSurname("Tsar");
@@ -77,7 +76,7 @@ public class UserServiceImplTest {
     }
 
     @DataProvider(name = "names")
-    public Object[] createCorrecttData() {
+    public Object[] createCorrectData() {
 
         return new Object[]{
                 "Kate"
@@ -91,9 +90,33 @@ public class UserServiceImplTest {
         Assert.assertEquals(name, user.getName());
     }
 
-    @Test()
+    @Test
     public void updateExceptionTest() {
         user.setName(null);
         Assert.assertThrows(ServicePersistentException.class, () -> userService.save(user));
+    }
+
+    @Test
+    public void findByLoginPassTest() throws ServicePersistentException {
+        User foundUser = userService.findByLoginAndPassword("elizTs", "elizTs");
+        int foundUserId = foundUser.getId();
+        Assert.assertEquals(foundUserId, 2);
+    }
+
+    @DataProvider(name = "loginPassToFind")
+    public Object[] loginPass() {
+
+        return new Object[][]{
+                {"Mashka", "12345"},
+                {"Mihas", "2000"},
+                {"Liza", null},
+                {null, "param"},
+                {null, null}
+        };
+    }
+
+    @Test(dataProvider = "loginPassToFind")
+    public void findByLoginPassExceptionTest(String login, String password) throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> userService.findByLoginAndPassword(login, password));
     }
 }

@@ -11,4 +11,7 @@ public interface UserService extends Service {
     void delete(Integer identity) throws ServicePersistentException;
 
     void save(User user) throws ServicePersistentException;
+
+    User findByLoginAndPassword(String login, String password) throws ServicePersistentException;
 }
+

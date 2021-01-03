@@ -62,4 +62,4 @@ INSERT INTO product_rates(id, mark, product_id, buyer_id)
 VALUES (1, 10, 1, 2),
        (2, 9, 2, 3);
 DELETE FROM  orders;
-DELETE FROM producers WHERE id =37;
+DELETE FROM products WHERE id =20;

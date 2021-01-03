@@ -15,9 +15,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() throws ServicePersistentException {
-        UserDAO dao;
         try {
-            dao = transaction.createDao(UserDAO.class, true);
+            UserDAO dao = transaction.createDao(UserDAO.class, true);
             List<User> list = dao.read();
             if (!list.isEmpty()) {
                 return list;
@@ -31,9 +30,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
-        UserDAO dao;
         try {
-            dao = transaction.createDao(UserDAO.class, false);
+            UserDAO dao = transaction.createDao(UserDAO.class, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -43,9 +41,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws ServicePersistentException {
-        UserDAO dao;
         try {
-            dao = transaction.createDao(UserDAO.class, false);
+            UserDAO dao = transaction.createDao(UserDAO.class, false);
             if (user.getId() != null) {
                 if (user.getPassword() != null) {
                     user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
@@ -70,13 +67,19 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         }
     }
 
-    public static void main(String[] args) {
+    @Override
+    public User findByLoginAndPassword(String login, String password) throws ServicePersistentException {
         try {
-            ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-            ProductService service = serviceFactory.getService(ProductService.class);
-            service.findAll().forEach(System.out::println);
-        } catch (PersistentException | ServicePersistentException e) {
-            e.printStackTrace();
+            UserDAO dao = transaction.createDao(UserDAO.class, false);
+            if (password != null) {
+                Optional<User> optionalUser = dao.read(login, PasswordUtil.hashPassword(password));
+                if (optionalUser.isPresent()) {
+                    return optionalUser.get();
+                }
+            }
+            throw new ServicePersistentException("No such user");
+        } catch (PersistentException | PasswordException e) {
+            throw new ServicePersistentException(e);
         }
     }
 }
