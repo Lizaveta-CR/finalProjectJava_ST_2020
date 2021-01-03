@@ -23,12 +23,13 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-//@WebServlet(name = "DispatcherServlet", urlPatterns = "/")
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
 
     private static final String DATASOURCE_NAME = "database";
     private static final String COMMAND_PARAMETER = "command";
+    private static final String JSP_LOCATION = "/WEB-INF/pages";
+    private static final String JSP_ERROR_LOCATION = "/WEB-INF/error/error.jsp";
 
     @Override
     public void init() {
@@ -78,33 +79,32 @@ public class DispatcherServlet extends HttpServlet {
 //                }
 //            }
             CommandManager actionManager = CommandManagerFactory.getManager(getFactory());
-//            if (command == null) {
-//                getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
-//            }
             Command.Forward forward = actionManager.execute(command, req, resp);
             actionManager.close();
-
-            String requestedUri = req.getRequestURI();
-            if (forward != null && forward.isRedirect()) {
-                String redirectedUri = req.getContextPath() + forward.getForward();
-                logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
-//                resp.sendRedirect(redirectedUri);
-                req.getRequestDispatcher(redirectedUri).forward(req, resp);
-            } else {
-                String jspPage;
-                if (forward != null) {
-                    jspPage = forward.getForward();
+            HttpSession session = req.getSession(false);
+            if (session != null) {
+                String requestedUri = req.getRequestURI();
+                if (forward != null && forward.isRedirect()) {
+                    String redirectedUri = req.getContextPath() + forward.getForward();
+                    logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
+                    resp.sendRedirect(redirectedUri);
                 } else {
-                    jspPage = forward.getForward();
+                    String jspPage = null;
+                    if (forward != null) {
+                        jspPage = forward.getForward();
+                    }
+                    jspPage = JSP_LOCATION + jspPage;
+                    logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));
+                    getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
                 }
-//                jspPage = "/WEB-INF/jsp" + jspPage;
-                logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));
-                getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
+            } else {
+                //TODO: change to registration
+                getServletContext().getRequestDispatcher(JSP_LOCATION + "/login.jsp").forward(req, resp);
             }
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
-            req.setAttribute("error", "Ошибка обработки данных");
-//            getServletContext().getRequestDispatcher("/WEB-INF/error/error.jsp").forward(req, resp);
+//            req.setAttribute("error", "Ошибка обработки данных");
+            getServletContext().getRequestDispatcher(JSP_ERROR_LOCATION).forward(req, resp);
         }
     }
 }

@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Filter to delegate commands
+ */
 public class CommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CommandFilter.class);
 
@@ -20,11 +23,10 @@ public class CommandFilter implements Filter {
     private static Map<String, Command> postCommands = new ConcurrentHashMap<>();
 
     static {
-        getCommands.put("/", new MainCommand());
+        getCommands.put("/finalProject/", new MainCommand());
         getCommands.put("/index", new MainCommand());
 
-//        postCommands.put("/products/list", new CategoriesCommand());
-        getCommands.put("/products/list", new CategoriesCommand());
+        postCommands.put("/products/list", new CategoriesCommand());
     }
 
     @Override
@@ -49,14 +51,14 @@ public class CommandFilter implements Filter {
                 actionName = uri.substring(beginAction);
             }
             Command command = null;
-//            switch (httpRequest.getMethod().toUpperCase()) {
-//                case "GET":
-            command = getCommands.get(actionName);
-//                    break;
-//                case "POST":
-//                    command = postCommands.get(actionName);
-//                    break;
-//            }
+            switch (httpRequest.getMethod().toUpperCase()) {
+                case "GET":
+                    command = getCommands.get(actionName);
+                    break;
+                case "POST":
+                    command = postCommands.get(actionName);
+                    break;
+            }
             if (command != null) {
                 httpRequest.setAttribute("command", command);
             } else {
