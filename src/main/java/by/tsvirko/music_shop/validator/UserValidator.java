@@ -11,7 +11,7 @@ public class UserValidator implements Validator<User> {
     public User validate(HttpServletRequest request) throws IncorrectFormDataException {
         User user = new User();
         String parameter = request.getParameter("identity");
-        if (parameter != null) {
+        if (parameter != null&&!parameter.isEmpty()) {
             try {
                 user.setId(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
@@ -36,11 +36,26 @@ public class UserValidator implements Validator<User> {
         } else {
             throw new IncorrectFormDataException("surname", parameter);
         }
+
+        String password = request.getParameter("password");
+        String confirmedPassword = request.getParameter("confirm_password");
+        if (!password.isEmpty() && !confirmedPassword.isEmpty()) {
+            if (password.equals(confirmedPassword)) {
+                user.setPassword(password);
+            } else {
+                throw new IncorrectFormDataException("password", password);
+            }
+        }
+
         parameter = request.getParameter("role");
-        try {
-            user.setRole(Role.getByIdentity(Integer.parseInt(parameter)));
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new IncorrectFormDataException("role", parameter);
+        if (parameter != null && !parameter.isEmpty()) {
+            try {
+                user.setRole(Role.getByIdentity(Integer.parseInt(parameter)));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                throw new IncorrectFormDataException("role", parameter);
+            }
+        } else {
+            user.setRole(Role.BUYER);
         }
         return user;
     }

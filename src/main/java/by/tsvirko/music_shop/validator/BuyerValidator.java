@@ -11,16 +11,7 @@ public class BuyerValidator implements Validator<Buyer> {
     @Override
     public Buyer validate(HttpServletRequest request) throws IncorrectFormDataException {
         Buyer buyer = new Buyer();
-        //TODO:
-        String parameter = request.getParameter("identity");
-//        if (parameter != null) {
-//            try {
-//                buyer.setId(Integer.parseInt(parameter));
-//            } catch (NumberFormatException e) {
-//                throw new IncorrectFormDataException("identity", parameter);
-//            }
-//        }
-        parameter = request.getParameter("email");
+        String parameter = request.getParameter("email");
         if (parameter != null && !parameter.isEmpty()) {
             buyer.setEmail(parameter);
         } else {

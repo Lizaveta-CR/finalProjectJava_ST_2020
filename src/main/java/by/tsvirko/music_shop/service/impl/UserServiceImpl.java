@@ -57,8 +57,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 }
                 dao.update(user);
             } else {
-                //TODO: think about new String()
-//                user.setPassword(PasswordUtil.hashPassword(new String()));
+                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
                 user.setId(dao.create(user));
             }
             transaction.commit();

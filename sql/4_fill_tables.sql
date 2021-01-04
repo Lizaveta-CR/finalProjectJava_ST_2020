@@ -62,8 +62,8 @@ INSERT INTO order_items(id, product_id, amount, price)
 VALUES (1, 1, 1, 1239.99),
        (5, 2, 1, 1219);
 #
-# DELETE
-# FROM product_rates;
+DELETE
+FROM users WHERE id=9;
 #
 # INSERT INTO product_rates(rate_id, value, product_id, buyer_id)
 # VALUES (1, 10, 1, 1);
