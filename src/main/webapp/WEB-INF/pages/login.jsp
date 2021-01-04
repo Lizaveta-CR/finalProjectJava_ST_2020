@@ -15,31 +15,42 @@
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/loginError.js"></script>
 </head>
 <body>
+<c:if test="${not empty message}">
+    <script>alert("${message}");</script>
+</c:if>
 <div class="sidenav">
     <div class="login-main-text">
         <h2>Login Page</h2>
         <p>Login or register from here to access.</p>
-        ${message}
-        <c:set var="message" value='${requestScope["message"]}'/>
-        <c:out value="${message}"/>
-        ${requestScope.message}
-<%--        <%= request.getAttribute("message") %>--%>
     </div>
 </div>
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <%--            <c:out value="${param.message}"/>--%>
+            <c:if test="${not empty message}">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    <a href="link">
+                        <img src='<c:url value="/img/errorLogin.jpg"></c:url>' alt="error" height="100" width="100"/>
+                    </a>
+                </div>
+            </c:if>
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="form-group" act>
                     <label>Login</label>
-                    <input type="text" class="form-control" placeholder="User Name" id="login" name="login">
+                    <input type="text" class="form-control" placeholder="User Name" id="login" name="login" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                    <input type="password" class="form-control" placeholder="Password" id="password" name="password"
+                           required oninvalid="this.setCustomValidity('Fill all fields!')">
                 </div>
                 <button type="submit" class="btn btn-black">Login</button>
                 <button type="submit" class="btn btn-secondary">Register</button>

@@ -39,16 +39,15 @@ public class LoginCommand extends Command {
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     return new Forward("/index.jsp");
-                } else {
-                    //TODO: не передается!
-//                    request.setAttribute("message", "Имя пользователя или пароль не опознанны");
-                    request.setAttribute("message", "Not recognized");
-                    logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
-                            login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                 }
             } catch (ServicePersistentException e) {
-                logger.error("Service can not be instantiated");
+//                    request.setAttribute("message", "Имя пользователя или пароль не опознанны");
+                request.setAttribute("message", "Not recognized");
+                logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
+                        login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
             }
+        } else {
+            request.setAttribute("message", "Not null!");
         }
         return new Forward("/login.jsp", false);
     }
