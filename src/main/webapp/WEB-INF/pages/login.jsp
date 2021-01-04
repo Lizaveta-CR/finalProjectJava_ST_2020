@@ -59,6 +59,7 @@
                 preventRefresh()
             </script>
         </div>
+        <a href="${pageContext.request.contextPath}/index.jsp">Main page</a>
     </div>
 </div>
 </body>

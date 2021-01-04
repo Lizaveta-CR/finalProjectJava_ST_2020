@@ -45,6 +45,15 @@
                         <button type="submit" class="btn btn-outline-primary">Show products</button>
                     </form>
                 </div>
+                <c:if test="${sessionScope.authorizedUser != null}">
+                    <%--                <c:url value="login.jsp" var="loginUrl"/>--%>
+                    <div class="col-xs-6 col-sm-3" style="background-color:lavender;">
+                            <%--                    <form action="${loginUrl}" method="get">--%>
+                        <form action="${pageContext.request.contextPath}/logout" method="get">
+                            <button type="submit" class="btn btn-outline-primary">Logout</button>
+                        </form>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

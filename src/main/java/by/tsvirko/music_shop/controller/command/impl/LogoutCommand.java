@@ -10,6 +10,6 @@ public class LogoutCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         request.getSession(false).invalidate();
-        return new Forward("/login.jsp");
+        return new Forward("/login.jsp", false);
     }
 }
