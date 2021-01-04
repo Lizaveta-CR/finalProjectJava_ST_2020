@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.impl;
+package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -10,6 +10,6 @@ public class LogoutCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         request.getSession(false).invalidate();
-        return new Forward("/login.jsp", false);
+        return new Forward("/login.jsp");
     }
 }

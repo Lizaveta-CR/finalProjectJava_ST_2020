@@ -15,12 +15,16 @@
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css"/>
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>
 <c:if test="${not empty message}">
     <script>alert("${message}");</script>
 </c:if>
+<script>
+    preventRefresh()
+</script>
 <div class="sidenav">
     <div class="login-main-text">
         <h2>Login Page</h2>
@@ -28,6 +32,15 @@
     </div>
 </div>
 <div class="main">
+    <div class="row">
+        <div class="col-md-4">
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/index.jsp" ROLE="button">Main
+                page</a>
+            <form action="${pageContext.request.contextPath}/registration" method="get">
+                <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+        </div>
+    </div>
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
             <c:if test="${not empty message}">
@@ -45,21 +58,18 @@
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="form-group" act>
                     <label>Login</label>
-                    <input type="text" class="form-control" placeholder="User Name" id="login" name="login" required>
+                    <input type="text" class="form-control" placeholder="User Name" id="login" name="login">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" id="password" name="password"
-                           required oninvalid="this.setCustomValidity('Fill all fields!')">
+                    <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                 </div>
                 <button type="submit" class="btn btn-black">Login</button>
-                <button type="submit" class="btn btn-secondary">Register</button>
             </form>
-            <script>
-                preventRefresh()
-            </script>
+            <%--            <div class="container">--%>
+            <%--            </div>--%>
         </div>
-        <a href="${pageContext.request.contextPath}/index.jsp">Main page</a>
+        <%--        <a href="${pageContext.request.contextPath}/index.jsp">Main page</a>--%>
     </div>
 </div>
 </body>

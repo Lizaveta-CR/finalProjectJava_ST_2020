@@ -1,0 +1,12 @@
+.my_panel > .panel-body {
+    padding: 0px;
+}
+
+.my_panel > .panel-body > img {
+    width: 100%;
+    height: 100%;
+}
+
+.my_panel > .panel-footer {
+    text-align: center;
+}

@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.impl;
+package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -11,9 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class LoginCommand extends Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -38,7 +35,7 @@ public class LoginCommand extends Command {
 //                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
-                    return new Forward("/index.jsp");
+                    return new Forward("/index.jsp", true);
                 }
             } catch (ServicePersistentException e) {
 //                    request.setAttribute("message", "Имя пользователя или пароль не опознанны");
@@ -46,10 +43,9 @@ public class LoginCommand extends Command {
                 logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
             }
+        } else {
+            request.setAttribute("message", "Not empty fields!");
         }
-//        else {
-//            request.setAttribute("message", "Not empty fields!");
-//        }
-        return new Forward("/login.jsp", false);
+        return new Forward("/login.jsp");
     }
 }

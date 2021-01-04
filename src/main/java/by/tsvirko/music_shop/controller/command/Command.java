@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Setter
 public abstract class Command {
-//    private User user;
+    //    private User user;
     protected ServiceFactory factory;
 
     public abstract Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
@@ -28,7 +28,7 @@ public abstract class Command {
         }
 
         public Forward(String forward) {
-            this(forward, true);
+            this(forward, false);
         }
 
         public String getForward() {
