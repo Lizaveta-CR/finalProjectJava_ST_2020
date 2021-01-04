@@ -12,7 +12,7 @@ public class MainCommand extends Command {
 //        if (request.getSession(false).getAttribute("authorizedUser") != null) ;
 //        {
 //            request.s
-        return new Forward("/index.jsp", true);
+        return new Forward("/index.jsp");
 //        }
     }
 }

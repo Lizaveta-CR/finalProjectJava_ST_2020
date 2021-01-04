@@ -27,7 +27,7 @@ public class LoginCommand extends Command {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        if (login != null && password != null) {
+        if (!login.isEmpty() && !password.isEmpty()) {
             UserService service = null;
             try {
                 service = factory.getService(UserService.class);
@@ -46,9 +46,10 @@ public class LoginCommand extends Command {
                 logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
             }
-        } else {
-            request.setAttribute("message", "Not null!");
         }
+//        else {
+//            request.setAttribute("message", "Not empty fields!");
+//        }
         return new Forward("/login.jsp", false);
     }
 }

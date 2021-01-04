@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
+import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @Setter
 public abstract class Command {
+//    private User user;
     protected ServiceFactory factory;
 
     public abstract Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;

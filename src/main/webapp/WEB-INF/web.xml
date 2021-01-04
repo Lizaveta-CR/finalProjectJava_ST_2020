@@ -30,6 +30,10 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>CommandFilter</filter-name>
         <filter-class>by.tsvirko.music_shop.filter.CommandFilter</filter-class>
