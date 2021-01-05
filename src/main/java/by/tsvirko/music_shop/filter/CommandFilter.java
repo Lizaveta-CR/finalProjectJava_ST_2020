@@ -55,6 +55,7 @@ public class CommandFilter implements Filter {
             } else {
                 actionName = uri.substring(beginAction);
             }
+//            uri = actionName;
             Command command = null;
             switch (httpRequest.getMethod().toUpperCase()) {
                 case "GET":
@@ -66,6 +67,7 @@ public class CommandFilter implements Filter {
             }
             if (command != null) {
                 httpRequest.setAttribute("command", command);
+//                httpRequest.set
             } else {
                 logger.error("It is impossible to create command handler object and use filter");
 //                servletRequest.getServletContext().getRequestDispatcher("/WEB-INF/error.jsp");

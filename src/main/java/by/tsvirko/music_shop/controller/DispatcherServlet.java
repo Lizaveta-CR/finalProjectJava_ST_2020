@@ -100,11 +100,6 @@ public class DispatcherServlet extends HttpServlet {
                 logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));
                 getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
             }
-//            }
-//            else {
-//                TODO: change to registration
-//                getServletContext().getRequestDispatcher(JSP_LOCATION + "/login.jsp").forward(req, resp);
-//            }
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
 //            req.setAttribute("error", "Ошибка обработки данных");

@@ -82,11 +82,11 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
      */
     @Override
     public Integer create(Buyer entity) throws PersistentException {
-        Integer index = null;
+        Integer index = entity.getId();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_INSERT_BUYER, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(SQL_INSERT_BUYER);
             statement.setInt(1, entity.getId());
             statement.setString(2, entity.getEmail());
             statement.setLong(3, entity.getTelephone());
@@ -95,14 +95,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             statement.setBoolean(6, entity.getEnabled());
             statement.executeUpdate();
 
-            resultSet = statement.getGeneratedKeys();
 
-            if (resultSet.next()) {
-                index = resultSet.getInt(1);
-            } else {
-                logger.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new PersistentException();
-            }
             logger.debug("Buyer with id= " + index + " was created");
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");

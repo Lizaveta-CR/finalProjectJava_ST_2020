@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class RegisterCommand extends Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
@@ -47,6 +48,9 @@ public class RegisterCommand extends Command {
                 userService.save(user);
                 buyer.setId(user.getId());
                 buyerService.save(buyer);
+                HttpSession session = request.getSession();
+                //TODO: наверное через forward.attr
+                session.setAttribute("authorizedUser", user.getName());
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
                 forward.setForward("/registration.jsp");
