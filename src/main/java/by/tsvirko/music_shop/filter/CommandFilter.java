@@ -1,7 +1,6 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
-import by.tsvirko.music_shop.controller.command.impl.*;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,11 +23,14 @@ public class CommandFilter implements Filter {
 
     static {
         getCommands.put("/finalProject/", new MainCommand());
+        getCommands.put("/", new MainCommand());
         getCommands.put("/index", new MainCommand());
         getCommands.put("/login", new ViewLoginCommand());
         getCommands.put("/logout", new LogoutCommand());
         getCommands.put("/registration", new ViewRegisterCommand());
         getCommands.put("/products/list", new CategoriesCommand());
+//        getCommands.put("/buyer/buyerForm", new CategoriesCommand());
+
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());

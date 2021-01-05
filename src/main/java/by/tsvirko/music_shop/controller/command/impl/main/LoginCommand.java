@@ -3,6 +3,7 @@ package by.tsvirko.music_shop.controller.command.impl.main;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
+import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import org.apache.logging.log4j.LogManager;
@@ -11,14 +12,18 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LoginCommand extends Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
-//    private static Map<Role, List<String>> menu = new ConcurrentHashMap<>();
+    private static Map<Role, String> menu = new ConcurrentHashMap<>();
 
-//    static {
-//        menu.put(Role.BUYER, )
-//    }
+    //
+    static {
+        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
+    }
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -37,7 +42,8 @@ public class LoginCommand extends Command {
 //                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
-                    forward.setForward("/index.jsp");
+                    forward.setForward(menu.get(user.getRole()));
+                    forward.setRedirect(false);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

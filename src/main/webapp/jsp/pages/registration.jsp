@@ -27,9 +27,6 @@
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>
-<script>
-    preventRefresh()
-</script>
 
 <div class="page-wrapper bg-dark p-t-100 p-b-50">
     <div class="wrapper wrapper--w900">

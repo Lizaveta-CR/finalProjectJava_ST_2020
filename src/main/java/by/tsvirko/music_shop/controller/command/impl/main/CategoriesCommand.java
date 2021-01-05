@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.impl;
+package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;

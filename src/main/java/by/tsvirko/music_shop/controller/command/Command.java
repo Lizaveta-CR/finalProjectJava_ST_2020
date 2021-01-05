@@ -2,18 +2,26 @@ package by.tsvirko.music_shop.controller.command;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
+import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import lombok.Setter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Setter
 public abstract class Command {
+    private Set<Role> allowRoles = new HashSet<>();
     //    private User user;
     protected ServiceFactory factory;
+
+    public Set<Role> getAllowRoles() {
+        return allowRoles;
+    }
 
     public abstract Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
 
