@@ -28,8 +28,9 @@ public class DispatcherServlet extends HttpServlet {
 
     private static final String DATASOURCE_NAME = "database";
     private static final String COMMAND_PARAMETER = "command";
-    private static final String JSP_LOCATION = "/WEB-INF/pages";
-    private static final String JSP_ERROR_LOCATION = "/WEB-INF/error/error.jsp";
+    private static final String JSP_LOCATION = "/jsp/pages";
+    //TODO: может это в WEB_INF?
+    private static final String JSP_ERROR_LOCATION = "/jsp/error/error.jsp";
 
     @Override
     public void init() {
@@ -67,22 +68,23 @@ public class DispatcherServlet extends HttpServlet {
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Command command = (Command) req.getAttribute(COMMAND_PARAMETER);
         try {
-//            HttpSession session = req.getSession(false);
-//            if (session != null) {
+            HttpSession session = req.getSession(false);
+            if (session != null) {
 //                @SuppressWarnings("unchecked")
-//                Map<String, Object> attributes = (Map<String, Object>) session.getAttribute("redirectedData");
-//                if (attributes != null) {
-//                    for (String key : attributes.keySet()) {
-//                        request.setAttribute(key, attributes.get(key));
-//                    }
-//                    session.removeAttribute("redirectedData");
-//                }
-//            }
+                Map<String, Object> attributes = (Map<String, Object>) session.getAttribute("redirectedData");
+                if (attributes != null) {
+                    for (String key : attributes.keySet()) {
+                        req.setAttribute(key, attributes.get(key));
+                    }
+                    session.removeAttribute("redirectedData");
+                }
+            }
             CommandManager actionManager = CommandManagerFactory.getManager(getFactory());
             Command.Forward forward = actionManager.execute(command, req, resp);
             actionManager.close();
-//            HttpSession session = req.getSession(false);
-//            if (session != null) {
+            if (session != null && forward != null && !forward.getAttributes().isEmpty()) {
+                session.setAttribute("redirectedData", forward.getAttributes());
+            }
             String requestedUri = req.getRequestURI();
             if (forward != null && forward.isRedirect()) {
                 String contextPath = req.getContextPath();

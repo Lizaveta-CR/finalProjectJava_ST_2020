@@ -19,12 +19,6 @@
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>
-<c:if test="${not empty message}">
-    <script>alert("${message}");</script>
-</c:if>
-<script>
-    preventRefresh()
-</script>
 <div class="sidenav">
     <div class="login-main-text">
         <h2>Login Page</h2>
@@ -43,10 +37,12 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <c:if test="${not empty message}">
+            <c:if test="${not empty redirectedData}">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
+                        <c:forEach items="${redirectedData}" var="item" varStatus="status">
+                            <p class="bg-danger text-center lead"><c:out value="${item.value}"/></p>
+                        </c:forEach>
                     </div>
                 </div>
                 <div style="text-align: center">

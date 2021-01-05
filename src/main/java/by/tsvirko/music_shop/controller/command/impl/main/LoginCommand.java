@@ -22,6 +22,8 @@ public class LoginCommand extends Command {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        Forward forward = new Forward("jsp/pages/login.jsp", true);
+
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         if (!login.isEmpty() && !password.isEmpty()) {
@@ -35,17 +37,20 @@ public class LoginCommand extends Command {
 //                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
-                    return new Forward("/index.jsp", true);
+                    forward.setForward("/index.jsp");
+                    return forward;
                 }
             } catch (ServicePersistentException e) {
-//                    request.setAttribute("message", "Имя пользователя или пароль не опознанны");
-                request.setAttribute("message", "Not recognized");
+                forward.getAttributes().put("message", "Not recognized");
+//                request.setAttribute("message", "Имя пользователя или пароль не опознанны");
+//                request.setAttribute("redirectedData", "Not recognized");
                 logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
+                return forward;
             }
-        } else {
-            request.setAttribute("message", "Not empty fields!");
         }
-        return new Forward("/login.jsp");
+        forward.getAttributes().put("message", "Not empty fields!");
+//        request.setAttribute("message", "Not empty fields!");
+        return forward;
     }
 }
