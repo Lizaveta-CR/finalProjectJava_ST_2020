@@ -19,6 +19,11 @@
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
 <div class="sidenav">
     <div class="login-main-text">
         <h2>Login Page</h2>
@@ -28,7 +33,7 @@
 <div class="main">
     <div class="row">
         <div class="col-md-4">
-<%--            <c:url value="/index.jsp" var="main"/>--%>
+            <%--            <c:url value="/index.jsp" var="main"/>--%>
             <%--            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/index.jsp" ROLE="button">Main--%>
             <%--            <a class="btn btn-secondary" href="${main}" ROLE="button">Main page</a>--%>
             <%--            <c:url value="registration.jsp" var="main"/>--%>
@@ -39,12 +44,13 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <c:if test="${not empty redirectedData}">
+            <c:if test="${not empty message}">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <c:forEach items="${redirectedData}" var="item" varStatus="status">
-                            <p class="bg-danger text-center lead"><c:out value="${item.value}"/></p>
-                        </c:forEach>
+                            <%--                        <c:forEach items="${redirectedData}" var="item" varStatus="status">--%>
+                        <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
+                            <%--                            <p class="bg-danger text-center lead"><c:out value="${item.value}"/></p>--%>
+                            <%--                        </c:forEach>--%>
                     </div>
                 </div>
                 <div style="text-align: center">

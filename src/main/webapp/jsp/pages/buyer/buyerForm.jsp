@@ -12,5 +12,6 @@
 </head>
 <body>
 buyer
+<a href="/index.jsp">main</a>
 </body>
 </html>

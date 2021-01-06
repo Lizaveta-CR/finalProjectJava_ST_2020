@@ -96,6 +96,9 @@ public class DispatcherServlet extends HttpServlet {
                 String jspPage = null;
                 if (forward != null) {
                     jspPage = forward.getForward();
+                } else {
+                    //TODO: для всех
+                    jspPage = command.getName() + ".jsp";
                 }
                 jspPage = JSP_LOCATION + jspPage;
                 logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));

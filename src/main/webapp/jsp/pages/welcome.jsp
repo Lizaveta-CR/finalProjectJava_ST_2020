@@ -32,9 +32,8 @@
             <div class="col-xs-6 col-sm-3">
                 <c:if test="${sessionScope.authorizedUser == null}">
                     <div class="col-xs-6 col-sm-3" style="background-color:lavender;">
-
-                            <%--                                                    <c:url value="login.jsp" var="loginUrl"/>--%>
-                            <%--                        <c:url value="login" var="loginUrl"/>--%>
+                                                                                <c:url value="/login" var="loginUrl"/>
+<%--                        <c:url value="login.jsp" var="loginUrl"/>--%>
                             <%--                        <form action="${loginUrl}" method="get">--%>
                             <%--                        <form action="${loginUrl}" method="get">--%>
                         <form action="${pageContext.request.contextPath}/login" method="get">

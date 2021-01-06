@@ -15,12 +15,17 @@ import java.util.Set;
 
 @Setter
 public abstract class Command {
+    private String name;
     private Set<Role> allowRoles = new HashSet<>();
     //    private User user;
     protected ServiceFactory factory;
 
     public Set<Role> getAllowRoles() {
         return allowRoles;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public abstract Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
@@ -58,5 +63,6 @@ public abstract class Command {
         public Map<String, Object> getAttributes() {
             return attributes;
         }
+
     }
 }

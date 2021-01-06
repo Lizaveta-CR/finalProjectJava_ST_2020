@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
+import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -17,13 +18,14 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Set;
 
-public class RegisterCommand extends GlobalCommand {
+public class RegisterCommand extends Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
-        Forward forward = new Forward("/welcome.jsp");
+        Forward forward = new Forward("/welcome.jsp", true);
         User user = null;
         Buyer buyer = null;
         try {
@@ -37,9 +39,9 @@ public class RegisterCommand extends GlobalCommand {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
+            forward.setForward("/registration");
             request.setAttribute("message", "Incorrect data. Check fields");
-            forward.setForward("/registration.jsp");
-            return forward;
+            return null;
         }
         if (user != null && buyer != null) {
             try {
@@ -53,10 +55,15 @@ public class RegisterCommand extends GlobalCommand {
                 session.setAttribute("authorizedUser", user.getName());
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                forward.setForward("/registration.jsp");
-                return forward;
+//                forward.setForward("/registration.jsp");
+                return null;
             }
         }
         return forward;
+    }
+
+    @Override
+    public Set<Role> getAllowRoles() {
+        return null;
     }
 }

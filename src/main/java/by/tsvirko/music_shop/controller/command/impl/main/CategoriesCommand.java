@@ -4,14 +4,16 @@ import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Component;
+import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.CategoryService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 
-public class CategoriesCommand extends GlobalCommand {
+public class CategoriesCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
@@ -23,5 +25,10 @@ public class CategoriesCommand extends GlobalCommand {
             throw new CommandException(e);
         }
         return new Forward("/products/list.jsp");
+    }
+
+    @Override
+    public Set<Role> getAllowRoles() {
+        return null;
     }
 }

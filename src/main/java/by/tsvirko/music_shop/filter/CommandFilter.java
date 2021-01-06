@@ -72,6 +72,7 @@ public class CommandFilter implements Filter {
             }
             if (command != null) {
                 httpRequest.setAttribute("command", command);
+                command.setName(actionName);
 //                httpRequest.set
             } else {
                 logger.error("It is impossible to create command handler object and use filter");

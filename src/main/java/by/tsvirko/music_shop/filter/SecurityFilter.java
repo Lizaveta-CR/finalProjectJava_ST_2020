@@ -1,7 +1,6 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
-import by.tsvirko.music_shop.controller.command.impl.main.GlobalCommand;
 import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
@@ -30,17 +29,7 @@ public class SecurityFilter implements Filter {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             Command command = (Command) httpRequest.getAttribute("command");
             Set<Role> allowRoles = command.getAllowRoles();
-            if (command instanceof GlobalCommand) {
-                if (command.getClass() == MainCommand.class) {
-                    httpRequest.getServletContext().getRequestDispatcher("/index.jsp")
-                            .forward(servletRequest, servletResponse);
-                } else {
-                    httpRequest.getServletContext().getRequestDispatcher(httpRequest.getContextPath() + httpRequest.getRequestURI())
-                            .forward(servletRequest, servletResponse);
-                }
-//                httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
-                return;
-            }
+
             HttpSession session = httpRequest.getSession(false);
             User user = null;
             if (session != null) {
@@ -50,37 +39,36 @@ public class SecurityFilter implements Filter {
                     httpRequest.setAttribute("message", errorMessage);
                     session.removeAttribute("securityFilterMessage");
                 }
+//                Object redirectedData = session.getAttribute("redirectedData");
+//                if (redirectedData != null) {
+//                    httpRequest.setAttribute("redirectedData", redirectedData);
+//                }
             }
-            boolean canExecute;
+            boolean canExecute = allowRoles == null;
+
             if (user != null) {
-                canExecute = allowRoles.contains(user.getRole());
-            } else {
-                canExecute = allowRoles.isEmpty();
+                canExecute = canExecute || allowRoles.contains(user.getRole());
             }
+//            else {
+//                canExecute = allowRoles.isEmpty();
+//            }
             if (canExecute) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
 //                logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
                 if (session != null && command.getClass() != MainCommand.class) {
                     session.setAttribute("securityFilterMessage", "Доступ запрещён");
-//                    httpRequest.getServletContext().getRequestDispatcher(httpRequest.getContextPath() + "/index.jsp")
-//                            .forward(httpRequest, httpResponse);
-//                    return;
-                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
                 }
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+                //TODO: а что тогда в командах, в которых не нужны роли?
 //                else {
-//                httpRequest.getServletContext().getRequestDispatcher(httpRequest.getContextPath() + "/index.jsp")
-//                        .forward(httpRequest, httpResponse);
-//                httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
+//                    filterChain.doFilter(servletRequest, servletResponse);
 //                }
-
-//                return;
             }
         } else {
             logger.error("It is impossible to use HTTP filter");
             servletRequest.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(servletRequest, servletResponse);
         }
-
     }
 
     @Override
