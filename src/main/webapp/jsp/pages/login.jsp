@@ -28,8 +28,10 @@
 <div class="main">
     <div class="row">
         <div class="col-md-4">
-            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/index.jsp" ROLE="button">Main
-                page</a>
+<%--            <c:url value="/index.jsp" var="main"/>--%>
+            <%--            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/index.jsp" ROLE="button">Main--%>
+            <%--            <a class="btn btn-secondary" href="${main}" ROLE="button">Main page</a>--%>
+            <%--            <c:url value="registration.jsp" var="main"/>--%>
             <form action="${pageContext.request.contextPath}/registration" method="get">
                 <button type="submit" class="btn btn-secondary">Register</button>
             </form>

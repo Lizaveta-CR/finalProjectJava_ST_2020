@@ -1,12 +1,14 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
+import by.tsvirko.music_shop.controller.command.impl.admin.ShowUsersCommand;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,6 +31,8 @@ public class CommandFilter implements Filter {
         getCommands.put("/logout", new LogoutCommand());
         getCommands.put("/registration", new ViewRegisterCommand());
         getCommands.put("/products/list", new CategoriesCommand());
+
+        getCommands.put("/admin/users", new ShowUsersCommand());
 //        getCommands.put("/buyer/buyerForm", new CategoriesCommand());
 
 
@@ -57,7 +61,6 @@ public class CommandFilter implements Filter {
             } else {
                 actionName = uri.substring(beginAction);
             }
-//            uri = actionName;
             Command command = null;
             switch (httpRequest.getMethod().toUpperCase()) {
                 case "GET":

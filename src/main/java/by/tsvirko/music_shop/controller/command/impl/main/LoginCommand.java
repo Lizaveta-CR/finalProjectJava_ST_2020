@@ -16,13 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LoginCommand extends Command {
+public class LoginCommand extends GlobalCommand {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static Map<Role, String> menu = new ConcurrentHashMap<>();
 
     //
     static {
         menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
+        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
+        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
 
     @Override
@@ -38,12 +40,13 @@ public class LoginCommand extends Command {
                 User user = service.findByLoginAndPassword(login, password);
                 if (user != null) {
                     HttpSession session = request.getSession();
-                    session.setAttribute("authorizedUser", user.getLogin());
+                    //TODO: класть не целого юзера, потом это поменять в security filter
+                    session.setAttribute("authorizedUser", user);
 //                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     forward.setForward(menu.get(user.getRole()));
-                    forward.setRedirect(false);
+//                    forward.setRedirect(false);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

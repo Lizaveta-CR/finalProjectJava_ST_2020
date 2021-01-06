@@ -6,7 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogoutCommand extends Command {
+public class LogoutCommand extends GlobalCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         request.getSession(false).invalidate();

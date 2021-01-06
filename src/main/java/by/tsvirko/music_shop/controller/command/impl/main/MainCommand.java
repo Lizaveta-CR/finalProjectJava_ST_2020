@@ -6,7 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MainCommand extends Command {
+public class MainCommand extends GlobalCommand {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         return new Forward("/index.jsp", true);

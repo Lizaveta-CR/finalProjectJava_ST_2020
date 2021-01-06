@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class CategoriesCommand extends Command {
+public class CategoriesCommand extends GlobalCommand {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class RegisterCommand extends Command {
+public class RegisterCommand extends GlobalCommand {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 
     @Override

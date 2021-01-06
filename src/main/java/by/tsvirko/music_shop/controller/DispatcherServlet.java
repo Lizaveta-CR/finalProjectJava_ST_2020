@@ -90,6 +90,7 @@ public class DispatcherServlet extends HttpServlet {
                 String contextPath = req.getContextPath();
                 String redirectedUri = contextPath + forward.getForward();
                 logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
+//                getServletContext().getRequestDispatcher(redirectedUri).forward(req, resp);
                 resp.sendRedirect(redirectedUri);
             } else {
                 String jspPage = null;
@@ -103,7 +104,7 @@ public class DispatcherServlet extends HttpServlet {
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
 //            req.setAttribute("error", "Ошибка обработки данных");
-            getServletContext().getRequestDispatcher(JSP_ERROR_LOCATION).forward(req, resp);
+//            getServletContext().getRequestDispatcher(JSP_ERROR_LOCATION).forward(req, resp);
         }
     }
 }

@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.domain.enums;
 
+//TODO:delete
 public enum InstrumentType {
     GUITAR("guitar"),
     VIOLIN("violin"),

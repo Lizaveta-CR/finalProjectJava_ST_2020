@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
+import by.tsvirko.music_shop.controller.command.impl.main.GlobalCommand;
 import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
@@ -28,28 +29,33 @@ public class SecurityFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             Command command = (Command) httpRequest.getAttribute("command");
-            if (command.getClass() == MainCommand.class) {
-                httpRequest.getServletContext().getRequestDispatcher("/index.jsp").forward(httpRequest, httpResponse);
+            Set<Role> allowRoles = command.getAllowRoles();
+            if (command instanceof GlobalCommand) {
+                if (command.getClass() == MainCommand.class) {
+                    httpRequest.getServletContext().getRequestDispatcher("/index.jsp")
+                            .forward(servletRequest, servletResponse);
+                } else {
+                    httpRequest.getServletContext().getRequestDispatcher(httpRequest.getContextPath() + httpRequest.getRequestURI())
+                            .forward(servletRequest, servletResponse);
+                }
+//                httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
                 return;
             }
-            Set<Role> allowRoles = command.getAllowRoles();
-//            String userName = "unauthorized user";
             HttpSession session = httpRequest.getSession(false);
             User user = null;
             if (session != null) {
                 user = (User) session.getAttribute("authorizedUser");
-//                command.setAuthorizedUser(user);
                 String errorMessage = (String) session.getAttribute("securityFilterMessage");
                 if (errorMessage != null) {
                     httpRequest.setAttribute("message", errorMessage);
                     session.removeAttribute("securityFilterMessage");
                 }
             }
-            boolean canExecute = false;
+            boolean canExecute;
             if (user != null) {
-//                userName = "\"" + user.getLogin() + "\" user";
-//                canExecute = canExecute || allowRoles.contains(user.getRole());
                 canExecute = allowRoles.contains(user.getRole());
+            } else {
+                canExecute = allowRoles.isEmpty();
             }
             if (canExecute) {
                 filterChain.doFilter(servletRequest, servletResponse);
@@ -57,12 +63,22 @@ public class SecurityFilter implements Filter {
 //                logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
                 if (session != null && command.getClass() != MainCommand.class) {
                     session.setAttribute("securityFilterMessage", "Доступ запрещён");
+//                    httpRequest.getServletContext().getRequestDispatcher(httpRequest.getContextPath() + "/index.jsp")
+//                            .forward(httpRequest, httpResponse);
+//                    return;
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
                 }
-//                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+//                else {
+//                httpRequest.getServletContext().getRequestDispatcher(httpRequest.getContextPath() + "/index.jsp")
+//                        .forward(httpRequest, httpResponse);
+//                httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
+//                }
+
+//                return;
             }
         } else {
             logger.error("It is impossible to use HTTP filter");
-//            request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+            servletRequest.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(servletRequest, servletResponse);
         }
 
     }
