@@ -38,7 +38,7 @@
         <Logger name="by.tsvirko.music_shop.filter" level="error" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
-        <Logger name="by.tsvirko.music_shop.listener" level="debug" additivity="true">
+        <Logger name="by.tsvirko.music_shop.listener" level="info" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
     </Loggers>
