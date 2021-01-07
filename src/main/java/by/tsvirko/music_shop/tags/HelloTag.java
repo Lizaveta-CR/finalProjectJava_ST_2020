@@ -1,34 +1,29 @@
 package by.tsvirko.music_shop.tags;
 
+import by.tsvirko.music_shop.service.Service;
+import by.tsvirko.music_shop.util.ResourceBundleUtil;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.ResourceBundle;
 
+@SuppressWarnings("serial")
 public class HelloTag extends TagSupport {
-//    private Product product;
+    private String name;
 
-//    public void setProduct(Product product) {
-//        this.product = product;
-//    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public int doStartTag() throws JspException {
-//        String welcomeMessage = product.getModel() + " costs " + product.getPrice();
-//        try {
-//            pageContext.getOut().write("<div>" + welcomeMessage + "</div>");
-//        } catch (IOException e) {
-//            throw new JspException(e.getMessage());
-//        }
-//        return SKIP_BODY;
-        GregorianCalendar gc = new GregorianCalendar();
-        String time = "<hr/>Time : <b> " + gc.getTime() + " </b><hr/>";
-        String locale = "Locale : <b> " + Locale.getDefault() + " </b><hr/> ";
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        String title = rb.getString("label.welcome");
         try {
-            JspWriter out = pageContext.getOut();
-            out.write(time + locale);
+            pageContext.getOut().write("<hr/>" + title + ", " + name + "<hr/>");
         } catch (IOException e) {
             throw new JspException(e.getMessage());
         }
