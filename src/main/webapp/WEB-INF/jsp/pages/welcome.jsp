@@ -51,7 +51,7 @@
                 </div>
                 <c:if test="${sessionScope.authorizedUser != null}">
                     <div class="col-xs-6 col-sm-3" style="background-color:lavender;">
-                        <a class="btn btn-primary" href="<c:url value="/products/list"/>" role="button"><fmt:message
+                        <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message
                                 key="label.title.logout"/></a>
                             <%--                        <form action="${pageContext.request.contextPath}/logout" method="get">--%>
                             <%--                            <button type="submit" class="btn btn-outline-primary">Logout</button>--%>

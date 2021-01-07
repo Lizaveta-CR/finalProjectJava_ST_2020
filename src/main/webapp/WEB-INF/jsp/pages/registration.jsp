@@ -77,8 +77,9 @@
                         <div class="name"><fmt:message key="label.register.pass"/></div>
                         <div class="value">
                             <input class="input--style-6" type="password" id="password" name="password"
-                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+<%--                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"--%>
+<%--                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"--%>
+                            >
                         </div>
                     </div>
                     <%--                    <div id="message">--%>

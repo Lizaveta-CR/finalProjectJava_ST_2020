@@ -36,20 +36,20 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter>
-        <filter-name>CookieLocaleFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.CookieLocaleFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CookieLocaleFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <servlet-name>DispatcherServlet</servlet-name>
-    </filter-mapping>
-    <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>by.tsvirko.music_shop.filter.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <servlet-name>DispatcherServlet</servlet-name>
+    </filter-mapping>
+    <filter>
+        <filter-name>CookieLocaleFilter</filter-name>
+        <filter-class>by.tsvirko.music_shop.filter.CookieLocaleFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CookieLocaleFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <servlet-name>DispatcherServlet</servlet-name>
     </filter-mapping>

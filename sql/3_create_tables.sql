@@ -23,7 +23,7 @@ CREATE TABLE buyers
     buyer_id  INTEGER                     NOT NULL,
     email     VARCHAR(255)                NOT NULL,
     telephone BIGINT(15)                  NOT NULL UNIQUE,
-    balance   DECIMAL(10, 2),
+    balance   DECIMAL(10, 2), 
     bonus     DECIMAL(10, 2) DEFAULT 0    NOT NULL,
 #     for blocking
     enabled   BOOLEAN        DEFAULT true NOT NULL,

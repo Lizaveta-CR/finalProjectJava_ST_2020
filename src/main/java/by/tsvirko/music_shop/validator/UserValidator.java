@@ -5,13 +5,16 @@ import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ResourceBundle;
 
 public class UserValidator implements Validator<User> {
+    //TODO: private ResourceBundle rb;
+
     @Override
     public User validate(HttpServletRequest request) throws IncorrectFormDataException {
         User user = new User();
         String parameter = request.getParameter("identity");
-        if (parameter != null&&!parameter.isEmpty()) {
+        if (parameter != null && !parameter.isEmpty()) {
             try {
                 user.setId(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {

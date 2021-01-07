@@ -59,6 +59,7 @@ public class RegisterCommand extends Command {
                 session.setAttribute("authorizedUser", user.getName());
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
+                request.setAttribute("message", rb.getString("app.message.register.duplicate"));
                 return null;
             }
         }
