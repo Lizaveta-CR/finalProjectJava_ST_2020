@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 public class SecurityFilter implements Filter {
@@ -52,7 +54,8 @@ public class SecurityFilter implements Filter {
             } else {
                 logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
                 if (session != null && command.getClass() != MainCommand.class) {
-                    session.setAttribute("securityFilterMessage", "Доступ запрещён");
+                    ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
+                    session.setAttribute("securityFilterMessage", rb.getString("app.message.security"));
                 }
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
             }

@@ -27,6 +27,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/finalProject/", new MainCommand());
         getCommands.put("/", new MainCommand());
         getCommands.put("/index", new MainCommand());
+        getCommands.put("/welcome", new MainCommand());
         getCommands.put("/login", new ViewLoginCommand());
         getCommands.put("/logout", new LogoutCommand());
         getCommands.put("/registration", new ViewRegisterCommand());

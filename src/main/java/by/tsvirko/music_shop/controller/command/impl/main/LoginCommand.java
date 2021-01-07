@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,8 +31,8 @@ public class LoginCommand extends Command {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-//        Forward forward = new Forward("/login", true);
         Forward forward = new Forward("/login", true);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         String login = request.getParameter("login");
         String password = request.getParameter("password");
@@ -51,17 +53,13 @@ public class LoginCommand extends Command {
                     return forward;
                 }
             } catch (ServicePersistentException e) {
-//                forward.getAttributes().put("message", "Not recognized");
-                request.setAttribute("message", "Имя пользователя или пароль не опознанны");
-//                request.setAttribute("redirectedData", "Not recognized");
+                request.setAttribute("message", rb.getString("app.message.login.notRecognized"));
                 logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                 return null;
             }
         }
-        //TODO: return null как у нее в проекте
-//        forward.getAttributes().put("message", "Not empty fields!");
-        request.setAttribute("message", "Not empty fields!");
+        request.setAttribute("message", rb.getString("app.message.login.empty"));
         return null;
     }
 

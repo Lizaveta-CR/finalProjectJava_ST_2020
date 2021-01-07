@@ -1,11 +1,6 @@
 package by.tsvirko.music_shop.dao.database;
 
 public enum Field {
-    //                product.setCategoryNum(resultSet.getInt("category_id"));
-//                product.setModel(resultSet.getString("model"));
-//                product.setAvailable(resultSet.getBoolean("available"));
-//                product.setDescription(resultSet.getString("description"));
-//                product.setImage_url(resultSet.getString("img"));
     ID("id"),
     BUYER_ID("buyer_id"),
     COUNTRY_ID("country_id"),

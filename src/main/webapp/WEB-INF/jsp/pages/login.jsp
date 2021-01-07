@@ -38,12 +38,12 @@
 <div class="main">
     <div class="row">
         <div class="col-md-4">
-            <%--            <c:url value="/index.jsp" var="main"/>--%>
-            <%--            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/index.jsp" ROLE="button">Main--%>
-            <%--            <a class="btn btn-secondary" href="${main}" ROLE="button">Main page</a>--%>
-            <%--            <c:url value="registration.jsp" var="main"/>--%>
             <form action="${pageContext.request.contextPath}/registration" method="get">
                 <button type="submit" class="btn btn-secondary"><fmt:message key="label.register.title"/></button>
+            </form>
+            <form action="<c:url value="/welcome"/>" method="get">
+                <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                        key="label.button.back"/></button>
             </form>
         </div>
     </div>
@@ -67,11 +67,13 @@
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="form-group" act>
                     <label><fmt:message key="label.register.login"/></label>
-                    <input type="text" class="form-control" placeholder=<fmt:message key="label.register.login"/> id="login" name="login">
+                    <input type="text" class="form-control" placeholder=
+                    <fmt:message key="label.register.login"/> id="login" name="login">
                 </div>
                 <div class="form-group">
                     <label><fmt:message key="label.register.pass"/></label>
-                    <input type="password" class="form-control" placeholder=<fmt:message key="label.register.pass"/> id="password" name="password">
+                    <input type="password" class="form-control" placeholder=
+                    <fmt:message key="label.register.pass"/> id="password" name="password">
                 </div>
                 <button type="submit" class="btn btn-black"><fmt:message key="label.title.login"/></button>
             </form>

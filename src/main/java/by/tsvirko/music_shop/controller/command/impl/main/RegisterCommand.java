@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.ValidatorFactory;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
@@ -18,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 public class RegisterCommand extends Command {
@@ -26,6 +28,8 @@ public class RegisterCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
         Forward forward = new Forward("/welcome.jsp", true);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+
         User user = null;
         Buyer buyer = null;
         try {
@@ -40,7 +44,7 @@ public class RegisterCommand extends Command {
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
             forward.setForward("/registration");
-            request.setAttribute("message", "Incorrect data. Check fields");
+            request.setAttribute("message", rb.getString("app.message.register.incorrect"));
             return null;
         }
         if (user != null && buyer != null) {
@@ -55,7 +59,6 @@ public class RegisterCommand extends Command {
                 session.setAttribute("authorizedUser", user.getName());
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-//                forward.setForward("/registration.jsp");
                 return null;
             }
         }

@@ -8,6 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${cookie.lang.value}"/>
+<fmt:setBundle basename="i18n.messages"/>
 <html>
 <head>
     <title>Categories</title>
@@ -76,5 +80,11 @@
         </div>
     </div>
 </c:forEach>
+<div class="col-md-4">
+    <form action="<c:url value="/welcome"/>" method="get">
+        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                key="label.button.back"/></button>
+    </form>
+</div>
 </body>
 </html>
