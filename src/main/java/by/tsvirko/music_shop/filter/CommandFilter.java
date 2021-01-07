@@ -31,8 +31,8 @@ public class CommandFilter implements Filter {
         getCommands.put("/logout", new LogoutCommand());
         getCommands.put("/registration", new ViewRegisterCommand());
         getCommands.put("/products/list", new CategoriesCommand());
-
         getCommands.put("/admin/users", new ShowUsersCommand());
+        getCommands.put("/changeLocale", new ChangeLanguageCommand());
 //        getCommands.put("/buyer/buyerForm", new CategoriesCommand());
 
 

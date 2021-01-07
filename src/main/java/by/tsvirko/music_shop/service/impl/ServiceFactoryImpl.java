@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServiceFactoryImpl implements ServiceFactory {
     private static final Logger logger = LogManager.getLogger(ServiceFactoryImpl.class);
-
+//TODO: Concurrent скорее излишен, ибо сервисы создаются постоянно?
     private static final Map<Class<? extends Service>, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
 
     static {

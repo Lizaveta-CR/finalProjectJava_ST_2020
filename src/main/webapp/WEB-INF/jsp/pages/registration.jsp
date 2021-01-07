@@ -7,21 +7,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<%--<head>--%>
-<title>Registration</title>
-<%--</head>--%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${cookie.lang.value}"/>
+<fmt:setBundle basename="i18n.messages"/>
+
+<html lang="${cookie.lang.value}">
 <head>
-    <!-- Required meta tags-->
+    <title>Registration</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--%>
-
-    <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
           rel="stylesheet">
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
-    <!-- Main CSS-->
     <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" media="all">
     <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
@@ -36,14 +34,14 @@
     <div class="wrapper wrapper--w900">
         <div class="card card-6">
             <div class="card-heading">
-                <h2 class="title">Music Land Buyer Registration</h2>
+                <h2 class="title"><fmt:message key="label.register.title"/></h2>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <c:if test="${not empty message}">
 
-                    <%--                        <c:forEach items="${redirectedData}" var="item" varStatus="status">--%>
+                            <%--                        <c:forEach items="${redirectedData}" var="item" varStatus="status">--%>
                         <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
                             <%--                        </c:forEach>--%>
                     </div>
@@ -58,46 +56,46 @@
                 <form method="POST" action="${pageContext.request.contextPath}/registration"
                 <%--                      onsubmit="return Validate()"--%>>
                     <div class="form-row">
-                        <div class="name">Name</div>
+                        <div class="name"><fmt:message key="label.register.name"/></div>
                         <div class="value">
                             <input class="input--style-6" type="text" id="name" name="name">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name">Surname</div>
+                        <div class="name"><fmt:message key="label.register.surname"/></div>
                         <div class="value">
                             <input class="input--style-6" type="text" id="surname" name="surname">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name">Login</div>
+                        <div class="name"><fmt:message key="label.register.login"/></div>
                         <div class="value">
                             <input class="input--style-6" type="text" id="login" name="login">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name">Password</div>
+                        <div class="name"><fmt:message key="label.register.pass"/></div>
                         <div class="value">
                             <input class="input--style-6" type="password" id="password" name="password"
                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                         </div>
                     </div>
-                    <div id="message">
-                        <h3>Password must contain the following:</h3>
-                        <p id="letter">A <b>lowercase</b> letter</p>
-                        <p id="capital">A <b>capital (uppercase)</b> letter</p>
-                        <p id="number">A <b>number</b></p>
-                        <p id="length">Minimum <b>8 characters</b></p>
-                    </div>
+                    <%--                    <div id="message">--%>
+                    <%--                        <h3>Password must contain the following:</h3>--%>
+                    <%--                        <p id="letter">A <b>lowercase</b> letter</p>--%>
+                    <%--                        <p id="capital">A <b>capital (uppercase)</b> letter</p>--%>
+                    <%--                        <p id="number">A <b>number</b></p>--%>
+                    <%--                        <p id="length">Minimum <b>8 characters</b></p>--%>
+                    <%--                    </div>--%>
                     <div class="form-row">
-                        <div class="name">Confirm password</div>
+                        <div class="name"><fmt:message key="label.register.submitPass"/></div>
                         <div class="value">
                             <input class="input--style-6" type="password" id="confirm_password" name="confirm_password">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name">Email address</div>
+                        <div class="name"><fmt:message key="label.register.email"/></div>
                         <div class="value">
                             <div class="input-group">
                                 <input class="input--style-6" type="email" name="email" placeholder="example@email.com">
@@ -105,7 +103,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name">Telephone</div>
+                        <div class="name"><fmt:message key="label.register.telephone"/></div>
                         <div class="value">
                             <div class="input-group">
                                 <input class="input--style-6" type="number" id="telephone" name="telephone">
@@ -113,7 +111,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name">Balance</div>
+                        <div class="name"><fmt:message key="label.register.balance"/></div>
                         <div class="value">
                             <div class="input-group">
                                 <input class="input--style-6" type="number" id="balance" name="balance" min="10"
@@ -122,7 +120,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn--radius-2 btn--blue-2" type="submit">Send Application</button>
+                        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                                key="label.confirm"/></button>
                     </div>
                 </form>
             </div>

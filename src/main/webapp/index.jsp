@@ -9,6 +9,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <body>
-<jsp:forward page="jsp/pages/welcome.jsp"/>
+<jsp:forward page="/WEB-INF/jsp/pages/welcome.jsp"/>
 </body>
 </html>

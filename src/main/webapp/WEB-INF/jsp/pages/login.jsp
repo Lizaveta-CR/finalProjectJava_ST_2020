@@ -7,7 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${cookie.lang.value}"/>
+<fmt:setBundle basename="i18n.messages"/>
+
+<html lang="${cookie.lang.value}">
 <head>
     <title>Login</title>
     <%--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--%>
@@ -26,8 +31,8 @@
 </script>
 <div class="sidenav">
     <div class="login-main-text">
-        <h2>Login Page</h2>
-        <p>Login or register from here to access.</p>
+        <h2><fmt:message key="label.login.title"/></h2>
+        <p><fmt:message key="label.login.title.second"/></p>
     </div>
 </div>
 <div class="main">
@@ -38,7 +43,7 @@
             <%--            <a class="btn btn-secondary" href="${main}" ROLE="button">Main page</a>--%>
             <%--            <c:url value="registration.jsp" var="main"/>--%>
             <form action="${pageContext.request.contextPath}/registration" method="get">
-                <button type="submit" class="btn btn-secondary">Register</button>
+                <button type="submit" class="btn btn-secondary"><fmt:message key="label.register.title"/></button>
             </form>
         </div>
     </div>
@@ -61,14 +66,14 @@
             </c:if>
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="form-group" act>
-                    <label>Login</label>
-                    <input type="text" class="form-control" placeholder="User Name" id="login" name="login">
+                    <label><fmt:message key="label.register.login"/></label>
+                    <input type="text" class="form-control" placeholder=<fmt:message key="label.register.login"/> id="login" name="login">
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                    <label><fmt:message key="label.register.pass"/></label>
+                    <input type="password" class="form-control" placeholder=<fmt:message key="label.register.pass"/> id="password" name="password">
                 </div>
-                <button type="submit" class="btn btn-black">Login</button>
+                <button type="submit" class="btn btn-black"><fmt:message key="label.title.login"/></button>
             </form>
             <%--            <div class="container">--%>
             <%--            </div>--%>

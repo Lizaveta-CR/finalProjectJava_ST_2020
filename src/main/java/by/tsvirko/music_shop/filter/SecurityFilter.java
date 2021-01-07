@@ -39,31 +39,22 @@ public class SecurityFilter implements Filter {
                     httpRequest.setAttribute("message", errorMessage);
                     session.removeAttribute("securityFilterMessage");
                 }
-//                Object redirectedData = session.getAttribute("redirectedData");
-//                if (redirectedData != null) {
-//                    httpRequest.setAttribute("redirectedData", redirectedData);
-//                }
+
             }
             boolean canExecute = allowRoles == null;
 
             if (user != null) {
                 canExecute = canExecute || allowRoles.contains(user.getRole());
             }
-//            else {
-//                canExecute = allowRoles.isEmpty();
-//            }
+
             if (canExecute) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-//                logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
+                logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
                 if (session != null && command.getClass() != MainCommand.class) {
                     session.setAttribute("securityFilterMessage", "Доступ запрещён");
                 }
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
-                //TODO: а что тогда в командах, в которых не нужны роли?
-//                else {
-//                    filterChain.doFilter(servletRequest, servletResponse);
-//                }
             }
         } else {
             logger.error("It is impossible to use HTTP filter");
