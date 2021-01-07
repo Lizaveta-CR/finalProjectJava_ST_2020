@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
-
+    <%--    <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">--%>
 </head>
 <body>
 <div class="text-center">
@@ -35,32 +35,27 @@
         <h2 class="text-center"><fmt:message key="label.welcome.happy"/></h2>
         <%--        <h3 class="text-center">Choose what you want to do:</h3>--%>
         <div class="container-fluid">
-            <div class="col-xs-6 col-sm-3">
-                <c:if test="${sessionScope.authorizedUser == null}">
-                    <div class="col-xs-6 col-sm-3" style="background-color:lavender;">
-                        <a class="btn btn-primary" href="<c:url value="/login"/>" role="button"><fmt:message
-                                key="label.title.login"/></a>
-                            <%--                            <form action="${pageContext.request.contextPath}/login" method="get">--%>
-                            <%--                                <button type="submit" class="btn btn-outline-primary">Login</button>--%>
-                            <%--                            </form>--%>
-                    </div>
-                </c:if>
-                <div class="col-xs-6 col-sm-3">
-                    <a class="btn btn-primary" href="<c:url value="/products/list"/>" role="button"><fmt:message
-                            key="label.title.showProducts"/></a>
-                </div>
-                <c:if test="${sessionScope.authorizedUser != null}">
-                    <div class="col-xs-6 col-sm-3" style="background-color:lavender;">
-                        <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message
-                                key="label.title.logout"/></a>
-                            <%--                        <form action="${pageContext.request.contextPath}/logout" method="get">--%>
-                            <%--                            <button type="submit" class="btn btn-outline-primary">Logout</button>--%>
-                            <%--                        </form>--%>
-                    </div>
-                </c:if>
-            </div>
+            <c:if test="${sessionScope.authorizedUser == null}">
+                <a class="btn btn-primary" href="<c:url value="/login"/>" role="button"><fmt:message
+                        key="label.title.login"/></a>
+            </c:if>
+            <a class="btn btn-primary" href="<c:url value="/products/list"/>" role="button"><fmt:message
+                    key="label.title.showProducts"/></a>
         </div>
     </div>
+    <c:if test="${sessionScope.authorizedUser != null}">
+        <div class="container-fluid">
+            <c:url value="${sessionScope.menu.url}" var="itemUrl"/>
+            <br>
+            <form action="<c:url value="${itemUrl}"/>" method="get">
+                <button class="btn btn-primary" type="submit"><fmt:message
+                        key="label.welcome.myPage"/></button>
+            </form>
+            <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message
+                    key="label.title.logout"/></a>
+        </div>
+    </c:if>
+</div>
 </div>
 </div>
 </body>

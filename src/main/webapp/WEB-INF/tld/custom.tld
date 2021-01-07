@@ -10,7 +10,7 @@
     <uri>customtags</uri>
     <tag>
         <name>welcome</name>
-        <tag-class>by.tsvirko.music_shop.tags.HelloTag</tag-class>
+        <tag-class>by.tsvirko.music_shop.tag.HelloTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>name</name>

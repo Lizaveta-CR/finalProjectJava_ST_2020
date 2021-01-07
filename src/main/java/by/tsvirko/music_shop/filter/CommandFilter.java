@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.admin.ShowUsersCommand;
+import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerFormCommand;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +35,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/products/list", new CategoriesCommand());
         getCommands.put("/admin/users", new ShowUsersCommand());
         getCommands.put("/changeLocale", new ChangeLanguageCommand());
-//        getCommands.put("/buyer/buyerForm", new CategoriesCommand());
+        getCommands.put("/buyer/buyerForm", new BuyerFormCommand());
 
 
         postCommands.put("/login", new LoginCommand());

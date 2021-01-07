@@ -1,6 +1,5 @@
-package by.tsvirko.music_shop.tags;
+package by.tsvirko.music_shop.tag;
 
-import by.tsvirko.music_shop.service.Service;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
 
 import javax.servlet.http.HttpServletRequest;

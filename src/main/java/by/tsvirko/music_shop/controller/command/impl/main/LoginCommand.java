@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.controller.command.Command;
+import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
@@ -20,13 +21,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class LoginCommand extends Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
-    private static Map<Role, String> menu = new ConcurrentHashMap<>();
+    private static Map<Role, Menu> menu = new ConcurrentHashMap<>();
 
     //
     static {
-        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
-        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
-        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
+//        TODO:add i18n
+//        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
+        menu.put(Role.BUYER, new Menu("/buyer/buyerForm"));
+//        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
+//        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
 
     @Override
@@ -48,8 +51,10 @@ public class LoginCommand extends Command {
 //                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
-                    forward.setForward(menu.get(user.getRole()));
-                    forward.setRedirect(false);
+//                    forward.setForward(menu.get(user.getRole()).getUrl());
+                    session.setAttribute("menu", menu.get(user.getRole()));
+                    forward.setForward("/index");
+//                    forward.setRedirect(false);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

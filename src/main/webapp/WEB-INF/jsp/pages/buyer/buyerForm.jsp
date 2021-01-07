@@ -16,6 +16,6 @@
 <body>
 <ctg:welcome name="${sessionScope.authorizedUser.name}"/>
 buyer
-<a href="/index.jsp">main</a>
+<%--<a href="/index.jsp">main</a>--%>
 </body>
 </html>

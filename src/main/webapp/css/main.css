@@ -1,0 +1,259 @@
+footer {
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: "Verdana", sans-serif;
+    font-size: 10pt;
+}
+
+BODY {
+    background: #DED;
+}
+
+#header {
+    width: 100%;
+    height: 50px;
+    background: url('img/logo.png') 10px 10px no-repeat #373;
+    color: white;
+}
+
+#header H1 {
+    padding-left: 70px;
+    font-size: 14pt;
+    font-weight: normal;
+    font-style: italic;
+    overflow: hidden;
+    float: left;
+}
+
+#header .item {
+    float: left;
+}
+
+#header .right {
+    float: right;
+}
+
+#header UL, #header OL {
+    list-style: none;
+}
+
+#header .drop, #header A {
+    background: #393;
+}
+
+#header A {
+    display: block;
+    margin-top: 20px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+#header A:hover, #header A.drop-button {
+    background: #363;
+}
+
+#header .drop A {
+    margin-top: 0;
+    text-align: left;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+#page {
+    width: 1000px;
+    margin: 20px auto;
+    background: white;
+    padding: 0 20px 20px 20px;
+    border: 1px solid #373;
+}
+
+#page A {
+    color: #393;
+}
+
+#page A:hover {
+    color: #373;
+}
+
+#page H2 {
+    font-size: 14pt;
+    min-height: 30px;
+    line-height: 30px;
+    margin-top: 20px;
+}
+
+#page P {
+    margin-top: 20px;
+}
+
+#page LABEL {
+    display: block;
+    font-weight: bold;
+    margin-top: 20px;
+    min-height: 30px;
+    line-height: 30px;
+}
+
+#page INPUT, #page SELECT {
+    border: 1px solid #ABA;
+    width: 100%;
+}
+
+#page INPUT[disabled], #page SELECT[disabled] {
+    background: #DED;
+}
+
+#page INPUT:focus, #page SELECT:focus {
+    border: 1px solid #373;
+}
+
+#page INPUT, #page SELECT {
+    height: 30px;
+    line-height: 30px;
+}
+
+#page INPUT.search {
+    width: 870px;
+}
+
+#page BUTTON, #confirm-message BUTTON {
+    height: 30px;
+    line-height: 30px;
+    margin: 20px 20px 0 0;
+    background: #393;
+    color: white;
+    padding: 0 20px;
+}
+
+#page BUTTON:hover, #confirm-message BUTTON:hover {
+    cursor: pointer;
+    background: #363;
+}
+
+#page BUTTON[disabled], #page BUTTON[disabled]:hover {
+    background: #ABA;
+}
+
+#page BUTTON.search {
+    width: 100px;
+    margin: 20px 0 0 20px;
+}
+
+#page OL {
+    margin-top: 20px;
+    list-style-position: inside;
+    counter-reset: item;
+}
+
+#page LI {
+    min-height: 30px;
+    line-height: 30px;
+    list-style-type: none;
+}
+
+#page OL LI:before {
+    color: #ABA;
+    content: counter(item) ".";
+    counter-increment: item;
+    padding-right: 10px;
+}
+
+#page TABLE {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#page TR {
+    min-height: 30px;
+    line-height: 30px;
+}
+
+#page TR[onclick]:hover {
+    cursor: pointer;
+    background: #DED;
+}
+
+#page TR.special {
+    background: #ECC;
+}
+
+#page TR.special[onclick]:hover {
+    background: #EDD;
+}
+
+#page TH, #page TD {
+    text-align: left;
+    padding: 0 10px;
+}
+
+#page TD {
+    border: 1px solid #ABA;
+}
+
+#page TH {
+    background: #393;
+    color: white;
+    font-weight: normal;
+    border: 1px solid #373;
+}
+
+#page HR {
+    height: 1px;
+    background-color: #393;
+    margin: 20px 0;
+}
+
+IMG.arrow {
+    height: 7px;
+    width: 7px;
+    vertical-align: middle;
+}
+
+#confirm-message {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(21, 42, 21, 0.75);
+    z-index: 1;
+}
+
+#confirm-message DIV {
+    position: fixed;
+    background: white;
+    border: 1px solid #373;
+    height: 38%;
+    width: 38%;
+    top: 31%;
+    left: 31%;
+    padding: 20px;
+}
+
+#confirm-message BUTTON {
+    min-width: 150px;
+}
+
+#confirm-message P {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 70px;
+    font-weight: bold;
+}
+
+#confirm-message FORM {
+    position: absolute;
+    bottom: 20px;
+}
