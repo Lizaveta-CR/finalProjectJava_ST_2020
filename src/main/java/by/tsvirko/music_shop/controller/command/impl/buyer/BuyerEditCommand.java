@@ -1,14 +1,12 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.controller.command.impl.main.RegisterCommand;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
-import by.tsvirko.music_shop.validator.UpdateValidator;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.ValidatorFactory;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
@@ -33,17 +31,19 @@ public class BuyerEditCommand extends BuyerCommand {
         try {
             BuyerService buyerService = factory.getService(BuyerService.class);
             UserService userService = factory.getService(UserService.class);
-
-            try {
-                userService.findByLoginAndPassword(authorizedUser.getLogin(), request.getParameter("password"));
-            } catch (ServicePersistentException ex) {
-                logger.info(String.format("User \"%s\" tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
-                forward.setForward("/buyer/edit");
-                forward.getAttributes().put("message", rb.getString("app.message.user.edit.pass"));
-                return forward;
+            String password = request.getParameter("password");
+            if (!password.isEmpty() && password != null) {
+                try {
+                    userService.findByLoginAndPassword(authorizedUser.getLogin(), password);
+                } catch (ServicePersistentException ex) {
+                    logger.info(String.format("User \"%s\" tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
+                    forward.setForward("/buyer/edit");
+                    forward.getAttributes().put("message", rb.getString("app.message.user.edit.pass"));
+                    return forward;
+                }
             }
-            UpdateValidator<User> userValidator = ValidatorFactory.getUpdateValidator(User.class);
-            UpdateValidator<Buyer> buyerValidator = ValidatorFactory.getUpdateValidator(Buyer.class);
+            Validator<User> userValidator = ValidatorFactory.getValidator(User.class);
+            Validator<Buyer> buyerValidator = ValidatorFactory.getValidator(Buyer.class);
 
             buyerValidator.validate(authorizedBuyer, request);
             userValidator.validate(authorizedUser, request);
@@ -56,7 +56,6 @@ public class BuyerEditCommand extends BuyerCommand {
             logger.warn("Incorrect data was found when updating user", e);
             forward.setForward("/buyer/edit");
             forward.getAttributes().put("message", rb.getString("app.message.user.edit.incorrect"));
-            //TODO: null, млжет быть ошибка из-за редиректа, иначе если все ок, то ошибки класть в атрибуты форварда
             return forward;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");

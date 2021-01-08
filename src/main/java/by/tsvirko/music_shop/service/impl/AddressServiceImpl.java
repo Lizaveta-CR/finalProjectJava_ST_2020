@@ -46,6 +46,14 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     @Override
     public void save(Address address) throws ServicePersistentException {
         try {
+            Country country = address.getCountry();
+            if (country.getId() == null) {
+                CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+                Optional<Country> optionalCountry = countryDAO.readCountryByName(country.getName());
+                if (optionalCountry.isPresent()) {
+                    address.setCountry(optionalCountry.get());
+                }
+            }
             AddressDAO dao = transaction.createDao(AddressDAO.class, false);
             dao.create(address);
             transaction.commit();
@@ -58,6 +66,12 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     @Override
     public void update(Address address) throws ServicePersistentException {
         try {
+            Country country = address.getCountry();
+            CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+            Optional<Country> optionalCountry = countryDAO.readCountryByName(country.getName());
+            if (optionalCountry.isPresent()) {
+                address.setCountry(optionalCountry.get());
+            }
             AddressDAO dao = transaction.createDao(AddressDAO.class, false);
             dao.update(address);
             transaction.commit();

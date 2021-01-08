@@ -45,13 +45,14 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><fmt:message key="label.address.country"/></label>
                     <div class="col-lg-8">
-                        <select id="country-name" name="country-name">
-                            <c:forEach items="${countries}" var="name">
-                                <c:if test="${not empty countryName }">
+                        <select id="country" name="country">
+                            <c:forEach items="${countries}" var="country">
+                                <c:remove var="selected"/>
+                                <c:if test="${not empty countryName and countryName eq country}">
                                     <c:set var="selected" value="selected"/>
                                 </c:if>
-                                <option value="${countryName}" ${selected}>
-                                    <c:out value=" ${name}"/>
+                                <option value="${country}" ${selected}>
+                                    <c:out value=" ${country}"/>
                                 </option>
                             </c:forEach>
                         </select>

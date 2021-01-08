@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.controller.command.Command;
+import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
@@ -19,11 +20,22 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RegisterCommand extends Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
+    private static Map<Role, Menu> menu = new ConcurrentHashMap<>();
+
+    static {
+//        TODO:add i18n
+//        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
+        menu.put(Role.BUYER, new Menu("/buyer/buyerForm"));
+//        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
+//        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
+    }
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
@@ -57,7 +69,8 @@ public class RegisterCommand extends Command {
                 HttpSession session = request.getSession();
                 //TODO: наверное через forward.attr
                 session.setAttribute("authorizedUser", user);
-                session.setAttribute("buyer", buyer);
+                session.setAttribute("authorizedBuyer", buyer);
+                session.setAttribute("menu", menu.get(user.getRole()));
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
                 request.setAttribute("message", rb.getString("app.message.register.duplicate"));

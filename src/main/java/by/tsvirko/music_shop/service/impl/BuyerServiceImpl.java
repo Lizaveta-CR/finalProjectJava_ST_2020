@@ -37,13 +37,8 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
     public void save(Buyer buyer) throws ServicePersistentException {
         try {
-
             BuyerDAO dao = transaction.createDao(BuyerDAO.class, false);
-            if (buyer.getId() != null) {
-                dao.update(buyer);
-            } else {
-                buyer.setId(dao.create(buyer));
-            }
+            buyer.setId(dao.create(buyer));
             transaction.commit();
         } catch (PersistentException e) {
 //            transaction.rollback();

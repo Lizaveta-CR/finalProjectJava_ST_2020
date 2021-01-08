@@ -7,4 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface Validator<Type extends Entity> {
     Type validate(HttpServletRequest request) throws IncorrectFormDataException;
+
+    void validate(Type entity, HttpServletRequest request) throws IncorrectFormDataException;
 }

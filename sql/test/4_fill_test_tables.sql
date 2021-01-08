@@ -6,7 +6,6 @@ VALUES
        (2, 'elizTs', 'Elizaveta', 'Tsvirko', '100:0b76f57f15f6f665af455bef05175f30', 2),
        (3, 'ksuSok', 'Kseniya', 'Sokol', '100:e3d5ccdea4363fa6eefc35b1f3206f9d', 2),
        (4, 'likSki', 'Veronika', 'Svet', '100:e3d5ccdea4363fa6eefc35b1f3206f9d', 2);
-
 INSERT INTO buyers(buyer_id, email, telephone, balance, enabled)
 VALUES
        (2, 'elizTs@gmail.com', 375445684811, 8000, true),

@@ -1,6 +1,8 @@
 package by.tsvirko.music_shop.validator.impl;
 
 import by.tsvirko.music_shop.domain.Buyer;
+import by.tsvirko.music_shop.domain.User;
+import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
@@ -47,6 +49,23 @@ public class BuyerValidator implements Validator<Buyer> {
             throw new IncorrectFormDataException("balance", parameter);
         }
         return buyer;
+    }
+
+    @Override
+    public void validate(Buyer entity, HttpServletRequest request) throws IncorrectFormDataException {
+        Buyer buyer = validate(request);
+        String email = buyer.getEmail();
+        if (!email.isEmpty() && email != null) {
+            entity.setEmail(email);
+        }
+        Long telephone = buyer.getTelephone();
+        if (telephone != null) {
+            entity.setTelephone(telephone);
+        }
+        BigDecimal balance = buyer.getBalance();
+        if (balance != null) {
+            entity.setBalance(balance);
+        }
     }
 
     private boolean isMoney(String price) {
