@@ -47,8 +47,8 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
                 address.setCity(resultSet.getString(Field.CITY.value()));
                 address.setZipCode(resultSet.getInt(Field.ZIP_CODE.value()));
                 address.setStreet(resultSet.getString(Field.STREET.value()));
-                address.setApartment_number(resultSet.getInt(Field.APARTMENT_NUMBER.value()));
-                address.setHouse_number(resultSet.getInt(Field.HOUSE_NUMBER.value()));
+                address.setApartmentNumber(resultSet.getInt(Field.APARTMENT_NUMBER.value()));
+                address.setHouseNumber(resultSet.getInt(Field.HOUSE_NUMBER.value()));
                 addresses.add(address);
             }
             logger.debug("Addresses were read");
@@ -92,8 +92,8 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             statement.setString(3, entity.getCity());
             statement.setInt(4, entity.getZipCode());
             statement.setString(5, entity.getStreet());
-            statement.setInt(6, entity.getApartment_number());
-            statement.setInt(7, entity.getHouse_number());
+            statement.setInt(6, entity.getApartmentNumber());
+            statement.setInt(7, entity.getHouseNumber());
             statement.executeUpdate();
 
             index = entity.getId();
@@ -134,8 +134,8 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
                 address.setCity(resultSet.getString(Field.CITY.value()));
                 address.setZipCode(resultSet.getInt(Field.ZIP_CODE.value()));
                 address.setStreet(resultSet.getString(Field.STREET.value()));
-                address.setApartment_number(resultSet.getInt(Field.APARTMENT_NUMBER.value()));
-                address.setHouse_number(resultSet.getInt(Field.HOUSE_NUMBER.value()));
+                address.setApartmentNumber(resultSet.getInt(Field.APARTMENT_NUMBER.value()));
+                address.setHouseNumber(resultSet.getInt(Field.HOUSE_NUMBER.value()));
             }
             logger.debug("Address with id=" + identity + " was read");
             return Optional.ofNullable(address);
@@ -175,8 +175,8 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             statement.setString(2, entity.getCity());
             statement.setInt(3, entity.getZipCode());
             statement.setString(4, entity.getStreet());
-            statement.setInt(5, entity.getApartment_number());
-            statement.setInt(6, entity.getHouse_number());
+            statement.setInt(5, entity.getApartmentNumber());
+            statement.setInt(6, entity.getHouseNumber());
             statement.setInt(7, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {

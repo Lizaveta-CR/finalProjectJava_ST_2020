@@ -2,6 +2,8 @@ package by.tsvirko.music_shop.dao.database;
 
 import by.tsvirko.music_shop.dao.CountryDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.domain.Address;
+import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Country;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class CountryDAOImpl extends BaseDAO implements CountryDAO {
@@ -16,6 +20,7 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
 
     private static final String SQL_READ_COUNTRY_ID_BY_NAME = "SELECT id FROM countries WHERE name = ?";
     private static final String SQL_READ_COUNTRY_NAME_BY_ID = "SELECT name FROM countries WHERE id = ?";
+    private static final String SQL_READ_COUNTRIES_NAMES = "SELECT name FROM countries";
 
     @Override
     public Integer create(Country entity) throws PersistentException {
@@ -99,6 +104,40 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+    }
+
+    @Override
+    public List<String> readNames() throws PersistentException {
+        PreparedStatement statementReadBuyer = null;
+        ResultSet resultSet = null;
+        try {
+            statementReadBuyer = connection.prepareStatement(SQL_READ_COUNTRIES_NAMES);
+            resultSet = statementReadBuyer.executeQuery();
+            List<String> countries = new ArrayList<>();
+            while (resultSet.next()) {
+                countries.add(resultSet.getString(Field.NAME.value()));
+            }
+            logger.debug("Countries' names were read");
+            return countries;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statementReadBuyer != null) {
+                    statementReadBuyer.close();
                 }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");

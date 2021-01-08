@@ -18,6 +18,6 @@ public class Address extends Entity<Integer> {
     private String city;
     private int zipCode;
     private String street;
-    private int apartment_number;
-    private int house_number;
+    private int apartmentNumber;
+    private int houseNumber;
 }

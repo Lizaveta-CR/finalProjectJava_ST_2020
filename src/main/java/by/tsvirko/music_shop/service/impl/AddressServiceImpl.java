@@ -67,6 +67,20 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         }
     }
 
+    @Override
+    public Address findById(Integer id) throws ServicePersistentException {
+        try {
+            AddressDAO dao = transaction.createDao(AddressDAO.class, true);
+            Optional<Address> optionalAddress = dao.read(id);
+            if (optionalAddress.isPresent()) {
+                return optionalAddress.get();
+            }
+            throw new ServicePersistentException("No such address");
+        } catch (PersistentException | ServicePersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
+
     private void buildList(List<Address> addresses) throws ServicePersistentException {
         try {
             CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);

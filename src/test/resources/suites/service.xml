@@ -24,6 +24,8 @@
                 <methods>
                     <include name="findAll"/>
                     <include name="saveTest"/>
+                    <include name="findByIdTest"/>
+                    <include name="findByIdExceptionTest"/>
                     <include name="updateTest"/>
                     <include name="saveExceptionTest"/>
                     <include name="updateExceptionTest"/>
@@ -74,6 +76,15 @@
                     <include name="updateExceptionTest"/>
                     <include name="delete"/>
                     <include name="deleteException"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Country service">
+        <classes>
+            <class name="music_shop.service.CountryServiceTest">
+                <methods>
+                    <include name="readNames"/>
                 </methods>
             </class>
         </classes>

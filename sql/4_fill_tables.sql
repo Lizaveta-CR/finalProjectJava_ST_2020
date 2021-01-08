@@ -11,8 +11,12 @@ VALUES
 (6, 'ksuhaSokol@gmail.com', 375441291821, 220.11, true);
 
 INSERT INTO countries(id, code, name)
-VALUES (1, 'BY', 'Belarus');
-
+VALUES (1, 'BY', 'Belarus'),
+       (2, 'US', 'USA'),
+       (3, 'RU', 'Russia'),
+       (4, 'BR', 'Brazil'),
+       (5, 'HK', 'Honk Kong'),
+       (6, 'TH', 'Thailand');
 INSERT
 INTO addresses(buyer_id, country_id, city, zip_code, street, apartment_number, house_number)
 VALUES (3, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
@@ -55,14 +59,16 @@ VALUES
 ('2013-08-05 18:19:03', 6, 1239.99);
 
 DELETE
-FROM products WHERE id=10;
+FROM products
+WHERE id = 10;
 
 INSERT INTO order_items(id, product_id, amount, price)
 VALUES (1, 1, 1, 1239.99),
        (5, 2, 1, 1219);
 #
 DELETE
-FROM users WHERE id=11;
+FROM users
+WHERE id = 11;
 #
 # INSERT INTO product_rates(rate_id, value, product_id, buyer_id)
 # VALUES (1, 10, 1, 1);

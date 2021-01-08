@@ -2,9 +2,7 @@ package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
-import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
-import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerFormCommand;
-import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerViewEditFormCommand;
+import by.tsvirko.music_shop.controller.command.impl.buyer.*;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +38,13 @@ public class CommandFilter implements Filter {
 
         getCommands.put("/buyer/buyerForm", new BuyerFormCommand());
         getCommands.put("/buyer/edit", new BuyerViewEditFormCommand());
+        getCommands.put("/buyer/address", new ViewAddressCommand());
 
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());
         postCommands.put("/buyer/edit", new BuyerEditCommand());
+        postCommands.put("/buyer/address", new EditAddressCommand());
     }
 
     @Override

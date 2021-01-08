@@ -53,8 +53,12 @@
                 </form>
             </div>
             <div class="col-xs-12 col-sm-4 emphasis">
-                <button class="btn btn-info btn-block"><fmt:message key="label.buyer.addAddress"/></button>
+                <form action="<c:url value="/buyer/address"/>" method="get">
+                    <button class="btn btn-info btn-block" type="submit"><fmt:message
+                            key="label.buyer.address"/></button>
+                </form>
             </div>
+
             <div class="col-xs-12 col-sm-4 emphasis">
                 <form action="<c:url value="/welcome"/>" method="get">
                     <button class="btn btn-info btn-block" type="submit"><fmt:message

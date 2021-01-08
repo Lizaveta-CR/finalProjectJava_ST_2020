@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Country;
+import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -31,8 +32,8 @@ public class AddressServiceImplTest {
         address.setCountry(country);
         address.setCity("Tokio");
         address.setZipCode(1234);
-        address.setApartment_number(11);
-        address.setHouse_number(10);
+        address.setApartmentNumber(11);
+        address.setHouseNumber(10);
         return new Object[]{
                 address
         };
@@ -50,8 +51,8 @@ public class AddressServiceImplTest {
         address.setCity("Minsk");
         address.setStreet("Nezavisimosty");
         address.setZipCode(220991);
-        address.setApartment_number(11);
-        address.setHouse_number(10);
+        address.setApartmentNumber(11);
+        address.setHouseNumber(10);
         return new Object[]{
                 address
         };
@@ -97,5 +98,16 @@ public class AddressServiceImplTest {
     public void updateExceptionTest(Address address) {
         address.setStreet(null);
         Assert.assertThrows(ServicePersistentException.class, () -> addressService.update(address));
+    }
+
+    @Test
+    public void findByIdExceptionTest() throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> addressService.findById(1000));
+    }
+
+    @Test(dataProvider = "addressCorrect")
+    public void findByIdTest(Address address) throws ServicePersistentException {
+        Address foundAddress = addressService.findById(address.getId());
+        Assert.assertEquals(address, foundAddress);
     }
 }
