@@ -39,6 +39,10 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -58,7 +62,10 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             dao.create(address);
             transaction.commit();
         } catch (PersistentException e) {
-//            transaction.rollback();
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -76,7 +83,10 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             dao.update(address);
             transaction.commit();
         } catch (PersistentException e) {
-//            transaction.rollback();
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

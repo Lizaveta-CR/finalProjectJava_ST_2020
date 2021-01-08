@@ -30,6 +30,10 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -49,6 +53,10 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             }
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

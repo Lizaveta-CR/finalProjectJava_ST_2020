@@ -35,6 +35,10 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -62,6 +66,10 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             }
             transaction.commit();
         } catch (PersistentException | PasswordException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -69,7 +77,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public User findByLoginAndPassword(String login, String password) throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, false);
+            UserDAO dao = transaction.createDao(UserDAO.class, true);
             if (password != null) {
                 Optional<User> optionalUser = dao.read(login, PasswordUtil.hashPassword(password));
                 if (optionalUser.isPresent()) {

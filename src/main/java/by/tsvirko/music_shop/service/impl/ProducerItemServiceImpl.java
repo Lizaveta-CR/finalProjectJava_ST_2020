@@ -14,6 +14,10 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
             dao.create(item);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

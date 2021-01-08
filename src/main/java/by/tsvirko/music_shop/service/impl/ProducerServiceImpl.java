@@ -31,6 +31,10 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -46,7 +50,10 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             }
             transaction.commit();
         } catch (PersistentException e) {
-//            transaction.rollback();
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

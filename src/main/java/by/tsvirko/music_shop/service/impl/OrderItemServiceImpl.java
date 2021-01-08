@@ -19,6 +19,10 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             }
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

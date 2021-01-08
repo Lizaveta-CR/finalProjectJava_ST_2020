@@ -33,6 +33,10 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -48,6 +52,10 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             }
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

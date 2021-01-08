@@ -14,6 +14,10 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -29,6 +33,10 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
             }
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }

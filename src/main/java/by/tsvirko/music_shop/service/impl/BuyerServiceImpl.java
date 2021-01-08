@@ -30,6 +30,10 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -41,7 +45,10 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             buyer.setId(dao.create(buyer));
             transaction.commit();
         } catch (PersistentException e) {
-//            transaction.rollback();
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
@@ -53,7 +60,10 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             dao.update(buyer);
             transaction.commit();
         } catch (PersistentException e) {
-//            transaction.rollback();
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
             throw new ServicePersistentException(e);
         }
     }
