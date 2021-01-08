@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -49,11 +50,11 @@ public class LoginCommand extends Command {
                 if (user != null) {
                     HttpSession session = request.getSession();
                     //TODO: класть не целого юзера, потом это поменять в security filter
-                    session.setAttribute("authorizedUser", user);
+                    session.setAttribute(AttributeConstant.AUTHORIZED_USER.value(), user);
                     try {
                         BuyerService buyerService = factory.getService(BuyerService.class);
                         Buyer buyer = buyerService.findById(user.getId());
-                        session.setAttribute("authorizedBuyer", buyer);
+                        session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
                     } catch (ServicePersistentException e) {
                     }
 //                    session.setAttribute("menu", menu.get(user.getRole()));
@@ -66,13 +67,13 @@ public class LoginCommand extends Command {
                     return forward;
                 }
             } catch (ServicePersistentException e) {
-                request.setAttribute("message", rb.getString("app.message.login.notRecognized"));
+                request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.notRecognized"));
                 logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                 return null;
             }
         }
-        request.setAttribute("message", rb.getString("app.message.login.empty"));
+        request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.empty"));
         return null;
     }
 

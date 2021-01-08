@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -25,7 +26,7 @@ public class EditAddressCommand extends BuyerCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
-        Buyer authorizedBuyer = (Buyer) request.getSession(false).getAttribute("authorizedBuyer");
+        Buyer authorizedBuyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         try {
             BuyerService buyerService = factory.getService(BuyerService.class);
             AddressService addressService = factory.getService(AddressService.class);
@@ -48,7 +49,7 @@ public class EditAddressCommand extends BuyerCommand {
             logger.warn("Incorrect data was found when updating address", e);
             Forward forward = new Forward("/buyer/address", true);
             forward.setForward("/buyer/address");
-            forward.getAttributes().put("message", rb.getString("app.message.user.edit.incorrect"));
+            forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.incorrect"));
             return forward;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");

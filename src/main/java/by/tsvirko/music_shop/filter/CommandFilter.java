@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.filter;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
@@ -78,7 +79,7 @@ public class CommandFilter implements Filter {
                     break;
             }
             if (command != null) {
-                httpRequest.setAttribute("command", command);
+                httpRequest.setAttribute(AttributeConstant.COMMAND.value(), command);
                 command.setName(actionName);
 //                httpRequest.set
             } else {

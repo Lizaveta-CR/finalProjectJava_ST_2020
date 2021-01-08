@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Category;
@@ -20,7 +21,7 @@ public class CategoriesCommand extends Command {
             CategoryService service = factory.getService(CategoryService.class);
             Category category = service.getCategory();
             List<Component> components = category.getComponents();
-            request.setAttribute("category", components);
+            request.setAttribute(AttributeConstant.CATEGORY.value(), components);
         } catch (ServicePersistentException e) {
             throw new CommandException(e);
         }

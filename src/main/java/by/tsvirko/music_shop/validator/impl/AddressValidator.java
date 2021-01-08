@@ -1,13 +1,11 @@
 package by.tsvirko.music_shop.validator.impl;
 
 import by.tsvirko.music_shop.domain.Address;
-import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 
 public class AddressValidator implements Validator<Address> {
     @Override

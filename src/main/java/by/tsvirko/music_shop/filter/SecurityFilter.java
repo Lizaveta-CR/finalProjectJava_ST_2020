@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.filter;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
 import by.tsvirko.music_shop.domain.User;
@@ -29,17 +30,17 @@ public class SecurityFilter implements Filter {
         if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
             HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-            Command command = (Command) httpRequest.getAttribute("command");
+            Command command = (Command) httpRequest.getAttribute(AttributeConstant.COMMAND.value());
             Set<Role> allowRoles = command.getAllowRoles();
 
             HttpSession session = httpRequest.getSession(false);
             User user = null;
             if (session != null) {
-                user = (User) session.getAttribute("authorizedUser");
-                String errorMessage = (String) session.getAttribute("securityFilterMessage");
+                user = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
+                String errorMessage = (String) session.getAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value());
                 if (errorMessage != null) {
-                    httpRequest.setAttribute("message", errorMessage);
-                    session.removeAttribute("securityFilterMessage");
+                    httpRequest.setAttribute(AttributeConstant.MESSAGE.value(), errorMessage);
+                    session.removeAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value());
                 }
 
             }
@@ -55,7 +56,7 @@ public class SecurityFilter implements Filter {
                 logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
                 if (session != null && command.getClass() != MainCommand.class) {
                     ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
-                    session.setAttribute("securityFilterMessage", rb.getString("app.message.security"));
+                    session.setAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value(), rb.getString("app.message.security"));
                 }
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
             }

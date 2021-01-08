@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.User;
@@ -18,16 +19,16 @@ public class ViewAddressCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        User authorizedUser = (User) request.getSession(false).getAttribute("authorizedUser");
+        User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         try {
             CountryService service = factory.getService(CountryService.class);
             List<String> countries = service.readNames();
-            request.setAttribute("countries", countries);
+            request.setAttribute(AttributeConstant.COUNTRIES.value(), countries);
 
             AddressService addressService = factory.getService(AddressService.class);
             Address address = addressService.findById(authorizedUser.getId());
             if (address != null) {
-                request.setAttribute("address", address);
+                request.setAttribute(AttributeConstant.ADDRESS.value(), address);
             }
         } catch (ServicePersistentException e) {
             logger.info("Service error occurred");

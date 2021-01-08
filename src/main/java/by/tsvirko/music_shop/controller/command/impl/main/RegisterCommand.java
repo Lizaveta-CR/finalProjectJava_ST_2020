@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -56,7 +57,7 @@ public class RegisterCommand extends Command {
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
             forward.setForward("/registration");
-            request.setAttribute("message", rb.getString("app.message.register.incorrect"));
+            request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.register.incorrect"));
             return null;
         }
         if (user != null && buyer != null) {
@@ -68,12 +69,12 @@ public class RegisterCommand extends Command {
                 buyerService.save(buyer);
                 HttpSession session = request.getSession();
                 //TODO: наверное через forward.attr
-                session.setAttribute("authorizedUser", user);
-                session.setAttribute("authorizedBuyer", buyer);
-                session.setAttribute("menu", menu.get(user.getRole()));
+                session.setAttribute(AttributeConstant.AUTHORIZED_USER.value(), user);
+                session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
+                session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                request.setAttribute("message", rb.getString("app.message.register.duplicate"));
+                request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.register.duplicate"));
                 return null;
             }
         }

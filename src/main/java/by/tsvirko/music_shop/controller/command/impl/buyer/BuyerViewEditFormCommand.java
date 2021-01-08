@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
@@ -18,10 +19,10 @@ public class BuyerViewEditFormCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
-            User authorizedUser = (User) request.getSession(false).getAttribute("authorizedUser");
+            User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_USER.value());
             BuyerService buyerService = factory.getService(BuyerService.class);
             Buyer buyer = buyerService.findById(authorizedUser.getId());
-            request.setAttribute("buyerInfo", buyer);
+            request.setAttribute(AttributeConstant.BUYER_INFO.value(), buyer);
         } catch (ServicePersistentException e) {
             logger.info("Buyer can not be found in system");
         }

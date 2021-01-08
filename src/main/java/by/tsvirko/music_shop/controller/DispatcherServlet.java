@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller;
 
+import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.CommandManager;
 import by.tsvirko.music_shop.controller.command.CommandManagerFactory;
@@ -27,7 +28,6 @@ public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
 
     private static final String DATASOURCE_NAME = "database";
-    private static final String COMMAND_PARAMETER = "command";
     private static final String JSP_LOCATION = "/WEB-INF/jsp/pages";
     private static final String JSP_ERROR_LOCATION = "/WEB-INF/jsp/error/error.jsp";
 
@@ -65,31 +65,30 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Command command = (Command) req.getAttribute(COMMAND_PARAMETER);
+        Command command = (Command) req.getAttribute(AttributeConstant.COMMAND.value());
         try {
             HttpSession session = req.getSession(false);
             if (session != null) {
-//                @SuppressWarnings("unchecked")
-                Map<String, Object> attributes = (Map<String, Object>) session.getAttribute("redirectedData");
+                @SuppressWarnings("unchecked")
+                Map<String, Object> attributes = (Map<String, Object>) session.getAttribute(AttributeConstant.REDIRECTED_DATA.value());
                 if (attributes != null) {
                     for (String key : attributes.keySet()) {
                         req.setAttribute(key, attributes.get(key));
                     }
-                    session.removeAttribute("redirectedData");
+                    session.removeAttribute(AttributeConstant.REDIRECTED_DATA.value());
                 }
             }
             CommandManager actionManager = CommandManagerFactory.getManager(getFactory());
             Command.Forward forward = actionManager.execute(command, req, resp);
             actionManager.close();
             if (session != null && forward != null && !forward.getAttributes().isEmpty()) {
-                session.setAttribute("redirectedData", forward.getAttributes());
+                session.setAttribute(AttributeConstant.REDIRECTED_DATA.value(), forward.getAttributes());
             }
             String requestedUri = req.getRequestURI();
             if (forward != null && forward.isRedirect()) {
                 String contextPath = req.getContextPath();
                 String redirectedUri = contextPath + forward.getForward();
                 logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
-//                getServletContext().getRequestDispatcher(redirectedUri).forward(req, resp);
                 resp.sendRedirect(redirectedUri);
             } else {
                 String jspPage = null;
