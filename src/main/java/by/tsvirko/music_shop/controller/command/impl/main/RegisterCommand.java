@@ -56,7 +56,8 @@ public class RegisterCommand extends Command {
                 buyerService.save(buyer);
                 HttpSession session = request.getSession();
                 //TODO: наверное через forward.attr
-                session.setAttribute("authorizedUser", user.getName());
+                session.setAttribute("authorizedUser", user);
+                session.setAttribute("buyer", buyer);
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
                 request.setAttribute("message", rb.getString("app.message.register.duplicate"));
