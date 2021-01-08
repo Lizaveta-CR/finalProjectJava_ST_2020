@@ -27,7 +27,7 @@ public class RegisterCommand extends Command {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
-        Forward forward = new Forward("/welcome.jsp", true);
+        Forward forward = new Forward("/welcome", true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User user = null;

@@ -29,7 +29,6 @@ public class DispatcherServlet extends HttpServlet {
     private static final String DATASOURCE_NAME = "database";
     private static final String COMMAND_PARAMETER = "command";
     private static final String JSP_LOCATION = "/WEB-INF/jsp/pages";
-    //TODO: может это в WEB_INF?
     private static final String JSP_ERROR_LOCATION = "/WEB-INF/jsp/error/error.jsp";
 
     @Override

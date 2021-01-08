@@ -1,6 +1,7 @@
-package by.tsvirko.music_shop.validator;
+package by.tsvirko.music_shop.validator.impl;
 
 import by.tsvirko.music_shop.domain.Buyer;
+import by.tsvirko.music_shop.validator.UpdateValidator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,10 +9,9 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BuyerValidator implements Validator<Buyer> {
+public class BuyerUpdateValidator implements UpdateValidator<Buyer> {
     @Override
-    public Buyer validate(HttpServletRequest request) throws IncorrectFormDataException {
-        Buyer buyer = new Buyer();
+    public void validate(Buyer buyer, HttpServletRequest request) throws IncorrectFormDataException {
         String parameter = request.getParameter("email");
         if (parameter != null && !parameter.isEmpty() && isEmailValid(parameter)) {
             buyer.setEmail(parameter);
@@ -45,7 +45,6 @@ public class BuyerValidator implements Validator<Buyer> {
         } else {
             throw new IncorrectFormDataException("balance", parameter);
         }
-        return buyer;
     }
 
     private boolean isMoney(String price) {

@@ -6,6 +6,8 @@
             <class name="music_shop.service.UserServiceImplTest">
                 <methods>
                     <include name="saveTest"/>
+                    <include name="findByIdTest"/>
+                    <include name="findByIdExceptionTest"/>
                     <include name="findByLoginPassTest"/>
                     <include name="findByLoginPassExceptionTest"/>
                     <include name="updateTest"/>

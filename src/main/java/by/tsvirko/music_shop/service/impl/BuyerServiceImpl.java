@@ -37,8 +37,13 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
     public void save(Buyer buyer) throws ServicePersistentException {
         try {
+
             BuyerDAO dao = transaction.createDao(BuyerDAO.class, false);
-            dao.create(buyer);
+            if (buyer.getId() != null) {
+                dao.update(buyer);
+            } else {
+                buyer.setId(dao.create(buyer));
+            }
             transaction.commit();
         } catch (PersistentException e) {
 //            transaction.rollback();
@@ -54,6 +59,20 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             transaction.commit();
         } catch (PersistentException e) {
 //            transaction.rollback();
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public Buyer findById(Integer identity) throws ServicePersistentException {
+        try {
+            BuyerDAO dao = transaction.createDao(BuyerDAO.class, true);
+            Optional<Buyer> optionalUser = dao.read(identity);
+            if (optionalUser.isPresent()) {
+                return optionalUser.get();
+            }
+            throw new ServicePersistentException("No such buyer");
+        } catch (PersistentException | ServicePersistentException e) {
             throw new ServicePersistentException(e);
         }
     }

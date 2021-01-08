@@ -81,4 +81,18 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             throw new ServicePersistentException(e);
         }
     }
+
+    @Override
+    public User findById(Integer identity) throws ServicePersistentException {
+        try {
+            UserDAO dao = transaction.createDao(UserDAO.class, true);
+            Optional<User> optionalUser = dao.read(identity);
+            if (optionalUser.isPresent()) {
+                return optionalUser.get();
+            }
+            throw new ServicePersistentException("No such user");
+        } catch (PersistentException | ServicePersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
 }

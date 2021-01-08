@@ -10,7 +10,6 @@ VALUES
 #        (3, 'elizTs@gmail.com', 375445684811, 100.10, true),
 (6, 'ksuhaSokol@gmail.com', 375441291821, 220.11, true);
 
-
 INSERT INTO countries(id, code, name)
 VALUES (1, 'BY', 'Belarus');
 

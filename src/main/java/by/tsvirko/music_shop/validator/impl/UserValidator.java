@@ -1,7 +1,8 @@
-package by.tsvirko.music_shop.validator;
+package by.tsvirko.music_shop.validator.impl;
 
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,14 +43,13 @@ public class UserValidator implements Validator<User> {
 
         String password = request.getParameter("password");
         String confirmedPassword = request.getParameter("confirm_password");
-        if (!password.isEmpty() && !confirmedPassword.isEmpty()) {
+        if (!password.isEmpty() && !confirmedPassword.isEmpty() && password != null && confirmedPassword != null) {
             if (password.equals(confirmedPassword)) {
                 user.setPassword(password);
             } else {
                 throw new IncorrectFormDataException("password", password);
             }
         }
-
         parameter = request.getParameter("role");
         if (parameter != null && !parameter.isEmpty()) {
             try {

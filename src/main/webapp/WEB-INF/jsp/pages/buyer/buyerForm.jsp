@@ -16,7 +16,7 @@
 <html>
 <head>
     <title>Buyer</title>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <%--    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">--%>
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
@@ -24,10 +24,8 @@
 </head>
 <body>
 <c:set var="user" scope="session" value="${sessionScope.authorizedUser}"/>
-<c:set var="buyer" scope="session" value="${sessionScope.buyer}"/>
-<%--<div style="background-image: url('<c:url value="/img/back.jpg"/>');">--%>
+<c:set var="buyer" scope="session" value="${sessionScope.authorizedBuyer}"/>
 <div class="container" style="background-image:  url('<c:url value="/img/back.jpg"/>');">
-    <%--    <div class="row">--%>
     <h2 class="text-center"><ctg:welcome name="${user.name}"/></h2>
     <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
         <%--        <div class="well profile">--%>
@@ -43,15 +41,16 @@
                         value="${buyer.balance}"/>
                 </p>
                 <p><strong><fmt:message key="label.register.bonus"/>: </strong><c:out
-                        value="${buyer.balance}"/>
+                        value="${buyer.bonus}"/>
                 </p>
             </div>
         </div>
         <div class="col-xs-12 divider text-center">
             <div class="col-xs-12 col-sm-4 emphasis">
-                <button class="btn btn-success btn-block"><fmt:message
-                        key="label.buyer.edit"/>
-                </button>
+                <form action="<c:url value="/buyer/edit"/>" method="get">
+                    <button class="btn btn-info btn-block" type="submit"><fmt:message
+                            key="label.buyer.edit"/></button>
+                </form>
             </div>
             <div class="col-xs-12 col-sm-4 emphasis">
                 <button class="btn btn-info btn-block"><fmt:message key="label.buyer.addAddress"/></button>
@@ -65,6 +64,5 @@
         </div>
     </div>
 </div>
-<%--<a href="/index.jsp">main</a>--%>
 </body>
 </html>

@@ -119,4 +119,15 @@ public class UserServiceImplTest {
     public void findByLoginPassExceptionTest(String login, String password) throws ServicePersistentException {
         Assert.assertThrows(ServicePersistentException.class, () -> userService.findByLoginAndPassword(login, password));
     }
+
+    @Test
+    public void findByIdExceptionTest() throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> userService.findById(1000));
+    }
+
+    @Test
+    public void findByIdTest() throws ServicePersistentException {
+        User foundUser = userService.findById(user.getId());
+        Assert.assertEquals(user, foundUser);
+    }
 }

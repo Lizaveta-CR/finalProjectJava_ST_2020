@@ -3,8 +3,10 @@ package by.tsvirko.music_shop.controller.command.impl.main;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
+import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
@@ -48,6 +50,12 @@ public class LoginCommand extends Command {
                     HttpSession session = request.getSession();
                     //TODO: класть не целого юзера, потом это поменять в security filter
                     session.setAttribute("authorizedUser", user);
+                    try {
+                        BuyerService buyerService = factory.getService(BuyerService.class);
+                        Buyer buyer = buyerService.findById(user.getId());
+                        session.setAttribute("authorizedBuyer", buyer);
+                    } catch (ServicePersistentException e) {
+                    }
 //                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
