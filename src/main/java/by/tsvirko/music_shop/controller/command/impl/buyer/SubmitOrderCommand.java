@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.controller.command.impl.main.LoginCommand;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -10,6 +11,7 @@ import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.util.TotalPriceUtil;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.ValidatorFactory;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
@@ -20,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.ResourceBundle;
 
 public class SubmitOrderCommand extends BuyerCommand {
@@ -43,7 +46,10 @@ public class SubmitOrderCommand extends BuyerCommand {
             forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.order.incorrect"));
             return forward;
         }
-//        getParam("checkbox")
+        String bonus = request.getParameter(ParameterConstant.BONUS.value());
+        if (bonus != null) {
+            order.setPrice(TotalPriceUtil.countPrice(order, new BigDecimal(bonus)));
+        }
 //        if (user != null && buyer != null) {
 //            try {
 //                UserService userService = factory.getService(UserService.class);

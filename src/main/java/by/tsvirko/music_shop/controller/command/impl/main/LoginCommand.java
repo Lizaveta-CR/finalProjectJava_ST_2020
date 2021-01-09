@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LoginCommand extends Command {
+    //TODO: check enabled
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static Map<Role, Menu> menu = new ConcurrentHashMap<>();
 

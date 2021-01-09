@@ -20,6 +20,10 @@ public class TotalPriceUtil {
         }
         return total;
     }
+
+    public static BigDecimal countPrice(Order order, BigDecimal bonus) {
+        return order.getPrice().subtract(bonus);
+    }
 //
 //    public static BigDecimal countPrice(Map<Product, Integer> map, TotalPriceEnum param) {
 //        BigDecimal price = countPrice(map);

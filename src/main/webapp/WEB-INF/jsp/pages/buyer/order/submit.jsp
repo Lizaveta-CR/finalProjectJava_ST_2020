@@ -48,43 +48,43 @@
             <h2><fmt:message key="label.order.submit.title"/></h2>
         </div>
         <div class="row">
-            <div class="col-md-4 order-md-2 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted"><fmt:message key="label.order.submit.cart"/></span>
-                    <c:set var="size" value="${fn:length(order.productIts)}"/>
-                    <span class="badge badge-secondary badge-pill">${size}</span>
-                </h4>
-                <ul class="list-group">
-                    <c:forEach items="${order.productIts.iterator()}" var="product">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">${product.model}</h6>
-                            </div>
-                            <span class="text-muted">${product.price}x${orderItem[product]}</span>
-                        </li>
-                    </c:forEach>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span><fmt:message key="label.order.total"/></span>
-                        <strong>${order.price}</strong>
-                        <c:set var="buyerBonus" value="${buyer.bonus}"/>
-                        <c:choose>
-                            <c:when test="${f:isBigDecimalZero(buyerBonus)}">
-                            </c:when>
-                            <c:otherwise>
-                                <span><fmt:message key="label.buyer.bonus.total"/></span>
-                                <strong class="my-0">${buyerBonus}</strong>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="bonus" id="bonus"
-                                           value="${buyerBonus}">
-                                    <label class="custom-control-label" for="bonus"><fmt:message
-                                            key="label.buyer.bonus"/></label>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </li>
-                </ul>
-            </div>
             <form action="<c:url value="/buyer/order/submit"/>" method="post">
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted"><fmt:message key="label.order.submit.cart"/></span>
+                        <c:set var="size" value="${fn:length(order.productIts)}"/>
+                        <span class="badge badge-secondary badge-pill">${size}</span>
+                    </h4>
+                    <ul class="list-group">
+                        <c:forEach items="${order.productIts.iterator()}" var="product">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">${product.model}</h6>
+                                </div>
+                                <span class="text-muted">${product.price}x${orderItem[product]}</span>
+                            </li>
+                        </c:forEach>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><fmt:message key="label.order.total"/></span>
+                            <strong>${order.price}</strong>
+                            <c:set var="buyerBonus" value="${buyer.bonus}"/>
+                            <c:choose>
+                                <c:when test="${f:isBigDecimalZero(buyerBonus)}">
+                                </c:when>
+                                <c:otherwise>
+                                    <span><fmt:message key="label.buyer.bonus.total"/></span>
+                                    <strong class="my-0">${buyerBonus}</strong>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="bonus" id="bonus"
+                                               value="${buyerBonus}">
+                                        <label class="custom-control-label" for="bonus"><fmt:message
+                                                key="label.buyer.bonus"/></label>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-md-8 order-md-1">
                     <div class="row">
                         <label for="telephone"><fmt:message key="label.register.telephone"/></label>

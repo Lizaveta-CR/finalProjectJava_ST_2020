@@ -31,7 +31,8 @@
                             <div class="panel-title">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                        <h5><span class="glyphicon glyphicon-shopping-cart"></span><fmt:message
+                                                key="label.order.title"/></h5>
                                     </div>
                                     <div class="col-xs-6">
                                         <form action="<c:url value="/products/list"/>" method="get">
