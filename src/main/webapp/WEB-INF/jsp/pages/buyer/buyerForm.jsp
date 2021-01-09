@@ -57,7 +57,12 @@
                             key="label.buyer.address"/></button>
                 </form>
             </div>
-
+            <div class="col-xs-12 col-sm-4 emphasis">
+                <form action="<c:url value="/buyer/order"/>" method="get">
+                    <button class="btn btn-info btn-block" type="submit"><fmt:message
+                            key="label.buyer.button.order"/></button>
+                </form>
+            </div>
             <div class="col-xs-12 col-sm-4 emphasis">
                 <form action="<c:url value="/welcome"/>" method="get">
                     <button class="btn btn-info btn-block" type="submit"><fmt:message

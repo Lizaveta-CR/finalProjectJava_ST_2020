@@ -12,8 +12,9 @@ public enum AttributeConstant {
     ADDRESS("address"),
     CATEGORY("category"),
     MENU("menu"),
-    ORDER("order");
-
+    ORDER("order"),
+    ORDER_ITEM("orderItem"),
+    TOTAL("total");
     private final String name;
 
     private AttributeConstant(String name) {

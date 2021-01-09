@@ -25,6 +25,10 @@ public class Order extends Entity<Integer> {
         productIts.add(product);
     }
 
+    public void removeProduct(Product product) {
+        productIts.remove(product);
+    }
+
     @Override
     public String toString() {
         return "Order{" +

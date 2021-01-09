@@ -21,6 +21,6 @@ public class Product extends Entity<Integer> {
     private String model;
     private Boolean available;
     private String description;
-    private String image_url;
+    private String imageUrl;
     private BigDecimal price;
 }

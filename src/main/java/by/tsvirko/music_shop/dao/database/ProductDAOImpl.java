@@ -42,7 +42,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             statement.setString(2, entity.getModel());
             statement.setBoolean(3, entity.getAvailable());
             statement.setString(4, entity.getDescription());
-            statement.setString(5, entity.getImage_url());
+            statement.setString(5, entity.getImageUrl());
             statement.setBigDecimal(6, entity.getPrice());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
@@ -97,7 +97,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 product.setModel(resultSet.getString(Field.MODEL.value()));
                 product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
                 product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
-                product.setImage_url(resultSet.getString(Field.IMG.value()));
+                product.setImageUrl(resultSet.getString(Field.IMG.value()));
                 product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
             }
             logger.debug("Product with id=" + identity + " was read");
@@ -138,7 +138,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             statement.setString(2, entity.getModel());
             statement.setBoolean(3, entity.getAvailable());
             statement.setString(4, entity.getDescription());
-            statement.setString(5, entity.getImage_url());
+            statement.setString(5, entity.getImageUrl());
             statement.setBigDecimal(6, entity.getPrice());
             statement.setInt(7, entity.getId());
             statement.executeUpdate();
@@ -211,7 +211,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 product.setModel(resultSet.getString(Field.MODEL.value()));
                 product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
                 product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
-                product.setImage_url(resultSet.getString(Field.IMG.value()));
+                product.setImageUrl(resultSet.getString(Field.IMG.value()));
                 product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
                 products.add(product);
             }

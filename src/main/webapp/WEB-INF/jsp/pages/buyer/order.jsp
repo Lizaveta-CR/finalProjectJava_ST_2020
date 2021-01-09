@@ -16,22 +16,123 @@
 <html>
 <head>
     <title>Order</title>
+    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-<c:if test="${not empty order}">
-    <c:forEach items="${order.productIts.iterator()}" var="product">
-        <div class="product-preview-container">
-            <td>${product.model}</td>
-            <td>${product.price}</td>
-                <%--        <td><a href="/removeFilmFromOrder/${film.name}"><spring:message code="lbl.delete"/></a></td>--%>
+<c:choose>
+    <c:when test="${not empty order.productIts and not empty orderItem}">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <form action="<c:url value="/products/list"/>" method="get">
+                                            <button class="btn btn--radius-2 btn--blue-2" type="submit">
+                                                <span class="glyphicon glyphicon-share-alt"></span><fmt:message
+                                                    key="label.button.continue.shop"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <c:forEach items="${order.productIts.iterator()}" var="product">
+                                <div class="row">
+                                    <c:choose>
+                                        <c:when test="${not empty product.imageUrl}">
+                                            <c:url value="/img/${product.imageUrl}" var="image"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:url value="/img/main.jpg" var="image"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <div class="col-xs-2"><img class="img-responsive" src="${image}"/>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h4 class="product-name"><strong>${product.model}</strong></h4><h4>
+                                        <small>${product.description}</small></h4>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-6 text-right">
+                                            <h6><strong>${product.price} <span class="text-muted">x</span>
+                                                <c:out value="${orderItem[product]}"/></strong></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <button type="button" class="btn btn-link btn-xs">
+                                            <form action="<c:url value="/buyer/order/remove?productId=${product.id}"/>"
+                                                  method="post">
+                                                <button class="btn btn-info btn-block" type="submit"><fmt:message
+                                                        key="label.product.remove"/></button>
+                                            </form>
+                                        </button>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <hr>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row text-center">
+                                <div class="col-xs-9">
+                                    <h4 class="text-right"><fmt:message key="label.order.total"/> <strong><c:out
+                                            value="${order.price}"/></strong></h4>
+                                </div>
+                                <div class="col-xs-3">
+                                    <form action="<c:url value="/buyer/order/submit"/>" method="get">
+                                        <button class="btn btn-success btn-block" type="submit">
+                                            <fmt:message key="label.confirm"/>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </c:forEach>
-</c:if>
-<div class="card-footer">
-    <form action="<c:url value="/products/list"/>" method="get">
-        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                key="label.button.back"/></button>
-    </form>
-</div>
+        <div class="card-footer">
+            <form action="<c:url value="/products/list"/>" method="get">
+                <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                        key="label.button.back"/></button>
+            </form>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="container text-center">
+            <h2><fmt:message key="label.title.oop"/></h2>
+            <div class="col-md-11 col-md-offset-3">
+                <div class="row">
+                    <div class="col-md-7 text-center">
+                        <div class="thumbnail">
+                            <img src="<c:url value="/img/empty.jpg"/>" alt="Empty" style="width:100%">
+                            <div class="caption">
+                                <p><fmt:message key="label.order.empty"/></p>
+                                <form action="<c:url value="/products/list"/>" method="get">
+                                    <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                                            key="label.button.fix"/></button>
+                                </form>
+                                <div class="card-footer">
+                                    <form action="<c:url value="/buyer/buyerForm"/>" method="get">
+                                        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                                                key="label.button.back"/></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

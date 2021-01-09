@@ -41,14 +41,18 @@ public class CommandFilter implements Filter {
         getCommands.put("/buyer/edit", new BuyerViewEditFormCommand());
         getCommands.put("/buyer/address", new ViewAddressCommand());
         getCommands.put("/buyer/order", new ViewOrderCommand());
+        getCommands.put("/buyer/order/submit", new BuyerViewSubmitOrderCommand());
 
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());
         postCommands.put("/buyer/edit", new BuyerEditCommand());
         postCommands.put("/buyer/address", new EditAddressCommand());
+        postCommands.put("/buyer/order/remove", new BuyerRemoveProductCommand());
+//        postCommands.put("/buyer/order/add", new BuyerAddProductCommand());
+        postCommands.put("/buyer/order/submit", new SubmitOrderCommand());
 
-        postCommands.put("/products/buy", new BuyProductCommand());
+        postCommands.put("/products/buy", new BuyerAddProductCommand());
     }
 
     @Override
@@ -84,7 +88,6 @@ public class CommandFilter implements Filter {
             if (command != null) {
                 httpRequest.setAttribute(AttributeConstant.COMMAND.value(), command);
                 command.setName(actionName);
-//                httpRequest.set
             } else {
                 logger.error("It is impossible to create command handler object and use filter");
 //                servletRequest.getServletContext().getRequestDispatcher("/WEB-INF/error.jsp");

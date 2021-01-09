@@ -61,7 +61,7 @@ public class LoginCommand extends Command {
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
 //                    forward.setForward(menu.get(user.getRole()).getUrl());
-                    session.setAttribute("menu", menu.get(user.getRole()));
+                    session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
                     forward.setForward("/index");
 //                    forward.setRedirect(false);
                     return forward;

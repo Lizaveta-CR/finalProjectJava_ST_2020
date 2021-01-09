@@ -126,7 +126,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
                 product.setModel(resultSet.getString(Field.MODEL.value()));
                 product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
                 product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
-                product.setImage_url(resultSet.getString(Field.IMG.value()));
+                product.setImageUrl(resultSet.getString(Field.IMG.value()));
                 product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
                 products.add(product);
             }

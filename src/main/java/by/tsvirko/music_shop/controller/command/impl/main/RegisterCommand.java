@@ -68,7 +68,6 @@ public class RegisterCommand extends Command {
                 buyer.setId(user.getId());
                 buyerService.save(buyer);
                 HttpSession session = request.getSession();
-                //TODO: наверное через forward.attr
                 session.setAttribute(AttributeConstant.AUTHORIZED_USER.value(), user);
                 session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
                 session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));

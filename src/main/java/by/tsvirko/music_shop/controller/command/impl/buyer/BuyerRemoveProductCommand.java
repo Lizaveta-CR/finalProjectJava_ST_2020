@@ -7,13 +7,17 @@ import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.util.TotalPriceUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
-public class BuyProductCommand extends BuyerCommand {
-//    private Order order = new Order();
+public class BuyerRemoveProductCommand extends BuyerCommand {
+    private static final Logger logger = LogManager.getLogger(BuyerRemoveProductCommand.class);
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -23,23 +27,20 @@ public class BuyProductCommand extends BuyerCommand {
             try {
                 ProductService productService = factory.getService(ProductService.class);
                 Product product = productService.findById(Integer.parseInt(parameter));
-//                order.addProduct(product);
                 HttpSession session = request.getSession(false);
                 Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
-                if (order == null) {
-                    order = new Order();
-                    session.setAttribute(AttributeConstant.ORDER.value(), order);
+                Map<Product, Integer> map = (Map<Product, Integer>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
+                if (order != null && product != null) {
+                    order.removeProduct(product);
+                    map.remove(product);
+                    order.setPrice(TotalPriceUtil.countPrice(map));
+                    logger.info("Product with id=" + product.getId() + " was removed from order");
                 }
-                order.addProduct(product);
-//                forward.getAttributes().put(AttributeConstant.MESSAGE.value(), product);
-//                request.setAttribute("order", order);
                 return forward;
             } catch (ServicePersistentException e) {
-                //TODO
-                e.printStackTrace();
+                logger.error("Service exception occurred while removing product in BuyerRemoveProductCommand class");
             }
         }
-        forward.setForward("/products/list");
         return forward;
     }
 }

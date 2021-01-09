@@ -40,40 +40,43 @@
                                 <caption>${childItem.name}</caption>
                                 <thead>
                                 <tr>
-                                        <%--                                    TODO: fmt--%>
-                                    <th scope="col">Picture</th>
-                                    <th scope="col">Model</th>
-                                    <th scope="col">Available</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Price</th>
+                                    <th scope="col"><fmt:message
+                                            key="label.product.picture"/></th>
+                                    <th scope="col"><fmt:message
+                                            key="label.product.model"/></th>
+                                    <th scope="col"><fmt:message
+                                            key="label.product.description"/></th>
+                                    <th scope="col"><fmt:message
+                                            key="label.product.price"/></th>
                                 </tr>
                                 </thead>
                                 <c:forEach var="product" items="${childItem.products}">
+                                    <c:choose>
+                                        <c:when test="${not empty product.imageUrl}">
+                                            <c:url value="/img/${product.imageUrl}" var="image"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:url value="/img/main.jpg" var="image"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <c:choose>
-                                                <c:when test="${not empty product.image_url}">
-                                                    <img src='<c:url value="/img/${product.image_url}"></c:url>'
-                                                         class="img-thumbnail"
-                                                         height="200" width="300"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <img src='<c:url value="/img/main.jpg"></c:url>'
-                                                         class="img-thumbnail"
-                                                         height="200" width="300"/>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <img src="${image}" class="img-thumbnail" height="200" width="300"/>
                                         </td>
                                         <td> ${product.model}</td>
-                                        <td> ${product.available}</td>
                                         <td> ${product.description}</td>
                                         <td> ${product.price}</td>
                                         <c:if test="${sessionScope.authorizedUser != null}">
                                             <td>
-                                                <form action="/products/buy?productId=${product.id}" method="post">
+                                                <form action="<c:url value="/products/buy?productId=${product.id}"/>"
+                                                      method="post">
+                                                    <p><fmt:message key="label.product.amount"/></p>
+                                                    <p><input type="number" min="1" value="1" name="amount"
+                                                              id="amount"/></p>
                                                     <button class="btn btn-info btn-block" type="submit"><fmt:message
                                                             key="label.product.buy"/></button>
+                                                </form>
                                                 </form>
                                             </td>
                                         </c:if>
