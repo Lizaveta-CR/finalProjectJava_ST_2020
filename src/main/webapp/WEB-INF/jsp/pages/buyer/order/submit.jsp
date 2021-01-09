@@ -37,7 +37,7 @@
             </form>
             <form action="<c:url value="/buyer/edit"/>" method="get">
                 <button class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message
-                        key="label.register.telephone"/></button>
+                        key="label.buyer.edit"/></button>
             </form>
         </c:forEach>
     </c:if>

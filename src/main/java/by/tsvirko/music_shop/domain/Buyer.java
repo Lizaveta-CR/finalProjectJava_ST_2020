@@ -19,12 +19,16 @@ public class Buyer extends Person {
     private Long telephone;
     private BigDecimal balance;
     private Address address;
-    private BigDecimal bonus = new BigDecimal(0.00);
+    private BigDecimal bonus = BigDecimal.ZERO;
     private Boolean enabled = true;
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order) {
         orders.add(order);
+    }
+
+    public void addBonus(BigDecimal value) {
+        this.bonus = bonus.add(value);
     }
 
     @Override

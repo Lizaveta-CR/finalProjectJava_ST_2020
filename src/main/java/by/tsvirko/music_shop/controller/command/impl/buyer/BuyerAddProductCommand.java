@@ -4,7 +4,6 @@ import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Order;
-import by.tsvirko.music_shop.domain.OrderItem;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -32,7 +31,7 @@ public class BuyerAddProductCommand extends BuyerCommand {
                 Product product = productService.findById(Integer.parseInt(parameter));
                 HttpSession session = request.getSession(false);
                 Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
-                Map<Product, Integer> map = (Map<Product, Integer>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
+                Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
 
                 if (map == null) {
                     map = new HashMap<>();
@@ -44,9 +43,9 @@ public class BuyerAddProductCommand extends BuyerCommand {
                     session.setAttribute(AttributeConstant.ORDER.value(), order);
                 }
 
-                int amount = 1;
+                byte amount = 1;
                 if (!parameterAmount.isEmpty()) {
-                    amount = Integer.parseInt(parameterAmount);
+                    amount = Byte.parseByte(parameterAmount);
                     if (amount != 0) {
                         map.put(product, amount);
                     }

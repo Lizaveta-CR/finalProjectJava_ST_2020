@@ -7,42 +7,26 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class TotalPriceUtil {
-//    public enum TotalPriceEnum {
-//        DELETE,
-//        ADD
-//    }
+    private static final BigDecimal KOEFFICIENT = new BigDecimal(0.03);
 
-    public static BigDecimal countPrice(Map<Product, Integer> map) {
+    public static BigDecimal countPrice(Map<Product, Byte> map) {
         BigDecimal total = BigDecimal.ZERO;
-        for (Map.Entry<Product, Integer> entry : map.entrySet()) {
+        for (Map.Entry<Product, Byte> entry : map.entrySet()) {
             BigDecimal productPrice = entry.getKey().getPrice();
             total = total.add(productPrice.multiply(new BigDecimal(entry.getValue())));
         }
         return total;
     }
 
+    public static BigDecimal countPrice(Map.Entry<Product, Byte> entry) {
+        return entry.getKey().getPrice().multiply(new BigDecimal(entry.getValue()));
+    }
+
     public static BigDecimal countPrice(Order order, BigDecimal bonus) {
         return order.getPrice().subtract(bonus);
     }
-//
-//    public static BigDecimal countPrice(Map<Product, Integer> map, TotalPriceEnum param) {
-//        BigDecimal price = countPrice(map);
-//        BigDecimal productPrice = product.getPrice();
-//        switch (param) {
-//            case ADD:
-//                if (order.getProductIts().contains(product)) {
-//                    return price.add(productPrice.multiply(new BigDecimal(amount).subtract(new BigDecimal(1))));
-//                } else {
-//                    return price.add(productPrice.multiply(new BigDecimal(amount)));
-//                }
-//            case DELETE:
-//                if (order.getProductIts().contains(product)) {
-//                    return price.add(productPrice.multiply(new BigDecimal(amount).subtract(new BigDecimal(1))));
-//                } else {
-//                    return price.add(productPrice.multiply(new BigDecimal(amount)));
-//                }
-//            default:
-//                return price;
-//        }
-//    }
+
+    public static BigDecimal countBonus(Order order) {
+        return order.getPrice().multiply(KOEFFICIENT);
+    }
 }

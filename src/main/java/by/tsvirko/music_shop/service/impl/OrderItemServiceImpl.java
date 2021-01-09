@@ -6,6 +6,8 @@ import by.tsvirko.music_shop.domain.OrderItem;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
+import java.util.List;
+
 public class OrderItemServiceImpl extends ServiceImpl implements OrderItemService {
 
     @Override
@@ -16,6 +18,23 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
                 dao.update(order);
             } else {
                 dao.create(order);
+            }
+            transaction.commit();
+        } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public void save(List<OrderItem> order) throws ServicePersistentException {
+        try {
+            OrderItemDAO dao = transaction.createDao(OrderItemDAO.class, false);
+            for (OrderItem orderItem : order) {
+                dao.create(orderItem);
             }
             transaction.commit();
         } catch (PersistentException e) {

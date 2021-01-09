@@ -29,7 +29,7 @@ public class BuyerRemoveProductCommand extends BuyerCommand {
                 Product product = productService.findById(Integer.parseInt(parameter));
                 HttpSession session = request.getSession(false);
                 Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
-                Map<Product, Integer> map = (Map<Product, Integer>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
+                Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
                 if (order != null && product != null) {
                     order.removeProduct(product);
                     map.remove(product);

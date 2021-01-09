@@ -5,7 +5,9 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.util.TotalPriceUtil;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class OrderServiceImpl extends ServiceImpl implements OrderService {
@@ -45,10 +47,19 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             if (order.getId() != null) {
                 orderDAO.update(order);
             } else {
-//                BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
-//                Integer buyerIdentity = order.getBuyer().getId();
-                //TODO: как быть с бонусом? У покупателя вычесть стоимость товара
-//                Optional<Buyer> buyer = buyerDAO.read(buyerIdentity);
+                Date now = new Date();
+                order.setDate(now);
+                Buyer buyer = order.getBuyer();
+                BigDecimal buyerBalance = buyer.getBalance();
+                BigDecimal orderPrice = order.getPrice();
+                if (buyerBalance.compareTo(orderPrice) == -1) {
+                    throw new ServicePersistentException();
+                } else {
+                    buyer.setBalance(buyerBalance.subtract(orderPrice));
+                    buyer.addBonus(TotalPriceUtil.countBonus(order));
+                    BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
+                    buyerDAO.update(buyer);
+                }
                 order.setId(orderDAO.create(order));
             }
             transaction.commit();
