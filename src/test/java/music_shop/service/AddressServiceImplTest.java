@@ -108,6 +108,6 @@ public class AddressServiceImplTest {
     @Test(dataProvider = "addressCorrect")
     public void findByIdTest(Address address) throws ServicePersistentException {
         Address foundAddress = addressService.findById(address.getId());
-        Assert.assertEquals(address, foundAddress);
+        Assert.assertEquals(address.getId(), foundAddress.getId());
     }
 }

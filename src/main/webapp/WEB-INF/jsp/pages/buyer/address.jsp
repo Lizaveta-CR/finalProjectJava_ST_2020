@@ -18,24 +18,28 @@
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
 </head
-<c:if test="${not empty address}">
+<c:choose>
+<c:when test="${not empty address}">
     <c:set var="countryName" value="${address.country.name}"/>
     <c:set var="city" value="${address.city}"/>
     <c:set var="street" value="${address.street}"/>
     <c:set var="zip_code" value="${address.zipCode}"/>
     <c:set var="apartmentNumber" value="${address.apartmentNumber}"/>
     <c:set var="houseNumber" value="${address.houseNumber}"/>
-</c:if>>
+</c:when>
+<c:otherwise>
+    <fmt:message key="label.buyer.address.title.new" var="title"/>/>
+</c:otherwise>
+    </c:choose>
 <body>
 <h2></h2>
 <div class="container">
-    <h1><fmt:message key="label.buyer.address"/></h1>
+    <h1><c:out value="${title}"/></h1>
     <hr>
     <div class="row">
         <div class="col-md-9">
             <div class="col-md-10 col-md-offset-1">
                 <c:if test="${not empty message}">
-
                     <c:forEach items="${message}" var="item" varStatus="status">
                         <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
                     </c:forEach>

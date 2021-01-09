@@ -21,6 +21,10 @@ public class Order extends Entity<Integer> {
     private Date date;
     private Set<Product> productIts = new HashSet<>();
 
+    public void addProduct(Product product) {
+        productIts.add(product);
+    }
+
     @Override
     public String toString() {
         return "Order{" +

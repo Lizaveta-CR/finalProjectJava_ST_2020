@@ -41,6 +41,8 @@
                 <methods>
                     <include name="findAll"/>
                     <include name="saveTest"/>
+                    <include name="findByIdTest"/>
+                    <include name="findByIdExceptionTest"/>
                     <include name="updateTest"/>
                     <include name="saveExceptionTest"/>
                     <include name="updateExceptionTest"/>

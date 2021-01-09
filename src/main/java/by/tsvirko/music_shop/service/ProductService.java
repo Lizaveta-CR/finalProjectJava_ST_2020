@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.service;
 
 import by.tsvirko.music_shop.domain.Product;
+import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface ProductService extends Service {
     void delete(Integer identity) throws ServicePersistentException;
 
     void save(Product product) throws ServicePersistentException;
+
+    Product findById(Integer identity) throws ServicePersistentException;
 }

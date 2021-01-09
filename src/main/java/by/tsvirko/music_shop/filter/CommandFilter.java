@@ -40,12 +40,15 @@ public class CommandFilter implements Filter {
         getCommands.put("/buyer/buyerForm", new BuyerFormCommand());
         getCommands.put("/buyer/edit", new BuyerViewEditFormCommand());
         getCommands.put("/buyer/address", new ViewAddressCommand());
+        getCommands.put("/buyer/order", new ViewOrderCommand());
 
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());
         postCommands.put("/buyer/edit", new BuyerEditCommand());
         postCommands.put("/buyer/address", new EditAddressCommand());
+
+        postCommands.put("/products/buy", new BuyProductCommand());
     }
 
     @Override

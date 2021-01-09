@@ -2,9 +2,11 @@ package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.CategoryDAO;
 import by.tsvirko.music_shop.dao.ProductDAO;
+import by.tsvirko.music_shop.dao.UserDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Product;
+import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
@@ -56,6 +58,20 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
                 transaction.rollback();
             } catch (PersistentException ex) {
             }
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public Product findById(Integer identity) throws ServicePersistentException {
+        try {
+            ProductDAO dao = transaction.createDao(ProductDAO.class, true);
+            Optional<Product> optionalProduct = dao.read(identity);
+            if (optionalProduct.isPresent()) {
+                return optionalProduct.get();
+            }
+            throw new ServicePersistentException("No such product");
+        } catch (PersistentException | ServicePersistentException e) {
             throw new ServicePersistentException(e);
         }
     }

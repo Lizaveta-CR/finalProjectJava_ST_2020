@@ -86,6 +86,7 @@
     <listener>
         <listener-class>by.tsvirko.music_shop.listener.AppContextAttributeListener</listener-class>
     </listener>
+
     <!--    <error-page>-->
     <!--        <error-code>404</error-code>-->
     <!--        <location>/WEB-INF/error/error.jsp</location>-->

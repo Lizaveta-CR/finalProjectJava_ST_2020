@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Product;
+import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -32,7 +33,7 @@ public class ProductServiceImplTest {
         product.setCategory(category);
         product.setModel("H5-Gibson 3000");
         product.setAvailable(true);
-        product.setPrice(new BigDecimal(100));
+        product.setPrice(new BigDecimal(100.00));
     }
 
     @Test
@@ -86,5 +87,16 @@ public class ProductServiceImplTest {
     public void updateExceptionTest() {
         product.setModel(null);
         Assert.assertThrows(ServicePersistentException.class, () -> productService.save(product));
+    }
+
+    @Test
+    public void findByIdExceptionTest() throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> productService.findById(1000));
+    }
+
+    @Test
+    public void findByIdTest() throws ServicePersistentException {
+        Product foundProduct = productService.findById(product.getId());
+        Assert.assertEquals(product.getId(), foundProduct.getId());
     }
 }

@@ -40,6 +40,7 @@
                                 <caption>${childItem.name}</caption>
                                 <thead>
                                 <tr>
+                                        <%--                                    TODO: fmt--%>
                                     <th scope="col">Picture</th>
                                     <th scope="col">Model</th>
                                     <th scope="col">Available</th>
@@ -68,6 +69,14 @@
                                         <td> ${product.available}</td>
                                         <td> ${product.description}</td>
                                         <td> ${product.price}</td>
+                                        <c:if test="${sessionScope.authorizedUser != null}">
+                                            <td>
+                                                <form action="/products/buy?productId=${product.id}" method="post">
+                                                    <button class="btn btn-info btn-block" type="submit"><fmt:message
+                                                            key="label.product.buy"/></button>
+                                                </form>
+                                            </td>
+                                        </c:if>
                                         <td></td>
                                     </tr>
                                     </tbody>

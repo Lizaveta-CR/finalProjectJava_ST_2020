@@ -19,7 +19,7 @@ public class ViewAddressCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+        User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_USER.value());
         try {
             CountryService service = factory.getService(CountryService.class);
             List<String> countries = service.readNames();

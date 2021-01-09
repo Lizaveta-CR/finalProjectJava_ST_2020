@@ -11,7 +11,8 @@ public enum AttributeConstant {
     COUNTRIES("countries"),
     ADDRESS("address"),
     CATEGORY("category"),
-    MENU("menu");
+    MENU("menu"),
+    ORDER("order");
 
     private final String name;
 
