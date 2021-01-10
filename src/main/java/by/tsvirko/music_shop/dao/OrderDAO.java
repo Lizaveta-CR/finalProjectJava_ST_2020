@@ -4,7 +4,10 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Order;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderDAO extends Dao<Integer, Order> {
     List<Order> read() throws PersistentException;
+
+    Map<Integer, List<Order>> read(int offset, int noOfRecords) throws PersistentException;
 }

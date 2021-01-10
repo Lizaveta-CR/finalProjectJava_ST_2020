@@ -8,9 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Date;
+import java.util.*;
 
 public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     private static final Logger logger = LogManager.getLogger(OrderDAOImpl.class);
@@ -18,7 +17,9 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     private static final String SQL_INSERT_ORDER = "INSERT INTO orders (buyer_id,date, price) VALUES (?,?,?)";
     private static final String SQL_UPDATE_ORDER = "UPDATE orders SET buyer_id = ?, date =? ,price=? WHERE id = ?";
     private static final String SQL_DELETE_ORDER = "DELETE FROM orders WHERE id = ?";
-    private static final String SQL_READ_ALL_ORDERS = "SELECT * FROM orders";
+    private static final String SQL_READ_ALL_ORDERS = "SELECT id,buyer_id,date,price FROM orders";
+    private static final String SQL_NUMBER_OF_RECORDS = "SELECT FOUND_ROWS()";
+//    private static String SQL_READ_ALL_ORDERS_LIMIT = "";
 
     /**
      * Reads all orders from 'orders' table
@@ -49,6 +50,70 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             }
             logger.debug("Orders were read");
             return orders;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+    }
+
+    /**
+     * Reads all orders from 'orders' table with specified offset and number of records
+     *
+     * @param offset
+     * @param noOfRecords
+     * @return Map<Integer, List < Order>>,where Integer represents number of found rows
+     * @throws PersistentException if database error occurs
+     */
+    @Override
+    public Map<Integer, List<Order>> read(int offset, int noOfRecords) throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            final String SQL_READ_ALL_ORDERS_LIMIT = "SELECT SQL_CALC_FOUND_ROWS id,buyer_id,date,price " +
+                    "FROM orders LIMIT " + offset + ", " + noOfRecords + ";";
+            statement = connection.prepareStatement(SQL_READ_ALL_ORDERS_LIMIT);
+            resultSet = statement.executeQuery();
+            Map<Integer, List<Order>> map = new HashMap<>();
+            List<Order> orders = new ArrayList<>();
+            Order order = null;
+            while (resultSet.next()) {
+                order = new Order();
+                order.setId(resultSet.getInt(Field.ID.value()));
+
+                Buyer buyer = new Buyer();
+                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
+                order.setBuyer(buyer);
+
+                order.setDate(resultSet.getDate(Field.DATE.value()));
+                order.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
+                orders.add(order);
+            }
+            if (resultSet != null) {
+                resultSet.close();
+                resultSet = statement.executeQuery(SQL_NUMBER_OF_RECORDS);
+                Integer sqlNoOfRecords = null;
+                if (resultSet.next()) {
+                    sqlNoOfRecords = resultSet.getInt(1);
+                }
+                map.put(sqlNoOfRecords, orders);
+            }
+            logger.debug("Orders were read");
+            return map;
         } catch (SQLException e) {
             logger.error("It is impossible co connect to database");
             throw new PersistentException(e);

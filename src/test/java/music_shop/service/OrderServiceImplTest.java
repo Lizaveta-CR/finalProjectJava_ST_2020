@@ -3,9 +3,7 @@ package music_shop.service;
 import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Buyer;
-import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.domain.Order;
-import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -16,9 +14,8 @@ import org.testng.annotations.*;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Map;
 
 public class OrderServiceImplTest {
     OrderService orderService;
@@ -46,6 +43,12 @@ public class OrderServiceImplTest {
         List<Order> orders = orderService.findAll();
         Assert.assertNotNull(orders);
     }
+
+//    @Test
+//    public void findAllOffset() throws ServicePersistentException {
+//        Map<Integer, List<Order>> map = orderService.find(1, 1);
+//        Assert.assertNotNull(map);
+//    }
 
     @Test
     public void delete() throws ServicePersistentException {

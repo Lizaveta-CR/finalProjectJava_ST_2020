@@ -9,12 +9,7 @@ INSERT INTO buyers(buyer_id, email, telephone, balance, enabled)
 VALUES
 #        (3, 'elizTs@gmail.com', 375445684811, 100.10, true),
 (6, 'ksuhaSokol@gmail.com', 375441291821, 220.11, true);
-DELETE
-from users
-where id = 20;
-UPDATE buyers
-SET bonus=10
-WHERE buyer_id = 21;
+
 INSERT INTO countries(id, code, name)
 VALUES (1, 'BY', 'Belarus'),
        (2, 'US', 'USA'),

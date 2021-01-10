@@ -13,12 +13,22 @@ import java.util.*;
 public class OrderServiceImpl extends ServiceImpl implements OrderService {
     @Override
     public List<Order> findAll() throws ServicePersistentException {
-        OrderDAO dao;
         try {
-            dao = transaction.createDao(OrderDAO.class, true);
+            OrderDAO dao = transaction.createDao(OrderDAO.class, true);
             List<Order> orders = dao.read();
             buildList(orders);
             return orders;
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public Map<Integer, List<Order>> find(int offset, int noOfRecords) throws ServicePersistentException {
+        try {
+            OrderDAO dao = transaction.createDao(OrderDAO.class, true);
+            Map<Integer, List<Order>> map = dao.read(offset, noOfRecords);
+            return map;
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }

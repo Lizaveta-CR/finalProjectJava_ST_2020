@@ -72,7 +72,63 @@
         </div>
     </div>
 </div>
-<%--TODO: pagination for viewing orders--%>
+<div class="container">
+    <h2><fmt:message key="label.order.buyer.orders"/></h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><fmt:message key="label.order.buyer.orders.date"/></th>
+            <th><fmt:message key="label.product.price"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="order" items="${orders}">
+            <tr>
+                <td>${order.date}</td>
+                <td>${order.price}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <ul class="pagination">
+        <c:forEach begin="1" end="${noOfPages}" var="i">
+            <c:choose>
+                <c:when test="${currentPage eq i}">
+                    <div class="btn-group">
+                        <li>
+                            <button class="btn btn-primary" type="submit">${i}</button>
+                        </li>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="btn-group">
+                        <li>
+                            <form action="<c:url value="/buyer/buyerForm?page=${i}"/>" method="post">
+                                <button class="btn btn-primary" type="submit">${i}</button>
+                            </form>
+                        </li>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <%--    <li><a href="#">1</a></li>--%>
+        <%--    <li><a href="#">2</a></li>--%>
+        <%--    <li><a href="#">3</a></li>--%>
+        <%--    <li><a href="#">4</a></li>--%>
+        <%--    <li><a href="#">5</a></li>--%>
+    </ul>
+</div>
+
+<%--    </tr>--%>
+<%--</table>--%>
+
+<%--&lt;%&ndash;For displaying Next link &ndash;%&gt;--%>
+<%--<c:if test="${currentPage lt noOfPages}">--%>
+<%--    <form action="<c:url value="/buyer/buyerForm?page=${currentPage + 1}"/>" method="get">--%>
+<%--        <button class="btn btn-info btn-block" type="submit"><fmt:message--%>
+<%--                key="label.button.next"/></button>--%>
+<%--    </form>--%>
+<%--</c:if>--%>
 
 </body>
 </html>

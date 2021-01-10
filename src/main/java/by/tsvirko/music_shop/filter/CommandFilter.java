@@ -51,6 +51,7 @@ public class CommandFilter implements Filter {
         postCommands.put("/buyer/order/remove", new BuyerRemoveProductCommand());
 //        postCommands.put("/buyer/order/add", new BuyerAddProductCommand());
         postCommands.put("/buyer/order/submit", new SubmitOrderCommand());
+        postCommands.put("/buyer/buyerForm", new BuyerFormCommand());
 
         postCommands.put("/products/buy", new BuyerAddProductCommand());
     }

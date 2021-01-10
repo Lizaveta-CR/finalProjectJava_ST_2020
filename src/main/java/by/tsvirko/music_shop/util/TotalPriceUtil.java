@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class TotalPriceUtil {
-    private static final BigDecimal KOEFFICIENT = new BigDecimal(0.03);
+    private static final BigDecimal KOEFFICIENT = new BigDecimal(3);
 
     public static BigDecimal countPrice(Map<Product, Byte> map) {
         BigDecimal total = BigDecimal.ZERO;
@@ -27,6 +27,8 @@ public class TotalPriceUtil {
     }
 
     public static BigDecimal countBonus(Order order) {
-        return order.getPrice().multiply(KOEFFICIENT);
+        BigDecimal total = order.getPrice().multiply(KOEFFICIENT).divide(new BigDecimal(100));
+        total = total.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return total;
     }
 }

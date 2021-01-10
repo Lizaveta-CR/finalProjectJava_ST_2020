@@ -13,6 +13,9 @@ public enum AttributeConstant {
     CATEGORY("category"),
     MENU("menu"),
     ORDER("order"),
+    ORDERS("orders"),
+    NO_OF_PAGES("noOfPages"),
+    CURRENT_PAGE("currentPage"),
     ORDER_ITEM("orderItem"),
     TOTAL("total");
     private final String name;
