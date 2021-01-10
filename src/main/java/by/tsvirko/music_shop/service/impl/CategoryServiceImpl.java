@@ -36,7 +36,7 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
     private void buildListProductCategories(Category category, List<Product> products) {
         if (category.getSize() == 0) {
             for (Product product : products) {
-                if (product.getCategory().equals(category)) {
+                if (product.getCategory().getName().equals(category.getName())) {
                     category.addProduct(product);
                 }
             }
