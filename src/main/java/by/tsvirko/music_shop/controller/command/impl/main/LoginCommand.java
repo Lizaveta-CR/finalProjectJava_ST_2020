@@ -17,9 +17,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LoginCommand extends Command {
@@ -32,6 +30,7 @@ public class LoginCommand extends Command {
 //        TODO:add i18n
 //        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
         menu.put(Role.BUYER, new Menu("/buyer/buyerForm"));
+
 //        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
 //        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
@@ -58,13 +57,10 @@ public class LoginCommand extends Command {
                         session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
                     } catch (ServicePersistentException e) {
                     }
-//                    session.setAttribute("menu", menu.get(user.getRole()));
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
-//                    forward.setForward(menu.get(user.getRole()).getUrl());
                     session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
                     forward.setForward("/index");
-//                    forward.setRedirect(false);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

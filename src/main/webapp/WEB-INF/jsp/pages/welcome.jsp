@@ -45,9 +45,9 @@
     </div>
     <c:if test="${sessionScope.authorizedUser != null}">
         <div class="container-fluid">
-            <c:url value="${sessionScope.menu.url}" var="itemUrl"/>
+            <c:url value="${menu.url}" var="itemUrl"/>
             <br>
-            <form action="<c:url value="${itemUrl}"/>" method="get">
+            <form action="${itemUrl}" method="get">
                 <button class="btn btn-primary" type="submit"><fmt:message
                         key="label.welcome.myPage"/></button>
             </form>
