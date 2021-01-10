@@ -36,11 +36,11 @@
                 </p>
                 <p><strong><fmt:message key="label.register.telephone"/>: </strong> <c:out
                         value="${buyer.telephone}"/></p>
-                <p><strong><fmt:message key="label.register.balance"/>: </strong><c:out
-                        value="${buyer.balance}"/>
+                <p><strong><fmt:message key="label.register.balance"/>: </strong>
+                    <fmt:formatNumber value="${buyer.balance}" type="currency"/>
                 </p>
-                <p><strong><fmt:message key="label.register.bonus"/>: </strong><c:out
-                        value="${buyer.bonus}"/>
+                <p><strong><fmt:message key="label.register.bonus"/>: </strong>
+                    <fmt:formatNumber value="${buyer.bonus}" type="currency"/>
                 </p>
             </div>
         </div>
@@ -84,8 +84,10 @@
         <tbody>
         <c:forEach var="order" items="${orders}">
             <tr>
-                <td>${order.date}</td>
-                <td>${order.price}</td>
+                <td><fmt:formatDate value="${order.date}" dateStyle="full"/></td>
+                <td><fmt:formatNumber value="${order.price}" type="currency"/>
+                    <a href="<c:url value="/buyer/feedBack?order=${order.id}"/>"><fmt:message
+                            key="label.order.leave.feedback"/></a></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -111,24 +113,12 @@
                 </c:otherwise>
             </c:choose>
         </c:forEach>
-        <%--    <li><a href="#">1</a></li>--%>
-        <%--    <li><a href="#">2</a></li>--%>
-        <%--    <li><a href="#">3</a></li>--%>
-        <%--    <li><a href="#">4</a></li>--%>
-        <%--    <li><a href="#">5</a></li>--%>
     </ul>
 </div>
-
-<%--    </tr>--%>
-<%--</table>--%>
-
-<%--&lt;%&ndash;For displaying Next link &ndash;%&gt;--%>
-<%--<c:if test="${currentPage lt noOfPages}">--%>
-<%--    <form action="<c:url value="/buyer/buyerForm?page=${currentPage + 1}"/>" method="get">--%>
-<%--        <button class="btn btn-info btn-block" type="submit"><fmt:message--%>
-<%--                key="label.button.next"/></button>--%>
-<%--    </form>--%>
-<%--</c:if>--%>
-
 </body>
 </html>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>

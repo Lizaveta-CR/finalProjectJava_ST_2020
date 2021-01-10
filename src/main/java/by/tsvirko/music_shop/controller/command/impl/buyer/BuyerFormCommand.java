@@ -6,6 +6,8 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public class BuyerFormCommand extends BuyerCommand {
+    private static final Logger logger = LogManager.getLogger(BuyerFormCommand.class);
+
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         int page = 1;
@@ -33,10 +37,8 @@ public class BuyerFormCommand extends BuyerCommand {
             request.setAttribute(AttributeConstant.NO_OF_PAGES.value(), noOfPages);
             request.setAttribute(AttributeConstant.CURRENT_PAGE.value(), page);
         } catch (ServicePersistentException e) {
-            //todo
-            e.printStackTrace();
+            logger.error("Service can not perform operation with retrieving limited data");
         }
-
         return null;
     }
 }

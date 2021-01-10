@@ -13,6 +13,7 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <html>
+<%--TODO:--%>
 <head>
     <title>Categories</title>
     <head>

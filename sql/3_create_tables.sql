@@ -23,7 +23,7 @@ CREATE TABLE buyers
     buyer_id  INTEGER                     NOT NULL,
     email     VARCHAR(255)                NOT NULL,
     telephone BIGINT(15)                  NOT NULL UNIQUE,
-    balance   DECIMAL(10, 2), 
+    balance   DECIMAL(10, 2),
     bonus     DECIMAL(10, 2) DEFAULT 0    NOT NULL,
 #     for blocking
     enabled   BOOLEAN        DEFAULT true NOT NULL,
@@ -129,7 +129,6 @@ CREATE TABLE producer_items
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
-
 CREATE TABLE product_rates
 (
     id         INTEGER AUTO_INCREMENT NOT NULL,
@@ -145,7 +144,7 @@ CREATE TABLE product_rates
         FOREIGN KEY (buyer_id) references buyers (buyer_id)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-    CONSTRAINT CK_Constrain_Mark CHECK ( mark <= 10 )
+    CONSTRAINT CK_Constrain_Mark CHECK ( mark <= 10 AND mark > 0)
 );
 
 CREATE TABLE countries

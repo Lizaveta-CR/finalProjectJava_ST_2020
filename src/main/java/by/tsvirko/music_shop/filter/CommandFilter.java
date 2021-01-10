@@ -38,6 +38,7 @@ public class CommandFilter implements Filter {
 //        getCommands.put("/admin/users", new ShowUsersCommand());
 
         getCommands.put("/buyer/buyerForm", new BuyerFormCommand());
+        getCommands.put("/buyer/feedBack", new ViewFeedBackPage());
         getCommands.put("/buyer/edit", new BuyerViewEditFormCommand());
         getCommands.put("/buyer/address", new ViewAddressCommand());
         getCommands.put("/buyer/order", new ViewOrderCommand());
@@ -49,9 +50,9 @@ public class CommandFilter implements Filter {
         postCommands.put("/buyer/edit", new BuyerEditCommand());
         postCommands.put("/buyer/address", new EditAddressCommand());
         postCommands.put("/buyer/order/remove", new BuyerRemoveProductCommand());
-//        postCommands.put("/buyer/order/add", new BuyerAddProductCommand());
         postCommands.put("/buyer/order/submit", new SubmitOrderCommand());
         postCommands.put("/buyer/buyerForm", new BuyerFormCommand());
+        postCommands.put("/buyer/feedBack/submit", new SubmitFeedBackCommand());
 
         postCommands.put("/products/buy", new BuyerAddProductCommand());
     }
