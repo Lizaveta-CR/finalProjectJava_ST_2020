@@ -23,7 +23,14 @@ public class BuyerFormCommand extends BuyerCommand {
         int recordsPerPage = 5;
         String parameter = request.getParameter(ParameterConstant.PAGE.value());
         if (parameter != null) {
-            page = Integer.parseInt(parameter);
+            try {
+                page = Integer.parseInt(parameter);
+                if (page <= 0) {
+                    return null;
+                }
+            } catch (NumberFormatException e) {
+                return null;
+            }
         }
         try {
             OrderService service = factory.getService(OrderService.class);

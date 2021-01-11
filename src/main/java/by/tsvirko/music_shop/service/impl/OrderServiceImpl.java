@@ -57,20 +57,26 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             if (order.getId() != null) {
                 orderDAO.update(order);
             } else {
-                Date now = new Date();
-                order.setDate(now);
-                Buyer buyer = order.getBuyer();
-                BigDecimal buyerBalance = buyer.getBalance();
-                BigDecimal orderPrice = order.getPrice();
-                if (buyerBalance.compareTo(orderPrice) == -1) {
-                    throw new ServicePersistentException();
-                } else {
-                    buyer.setBalance(buyerBalance.subtract(orderPrice));
-                    buyer.addBonus(TotalPriceUtil.countBonus(order));
-                    BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
-                    buyerDAO.update(buyer);
+                if (order.getDate() == null) {
+                    Date now = new Date();
+                    order.setDate(now);
                 }
-                order.setId(orderDAO.create(order));
+                Buyer buyer = order.getBuyer();
+                if (buyer != null) {
+                    BigDecimal buyerBalance = buyer.getBalance();
+                    BigDecimal orderPrice = order.getPrice();
+                    if (buyerBalance.compareTo(orderPrice) == -1) {
+                        throw new ServicePersistentException("No money");
+                    } else {
+                        buyer.setBalance(buyerBalance.subtract(orderPrice));
+                        buyer.addBonus(TotalPriceUtil.countBonus(order));
+                        BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
+                        buyerDAO.update(buyer);
+                    }
+                    order.setId(orderDAO.create(order));
+                } else {
+                    throw new ServicePersistentException("Buyer is empty");
+                }
             }
             transaction.commit();
         } catch (PersistentException e) {
