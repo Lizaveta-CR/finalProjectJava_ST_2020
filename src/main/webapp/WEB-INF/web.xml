@@ -87,6 +87,10 @@
         <listener-class>by.tsvirko.music_shop.listener.AppContextAttributeListener</listener-class>
     </listener>
 
+    <session-config>
+        <!-- Disables URL-based sessions (no more 'jsessionid' in the URL) -->
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
     <!--    <error-page>-->
     <!--        <error-code>404</error-code>-->
     <!--        <location>/WEB-INF/error/error.jsp</location>-->

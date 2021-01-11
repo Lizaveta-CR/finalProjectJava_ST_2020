@@ -17,6 +17,7 @@ public enum AttributeConstant {
     NO_OF_PAGES("noOfPages"),
     CURRENT_PAGE("currentPage"),
     ORDER_ITEM("orderItem"),
+    RATEMAP("rateMap"),
     TOTAL("total");
     private final String name;
 

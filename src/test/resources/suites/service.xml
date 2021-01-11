@@ -18,78 +18,87 @@
             </class>
         </classes>
     </test>
-    <test name="Product service">
+    <test name="Product rate service">
         <classes>
-            <class name="music_shop.service.ProductServiceImplTest">
+            <class name="music_shop.service.ProductRateServiceTest">
                 <methods>
-                    <include name="findAll"/>
-                    <include name="saveTest"/>
-                    <include name="findByIdTest"/>
-                    <include name="findByIdExceptionTest"/>
-                    <include name="updateTest"/>
-                    <include name="saveExceptionTest"/>
-                    <include name="updateExceptionTest"/>
-                    <include name="delete"/>
-                    <include name="deleteException"/>
+                    <include name="countAverage"/>
                 </methods>
             </class>
         </classes>
     </test>
-    <test name="Address service">
-        <classes>
-            <class name="music_shop.service.AddressServiceImplTest">
-                <methods>
-                    <include name="findAll"/>
-                    <include name="saveTest"/>
-                    <include name="findByIdTest"/>
-                    <include name="findByIdExceptionTest"/>
-                    <include name="updateTest"/>
-                    <include name="saveExceptionTest"/>
-                    <include name="updateExceptionTest"/>
-                    <include name="delete"/>
-                    <include name="deleteException"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Producer service">
-        <classes>
-            <class name="music_shop.service.ProducerServiceImplTest">
-                <methods>
-                    <include name="findAll"/>
-                    <include name="saveTest"/>
-                    <include name="updateTest"/>
-                    <include name="saveExceptionTest"/>
-                    <include name="updateExceptionTest"/>
-                    <include name="delete"/>
-                    <include name="deleteException"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Order service">
-        <classes>
-            <class name="music_shop.service.OrderServiceImplTest">
-                <methods>
-                    <include name="findAll"/>
-                    <include name="findAllOffset"/>
+<!--    <test name="Product service">-->
+<!--        <classes>-->
+<!--            <class name="music_shop.service.ProductServiceImplTest">-->
+<!--                <methods>-->
+<!--                    <include name="findAll"/>-->
+<!--                    <include name="saveTest"/>-->
+<!--                    <include name="findByIdTest"/>-->
+<!--                    <include name="findByIdExceptionTest"/>-->
+<!--                    <include name="updateTest"/>-->
+<!--                    <include name="saveExceptionTest"/>-->
+<!--                    <include name="updateExceptionTest"/>-->
+<!--                    <include name="delete"/>-->
+<!--                    <include name="deleteException"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Address service">-->
+<!--        <classes>-->
+<!--            <class name="music_shop.service.AddressServiceImplTest">-->
+<!--                <methods>-->
+<!--                    <include name="findAll"/>-->
+<!--                    <include name="saveTest"/>-->
+<!--                    <include name="findByIdTest"/>-->
+<!--                    <include name="findByIdExceptionTest"/>-->
+<!--                    <include name="updateTest"/>-->
+<!--                    <include name="saveExceptionTest"/>-->
+<!--                    <include name="updateExceptionTest"/>-->
+<!--                    <include name="delete"/>-->
+<!--                    <include name="deleteException"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Producer service">-->
+<!--        <classes>-->
+<!--            <class name="music_shop.service.ProducerServiceImplTest">-->
+<!--                <methods>-->
+<!--                    <include name="findAll"/>-->
 <!--                    <include name="saveTest"/>-->
 <!--                    <include name="updateTest"/>-->
 <!--                    <include name="saveExceptionTest"/>-->
 <!--                    <include name="updateExceptionTest"/>-->
 <!--                    <include name="delete"/>-->
 <!--                    <include name="deleteException"/>-->
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Country service">
-        <classes>
-            <class name="music_shop.service.CountryServiceTest">
-                <methods>
-                    <include name="readNames"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Order service">-->
+<!--        <classes>-->
+<!--            <class name="music_shop.service.OrderServiceImplTest">-->
+<!--                <methods>-->
+<!--                    <include name="findAll"/>-->
+<!--                    <include name="findAllOffset"/>-->
+<!--                    <include name="saveTest"/>-->
+<!--                    <include name="updateTest"/>-->
+<!--                    <include name="saveExceptionTest"/>-->
+<!--                    <include name="updateExceptionTest"/>-->
+<!--                    <include name="delete"/>-->
+<!--                    <include name="deleteException"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Country service">-->
+<!--        <classes>-->
+<!--            <class name="music_shop.service.CountryServiceTest">-->
+<!--                <methods>-->
+<!--                    <include name="readNames"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

@@ -28,6 +28,8 @@ public enum Field {
     SURNAME("surname"),
     PASSWORD("password"),
     ROLE("role"),
+    MARK("mark"),
+    AVG_MARK("avg_mark"),
     PARENT_ID("parent_id");
 
     private final String value;

@@ -1,14 +1,12 @@
 USE musicShopTest_db;
 
 INSERT INTO users(id, login, name, surname, password, role)
-VALUES
-       (1, 'manager1', 'Alexey', 'Tsar', '100:8cd14996245d6b31c3b464138e26e68e', 1),
+VALUES (1, 'manager1', 'Alexey', 'Tsar', '100:8cd14996245d6b31c3b464138e26e68e', 1),
        (2, 'elizTs', 'Elizaveta', 'Tsvirko', '100:0b76f57f15f6f665af455bef05175f30', 2),
        (3, 'ksuSok', 'Kseniya', 'Sokol', '100:e3d5ccdea4363fa6eefc35b1f3206f9d', 2),
        (4, 'likSki', 'Veronika', 'Svet', '100:e3d5ccdea4363fa6eefc35b1f3206f9d', 2);
 INSERT INTO buyers(buyer_id, email, telephone, balance, enabled)
-VALUES
-       (2, 'elizTs@gmail.com', 375445684811, 8000, true),
+VALUES (2, 'elizTs@gmail.com', 375445684811, 8000, true),
        (3, 'ksuhaSokol@gmail.com', 375441291821, 6000, true),
        (4, 'likaSki@gmail.com', 375447685098, 6000, true);
 
@@ -59,6 +57,11 @@ VALUES (1, 1, 1, 680.00),
 
 INSERT INTO product_rates(id, mark, product_id, buyer_id)
 VALUES (1, 10, 1, 2),
-       (2, 9, 2, 3);
-DELETE FROM  orders;
-DELETE FROM products WHERE id =20;
+       (2, 9, 2, 3),
+       (3, 7, 1, 3),
+       (4, 7, 1, 4);
+DELETE
+FROM orders;
+DELETE
+FROM products
+WHERE id = 20;

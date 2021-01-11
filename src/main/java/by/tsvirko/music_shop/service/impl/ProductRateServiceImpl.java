@@ -2,9 +2,12 @@ package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.ProductRateDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.domain.ProductRate;
 import by.tsvirko.music_shop.service.ProductRateService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+
+import java.util.Map;
 
 public class ProductRateServiceImpl extends ServiceImpl implements ProductRateService {
     @Override
@@ -37,6 +40,20 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
                 transaction.rollback();
             } catch (PersistentException ex) {
             }
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public Map<Integer, Integer> countAverageRate() throws ServicePersistentException {
+        try {
+            ProductRateDAO dao = transaction.createDao(ProductRateDAO.class, true);
+            Map<Integer, Integer> map = dao.countAverageRate();
+            if (!map.isEmpty()) {
+                return map;
+            }
+            throw new ServicePersistentException("Empty rates");
+        } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
     }

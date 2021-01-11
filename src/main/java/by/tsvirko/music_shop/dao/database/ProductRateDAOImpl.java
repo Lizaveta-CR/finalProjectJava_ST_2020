@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.Optional;
+import java.util.*;
 
 public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     private static final Logger logger = LogManager.getLogger(ProductRateDAOImpl.class);
@@ -15,6 +15,8 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     private static final String SQL_INSERT_PRODUCT_RATE = "INSERT INTO product_rates (mark,product_id, buyer_id) VALUES (?, ?,?)";
     private static final String SQL_UPDATE_PRODUCT_RATE = "UPDATE product_rates SET mark = ? WHERE id = ?";
     private static final String SQL_DELETE_PRODUCT_RATE = "DELETE FROM product_rates WHERE id = ?";
+    private static final String SQL_SELECT_PRODUCT_RATE = "SELECT mark, product_id,buyer_id FROM product_rates WHERE id = ?";
+    private static final String SQL_AVG_MARK_PRODUCT = "SELECT AVG(mark) AS avg_mark, product_id FROM product_rates GROUP BY product_id";
 
     /**
      * Creates product rate in database
@@ -68,7 +70,45 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
 
     @Override
     public Optional<ProductRate> read(Integer identity) throws PersistentException {
-        return null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_SELECT_PRODUCT_RATE);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+            ProductRate rate = null;
+            if (resultSet.next()) {
+                rate = new ProductRate();
+                rate.setId(identity);
+                rate.setMark(resultSet.getByte(Field.MARK.value()));
+                Product product = new Product();
+                product.setId(resultSet.getInt(Field.ID.value()));
+                rate.setProduct(product);
+                Buyer buyer = new Buyer();
+                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
+                rate.setBuyer(buyer);
+            }
+            logger.debug("ProductRate with id=" + identity + " was read");
+            return Optional.ofNullable(rate);
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 
     /**
@@ -116,6 +156,46 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
         } catch (SQLException e) {
             throw new PersistentException(e);
         } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+    }
+
+    /**
+     * Counts average rate(mark) for each product
+     *
+     * @return Map<Integer, Integer>, where first Integer represents Product id and second-average mark
+     */
+    @Override
+    public Map<Integer, Integer> countAverageRate() throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_AVG_MARK_PRODUCT);
+            resultSet = statement.executeQuery();
+            Map<Integer, Integer> map = new HashMap<>();
+            Product product = null;
+            while (resultSet.next()) {
+                map.put(resultSet.getInt(Field.PRODUCT_ID.value()), resultSet.getInt(Field.AVG_MARK.value()));
+            }
+            logger.debug("Average prices were counted for products");
+            return map;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
             try {
                 if (statement != null) {
                     statement.close();

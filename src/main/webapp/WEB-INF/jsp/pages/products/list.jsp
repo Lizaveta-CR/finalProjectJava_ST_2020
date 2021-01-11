@@ -49,6 +49,8 @@
                                             key="label.product.description"/></th>
                                     <th scope="col"><fmt:message
                                             key="label.product.price"/></th>
+                                    <th scope="col"><fmt:message
+                                            key="label.product.rate"/></th>
                                 </tr>
                                 </thead>
                                 <c:forEach var="product" items="${childItem.products}">
@@ -68,6 +70,15 @@
                                         <td> ${product.model}</td>
                                         <td> ${product.description}</td>
                                         <td> ${product.price}</td>
+                                        <c:choose>
+                                            <c:when test="${not empty rateMap[product.id]}">
+                                                <c:url value=" ${rateMap[product.id]}" var="mark"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="mark" scope="page" value="-"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <td> ${mark}</td>
                                         <c:if test="${sessionScope.authorizedUser != null}">
                                             <td>
                                                 <form action="<c:url value="/products/buy?productId=${product.id}"/>"
