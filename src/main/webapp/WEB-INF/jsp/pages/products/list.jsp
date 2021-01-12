@@ -29,21 +29,20 @@
     </head>
 </head>
 <body>
-
 <c:forEach items="${category.components}" var="parentItem">
     <div class="container">
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1">${parentItem.name}</a>
+                        <c:set var="collapse" value="${parentItem.name}"/>
+                        <a data-toggle="collapse" href="#${collapse}">${collapse}</a>
+                            <%--                        ${parentItem.name}--%>
                     </h4>
                 </div>
-                <div id="collapse1" class="panel-collapse collapse">
+                <div id="${collapse}" class="panel-collapse collapse">
                     <c:forEach items="${parentItem.components}" var="childItem">
-                        <c:set var="childItem" value="${childItem}" scope="request"/>
                         <div class="panel-body">
-
                             <table class="table">
                                 <caption>${childItem.name}</caption>
                                 <thead>
