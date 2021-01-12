@@ -6,6 +6,8 @@
             <class name="music_shop.service.UserServiceImplTest">
                 <methods>
                     <include name="saveTest"/>
+                    <include name="updatePasswordExceptionTest"/>
+                    <include name="updatePasswordTest"/>
                     <include name="findByIdTest"/>
                     <include name="findByIdExceptionTest"/>
                     <include name="findByLoginPassTest"/>
@@ -107,19 +109,19 @@
     <!--            </class>-->
     <!--        </classes>-->
     <!--    </test>-->
-    <test name="OrderItem service">
-        <classes>
-            <class name="music_shop.service.OrderItemServiceImpTest">
-                <methods>
-                    <include name="saveTest"/>
-                    <include name="saveExceptionTest"/>
-                    <include name="readProductsById"/>
-                    <include name="deleteTest"/>
-                    <include name="deleteExceptionTest"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+    <!--    <test name="OrderItem service">-->
+    <!--        <classes>-->
+    <!--            <class name="music_shop.service.OrderItemServiceImpTest">-->
+    <!--                <methods>-->
+    <!--                    <include name="saveTest"/>-->
+    <!--                    <include name="saveExceptionTest"/>-->
+    <!--                    <include name="readProductsById"/>-->
+    <!--                    <include name="deleteTest"/>-->
+    <!--                    <include name="deleteExceptionTest"/>-->
+    <!--                </methods>-->
+    <!--            </class>-->
+    <!--        </classes>-->
+    <!--    </test>-->
     <!--    <test name="Country service">-->
     <!--        <classes>-->
     <!--            <class name="music_shop.service.CountryServiceTest">-->

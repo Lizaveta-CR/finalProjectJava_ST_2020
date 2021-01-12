@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.service;
+package by.tsvirko.music_shop.util;
 
 import by.tsvirko.music_shop.service.exception.PasswordException;
 

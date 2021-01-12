@@ -18,4 +18,9 @@
         <function-class>by.tsvirko.music_shop.tag.CustomFunction</function-class>
         <function-signature>boolean equals(java.lang.String,java.lang.String)</function-signature>
     </function>
+    <function>
+        <name>length</name>
+        <function-class>by.tsvirko.music_shop.tag.CustomFunction</function-class>
+        <function-signature>boolean length(java.util.List)</function-signature>
+    </function>
 </taglib>

@@ -23,12 +23,12 @@ public class CategoriesCommand extends Command {
         try {
             CategoryService service = factory.getService(CategoryService.class);
             Category category = service.getCategory();
-            List<Component> components = category.getComponents();
+//            List<Component> components = category.getComponents();
 
             ProductRateService rateService = factory.getService(ProductRateService.class);
             Map<Integer, Integer> map = rateService.countAverageRate();
 
-            request.setAttribute(AttributeConstant.CATEGORY.value(), components);
+            request.setAttribute(AttributeConstant.CATEGORY.value(), category);
             request.setAttribute(AttributeConstant.RATEMAP.value(), map);
         } catch (ServicePersistentException e) {
             throw new CommandException(e);

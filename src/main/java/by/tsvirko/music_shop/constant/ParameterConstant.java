@@ -8,7 +8,8 @@ public enum ParameterConstant {
     ORDER_ID("orderId"),
     PRODUCTS("products"),
     MARK("mark"),
-    PAGE("page");
+    PAGE("page"),
+    LOGIN("login");
     private final String name;
 
     private ParameterConstant(String name) {

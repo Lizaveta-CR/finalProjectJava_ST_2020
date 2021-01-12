@@ -40,6 +40,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/buyer/buyerForm", new BuyerFormCommand());
         getCommands.put("/buyer/feedBack", new ViewFeedBackPage());
         getCommands.put("/buyer/edit", new BuyerViewEditFormCommand());
+        getCommands.put("/buyer/editPass", new BuyerViewEditPassFormCommand());
         getCommands.put("/buyer/address", new ViewAddressCommand());
         getCommands.put("/buyer/order", new ViewOrderCommand());
         getCommands.put("/buyer/order/submit", new BuyerViewSubmitOrderCommand());
@@ -48,6 +49,7 @@ public class CommandFilter implements Filter {
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());
         postCommands.put("/buyer/edit", new BuyerEditCommand());
+        postCommands.put("/buyer/editPass", new BuyerEditPassCommand());
         postCommands.put("/buyer/address", new EditAddressCommand());
         postCommands.put("/buyer/order/remove", new BuyerRemoveProductCommand());
         postCommands.put("/buyer/order/submit", new SubmitOrderCommand());

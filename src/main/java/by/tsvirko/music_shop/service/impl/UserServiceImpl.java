@@ -1,12 +1,12 @@
 package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.UserDAO;
-import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.*;
 import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.util.PasswordUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +48,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try {
             UserDAO dao = transaction.createDao(UserDAO.class, false);
             if (user.getId() != null) {
-                if (user.getPassword() != null) {
-                    user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
-                } else {
+                if (user.getPassword() == null) {
                     Optional<User> oldUserOptional = dao.read(user.getId());
                     if (oldUserOptional.isPresent()) {
                         User oldUser = oldUserOptional.get();
@@ -66,6 +64,26 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             }
             transaction.commit();
         } catch (PersistentException | PasswordException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public void updatePassword(User user) throws ServicePersistentException {
+        try {
+            UserDAO dao = transaction.createDao(UserDAO.class, false);
+            if (user.getPassword() != null && user.getId() != null) {
+                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
+                dao.update(user);
+            } else {
+                throw new ServicePersistentException("User can not be updated");
+            }
+            transaction.commit();
+        } catch (PasswordException | PersistentException e) {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {

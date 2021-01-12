@@ -11,14 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ViewOrderCommand extends BuyerCommand {
-//    private Order order;
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession(false);
         Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
-//        Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
-//        buyer.getOrders().
         request.setAttribute(AttributeConstant.ORDER.value(), order);
         return null;
     }

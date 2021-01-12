@@ -27,14 +27,14 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
             try {
                 AddressService addressService = factory.getService(AddressService.class);
                 Address address = addressService.findById(buyer.getId());
-                if (address == null) {
-                    Forward forward = new Forward("/buyer/address", true);
-                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
-                    logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
-                    return forward;
+                if (address != null) {
+                    buyer.setAddress(address);
                 }
-                buyer.setAddress(address);
             } catch (ServicePersistentException e) {
+                Forward forward = new Forward("/buyer/address", true);
+                forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
+                logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
+                return forward;
             }
         }
         Order order = (Order) request.getSession(false).getAttribute(AttributeConstant.ORDER.value());

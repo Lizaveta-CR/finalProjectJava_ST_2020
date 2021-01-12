@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="f" uri="function" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
@@ -19,13 +20,17 @@
     <head>
         <title>Music Land</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%--        <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">--%>
+        <%--        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>--%>
+        <%--        <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>--%>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 </head>
 <body>
-<c:forEach items="${category}" var="parentItem">
+
+<c:forEach items="${category.components}" var="parentItem">
     <div class="container">
         <div class="panel-group">
             <div class="panel panel-default">
@@ -36,7 +41,9 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                     <c:forEach items="${parentItem.components}" var="childItem">
+                        <c:set var="childItem" value="${childItem}" scope="request"/>
                         <div class="panel-body">
+
                             <table class="table">
                                 <caption>${childItem.name}</caption>
                                 <thead>
@@ -92,7 +99,6 @@
                                                 </form>
                                             </td>
                                         </c:if>
-                                        <td></td>
                                     </tr>
                                     </tbody>
                                 </c:forEach>

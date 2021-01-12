@@ -22,7 +22,6 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
             if (optionalCategory.isPresent()) {
                 Category category = optionalCategory.get();
                 List<Product> products = productDAO.read();
-                buildList(products, dao);
                 buildListProductCategories(category, products);
                 return category;
             } else {
@@ -34,35 +33,33 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
     }
 
     private void buildListProductCategories(Category category, List<Product> products) {
-        if (category.getSize() == 0) {
-            for (Product product : products) {
-                if (product.getCategory().getName().equals(category.getName())) {
-                    category.addProduct(product);
-                }
-            }
-        } else {
-            List<Component> components = category.getComponents();
-            for (int i = 0; i < components.size(); i++) {
-                Category component = (Category) components.get(i);
-                buildListProductCategories(component, products);
+        for (Product product : products) {
+            if (product.getCategory().getId() == category.getId()) {
+                category.addProduct(product);
             }
         }
-    }
-
-    private void buildList(List<Product> products, CategoryDAO dao) throws ServicePersistentException {
-        try {
-            Integer identity;
-            for (Product product : products) {
-                identity = product.getCategory().getId();
-                if (identity != null) {
-                    Optional<Category> category = dao.read(identity);
-                    if (category.isPresent()) {
-                        product.setCategory(category.get());
-                    }
-                }
-            }
-        } catch (PersistentException e) {
-            throw new ServicePersistentException(e);
+        List<Component> components = category.getComponents();
+        int size = components.size();
+        for (int i = 0; i < size; i++) {
+            Category component = (Category) components.get(i);
+            buildListProductCategories(component, products);
         }
     }
+//
+//    private void buildList(List<Product> products, CategoryDAO dao) throws ServicePersistentException {
+//        try {
+//            Integer identity;
+//            for (Product product : products) {
+//                identity = product.getCategory().getId();
+//                if (identity != null) {
+//                    Optional<Category> category = dao.read(identity);
+//                    if (category.isPresent()) {
+//                        product.setCategory(category.get());
+//                    }
+//                }
+//            }
+//        } catch (PersistentException e) {
+//            throw new ServicePersistentException(e);
+//        }
+//    }
 }

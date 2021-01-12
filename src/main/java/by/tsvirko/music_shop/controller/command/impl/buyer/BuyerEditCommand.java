@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
@@ -17,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ResourceBundle;
 
 public class BuyerEditCommand extends BuyerCommand {
@@ -26,31 +28,22 @@ public class BuyerEditCommand extends BuyerCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward("/buyer/buyerForm", true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
-
-        User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_USER.value());
-        Buyer authorizedBuyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+        HttpSession session = request.getSession(false);
+        User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
+        Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         try {
             BuyerService buyerService = factory.getService(BuyerService.class);
             UserService userService = factory.getService(UserService.class);
-            String password = request.getParameter("password");
-            if (!password.isEmpty() && password != null) {
-                try {
-                    userService.findByLoginAndPassword(authorizedUser.getLogin(), password);
-                } catch (ServicePersistentException ex) {
-                    logger.info(String.format("User \"%s\" tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
-                    forward.setForward("/buyer/edit");
-                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
-                    return forward;
-                }
-            }
-            Validator<User> userValidator = ValidatorFactory.getValidator(User.class);
+
             Validator<Buyer> buyerValidator = ValidatorFactory.getValidator(Buyer.class);
-
             buyerValidator.validate(authorizedBuyer, request);
-            userValidator.validate(authorizedUser, request);
 
-            buyerService.save(authorizedBuyer);
-            userService.save(authorizedUser);
+            buyerService.update(authorizedBuyer);
+
+            String login = request.getParameter(ParameterConstant.LOGIN.value());
+            if (login != null && !login.isEmpty()) {
+                userService.save(authorizedUser);
+            }
         } catch (ValidatorException e) {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
@@ -60,7 +53,10 @@ public class BuyerEditCommand extends BuyerCommand {
             return forward;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");
-            logger.warn(String.format("Incorrect data was found when user \"%s\" tried to change password", authorizedUser.getLogin()));
+            logger.warn(String.format("Incorrect data was found when user \"%s\" tried to change information", authorizedUser.getLogin()));
+            logger.warn(String.format("Incorrect data was found when user \"%s\" tried to change information", authorizedUser.getLogin()));
+            forward.setForward("/buyer/edit");
+            forward.getAttributes().put("message", rb.getString("app.message.user.dublicate"));
         }
         return forward;
     }

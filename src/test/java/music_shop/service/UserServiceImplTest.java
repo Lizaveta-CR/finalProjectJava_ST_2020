@@ -8,8 +8,10 @@ import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.UserService;
+import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.util.PasswordUtil;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -73,6 +75,27 @@ public class UserServiceImplTest {
         userService.save(user);
         List<User> users = userService.findAll();
         Assert.assertTrue(users.contains(user));
+    }
+
+    @DataProvider(name = "passwords")
+    public Object[] passData() {
+
+        return new Object[]{
+                "updatePass"
+        };
+    }
+
+    @Test(dataProvider = "passwords")
+    public void updatePasswordTest(String pass) throws ServicePersistentException, PasswordException {
+        user.setPassword(pass);
+        userService.updatePassword(user);
+        Assert.assertEquals(user.getPassword(), PasswordUtil.hashPassword(pass));
+    }
+
+    @Test(dataProvider = "passwords")
+    public void updatePasswordExceptionTest(String pass) {
+        user.setPassword(null);
+        Assert.assertThrows(ServicePersistentException.class, () -> userService.updatePassword(user));
     }
 
     @DataProvider(name = "names")
