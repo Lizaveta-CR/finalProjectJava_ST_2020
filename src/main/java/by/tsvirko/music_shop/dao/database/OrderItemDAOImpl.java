@@ -235,7 +235,10 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
         try {
             statement = connection.prepareStatement(SQL_DELETE_ORDER_ITEM);
             statement.setInt(1, orderIdentity);
-            statement.executeUpdate();
+            int num = statement.executeUpdate();
+            if (num == 0) {
+                throw new PersistentException("Nothing to delete!");
+            }
             logger.debug("OrderItem with id= " + orderIdentity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);

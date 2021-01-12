@@ -81,3 +81,5 @@ VALUES (1, 10, 1, 2),
        (2, 9, 2, 3),
        (3, 7, 1, 3),
        (4, 7, 1, 4);
+
+# Delete from order_items where id=7 AND product_id=1;

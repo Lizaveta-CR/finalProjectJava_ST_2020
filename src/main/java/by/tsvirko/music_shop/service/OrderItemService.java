@@ -11,5 +11,7 @@ public interface OrderItemService extends Service {
 
     void save(List<OrderItem> order) throws ServicePersistentException;
 
+    void delete(Integer orderId) throws ServicePersistentException;
+
     List<Product> readProductsByOrderId(Integer id) throws ServicePersistentException;
 }

@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BuyerServiceTest {
+public class BuyerServiceImplTest {
     BuyerService buyerService;
     Buyer buyer;
 

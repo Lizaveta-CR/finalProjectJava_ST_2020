@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.service.impl;
 
+import by.tsvirko.music_shop.dao.AddressDAO;
 import by.tsvirko.music_shop.dao.OrderItemDAO;
 import by.tsvirko.music_shop.dao.ProductDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
@@ -17,11 +18,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
     public void save(OrderItem order) throws ServicePersistentException {
         try {
             OrderItemDAO dao = transaction.createDao(OrderItemDAO.class, false);
-            if (order.getId() != null) {
-                dao.update(order);
-            } else {
-                dao.create(order);
-            }
+            dao.create(order);
             transaction.commit();
         } catch (PersistentException e) {
             try {
@@ -39,6 +36,22 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             for (OrderItem orderItem : order) {
                 dao.create(orderItem);
             }
+            transaction.commit();
+        } catch (PersistentException e) {
+            try {
+                transaction.rollback();
+            } catch (PersistentException ex) {
+            }
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
+    public void delete(Integer orderId) throws ServicePersistentException {
+        OrderItemDAO dao;
+        try {
+            dao = transaction.createDao(OrderItemDAO.class, false);
+            dao.delete(orderId);
             transaction.commit();
         } catch (PersistentException e) {
             try {
