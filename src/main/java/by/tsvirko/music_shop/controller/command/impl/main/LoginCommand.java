@@ -30,8 +30,7 @@ public class LoginCommand extends Command {
 //        TODO:add i18n
 //        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
         menu.put(Role.BUYER, new Menu("/buyer/buyerForm"));
-
-//        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
+        menu.put(Role.ADMINISTRATOR, new Menu("/admin/adminForm"));
 //        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
 
@@ -51,11 +50,14 @@ public class LoginCommand extends Command {
                     HttpSession session = request.getSession();
                     //TODO: класть не целого юзера, потом это поменять в security filter
                     session.setAttribute(AttributeConstant.AUTHORIZED_USER.value(), user);
-                    try {
-                        BuyerService buyerService = factory.getService(BuyerService.class);
-                        Buyer buyer = buyerService.findById(user.getId());
-                        session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
-                    } catch (ServicePersistentException e) {
+
+                    if (user.getRole().equals(Role.BUYER)) {
+                        try {
+                            BuyerService buyerService = factory.getService(BuyerService.class);
+                            Buyer buyer = buyerService.findById(user.getId());
+                            session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
+                        } catch (ServicePersistentException e) {
+                        }
                     }
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
