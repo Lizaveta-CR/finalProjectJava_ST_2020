@@ -97,8 +97,8 @@ VALUES (1, 1, 1, 1239.99),
        (5, 2, 1, 1219);
 #
 DELETE
-FROM users
-WHERE id = 11;
+FROM addresses
+WHERE buyer_id = 21;
 #
 # INSERT INTO product_rates(rate_id, value, product_id, buyer_id)
 # VALUES (1, 10, 1, 1);

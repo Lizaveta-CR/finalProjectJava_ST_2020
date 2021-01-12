@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ResourceBundle;
 
 public class EditAddressCommand extends BuyerCommand {
@@ -25,24 +26,25 @@ public class EditAddressCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
-
-        Buyer authorizedBuyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+        HttpSession session = request.getSession();
+        Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         try {
             BuyerService buyerService = factory.getService(BuyerService.class);
             AddressService addressService = factory.getService(AddressService.class);
 
-            Buyer buyer = buyerService.findById(authorizedBuyer.getId());
+            Buyer buyerById = buyerService.findById(authorizedBuyer.getId());
             Validator<Address> validator = ValidatorFactory.getValidator(Address.class);
 
-            Address address = buyer.getAddress();
+            Address address = authorizedBuyer.getAddress();
             if (address != null) {
                 validator.validate(address, request);
                 addressService.update(address);
             } else {
-                Address newAddress = validator.validate(request);
-                newAddress.setId(buyer.getId());
-                addressService.save(newAddress);
+                address = validator.validate(request);
+                address.setId(buyerById.getId());
+                addressService.save(address);
             }
+            authorizedBuyer.setAddress(address);
         } catch (ValidatorException e) {
             logger.error("Address can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {

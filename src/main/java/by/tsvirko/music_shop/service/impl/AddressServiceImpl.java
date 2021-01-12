@@ -10,6 +10,7 @@ import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,7 +98,9 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             AddressDAO dao = transaction.createDao(AddressDAO.class, true);
             Optional<Address> optionalAddress = dao.read(id);
             if (optionalAddress.isPresent()) {
-                return optionalAddress.get();
+                Address address = optionalAddress.get();
+                buildList(Arrays.asList(address));
+                return address;
             }
             throw new ServicePersistentException("No such address");
         } catch (PersistentException | ServicePersistentException e) {

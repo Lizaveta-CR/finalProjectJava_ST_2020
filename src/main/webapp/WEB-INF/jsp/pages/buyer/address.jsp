@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="f" uri="function" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
@@ -17,22 +18,21 @@
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
-</head
-<c:choose>
-<c:when test="${not empty address}">
-    <c:set var="countryName" value="${address.country.name}"/>
-    <c:set var="city" value="${address.city}"/>
-    <c:set var="street" value="${address.street}"/>
-    <c:set var="zip_code" value="${address.zipCode}"/>
-    <c:set var="apartmentNumber" value="${address.apartmentNumber}"/>
-    <c:set var="houseNumber" value="${address.houseNumber}"/>
-</c:when>
-<c:otherwise>
-    <fmt:message key="label.buyer.address.title.new" var="title"/>/>
-</c:otherwise>
-    </c:choose>
+</head>
 <body>
-<h2></h2>
+<c:choose>
+    <c:when test="${not empty address}">
+        <c:set var="countryName" scope="request" value="${address.country.name}"/>
+        <c:set var="city" value="${address.city}"/>
+        <c:set var="street" value="${address.street}"/>
+        <c:set var="zip_code" value="${address.zipCode}"/>
+        <c:set var="apartmentNumber" value="${address.apartmentNumber}"/>
+        <c:set var="houseNumber" value="${address.houseNumber}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:message key="label.buyer.address.title.new" var="title"/>/>
+    </c:otherwise>
+</c:choose>
 <div class="container">
     <h1><c:out value="${title}"/></h1>
     <hr>
@@ -52,7 +52,7 @@
                         <select id="country" name="country">
                             <c:forEach items="${countries}" var="country">
                                 <c:remove var="selected"/>
-                                <c:if test="${not empty countryName and countryName eq country}">
+                                <c:if test="${not empty countryName and f:equals(countryName, country)}">
                                     <c:set var="selected" value="selected"/>
                                 </c:if>
                                 <option value="${country}" ${selected}>
