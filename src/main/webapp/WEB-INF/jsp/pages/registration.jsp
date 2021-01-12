@@ -16,13 +16,10 @@
 <html lang="${cookie.lang.value}">
 <head>
     <title>Registration</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%@ include file="../parts/meta.jsp" %>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
           rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
     <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" media="all">
-    <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>

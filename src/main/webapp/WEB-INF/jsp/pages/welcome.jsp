@@ -15,10 +15,7 @@
 <html lang="${cookie.lang.value}">
 <head>
     <title>Music Land</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
-    <%--    <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">--%>
+    <%@ include file="../parts/meta.jsp" %>
 </head>
 <body>
 <div class="text-center">

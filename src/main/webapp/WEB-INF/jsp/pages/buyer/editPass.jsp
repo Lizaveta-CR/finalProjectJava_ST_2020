@@ -15,9 +15,7 @@
 <html>
 <head>
     <title>Edit profile</title>
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
+    <%@ include file="/WEB-INF/jsp/parts/meta.jsp" %>
 </head>
 <body>
 <div class="container">

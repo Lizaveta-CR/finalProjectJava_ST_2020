@@ -15,10 +15,7 @@
 <html lang="${cookie.lang.value}">
 <head>
     <title>Login</title>
-    <%--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--%>
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
+    <%@ include file="../parts/meta.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css"/>
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>

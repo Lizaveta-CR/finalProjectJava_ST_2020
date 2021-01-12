@@ -20,9 +20,6 @@
     <head>
         <title>Music Land</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <%--        <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">--%>
-        <%--        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>--%>
-        <%--        <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>--%>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -37,7 +34,6 @@
                     <h4 class="panel-title">
                         <c:set var="collapse" value="${parentItem.name}"/>
                         <a data-toggle="collapse" href="#${collapse}">${collapse}</a>
-                            <%--                        ${parentItem.name}--%>
                     </h4>
                 </div>
                 <div id="${collapse}" class="panel-collapse collapse">

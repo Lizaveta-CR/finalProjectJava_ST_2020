@@ -16,10 +16,7 @@
 <html>
 <head>
     <title>Buyer</title>
-    <%--    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">--%>
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>
+    <%@ include file="/WEB-INF/jsp/parts/meta.jsp" %>
 </head>
 <body>
 <c:set var="user" scope="session" value="${sessionScope.authorizedUser}"/>
