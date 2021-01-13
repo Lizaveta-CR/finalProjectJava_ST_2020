@@ -56,46 +56,57 @@
                                 </tr>
                                 </thead>
                                 <c:forEach var="product" items="${childItem.products}">
-                                    <c:choose>
-                                        <c:when test="${not empty product.imageUrl}">
-                                            <c:url value="/img/${product.imageUrl}" var="image"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:url value="/img/main.jpg" var="image"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="${image}" class="img-thumbnail" height="200" width="300"/>
-                                        </td>
-                                        <td> ${product.model}</td>
-                                        <td> ${product.description}</td>
-                                        <td> ${product.price}</td>
+                                    <c:if test="${product.available}">
                                         <c:choose>
-                                            <c:when test="${not empty rateMap[product.id]}">
-                                                <c:url value=" ${rateMap[product.id]}" var="mark"/>
+                                            <c:when test="${not empty product.imageUrl}">
+                                                <c:url value="/img/${product.imageUrl}" var="image"/>
                                             </c:when>
                                             <c:otherwise>
-                                                <c:set var="mark" scope="page" value="-"/>
+                                                <c:url value="/img/main.jpg" var="image"/>
                                             </c:otherwise>
                                         </c:choose>
-                                        <td> ${mark}</td>
-                                        <c:if test="${sessionScope.authorizedUser != null}">
+                                        <tbody>
+                                        <tr>
                                             <td>
-                                                <form action="<c:url value="/products/buy?productId=${product.id}"/>"
-                                                      method="post">
-                                                    <p><fmt:message key="label.product.amount"/></p>
-                                                    <p><input type="number" min="1" value="1" name="amount"
-                                                              id="amount"/></p>
-                                                    <button class="btn btn-info btn-block" type="submit"><fmt:message
-                                                            key="label.product.buy"/></button>
-                                                </form>
-                                                </form>
+                                                <img src="${image}" class="img-thumbnail" height="200" width="300"/>
                                             </td>
-                                        </c:if>
-                                    </tr>
-                                    </tbody>
+                                            <td> ${product.model}</td>
+                                            <td> ${product.description}</td>
+                                            <td> ${product.price}</td>
+                                            <c:choose>
+                                                <c:when test="${not empty rateMap[product.id]}">
+                                                    <c:url value=" ${rateMap[product.id]}" var="mark"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="mark" scope="page" value="-"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <td> ${mark}</td>
+                                            <c:choose>
+                                                <c:when test="${f:isBuyer(authorizedUser)}">
+                                                    <td>
+                                                        <form action="<c:url value="/products/buy?productId=${product.id}"/>"
+                                                              method="post">
+                                                            <p><fmt:message key="label.product.amount"/></p>
+                                                            <p><input type="number" min="1" value="1" name="amount"
+                                                                      id="amount"/></p>
+                                                            <button class="btn btn-info btn-block" type="submit">
+                                                                <fmt:message
+                                                                        key="label.product.buy"/></button>
+                                                        </form>
+                                                    </td>
+                                                </c:when> <c:when test="${f:isAdmin(authorizedUser)}">
+                                                <td>
+                                                    <a href="<c:url value="/products/edit?productId=${product.id}"/>"><fmt:message
+                                                            key="label.product.edit"/></a></td>
+                                                </td>
+                                            </c:when>
+                                                <c:otherwise>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </tr>
+                                        </tbody>
+                                    </c:if>
                                 </c:forEach>
                             </table>
                         </div>

@@ -9,6 +9,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="f" uri="function" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
@@ -21,13 +22,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="content">
     <div class="container">
-        <%--        <div class="row">--%>
-        <%--            <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4"--%>
-        <%--                                     data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200"--%>
-        <%--                                     data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i> Add Member</a></div>--%>
-        <%--            <!-- end col -->--%>
-        <%--        </div>--%>
-        <!-- end row -->
         <div class="row">
             <c:forEach items="${buyers}" var="buyer">
                 <div class="col-lg-4">
@@ -55,7 +49,7 @@
                                             <p class="mb-0 text-muted"><fmt:message key="label.admin.buyer.access"/></p>
                                             <c:set var="enabled" scope="request" value="${buyer.enabled}"/>
                                             <c:choose>
-<%--                                                TODO: writes "false"--%>
+                                                <%--                                                TODO: writes "false"--%>
                                                 <c:when test="${enabled}">
                                                     <h4>${enabled}</h4>
                                                     <form action="<c:url value="/admin/adminForm/disable?buyerId=${buyer.id}"/>"
@@ -71,11 +65,9 @@
                                                         <button class="btn btn-primary" type="submit"><fmt:message
                                                                 key="label.admin.buyer.enable"/></button>
                                                     </form>
-                                                    <fmt:message key="label.buyer.address.title.new" var="title"/>/>
+                                                    <fmt:message key="label.buyer.address.title.new" var="title"/>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <h4>${buyer.enabled}</h4>
-
                                         </div>
                                     </div>
                                     <div class="col-4">

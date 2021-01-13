@@ -3,9 +3,7 @@ package by.tsvirko.music_shop.filter;
 import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
-import by.tsvirko.music_shop.controller.command.impl.admin.AdminFormCommand;
-import by.tsvirko.music_shop.controller.command.impl.admin.DisableAccessCommand;
-import by.tsvirko.music_shop.controller.command.impl.admin.EnableAccessCommand;
+import by.tsvirko.music_shop.controller.command.impl.admin.*;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +36,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/registration", new ViewRegisterCommand());
 
         getCommands.put("/products/list", new CategoriesCommand());
+        getCommands.put("/products/edit", new AdminEditProductsViewCommand());
 
         getCommands.put("/admin/adminForm", new AdminFormCommand());
 //        getCommands.put("/admin/adminForm", new ShowBuyersCommand());
@@ -67,6 +66,8 @@ public class CommandFilter implements Filter {
         postCommands.put("/admin/adminForm", new AdminFormCommand());
         postCommands.put("/admin/adminForm/disable", new DisableAccessCommand());
         postCommands.put("/admin/adminForm/enable", new EnableAccessCommand());
+        postCommands.put("/products/edit", new AdminEditProductsCommand());
+//        postCommands.put("/products/editSend", new AdminEditProductsAddCommand());
     }
 
     @Override

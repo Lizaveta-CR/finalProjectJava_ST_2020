@@ -65,31 +65,13 @@
                         <input class="form-control" type="text" id="balance" name="balance" value="${balance}">
                     </div>
                 </div>
-                <%--                <div class="form-group">--%>
-                <%--                    <label class="col-md-3 control-label"><fmt:message key="label.register.pass"/></label>--%>
-                <%--                    <div class="col-md-8">--%>
-                <%--                        <input class="form-control" type="password" id="password" name="password">--%>
-                <%--                    </div>--%>
-                <%--                </div>--%>
-                <%--                <div class="form-group">--%>
-                <%--                    <label class="col-md-3 control-label"><fmt:message key="label.register.newPass"/></label>--%>
-                <%--                    <div class="col-md-8">--%>
-                <%--                        <input class="form-control" type="password" id="new-password" name="new-password">--%>
-                <%--                    </div>--%>
-                <%--                </div>--%>
-                <%--                <div class="form-group">--%>
-                <%--                    <label class="col-md-3 control-label"><fmt:message key="label.register.submitPass"/></label>--%>
-                <%--                    <div class="col-md-8">--%>
-                <%--                        <input class="form-control" type="password" id="confirm-password" name="confirm-password">--%>
-                <%--                    </div>--%>
-                <%--                </div>--%>
                 <div class="form-group">
                     <div class="container-fluid">
                         <label class="col-md-3 control-label"> </label>
 
                         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                                 key="label.confirm"/></button>
-                        <%--                        <label class="col-md-3 control-label"></label>--%>
+
                     </div>
                 </div>
             </form>

@@ -20,6 +20,7 @@ public enum AttributeConstant {
     RATEMAP("rateMap"),
     TOTAL("total"),
     USERS("users"),
+    PRODUCT("product"),
     BUYERS("buyers");
     private final String name;
 
