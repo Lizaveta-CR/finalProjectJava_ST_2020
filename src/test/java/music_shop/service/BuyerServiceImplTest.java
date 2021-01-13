@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
+import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -16,6 +17,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public class BuyerServiceImplTest {
     BuyerService buyerService;
@@ -94,5 +96,20 @@ public class BuyerServiceImplTest {
     public void findByIdTest() throws ServicePersistentException {
         Buyer found = buyerService.findById(buyer.getId());
         Assert.assertEquals(buyer.getId(), found.getId());
+    }
+
+    @DataProvider(name = "offsetsRecords")
+    public Object[] offsets() {
+        return new Object[][]{
+                {1, 1},
+                {0, 1},
+                {2, 3}
+        };
+    }
+
+    @Test(dataProvider = "offsetsRecords")
+    public void findAllOffset(Integer offset, Integer noOfRecords) throws ServicePersistentException {
+        Map<Integer, List<Buyer>> map = buyerService.find(offset, noOfRecords);
+        Assert.assertNotNull(map);
     }
 }

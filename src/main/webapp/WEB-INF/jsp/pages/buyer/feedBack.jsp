@@ -15,7 +15,7 @@
 <html>
 <head>
     <title>FeedBack</title>
-    <%@ include file="/WEB-INF/jsp/parts/meta.jsp" %>
+    <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
 <table class="table table-striped">

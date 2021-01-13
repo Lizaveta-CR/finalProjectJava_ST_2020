@@ -19,7 +19,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     private static final String SQL_DELETE_ORDER = "DELETE FROM orders WHERE id = ?";
     private static final String SQL_READ_ALL_ORDERS = "SELECT id,buyer_id,date,price FROM orders";
     private static final String SQL_NUMBER_OF_RECORDS = "SELECT FOUND_ROWS()";
-//    private static String SQL_READ_ALL_ORDERS_LIMIT = "";
 
     /**
      * Reads all orders from 'orders' table
@@ -72,21 +71,23 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     }
 
     /**
-     * Reads all orders from 'orders' table with specified offset and number of records
+     * Reads all orders from 'orders' table with specified offset and number of records from specific buyer
      *
      * @param offset
      * @param noOfRecords
+     * @param buyerId
      * @return Map<Integer, List < Order>>,where Integer represents number of found rows
      * @throws PersistentException if database error occurs
      */
     @Override
-    public Map<Integer, List<Order>> read(int offset, int noOfRecords) throws PersistentException {
+    public Map<Integer, List<Order>> read(int offset, int noOfRecords, Integer buyerId) throws PersistentException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            final String SQL_READ_ALL_ORDERS_LIMIT = "SELECT SQL_CALC_FOUND_ROWS id,buyer_id,date,price " +
-                    "FROM orders LIMIT " + offset + ", " + noOfRecords + ";";
+            final String SQL_READ_ALL_ORDERS_LIMIT = "SELECT SQL_CALC_FOUND_ROWS id,date,price " +
+                    "FROM orders WHERE buyer_id = ? LIMIT " + offset + ", " + noOfRecords + ";";
             statement = connection.prepareStatement(SQL_READ_ALL_ORDERS_LIMIT);
+            statement.setInt(1, buyerId);
             resultSet = statement.executeQuery();
             Map<Integer, List<Order>> map = new HashMap<>();
             List<Order> orders = new ArrayList<>();
@@ -94,10 +95,10 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             while (resultSet.next()) {
                 order = new Order();
                 order.setId(resultSet.getInt(Field.ID.value()));
-
-                Buyer buyer = new Buyer();
-                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
-                order.setBuyer(buyer);
+//
+//                Buyer buyer = new Buyer();
+//                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
+//                order.setBuyer(buyer);
 
                 order.setDate(resultSet.getDate(Field.DATE.value()));
                 order.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));

@@ -14,14 +14,22 @@
 <html>
 <head>
     <title>Language Selector</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <%@include file="../parts/head.jsp" %>
 </head>
 <body>
+<%--<div class="dropdown">--%>
+<%--    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example--%>
+<%--        <span class="caret"></span></button>--%>
+<%--    <ul class="dropdown-menu">--%>
+<%--        <li><a href="#">HTML</a></li>--%>
+<%--        <li><a href="#">CSS</a></li>--%>
+<%--        <li><a href="#">JavaScript</a></li>--%>
+<%--    </ul>--%>
+<%--</div>--%>
 <ul class="nav nav-tabs">
+    <%--    TODO--%>
     <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><fmt:message key="label.chooseCookieLocale"/>
+        <a class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="label.chooseCookieLocale"/>
             <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="<c:url value="/changeLocale?cookieLocale=en_US"/>"><fmt:message key="label.lang.en"/></a></li>

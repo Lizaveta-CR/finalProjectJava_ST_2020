@@ -9,5 +9,5 @@ import java.util.Map;
 public interface OrderDAO extends Dao<Integer, Order> {
     List<Order> read() throws PersistentException;
 
-    Map<Integer, List<Order>> read(int offset, int noOfRecords) throws PersistentException;
+    Map<Integer, List<Order>> read(int offset, int noOfRecords,Integer buyerId) throws PersistentException;
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 public interface OrderService extends Service {
     List<Order> findAll() throws ServicePersistentException;
 
-    Map<Integer, List<Order>> find(int offset, int noOfRecords) throws ServicePersistentException;
+    Map<Integer, List<Order>> find(int offset, int noOfRecords,Integer buyerId) throws ServicePersistentException;
 
     void delete(Integer identity) throws ServicePersistentException;
 

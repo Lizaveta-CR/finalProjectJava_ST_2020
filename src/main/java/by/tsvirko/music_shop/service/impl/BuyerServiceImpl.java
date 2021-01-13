@@ -23,6 +23,20 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     @Override
+    public Map<Integer, List<Buyer>> find(int offset, int noOfRecords) throws ServicePersistentException {
+        try {
+            BuyerDAO dao = transaction.createDao(BuyerDAO.class, true);
+            Map<Integer, List<Buyer>> map = dao.read(offset, noOfRecords);
+            for (Map.Entry<Integer, List<Buyer>> entry : map.entrySet()) {
+                buildList(entry.getValue());
+            }
+            return map;
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    @Override
     public void delete(Integer identity) throws ServicePersistentException {
         BuyerDAO dao;
         try {

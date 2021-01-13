@@ -18,7 +18,9 @@ public enum AttributeConstant {
     CURRENT_PAGE("currentPage"),
     ORDER_ITEM("orderItem"),
     RATEMAP("rateMap"),
-    TOTAL("total");
+    TOTAL("total"),
+    USERS("users"),
+    BUYERS("buyers");
     private final String name;
 
     private AttributeConstant(String name) {

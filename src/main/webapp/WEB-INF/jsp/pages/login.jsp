@@ -15,7 +15,7 @@
 <html lang="${cookie.lang.value}">
 <head>
     <title>Login</title>
-    <%@ include file="../parts/meta.jsp" %>
+    <%@ include file="../parts/head.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css"/>
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>

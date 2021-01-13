@@ -15,7 +15,7 @@
 <html>
 <head>
     <title>Edit profile</title>
-    <%@ include file="/WEB-INF/jsp/parts/meta.jsp" %>
+    <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
 <c:choose>

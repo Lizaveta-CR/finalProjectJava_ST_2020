@@ -16,7 +16,7 @@
 <html>
 <head>
     <title>Buyer</title>
-    <%@ include file="/WEB-INF/jsp/parts/meta.jsp" %>
+    <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
 <c:set var="user" scope="session" value="${sessionScope.authorizedUser}"/>

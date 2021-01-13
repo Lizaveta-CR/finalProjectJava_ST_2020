@@ -4,23 +4,22 @@ import by.tsvirko.music_shop.dao.BuyerDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
+import by.tsvirko.music_shop.domain.Order;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-//TODO: remove NullPointer
 public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
     private static final Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
 
     private static final String SQL_INSERT_BUYER = "INSERT INTO buyers (buyer_id,email, telephone,balance,bonus, enabled) VALUES (?, ?,?,?,?,?)";
     private static final String SQL_UPDATE_BUYER = "UPDATE buyers SET email = ?, telephone =? ,balance=?, bonus = ?, enabled = ? WHERE buyer_id = ?";
     private static final String SQL_DELETE_BUYER = "DELETE FROM buyers WHERE buyer_id = ?";
-    private static final String SQL_READ_ALL_BUYERS = "SELECT * FROM buyers";
+    private static final String SQL_READ_ALL_BUYERS = "SELECT buyer_id, email, telephone, balance, bonus, enabled FROM buyers";
     private static final String SQL_SELECT_BUYERS = "SELECT email, telephone,balance,bonus, enabled FROM buyers WHERE buyer_id = ?";
+    private static final String SQL_NUMBER_OF_RECORDS = "SELECT FOUND_ROWS()";
 
     /**
      * Reads all buyers from 'buyers' table
@@ -66,6 +65,71 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             try {
                 if (statementReadBuyer != null) {
                     statementReadBuyer.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+    }
+
+    /**
+     * Reads all buyers from 'buyers' table with specified offset and number of records
+     *
+     * @param offset
+     * @param noOfRecords
+     * @return Map<Integer, List < Order>>,where Integer represents number of found rows
+     * @throws PersistentException if database error occurs
+     */
+    @Override
+    public Map<Integer, List<Buyer>> read(int offset, int noOfRecords) throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            final String SQL_READ_ALL_ORDERS_LIMIT = "SELECT SQL_CALC_FOUND_ROWS buyer_id, email, telephone, balance, bonus, enabled"
+                    + " FROM buyers LIMIT " + offset + ", " + noOfRecords + ";";
+            statement = connection.prepareStatement(SQL_READ_ALL_ORDERS_LIMIT);
+            resultSet = statement.executeQuery();
+            Map<Integer, List<Buyer>> map = new HashMap<>();
+            List<Buyer> buyers = new ArrayList<>();
+            Buyer buyer = null;
+            while (resultSet.next()) {
+                buyer = new Buyer();
+                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
+                Address address = new Address();
+                address.setId(buyer.getId());
+                buyer.setAddress(address);
+                buyer.setEmail(resultSet.getString(Field.EMAIL.value()));
+                buyer.setTelephone(resultSet.getLong(Field.TELEPHONE.value()));
+                buyer.setBalance(resultSet.getBigDecimal(Field.BALANCE.value()));
+                buyer.setBonus(resultSet.getBigDecimal(Field.BONUS.value()));
+                buyer.setEnabled(resultSet.getBoolean(Field.ENABLED.value()));
+                buyers.add(buyer);
+            }
+            if (resultSet != null) {
+                resultSet.close();
+                resultSet = statement.executeQuery(SQL_NUMBER_OF_RECORDS);
+                Integer sqlNoOfRecords = null;
+                if (resultSet.next()) {
+                    sqlNoOfRecords = resultSet.getInt(1);
+                }
+                map.put(sqlNoOfRecords, buyers);
+            }
+            logger.debug("Orders were read");
+            return map;
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
                 }
             } catch (SQLException e) {
                 logger.error("Database access connection failed. Impossible to close statement");

@@ -65,7 +65,7 @@ public class OrderServiceImplTest {
 
     @Test(dataProvider = "offsetsRecords")
     public void findAllOffset(Integer offset, Integer noOfRecords) throws ServicePersistentException {
-        Map<Integer, List<Order>> map = orderService.find(offset, noOfRecords);
+        Map<Integer, List<Order>> map = orderService.find(offset, noOfRecords,order.getBuyer().getId());
         Assert.assertNotNull(map);
     }
 

@@ -3,6 +3,7 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
+import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -34,7 +35,8 @@ public class BuyerFormCommand extends BuyerCommand {
         }
         try {
             OrderService service = factory.getService(OrderService.class);
-            Map<Integer, List<Order>> map = service.find((page - 1) * recordsPerPage, recordsPerPage);
+            Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+            Map<Integer, List<Order>> map = service.find((page - 1) * recordsPerPage, recordsPerPage, buyer.getId());
             int noOfRecords = 1;
             for (Integer key : map.keySet()) {
                 noOfRecords = key;
