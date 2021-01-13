@@ -55,7 +55,14 @@ public class LoginCommand extends Command {
                         try {
                             BuyerService buyerService = factory.getService(BuyerService.class);
                             Buyer buyer = buyerService.findById(user.getId());
-                            session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
+                            if (buyer.isEnabled()) {
+                                session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
+                            } else {
+                                logger.info(String.format("buyer \"%s\" is not enabled to access resource", login));
+                                forward.getAttributes().put(AttributeConstant.MESSAGE.value(),
+                                        rb.getString("app.message.login.enabledError"));
+                                return forward;
+                            }
                         } catch (ServicePersistentException e) {
                         }
                     }

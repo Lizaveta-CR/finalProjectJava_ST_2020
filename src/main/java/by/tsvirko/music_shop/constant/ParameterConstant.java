@@ -9,6 +9,7 @@ public enum ParameterConstant {
     PRODUCTS("products"),
     MARK("mark"),
     PAGE("page"),
+    BUYER_ID("buyerId"),
     LOGIN("login");
     private final String name;
 

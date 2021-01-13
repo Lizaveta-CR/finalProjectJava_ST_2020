@@ -52,8 +52,30 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="mt-3">
-                                            <h4>${buyer.enabled}</h4>
                                             <p class="mb-0 text-muted"><fmt:message key="label.admin.buyer.access"/></p>
+                                            <c:set var="enabled" scope="request" value="${buyer.enabled}"/>
+                                            <c:choose>
+<%--                                                TODO: writes "false"--%>
+                                                <c:when test="${enabled}">
+                                                    <h4>${enabled}</h4>
+                                                    <form action="<c:url value="/admin/adminForm/disable?buyerId=${buyer.id}"/>"
+                                                          method="post">
+                                                        <button class="btn btn-primary" type="submit"><fmt:message
+                                                                key="label.admin.buyer.disable"/></button>
+                                                    </form>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h4>${enabled}</h4>
+                                                    <form action="<c:url value="/admin/adminForm/enable?buyerId=${buyer.id}"/>"
+                                                          method="post">
+                                                        <button class="btn btn-primary" type="submit"><fmt:message
+                                                                key="label.admin.buyer.enable"/></button>
+                                                    </form>
+                                                    <fmt:message key="label.buyer.address.title.new" var="title"/>/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <h4>${buyer.enabled}</h4>
+
                                         </div>
                                     </div>
                                     <div class="col-4">

@@ -31,6 +31,10 @@ public class Buyer extends Person {
         this.bonus = bonus.add(value);
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     @Override
     public String toString() {
         return "Buyer{" +

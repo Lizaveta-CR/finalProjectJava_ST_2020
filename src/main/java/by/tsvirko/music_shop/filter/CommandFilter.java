@@ -4,7 +4,8 @@ import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
 import by.tsvirko.music_shop.controller.command.impl.admin.AdminFormCommand;
-import by.tsvirko.music_shop.controller.command.impl.admin.ShowBuyersCommand;
+import by.tsvirko.music_shop.controller.command.impl.admin.DisableAccessCommand;
+import by.tsvirko.music_shop.controller.command.impl.admin.EnableAccessCommand;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import org.apache.logging.log4j.LogManager;
@@ -64,6 +65,8 @@ public class CommandFilter implements Filter {
         postCommands.put("/products/buy", new BuyerAddProductCommand());
 
         postCommands.put("/admin/adminForm", new AdminFormCommand());
+        postCommands.put("/admin/adminForm/disable", new DisableAccessCommand());
+        postCommands.put("/admin/adminForm/enable", new EnableAccessCommand());
     }
 
     @Override
