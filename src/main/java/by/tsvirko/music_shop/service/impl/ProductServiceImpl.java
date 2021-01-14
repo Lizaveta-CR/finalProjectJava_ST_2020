@@ -1,10 +1,9 @@
 package by.tsvirko.music_shop.service.impl;
 
-import by.tsvirko.music_shop.dao.CategoryDAO;
-import by.tsvirko.music_shop.dao.ProductDAO;
-import by.tsvirko.music_shop.dao.UserDAO;
+import by.tsvirko.music_shop.dao.*;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Category;
+import by.tsvirko.music_shop.domain.ProducerItem;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.ProductService;
@@ -88,10 +87,11 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
     private void buildList(List<Product> products) throws ServicePersistentException {
         try {
             CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
-
+            ProducerItemDAO producerDAO = transaction.createDao(ProducerItemDAO.class, true);
             Integer identity;
             for (Product product : products) {
                 identity = product.getCategory().getId();
+                Optional<ProducerItem> read = producerDAO.read(product.getId());
                 if (identity != null) {
                     Optional<Category> category = categoryDAO.read(identity);
                     if (category.isPresent()) {

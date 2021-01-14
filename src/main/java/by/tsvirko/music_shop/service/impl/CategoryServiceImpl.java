@@ -45,21 +45,4 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
             buildListProductCategories(component, products);
         }
     }
-//
-//    private void buildList(List<Product> products, CategoryDAO dao) throws ServicePersistentException {
-//        try {
-//            Integer identity;
-//            for (Product product : products) {
-//                identity = product.getCategory().getId();
-//                if (identity != null) {
-//                    Optional<Category> category = dao.read(identity);
-//                    if (category.isPresent()) {
-//                        product.setCategory(category.get());
-//                    }
-//                }
-//            }
-//        } catch (PersistentException e) {
-//            throw new ServicePersistentException(e);
-//        }
-//    }
 }

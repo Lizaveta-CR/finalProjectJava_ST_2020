@@ -30,7 +30,8 @@ public enum Field {
     ROLE("role"),
     MARK("mark"),
     AVG_MARK("avg_mark"),
-    PARENT_ID("parent_id");
+    PARENT_ID("parent_id"),
+    PRODUCER_ID("producer_id");
 
     private final String value;
 

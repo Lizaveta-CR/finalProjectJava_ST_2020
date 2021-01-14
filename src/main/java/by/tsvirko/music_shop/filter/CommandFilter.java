@@ -30,6 +30,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/", new MainCommand());
         getCommands.put("/index", new MainCommand());
         getCommands.put("/welcome", new MainCommand());
+
         getCommands.put("/changeLocale", new ChangeLanguageCommand());
         getCommands.put("/login", new ViewLoginCommand());
         getCommands.put("/logout", new LogoutCommand());
@@ -82,6 +83,7 @@ public class CommandFilter implements Filter {
 
             String contextPath = httpRequest.getContextPath();
             String uri = httpRequest.getRequestURI();
+
             logger.debug(String.format("Starting of processing of request for URI \"%s\"", uri));
 
             int beginAction = contextPath.length();
@@ -93,6 +95,7 @@ public class CommandFilter implements Filter {
                 actionName = uri.substring(beginAction);
             }
             Command command = null;
+
             switch (httpRequest.getMethod().toUpperCase()) {
                 case "GET":
                     command = getCommands.get(actionName);
