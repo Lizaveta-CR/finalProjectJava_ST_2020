@@ -43,17 +43,19 @@
         </div>
     </div>
     <c:if test="${sessionScope.authorizedUser != null}">
-        <div class="container-fluid">
-            <c:url value="${menu.url}" var="itemUrl"/>
-            <br>
-            <form action="${itemUrl}" method="get">
-                <button class="btn btn-primary" type="submit"><fmt:message
-                        key="label.welcome.myPage"/></button>
-            </form>
-            <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message
-                    key="label.title.logout"/></a>
-        </div>
-    </c:if>
+    <c class="container-fluid">
+        <c:forEach var="itemUrl" items="${menu}">
+            <%--            <c:url value="${menu.url}" var="itemUrl"/>--%>
+        <br>
+        <form action="${itemUrl.url}" method="get">
+            <button class="btn btn-primary" type="submit"><fmt:message
+                    key="label.welcome.myPage"/></button>
+        </form>
+        </c:forEach>
+        <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message
+                key="label.title.logout"/></a>
+</div>
+</c:if>
 </div>
 </div>
 <%@ include file="../parts/footer.jsp" %>

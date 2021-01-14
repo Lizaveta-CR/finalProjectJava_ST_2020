@@ -23,14 +23,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LoginCommand extends Command {
     //TODO: check enabled
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
-    private static Map<Role, Menu> menu = new ConcurrentHashMap<>();
+    private static Map<Role, List<Menu>> menu = new ConcurrentHashMap<>();
 
     //
     static {
 //        TODO:add i18n
 //        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
-        menu.put(Role.BUYER, new Menu("/buyer/buyerForm"));
-        menu.put(Role.ADMINISTRATOR, new Menu("/admin/adminForm"));
+        menu.put(Role.BUYER, Arrays.asList(new Menu("/buyer/buyerForm")));
+        menu.put(Role.ADMINISTRATOR, Arrays.asList(new Menu("/admin/adminForm")));
 //        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
 

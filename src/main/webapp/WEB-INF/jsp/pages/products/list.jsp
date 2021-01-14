@@ -13,8 +13,12 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
+<c:choose>
+    <c:when test="${not empty sessionScope.authorizedUser}">
+        <c:set var="user" value="${sessionScope.authorizedUser}"/>
+    </c:when>
+</c:choose>
 <html>
-<%--TODO:--%>
 <head>
     <title>Categories</title>
     <head>
@@ -83,26 +87,31 @@
                                             </c:choose>
                                             <td> ${mark}</td>
                                             <c:choose>
-                                                <c:when test="${f:isBuyer(authorizedUser)}">
-                                                    <td>
-                                                        <form action="<c:url value="/products/buy?productId=${product.id}"/>"
-                                                              method="post">
-                                                            <p><fmt:message key="label.product.amount"/></p>
-                                                            <p><input type="number" min="1" value="1" name="amount"
-                                                                      id="amount"/></p>
-                                                            <button class="btn btn-info btn-block" type="submit">
-                                                                <fmt:message
-                                                                        key="label.product.buy"/></button>
-                                                        </form>
-                                                    </td>
-                                                </c:when> <c:when test="${f:isAdmin(authorizedUser)}">
-                                                <td>
-                                                    <a href="<c:url value="/products/edit?productId=${product.id}"/>"><fmt:message
-                                                            key="label.product.edit"/></a></td>
-                                                </td>
-                                            </c:when>
-                                                <c:otherwise>
-                                                </c:otherwise>
+                                                <c:when test="${not empty user}">
+                                                    <c:choose>
+                                                        <c:when test="${f:isBuyer(user)}">
+                                                            <td>
+                                                                <form action="<c:url value="/products/buy?productId=${product.id}"/>"
+                                                                      method="post">
+                                                                    <p><fmt:message key="label.product.amount"/></p>
+                                                                    <p><input type="number" min="1" value="1"
+                                                                              name="amount"
+                                                                              id="amount"/></p>
+                                                                    <button class="btn btn-info btn-block"
+                                                                            type="submit">
+                                                                        <fmt:message
+                                                                                key="label.product.buy"/></button>
+                                                                </form>
+                                                            </td>
+                                                        </c:when>
+                                                        <c:when test="${f:isAdmin(user)}">
+                                                            <td>
+                                                                <a href="<c:url value="/products/edit?productId=${product.id}"/>"><fmt:message
+                                                                        key="label.product.edit"/></a></td>
+                                                            </td>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:when>
                                             </c:choose>
                                         </tr>
                                         </tbody>
