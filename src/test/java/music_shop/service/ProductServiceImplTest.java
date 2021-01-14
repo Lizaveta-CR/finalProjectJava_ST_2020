@@ -99,4 +99,10 @@ public class ProductServiceImplTest {
         Product foundProduct = productService.findById(product.getId());
         Assert.assertEquals(product.getId(), foundProduct.getId());
     }
+
+    @Test
+    public void findNotAvailableTest() throws ServicePersistentException {
+        List<Product> notAvailable = productService.findNotAvailable();
+        notAvailable.forEach(product -> Assert.assertTrue(product.getAvailable()==false));
+    }
 }

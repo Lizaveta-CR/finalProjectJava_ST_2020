@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductService extends Service {
     List<Product> findAll() throws ServicePersistentException;
 
+    List<Product> findNotAvailable() throws ServicePersistentException;
+
     void delete(Integer identity) throws ServicePersistentException;
 
     void save(Product product) throws ServicePersistentException;

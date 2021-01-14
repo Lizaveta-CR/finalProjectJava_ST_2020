@@ -11,6 +11,8 @@ import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ProductServiceImpl extends ServiceImpl implements ProductService {
     @Override
@@ -26,6 +28,13 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
+    }
+
+    @Override
+    public List<Product> findNotAvailable() throws ServicePersistentException {
+        return findAll().stream()
+                .filter(product -> product.getAvailable() == false)
+                .collect(Collectors.toList());
     }
 
     @Override
