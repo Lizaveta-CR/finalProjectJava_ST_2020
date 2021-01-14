@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 @Setter
 public class Product extends Entity<Integer> {
     private Category category;
-    //    TODO:
     private Producer producer;
     private String model;
     private Boolean available;

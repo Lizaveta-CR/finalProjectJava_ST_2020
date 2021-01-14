@@ -17,7 +17,7 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
     private static final Logger logger = LogManager.getLogger(ProducerItemDAOImpl.class);
     private static final String SQL_INSERT_PRODUCER_ITEM = "INSERT INTO producer_items (producer_id, product_id) VALUES (?, ?)";
     private static final String SQL_READ_PRODUCT_BY_PRODUCER = "SELECT pr_it.producer_id, pr.name, pr.country_id FROM producer_items as pr_it" +
-            "INNER JOIN producers as p ON pr_it.producer_id = pr.id WHERE pr_it.product_id = ?";
+            " INNER JOIN producers as pr ON pr_it.producer_id = pr.id WHERE pr_it.product_id = ?";
 
     /**
      * Creates producerItem in database

@@ -50,9 +50,8 @@
                                             <p class="mb-0 text-muted"><fmt:message key="label.admin.buyer.access"/></p>
                                             <c:set var="enabled" scope="request" value="${buyer.enabled}"/>
                                             <c:choose>
-                                                <%--                                                TODO: writes "false"--%>
                                                 <c:when test="${enabled}">
-                                                    <h4>${enabled}</h4>
+                                                    <h4><fmt:message key="label.admin.buyer.have"/></h4>
                                                     <form action="<c:url value="/admin/buyers/disable?buyerId=${buyer.id}"/>"
                                                           method="post">
                                                         <button class="btn btn-primary" type="submit"><fmt:message
@@ -60,7 +59,7 @@
                                                     </form>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <h4>${enabled}</h4>
+                                                    <h4><fmt:message key="label.admin.buyer.no"/></h4>
                                                     <form action="<c:url value="/admin/buyers/enable?buyerId=${buyer.id}"/>"
                                                           method="post">
                                                         <button class="btn btn-primary" type="submit"><fmt:message

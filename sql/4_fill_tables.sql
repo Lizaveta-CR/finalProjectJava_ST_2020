@@ -79,22 +79,24 @@ VALUES (1, 'Takamine', 1),
 # DELETE
 # FROM producer_items;
 INSERT INTO producer_items(producer_id, product_id)
-VALUES (1, 1),
-       (1, 2),
-       (2, 5),
+VALUES
+#        (1, 1),
+#        (1, 2),
+#        (2, 5),
 #        (3, 6),
-#        (4, 3),
+(4, 3);
 #        (5, 7),
-       (6, 4);
+#        (6, 4);
 # DELETE
 # FROM producer_items
 # WHERE producer_id = 5;
 #
 
-INSERT INTO orders(date, buyer_id, price)
+    INSERT
+INTO orders(date, buyer_id, price)
 VALUES
 #        ('2013-08-05 18:19:03', 3, 1239.99),
-('2013-08-05 18:19:03', 6, 1239.99);
+    ('2013-08-05 18:19:03', 6, 1239.99);
 
 DELETE
 FROM products

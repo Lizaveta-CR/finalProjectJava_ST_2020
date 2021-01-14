@@ -31,7 +31,7 @@
     <!--    </test>-->
     <test name="ProducerItem service">
         <classes>
-            <class name="music_shop.service.ProductServiceImplTest">
+            <class name="music_shop.service.ProducerItemServiceTest">
                 <methods>
                     <include name="readProducerByProductTest"/>
                     <include name="readProducerByProductExceptionTest"/>

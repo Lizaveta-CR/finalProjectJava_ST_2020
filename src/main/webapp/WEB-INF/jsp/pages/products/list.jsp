@@ -54,6 +54,10 @@
                                     <th scope="col"><fmt:message
                                             key="label.product.description"/></th>
                                     <th scope="col"><fmt:message
+                                            key="label.address.country"/></th>
+                                    <th scope="col"><fmt:message
+                                            key="label.producer.name"/></th>
+                                    <th scope="col"><fmt:message
                                             key="label.product.price"/></th>
                                     <th scope="col"><fmt:message
                                             key="label.product.rate"/></th>
@@ -76,6 +80,8 @@
                                             </td>
                                             <td> ${product.model}</td>
                                             <td> ${product.description}</td>
+                                            <td> ${product.producer.country.name}</td>
+                                            <td> ${product.producer.name}</td>
                                             <td> ${product.price}</td>
                                             <c:choose>
                                                 <c:when test="${not empty rateMap[product.id]}">
