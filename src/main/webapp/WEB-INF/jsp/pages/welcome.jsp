@@ -49,7 +49,7 @@
         <br>
         <form action="${itemUrl.url}" method="get">
             <button class="btn btn-primary" type="submit"><fmt:message
-                    key="label.welcome.myPage"/></button>
+                    key="${itemUrl.name}"/></button>
         </form>
         </c:forEach>
         <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message

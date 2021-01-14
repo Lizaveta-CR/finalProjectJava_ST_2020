@@ -38,7 +38,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/products/list", new CategoriesCommand());
         getCommands.put("/products/edit", new AdminEditProductsViewCommand());
 
-        getCommands.put("/admin/adminForm", new AdminFormCommand());
+        getCommands.put("/admin/buyers", new AdminFormCommand());
 //        getCommands.put("/admin/adminForm", new ShowBuyersCommand());
 //        getCommands.put("/admin/users", new ShowUsersCommand());
 
@@ -63,9 +63,10 @@ public class CommandFilter implements Filter {
         postCommands.put("/buyer/feedBack/submit", new SubmitFeedBackCommand());
         postCommands.put("/products/buy", new BuyerAddProductCommand());
 
-        postCommands.put("/admin/adminForm", new AdminFormCommand());
-        postCommands.put("/admin/adminForm/disable", new DisableAccessCommand());
-        postCommands.put("/admin/adminForm/enable", new EnableAccessCommand());
+        postCommands.put("/admin/buyers", new AdminFormCommand());
+        postCommands.put("/admin/buyers/disable", new DisableAccessCommand());
+        postCommands.put("/admin/buyers/enable", new EnableAccessCommand());
+//        postCommands.put("/admin/adminForm", new ());
         postCommands.put("/products/edit", new AdminEditProductsCommand());
 //        postCommands.put("/products/editSend", new AdminEditProductsAddCommand());
     }

@@ -29,8 +29,12 @@ public class LoginCommand extends Command {
     static {
 //        TODO:add i18n
 //        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
-        menu.put(Role.BUYER, Arrays.asList(new Menu("/buyer/buyerForm")));
-        menu.put(Role.ADMINISTRATOR, Arrays.asList(new Menu("/admin/adminForm")));
+        menu.put(Role.BUYER, Arrays.asList(new Menu("/buyer/buyerForm", "app.menu.myPage")));
+        menu.put(Role.ADMINISTRATOR, Arrays.asList(new Menu("/admin/adminForm", "app.menu.myPage")
+                , new Menu("/admin/buyers", "app.menu.buyers")
+                , new Menu("/admin/unavailableProducts", "app.menu.unavailableProducts")
+
+        ));
 //        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
 

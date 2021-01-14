@@ -31,6 +31,6 @@ public class EnableAccessCommand extends AdminCommand {
                 logger.warn("Buyer with id=" + parameter + " can not be enabled");
             }
         }
-        return new Forward(PathConstnant.ADMIN_FORM, true);
+        return new Forward(PathConstnant.ADMIN_BUYERS, true);
     }
 }
