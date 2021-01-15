@@ -11,7 +11,12 @@ public enum ParameterConstant {
     PAGE("page"),
     BUYER_ID("buyerId"),
     ACCESS("access"),
-    LOGIN("login");
+    LOGIN("login"),
+    TO("to"),
+    SUBJECT("subject"),
+    BODY("subject"),
+    MAIL_PROP("mail.properties");
+
     private final String name;
 
     private ParameterConstant(String name) {

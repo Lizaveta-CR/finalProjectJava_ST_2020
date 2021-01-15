@@ -43,15 +43,8 @@
                             </div>
                             <div class="">
                                 <h4>${buyer.email}</h4>
-                                <p class="text-muted"><span>| </span><span>
-<%--                                    TODO:написать письмо--%>
-<%--                                    <a href="#" class="text-pink">${buyer.telephone}</a></span>--%>
-                                </p>
+                                <p class="text-muted"><span>| </span></p>
                             </div>
-                                <%--                            <button type="button"--%>
-                                <%--                                    class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">--%>
-                                <%--                                Message Now--%>
-                                <%--                            </button>--%>
                             <div class="mt-4">
                                 <div class="row">
                                     <div class="col-4">

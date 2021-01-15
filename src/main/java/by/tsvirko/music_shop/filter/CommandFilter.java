@@ -71,6 +71,7 @@ public class CommandFilter implements Filter {
         postCommands.put("/admin/buyers/enable", new EnableAccessCommand());
         postCommands.put("/admin/unavailableProducts", new EnableProductCommand());
         postCommands.put("/admin/generate", new GenerateBuyerCommand());
+        postCommands.put("/admin/mail", new AdminSendMailCommand());
 //        postCommands.put("/admin/adminForm", new ());
         postCommands.put("/products/edit", new AdminEditProductsCommand());
 //        postCommands.put("/products/editSend", new AdminEditProductsAddCommand());
