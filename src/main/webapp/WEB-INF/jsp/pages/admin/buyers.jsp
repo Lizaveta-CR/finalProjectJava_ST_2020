@@ -111,7 +111,11 @@
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                 key="label.button.back"/></button>
     </form>
-    <!-- container -->
+    <form action="<c:url value="/admin/generate"/>" method="post">
+        <p><input type="number" min="0" value="1" name="amount" id="amount"/></p>
+        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                key="label.button.generate"/></button>
+    </form>
 </div>
 </body>
 </html>

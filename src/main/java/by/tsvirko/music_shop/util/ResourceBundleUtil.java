@@ -10,6 +10,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ResourceBundleUtil {
+    /**
+     * Gets ResourceBundle depending on HttpServletRequest
+     * @param req
+     * @return ResourceBundle
+     */
     public static ResourceBundle getResourceBundle(HttpServletRequest req) {
         Optional<String> lang = Arrays.stream(req.getCookies())
                 .filter(c -> ResourceBundleAttributes.LANGUAGE.value().equals(c.getName()))

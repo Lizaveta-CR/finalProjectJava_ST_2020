@@ -7,7 +7,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Reads file information
+ */
 public class FileUtil {
+    /**
+     * Reads file text
+     *
+     * @param filePart represents a part or form item that was received within a multipart/form-data POST request
+     * @return file information in String
+     * @throws FileUtilException
+     */
     public static String readFile(Part filePart) throws FileUtilException {
         try {
             InputStream inputStream = filePart.getInputStream();
