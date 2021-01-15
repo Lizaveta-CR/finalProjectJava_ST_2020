@@ -9,4 +9,5 @@ public class PathConstnant {
     public static final String MAIN = "/index.jsp";
     public static final String BUYER_FORM = "/buyer/buyerForm";
     public static final String PRODUCTS_UNAVAILABLE = "/admin/unavailableProducts";
+    public static final String ADMIN_WINNER = "/admin/winner";
 }

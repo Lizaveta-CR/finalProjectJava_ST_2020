@@ -41,6 +41,7 @@ public class CommandFilter implements Filter {
 
         getCommands.put("/admin/buyers", new AdminFormCommand());
         getCommands.put("/admin/unavailableProducts", new ShowUnavailableProductsCommand());
+        getCommands.put("/admin/winner", new ShowWinnerCommand());
 //        getCommands.put("/admin/adminForm", new ShowBuyersCommand());
 //        getCommands.put("/admin/users", new ShowUsersCommand());
 

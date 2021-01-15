@@ -24,6 +24,15 @@
 <div class="content">
     <div class="container">
         <div class="row">
+            <c:if test="${not empty redirectedData}">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <c:forEach items="${redirectedData}" var="item" varStatus="status">
+                            <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
+                        </c:forEach>
+                    </div>
+                </div>
+            </c:if>
             <c:forEach items="${buyers}" var="buyer">
                 <div class="col-lg-4">
                     <div class="text-center card-box">
