@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 public class ResourceBundleUtil {
     /**
      * Gets ResourceBundle depending on HttpServletRequest
+     *
      * @param req
      * @return ResourceBundle
      */

@@ -42,6 +42,7 @@ public class TotalPriceUtil {
 
     /**
      * Counts total price for order depending on  bonus
+     *
      * @param order
      * @param bonus
      * @return
@@ -52,6 +53,7 @@ public class TotalPriceUtil {
 
     /**
      * Counts total bonus depending on KOEFFICIENT
+     *
      * @param order
      * @return BigDecimal- total bonus
      */

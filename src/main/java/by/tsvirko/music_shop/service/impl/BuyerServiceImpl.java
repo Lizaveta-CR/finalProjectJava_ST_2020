@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
@@ -19,6 +20,26 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             return buyers;
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
+        }
+    }
+
+    /**
+     * Finds random buyer by order amount
+     *
+     * @param orderAmount - number of orders
+     * @return random Buyer
+     * @throws ServicePersistentException
+     */
+    @Override
+    public Buyer find(Integer orderAmount) throws ServicePersistentException {
+        List<Buyer> buyers = findAll();
+        List<Buyer> collect = buyers.stream()
+                .filter(buyer -> buyer.getOrders().size() == orderAmount)
+                .collect(Collectors.toList());
+        if (!collect.isEmpty()) {
+            return buyers.get(new Random().nextInt(buyers.size()));
+        } else {
+            throw new ServicePersistentException("No such buyer");
         }
     }
 

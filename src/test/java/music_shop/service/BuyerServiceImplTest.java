@@ -112,4 +112,21 @@ public class BuyerServiceImplTest {
         Map<Integer, List<Buyer>> map = buyerService.find(offset, noOfRecords);
         Assert.assertNotNull(map);
     }
+
+    @Test
+    public void findException() throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> buyerService.find(100));
+    }
+
+    @Test
+    public void findRandomByOrdersAmountEquals() throws ServicePersistentException {
+        Buyer foundBuyer = buyerService.find(this.buyer.getOrders().size());
+        Assert.assertEquals(buyer.getOrders().size(), foundBuyer.getOrders().size());
+    }
+
+    @Test
+    public void findRandomByOrdersAmountNotNull() throws ServicePersistentException {
+        Assert.assertNotNull(buyerService.find(this.buyer.getOrders().size()));
+    }
+
 }

@@ -22,6 +22,7 @@ public enum AttributeConstant {
     USERS("users"),
     PRODUCT("product"),
     NOT_AVAILABLE_PRODUCTS("products"),
+    BUYER("buyer"),
     BUYERS("buyers");
     private final String name;
 
