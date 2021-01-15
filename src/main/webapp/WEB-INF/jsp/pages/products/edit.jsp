@@ -40,7 +40,8 @@
                     </c:forEach>
                 </c:if>
             </div>
-            <form class="form-horizontal" role="form" action="<c:url value="/products/edit"/>" method="post">
+            <form class="form-horizontal" role="form" action="<c:url value="/products/edit"/>" method="post"
+                  enctype="multipart/form-data">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" name="access" id="access"
                            value="${available}">
@@ -55,7 +56,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-3 control-label"><fmt:message key="label.product.file"/></label>
                     <div class="col-lg-8">
+                        <input type="button" id="upload" value="<fmt:message key="label.file.upload"/>"
+                               onclick="document.getElementById('file').click();"/>
+                        <input type="file" style="display:none;" id="file" name="file"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <label class="col-lg-3 control-label"><fmt:message key="label.product.description"/></label>
                         <input type="hidden" class="form-control" type="text" id="productId" name="productId"
                                value="${product.id}">
                     </div>

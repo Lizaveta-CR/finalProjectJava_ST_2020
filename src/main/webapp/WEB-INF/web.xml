@@ -20,13 +20,15 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.css</url-pattern>
-        <url-pattern>*.js</url-pattern>
-        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>/bootstrap/*</url-pattern>
+        <url-pattern>/css/*</url-pattern>
+        <url-pattern>/img/*</url-pattern>
         <url-pattern>*.ico</url-pattern>
     </servlet-mapping>
+
     <filter>
         <filter-name>XSSPreventionFilter</filter-name>
         <filter-class>by.tsvirko.music_shop.filter.XSSPreventionFilter</filter-class>
@@ -86,11 +88,11 @@
     <listener>
         <listener-class>by.tsvirko.music_shop.listener.AppContextAttributeListener</listener-class>
     </listener>
-
     <session-config>
         <!-- Disables URL-based sessions (no more 'jsessionid' in the URL) -->
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
+
     <!--    <error-page>-->
     <!--        <error-code>404</error-code>-->
     <!--        <location>/WEB-INF/error/error.jsp</location>-->
@@ -99,20 +101,5 @@
     <!--        <exception-type>java.lang.RuntimeException</exception-type>-->
     <!--        <location>/WEB-INF/error/error.jsp</location>-->
     <!--    </error-page>-->
-
-    <!--        <jsp_config>
-            <taglib>
-                <taglib-uri>custom</taglib-uri>
-                <taglib-location>WEB-INF/tld/custom.tld</taglib-location>
-            </taglib>
-        </jsp_config>-->
-    <!--    <servlet>-->
-    <!--        <servlet-name>DispatcherServlet</servlet-name>-->
-    <!--        <servlet-class>by.tsvirko.music_shop.controller.DispatcherServlet</servlet-class>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>DispatcherServlet</servlet-name>-->
-    <!--        <url-pattern>*.html</url-pattern>-->
-    <!--    </servlet-mapping>-->
 
 </web-app>

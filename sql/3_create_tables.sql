@@ -58,7 +58,7 @@ CREATE TABLE products
     category_id INTEGER                    NOT NULL,
     model       VARCHAR(50)                NOT NULL,
     available   BOOLEAN       DEFAULT TRUE NOT NULL,
-    description VARCHAR(1000) DEFAULT '',
+    description VARCHAR(5000) DEFAULT '',
     img         VARCHAR(2083),
     price       DECIMAL(10, 2)             NOT NULL,
     CONSTRAINT PK_Product PRIMARY KEY (id),
@@ -67,7 +67,6 @@ CREATE TABLE products
         FOREIGN KEY (category_id) REFERENCES categories (id)
             ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 CREATE TABLE producers
 (
     id         INTEGER      NOT NULL AUTO_INCREMENT,

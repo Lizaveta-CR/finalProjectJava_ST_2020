@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.enums.Role;
@@ -11,7 +12,7 @@ import java.util.Set;
 public class MainCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward("/index.jsp", true);
+        return new Forward(PathConstnant.MAIN, true);
     }
 
     @Override

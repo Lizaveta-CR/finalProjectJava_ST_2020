@@ -7,7 +7,9 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.util.FileUtil;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.util.exception.FileUtilException;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.ValidatorFactory;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
@@ -15,9 +17,12 @@ import by.tsvirko.music_shop.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class AdminEditProductsCommand extends AdminCommand {
@@ -27,7 +32,6 @@ public class AdminEditProductsCommand extends AdminCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.MAIN, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
-
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
             if (parameter != null && !parameter.isEmpty()) {
@@ -35,6 +39,19 @@ public class AdminEditProductsCommand extends AdminCommand {
                 Product product = service.findById(Integer.parseInt(parameter));
                 Validator<Product> validator = ValidatorFactory.getValidator(Product.class);
                 validator.validate(product, request);
+                String description;
+                try {
+                    Part filePart = request.getPart("file");
+                    description = FileUtil.readFile(filePart);
+                } catch (IOException | ServletException | FileUtilException e) {
+                    logger.error("File can not be processed", e.getMessage());
+                    forward.setForward(PathConstnant.PRODUCTS_EDIT);
+                    forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));
+                    return forward;
+                }
+                if (!description.isEmpty() && description != null) {
+                    product.setDescription(description);
+                }
                 service.save(product);
             }
         } catch (ValidatorException e) {

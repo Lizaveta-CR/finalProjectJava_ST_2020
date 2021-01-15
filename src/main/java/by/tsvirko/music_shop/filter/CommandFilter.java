@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CommandFilter.class);
 
-
+    //TODO: all pathes with enum/static
     private static Map<String, Command> getCommands = new ConcurrentHashMap<>();
     private static Map<String, Command> postCommands = new ConcurrentHashMap<>();
 
@@ -40,6 +40,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/products/edit", new AdminEditProductsViewCommand());
 
         getCommands.put("/admin/buyers", new AdminFormCommand());
+        getCommands.put("/admin/unavailableProducts", new ShowUnavailableProductsCommand());
 //        getCommands.put("/admin/adminForm", new ShowBuyersCommand());
 //        getCommands.put("/admin/users", new ShowUsersCommand());
 
@@ -67,6 +68,7 @@ public class CommandFilter implements Filter {
         postCommands.put("/admin/buyers", new AdminFormCommand());
         postCommands.put("/admin/buyers/disable", new DisableAccessCommand());
         postCommands.put("/admin/buyers/enable", new EnableAccessCommand());
+        postCommands.put("/admin/unavailableProducts", new EnableProductCommand());
 //        postCommands.put("/admin/adminForm", new ());
         postCommands.put("/products/edit", new AdminEditProductsCommand());
 //        postCommands.put("/products/editSend", new AdminEditProductsAddCommand());

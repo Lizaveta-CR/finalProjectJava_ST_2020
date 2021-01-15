@@ -8,11 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-z
+<%--<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>--%>
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 
 <html lang="${cookie.lang.value}">
+<%--<u:html>--%>
 <head>
     <title>Music Land</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -62,3 +63,4 @@ z
 </div>
 </body>
 </html>
+<%--</u:html>--%>

@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -29,10 +30,10 @@ public class LoginCommand extends Command {
     static {
 //        TODO:add i18n
 //        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
-        menu.put(Role.BUYER, Arrays.asList(new Menu("/buyer/buyerForm", "app.menu.myPage")));
-        menu.put(Role.ADMINISTRATOR, Arrays.asList(new Menu("/admin/adminForm", "app.menu.myPage")
-                , new Menu("/admin/buyers", "app.menu.buyers")
-                , new Menu("/admin/unavailableProducts", "app.menu.unavailableProducts")
+        menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstnant.BUYER_FORM, "app.menu.myPage")));
+        menu.put(Role.ADMINISTRATOR, Arrays.asList(new Menu(PathConstnant.ADMIN_FORM, "app.menu.myPage")
+                , new Menu(PathConstnant.ADMIN_BUYERS, "app.menu.buyers")
+                , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")
 
         ));
 //        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
