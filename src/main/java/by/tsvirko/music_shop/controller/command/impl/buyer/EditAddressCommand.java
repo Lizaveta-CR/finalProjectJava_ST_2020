@@ -28,21 +28,30 @@ public class EditAddressCommand extends BuyerCommand {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession();
         Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+        Integer buyerId = authorizedBuyer.getId();
         try {
             BuyerService buyerService = factory.getService(BuyerService.class);
             AddressService addressService = factory.getService(AddressService.class);
 
-            Buyer buyerById = buyerService.findById(authorizedBuyer.getId());
+            Buyer buyerById = buyerService.findById(buyerId);
             Validator<Address> validator = ValidatorFactory.getValidator(Address.class);
 
-            Address address = authorizedBuyer.getAddress();
+            Address address = null;
+            try {
+                address = addressService.findById(buyerId);
+            } catch (ServicePersistentException e) {
+                logger.info("Buyer " + buyerById + " did not registered address");
+            }
+
             if (address != null) {
                 validator.validate(address, request);
                 addressService.update(address);
+                logger.info("Address with id=" + buyerById + " was updated");
             } else {
                 address = validator.validate(request);
                 address.setId(buyerById.getId());
                 addressService.save(address);
+                logger.info("Address with id=" + buyerById + " was saved");
             }
             authorizedBuyer.setAddress(address);
         } catch (ValidatorException e) {

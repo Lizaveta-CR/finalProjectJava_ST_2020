@@ -53,7 +53,6 @@ public class LoginCommand extends Command {
                 User user = service.findByLoginAndPassword(login, password);
                 if (user != null) {
                     HttpSession session = request.getSession();
-                    //TODO: класть не целого юзера, потом это поменять в security filter
                     session.setAttribute(AttributeConstant.AUTHORIZED_USER.value(), user);
 
                     if (user.getRole().equals(Role.BUYER)) {
@@ -64,8 +63,9 @@ public class LoginCommand extends Command {
                                 session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
                             } else {
                                 logger.info(String.format("buyer \"%s\" is not enabled to access resource", login));
-                                forward.getAttributes().put(AttributeConstant.MESSAGE.value(),
+                                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(),
                                         rb.getString("app.message.login.enabledError"));
+                                session.removeAttribute(AttributeConstant.AUTHORIZED_USER.value());
                                 return forward;
                             }
                         } catch (ServicePersistentException e) {

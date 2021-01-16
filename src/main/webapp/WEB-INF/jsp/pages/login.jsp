@@ -46,11 +46,12 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <c:if test="${not empty message}">
+            <c:if test="${not empty message or not empty redirectedData}">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                             <%--                        <c:forEach items="${redirectedData}" var="item" varStatus="status">--%>
                         <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
+                        <p class="bg-danger text-center lead"><c:out value="${redirectedData}"/></p>
                             <%--                            <p class="bg-danger text-center lead"><c:out value="${item.value}"/></p>--%>
                             <%--                        </c:forEach>--%>
                     </div>

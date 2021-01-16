@@ -33,4 +33,10 @@
         <function-class>by.tsvirko.music_shop.tag.CustomFunction</function-class>
         <function-signature>boolean isBuyer(by.tsvirko.music_shop.domain.User)</function-signature>
     </function>
+    <function>
+        <name>isManager</name>
+        <function-class>by.tsvirko.music_shop.tag.CustomFunction</function-class>
+        <function-signature>boolean isManager(by.tsvirko.music_shop.domain.User)(by.tsvirko.music_shop.domain.User)
+        </function-signature>
+    </function>
 </taglib>

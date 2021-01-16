@@ -14,7 +14,7 @@ public enum ParameterConstant {
     LOGIN("login"),
     TO("to"),
     SUBJECT("subject"),
-    BODY("subject"),
+    BODY("body"),
     MAIL_PROP("mail.properties");
 
     private final String name;

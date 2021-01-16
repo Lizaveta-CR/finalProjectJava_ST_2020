@@ -37,7 +37,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
                 .filter(buyer -> buyer.getOrders().size() == orderAmount)
                 .collect(Collectors.toList());
         if (!collect.isEmpty()) {
-            return buyers.get(new Random().nextInt(buyers.size()));
+            return collect.get(new Random().nextInt(collect.size()));
         } else {
             throw new ServicePersistentException("No such buyer");
         }
@@ -109,7 +109,9 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             BuyerDAO dao = transaction.createDao(BuyerDAO.class, true);
             Optional<Buyer> optionalUser = dao.read(identity);
             if (optionalUser.isPresent()) {
-                return optionalUser.get();
+                Buyer buyer = optionalUser.get();
+                buildList(Arrays.asList(buyer));
+                return buyer;
             }
             throw new ServicePersistentException("No such buyer");
         } catch (PersistentException | ServicePersistentException e) {

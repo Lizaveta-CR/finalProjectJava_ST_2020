@@ -33,4 +33,8 @@ public class CustomFunction {
     public static boolean isAdmin(User user) {
         return user.getRole().equals(Role.ADMINISTRATOR);
     }
+
+    public static boolean isManager(User user) {
+        return user.getRole().equals(Role.MANAGER);
+    }
 }

@@ -37,12 +37,16 @@
                     <div class="">
                         <h4>${buyer.email}</h4>
                         <p class="text-muted"><span>| </span>
-<%--                        TODO: добавить поле с количеством бонуса--%>
-                        <form action="<c:url value="/admin/mail"/>" method="POST">
+                                <%--                        TODO: добавить поле с количеством бонуса--%>
+                        <form action="<c:url value="/admin/mail?buyerId=${buyer.id}"/>" method="POST">
                             <table>
                                 <tr>
+                                    <td><fmt:message key="label.register.bonus"/>:</td>
+                                    <td><input type="number" name="bonus" required/></td>
+                                </tr>
+                                <tr>
                                     <td><fmt:message key="label.admin.mail.sendTo"/>:</td>
-                                    <td><input type="text" name="to"/></td>
+                                    <td><input type="text" name="to" value="${buyer.email}"/></td>
                                 </tr>
                                 <tr>
                                     <td><fmt:message key="label.admin.mail.subject"/>:</td>

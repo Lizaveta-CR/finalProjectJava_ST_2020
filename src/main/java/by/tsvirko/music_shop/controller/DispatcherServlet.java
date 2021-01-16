@@ -14,7 +14,6 @@ import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -90,18 +89,17 @@ public class DispatcherServlet extends HttpServlet {
             if (forward != null && forward.isRedirect()) {
                 String contextPath = req.getContextPath();
                 String redirectedUri = contextPath + forward.getForward();
-                logger.debug(String.format("Request for URI \"%s\" id redirected to URI \"%s\"", requestedUri, redirectedUri));
+                logger.debug(String.format("Request for URI %s id redirected to URI %s", requestedUri, redirectedUri));
                 resp.sendRedirect(redirectedUri);
             } else {
                 String jspPage = null;
                 if (forward != null) {
                     jspPage = forward.getForward();
                 } else {
-                    //TODO: для всех
                     jspPage = command.getName() + ".jsp";
                 }
                 jspPage = JSP_LOCATION + jspPage;
-                logger.debug(String.format("Request for URI \"%s\" is forwarded to JSP \"%s\"", requestedUri, jspPage));
+                logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));
                 getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
             }
         } catch (PersistentException | CommandException e) {
