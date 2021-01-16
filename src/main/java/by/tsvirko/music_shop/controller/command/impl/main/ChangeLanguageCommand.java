@@ -11,7 +11,8 @@ import java.util.Set;
 public class ChangeLanguageCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward("/index.jsp", true);
+        String referer = request.getHeader("Referer");
+        return new Forward(referer, true);
     }
 
     @Override

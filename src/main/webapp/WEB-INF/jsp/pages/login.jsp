@@ -18,7 +18,6 @@
     <%@ include file="../parts/head.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css"/>
-    <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>
 <script>
@@ -49,11 +48,8 @@
             <c:if test="${not empty message or not empty redirectedData}">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                            <%--                        <c:forEach items="${redirectedData}" var="item" varStatus="status">--%>
                         <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
                         <p class="bg-danger text-center lead"><c:out value="${redirectedData}"/></p>
-                            <%--                            <p class="bg-danger text-center lead"><c:out value="${item.value}"/></p>--%>
-                            <%--                        </c:forEach>--%>
                     </div>
                 </div>
                 <div style="text-align: center">
@@ -66,19 +62,20 @@
                 <div class="form-group" act>
                     <label><fmt:message key="label.register.login"/></label>
                     <input type="text" class="form-control" placeholder=
-                    <fmt:message key="label.register.login"/> id="login" name="login">
+                    <fmt:message key="label.register.login"/> id="login" name="login" required=""
+                           oninvalid="this.setCustomValidity('<fmt:message key="label.login.required"/>')"
+                           oninput="setCustomValidity('')">
                 </div>
                 <div class="form-group">
                     <label><fmt:message key="label.register.pass"/></label>
                     <input type="password" class="form-control" placeholder=
-                    <fmt:message key="label.register.pass"/> id="password" name="password">
+                    <fmt:message key="label.register.pass"/> id="password" name="password" required=""
+                           oninvalid="this.setCustomValidity('<fmt:message key="label.pass.required"/>')"
+                           oninput="setCustomValidity('')">
                 </div>
                 <button type="submit" class="btn btn-black"><fmt:message key="label.title.login"/></button>
             </form>
-            <%--            <div class="container">--%>
-            <%--            </div>--%>
         </div>
-        <%--        <a href="${pageContext.request.contextPath}/index.jsp">Main page</a>--%>
     </div>
 </div>
 </body>
