@@ -8,23 +8,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>--%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 
 <html lang="${cookie.lang.value}">
-<%--<u:html>--%>
 <head>
     <title>Music Land</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <%@ include file="../parts/head.jsp" %>
+
+    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
+    <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
+    <%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>--%>
 </head>
 <body>
 <div class="text-center">
     <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" height="300" width="400"/>
-    <jsp:include page="../parts/nav-bar-language.jsp"/>
+    <%@include file="../parts/nav-bar.jsp" %>
 </div>
+
 <div class="container">
     <div class="vertical-center-row">
         <div class="page-header" style="">
@@ -33,9 +35,8 @@
             </h1>
         </div>
         <h2 class="text-center"><fmt:message key="label.welcome.happy"/></h2>
-        <%--        <h3 class="text-center">Choose what you want to do:</h3>--%>
         <div class="container-fluid">
-            <c:if test="${sessionScope.authorizedUser == null}">
+            <c:if test="${authorizedUser == null}">
                 <a class="btn btn-primary" href="<c:url value="/login"/>" role="button"><fmt:message
                         key="label.title.login"/></a>
             </c:if>
@@ -43,24 +44,13 @@
                     key="label.title.showProducts"/></a>
         </div>
     </div>
-    <c:if test="${sessionScope.authorizedUser != null}">
-    <c class="container-fluid">
-        <c:forEach var="itemUrl" items="${menu}">
-            <%--            <c:url value="${menu.url}" var="itemUrl"/>--%>
+    <c:if test="${authorizedUser != null}">
         <br>
-        <form action="${itemUrl.url}" method="get">
-            <button class="btn btn-primary" type="submit"><fmt:message
-                    key="${itemUrl.name}"/></button>
-        </form>
-        </c:forEach>
-        <a class="btn btn-primary" href="<c:url value="/logout"/>" role="button"><fmt:message
-                key="label.title.logout"/></a>
-</div>
-</c:if>
+        <u:menu buttons="${menu}"/>
+        <br>
+    </c:if>
 </div>
 </div>
-<%@ include file="../parts/footer.jsp" %>
 </div>
 </body>
 </html>
-<%--</u:html>--%>

@@ -27,7 +27,8 @@
     </head>
 </head>
 <body>
-<%--TODO--%>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+
 <c:choose>
     <c:when test="${not empty products}">
         <table class="table">

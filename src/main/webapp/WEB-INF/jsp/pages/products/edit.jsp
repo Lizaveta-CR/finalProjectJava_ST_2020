@@ -19,6 +19,7 @@
     <%@include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <c:choose>
     <c:when test="${not empty product}">
         <c:set var="product" value="${product}"/>

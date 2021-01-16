@@ -18,6 +18,7 @@
     <title>Submit order</title>
     <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <c:choose>
     <c:when test="${not empty order}">
         <c:set var="buyer" value="${order.buyer}"/>

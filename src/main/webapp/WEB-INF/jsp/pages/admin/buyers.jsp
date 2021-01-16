@@ -20,6 +20,7 @@
     <%@include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="content">
     <div class="container">

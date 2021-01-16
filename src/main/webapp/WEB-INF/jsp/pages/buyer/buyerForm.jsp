@@ -19,6 +19,7 @@
     <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <c:set var="user" scope="session" value="${sessionScope.authorizedUser}"/>
 <c:set var="buyer" scope="session" value="${sessionScope.authorizedBuyer}"/>
 <div class="container" style="background-image:  url('<c:url value="/img/back.jpg"/>');">

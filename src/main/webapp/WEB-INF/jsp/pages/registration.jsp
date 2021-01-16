@@ -23,6 +23,7 @@
     <script src="${pageContext.request.contextPath}/js/preventRefresh.js"></script>
 </head>
 <body>
+<jsp:include page="../parts/nav-bar.jsp"/>
 <script>
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
@@ -192,6 +193,5 @@
 <%--        }--%>
 <%--    }--%>
 <%--</script>--%>
-
 </body>
 </html>

@@ -18,6 +18,7 @@
     <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <table class="table table-striped">
     <thead>
     <tr>

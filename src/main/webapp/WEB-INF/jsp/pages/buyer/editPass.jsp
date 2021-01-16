@@ -18,6 +18,7 @@
     <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
 </head>
 <body>
+<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <div class="container">
     <h1><fmt:message key="label.buyer.edit.profile"/></h1>
     <hr>
