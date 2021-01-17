@@ -3,6 +3,7 @@ package by.tsvirko.music_shop.service.impl;
 import by.tsvirko.music_shop.dao.UserDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.User;
+import by.tsvirko.music_shop.domain.enums.Role;
 import by.tsvirko.music_shop.service.*;
 import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -10,6 +11,7 @@ import by.tsvirko.music_shop.util.PasswordUtil;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
 
@@ -120,5 +122,12 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         } catch (PersistentException | ServicePersistentException e) {
             throw new ServicePersistentException(e);
         }
+    }
+
+    @Override
+    public List<User> findPersonal() throws ServicePersistentException {
+        return findAll().stream()
+                .filter(user -> !user.getRole().equals(Role.BUYER))
+                .collect(Collectors.toList());
     }
 }

@@ -8,13 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 
 <fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="i18n.messages"/>
+
 <html>
 <head>
     <title>Action Selector</title>
-    <%@include file="../parts/head.jsp" %>
 </head>
 <body>
 <ul class="nav nav-tabs">
@@ -28,7 +29,7 @@
             </li>
         </ul>
     </li>
-    <c:if test="${authorizedUser != null}">
+    <c:if test="${authorizedUser!=null}">
         <li><a href="<c:url value="/logout"/>"><fmt:message
                 key="label.title.logout"/></a></li>
     </c:if>

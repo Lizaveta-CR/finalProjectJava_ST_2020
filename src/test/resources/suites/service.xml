@@ -12,6 +12,7 @@
                     <include name="findByIdExceptionTest"/>
                     <include name="findByLoginPassTest"/>
                     <include name="findByLoginPassExceptionTest"/>
+                    <include name="findPersonalTest"/>
                     <include name="updateTest"/>
                     <include name="findAll"/>
                     <include name="delete"/>
@@ -104,26 +105,26 @@
     <!--                </class>-->
     <!--            </classes>-->
     <!--        </test>-->
-    <test name="Buyer service">
-        <classes>
-            <class name="music_shop.service.BuyerServiceImplTest">
-                <methods>
-                    <include name="findAll"/>
-                    <include name="findAllOffset"/>
-                    <include name="saveTest"/>
-                    <include name="findByIdTest"/>
-                    <include name="findByIdExceptionTest"/>
-                    <include name="findException"/>
-                    <include name="findRandomByOrdersAmountEquals"/>
-                    <include name="findRandomByOrdersAmountNotNull"/>
-                    <include name="updateTest"/>
-                    <include name="saveExceptionTest"/>
-                    <include name="delete"/>
-                    <include name="deleteException"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+    <!--    <test name="Buyer service">-->
+    <!--        <classes>-->
+    <!--            <class name="music_shop.service.BuyerServiceImplTest">-->
+    <!--                <methods>-->
+    <!--                    <include name="findAll"/>-->
+    <!--                    <include name="findAllOffset"/>-->
+    <!--                    <include name="saveTest"/>-->
+    <!--                    <include name="findByIdTest"/>-->
+    <!--                    <include name="findByIdExceptionTest"/>-->
+    <!--                    <include name="findException"/>-->
+    <!--                    <include name="findRandomByOrdersAmountEquals"/>-->
+    <!--                    <include name="findRandomByOrdersAmountNotNull"/>-->
+    <!--                    <include name="updateTest"/>-->
+    <!--                    <include name="saveExceptionTest"/>-->
+    <!--                    <include name="delete"/>-->
+    <!--                    <include name="deleteException"/>-->
+    <!--                </methods>-->
+    <!--            </class>-->
+    <!--        </classes>-->
+    <!--    </test>-->
     <!--    <test name="OrderItem service">-->
     <!--        <classes>-->
     <!--            <class name="music_shop.service.OrderItemServiceImpTest">-->

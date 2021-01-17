@@ -153,4 +153,10 @@ public class UserServiceImplTest {
         User foundUser = userService.findById(user.getId());
         Assert.assertEquals(user, foundUser);
     }
+
+    @Test
+    public void findPersonalTest() throws ServicePersistentException {
+        List<User> personal = userService.findPersonal();
+        personal.forEach(person -> Assert.assertTrue(!person.getRole().equals(Role.BUYER)));
+    }
 }

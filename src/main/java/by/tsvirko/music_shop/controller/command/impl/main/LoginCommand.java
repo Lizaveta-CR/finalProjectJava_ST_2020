@@ -22,21 +22,23 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LoginCommand extends Command {
-    //TODO: check enabled
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static Map<Role, List<Menu>> menu = new HashMap<>();
 
     //
     static {
-//        TODO:add i18n
-//        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
         menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstnant.BUYER_FORM, "app.menu.myPage")));
-        menu.put(Role.ADMINISTRATOR, Arrays.asList(new Menu(PathConstnant.ADMIN_FORM, "app.menu.myPage")
-                , new Menu(PathConstnant.ADMIN_BUYERS, "app.menu.buyers")
-                , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")
+        menu.put(Role.ADMINISTRATOR
+                , Arrays.asList(
+//                        new Menu(PathConstnant.ADMIN_FORM, "app.menu.myPage"),
+                        new Menu(PathConstnant.ADMIN_BUYERS, "app.menu.buyers")
+                        , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")
 
-        ));
-//        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
+                ));
+        menu.put(Role.MANAGER, Arrays.asList(
+                new Menu("/manag/earnings", "app.menu.earnings"),
+                new Menu("/manag/personal", "app.menu.addPersonal"))
+        );
     }
 
     @Override

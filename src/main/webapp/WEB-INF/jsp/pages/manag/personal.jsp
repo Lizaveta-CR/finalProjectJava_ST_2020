@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: elizaveta
-  Date: 04.01.2021
-  Time: 15:26
+  Date: 17.01.2021
+  Time: 17:59
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,14 +16,14 @@
 
 <html lang="${cookie.lang.value}">
 <head>
-    <title>Registration</title>
+    <title>Add shop personal</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
           rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" media="all">
     <u:head/>
 </head>
 <body>
-<jsp:include page="../parts/nav-bar.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp"/>
 <div class="page-wrapper bg-dark p-t-100 p-b-50">
     <div class="wrapper wrapper--w900">
         <div class="card card-6">
@@ -43,7 +43,7 @@
                     </a>
                 </div>
                 </c:if>
-                <form method="POST" action="${pageContext.request.contextPath}/registration" name="myForm">
+                <form method="POST" action="${pageContext.request.contextPath}/manag/personal" name="myForm">
                     <div class="form-row">
                         <div class="name"><fmt:message key="label.register.name"/></div>
                         <div class="value">
@@ -94,41 +94,15 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="name"><fmt:message key="label.register.email"/></div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input class="input--style-6" type="email" name="email" id="email"
-                                       placeholder="example@email.com"
-                                       value="" onkeyup="checkEmail();"
-                                       required=""
-                                       oninvalid="this.setCustomValidity('<fmt:message key="label.email.required"/>')"
-                                       oninput="setCustomValidity('')">
-                            </div>
+                        <div class="name"><fmt:message key="label.register.role"/></div>
+                        <div class="col-lg-8">
+                            <select id="role" name="role">
+                                <option value="admin">Admin</option>
+                                <option value="manager">Manager</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="name"><fmt:message key="label.register.telephone"/></div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input class="input--style-6" type="number" id="telephone" name="telephone" required=""
-                                       value="" onkeyup="checkPhone();"
-                                       oninvalid="this.setCustomValidity('<fmt:message
-                                               key="label.telephone.required"/>')"
-                                       oninput="setCustomValidity('')">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name"><fmt:message key="label.register.balance"/></div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input class="input--style-6" type="number" id="balance" name="balance" min="10"
-                                       step="any" required=""
-                                       oninvalid="this.setCustomValidity('<fmt:message key="label.balance.required"/>')"
-                                       oninput="setCustomValidity('')">
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="card-footer">
                         <button class="btn btn--radius-2 btn--blue-2" type="submit" id="submit" name="submit">
                             <fmt:message
