@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.constant;
 
 public enum ParameterConstant {
     PRODUCT_ID("productId"),
+    EMPLOYEE_ID("employeeId"),
     AMOUNT("amount"),
     BONUS("bonus"),
     ORDER("order"),

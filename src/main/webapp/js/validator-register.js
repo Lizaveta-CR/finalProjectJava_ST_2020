@@ -26,12 +26,22 @@ let login = document.getElementById("login");
 let email = document.getElementById("email");
 
 let submitChange = function () {
-    if (firstNameChecked && lastNameChecked && passChecked && loginChecked && phoneChecked) {
-        submit.disabled = false;
-        submit.classList.add("active");
+    if (phone == null) {
+        if (firstNameChecked && lastNameChecked && passChecked && loginChecked) {
+            submit.disabled = false;
+            submit.classList.add("active");
+        } else {
+            submit.disabled = true;
+            submit.classList.remove("active");
+        }
     } else {
-        submit.disabled = true;
-        submit.classList.remove("active");
+        if (firstNameChecked && lastNameChecked && passChecked && loginChecked && phoneChecked) {
+            submit.disabled = false;
+            submit.classList.add("active");
+        } else {
+            submit.disabled = true;
+            submit.classList.remove("active");
+        }
     }
 };
 

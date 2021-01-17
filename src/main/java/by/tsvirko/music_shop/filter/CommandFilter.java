@@ -6,9 +6,7 @@ import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.admin.*;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
-import by.tsvirko.music_shop.controller.command.impl.manager.AddPersonalCommand;
-import by.tsvirko.music_shop.controller.command.impl.manager.ViewPersonalCommand;
-import by.tsvirko.music_shop.controller.command.impl.manager.ViewEarningsCommand;
+import by.tsvirko.music_shop.controller.command.impl.manager.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,7 +55,8 @@ public class CommandFilter implements Filter {
         getCommands.put("/buyer/order/submit", new BuyerViewSubmitOrderCommand());
 
         getCommands.put("/manag/earnings", new ViewEarningsCommand());
-        postCommands.put("/manag/personal", new AddPersonalCommand());
+        getCommands.put("/manag/personal", new ViewPersonalCommand());
+        getCommands.put("/manag/add-personal", new ViewAddPersonalCommand());
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());
@@ -78,7 +77,8 @@ public class CommandFilter implements Filter {
         postCommands.put("/admin/generate", new GenerateBuyerCommand());
         postCommands.put("/admin/mail", new AdminSendMailCommand());
 
-        postCommands.put("/manag/personal", new ViewPersonalCommand());
+        postCommands.put("/manag/add-personal", new AddEmployeeCommand());
+        postCommands.put("/manag/delete", new DeleteEmployeeCommand());
     }
 
     @Override

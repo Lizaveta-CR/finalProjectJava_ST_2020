@@ -37,7 +37,7 @@ public class LoginCommand extends Command {
                 ));
         menu.put(Role.MANAGER, Arrays.asList(
                 new Menu("/manag/earnings", "app.menu.earnings"),
-                new Menu("/manag/personal", "app.menu.addPersonal"))
+                new Menu("/manag/personal", "app.menu.personal"))
         );
     }
 

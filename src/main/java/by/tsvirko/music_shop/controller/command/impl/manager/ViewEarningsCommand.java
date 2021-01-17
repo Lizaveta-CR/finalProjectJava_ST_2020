@@ -27,6 +27,7 @@ public class ViewEarningsCommand extends ManagerCommand {
             logger.error("Earning can not be send to manager: " + e.getMessage());
             return forward;
         }
-        return null;
+        forward.setForward(PathConstnant.MANAGER_EARNINGS);
+        return forward;
     }
 }
