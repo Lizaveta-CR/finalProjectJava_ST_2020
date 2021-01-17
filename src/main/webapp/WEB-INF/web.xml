@@ -25,6 +25,7 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/bootstrap/*</url-pattern>
         <url-pattern>/css/*</url-pattern>
+        <url-pattern>/js/*</url-pattern>
         <url-pattern>/img/*</url-pattern>
         <url-pattern>*.ico</url-pattern>
     </servlet-mapping>

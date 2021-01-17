@@ -15,8 +15,8 @@
 <html lang="${cookie.lang.value}">
 <head>
     <title>Music Land</title>
-    <%@ include file="../parts/head.jsp" %>
-
+    <%--    <%@ include file="../parts/head.jsp" %>--%>
+    <u:head/>
     <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
     <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
     <%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>--%>
@@ -36,7 +36,7 @@
         </div>
         <h2 class="text-center"><fmt:message key="label.welcome.happy"/></h2>
         <div class="container-fluid">
-            <c:if test="${authorizedUser == null}">
+            <c:if test="${sessionScope.authorizedUser == null}">
                 <a class="btn btn-primary" href="<c:url value="/login"/>" role="button"><fmt:message
                         key="label.title.login"/></a>
             </c:if>
@@ -44,7 +44,7 @@
                     key="label.title.showProducts"/></a>
         </div>
     </div>
-    <c:if test="${authorizedUser != null}">
+    <c:if test="${sessionScope.authorizedUser != null}">
         <br>
         <u:menu buttons="${menu}"/>
         <br>

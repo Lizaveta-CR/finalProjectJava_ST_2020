@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 <%@ page session="true" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
@@ -15,7 +16,7 @@
 <html>
 <head>
     <title>FeedBack</title>
-    <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
+    <u:head/>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>

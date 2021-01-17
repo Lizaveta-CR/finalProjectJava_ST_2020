@@ -10,6 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="f" uri="function" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
@@ -20,11 +21,8 @@
 </c:choose>
 <html>
 <head>
-    <title>Categories</title>
-    <head>
-        <title>Music Land</title>
-        <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
-    </head>
+    <title>Products</title>
+    <u:head/>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>

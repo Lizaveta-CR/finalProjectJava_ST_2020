@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LoginCommand extends Command {
     //TODO: check enabled
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
-    private static Map<Role, List<Menu>> menu = new ConcurrentHashMap<>();
+    private static Map<Role, List<Menu>> menu = new HashMap<>();
 
     //
     static {

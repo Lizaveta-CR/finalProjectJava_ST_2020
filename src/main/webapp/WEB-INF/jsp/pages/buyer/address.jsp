@@ -9,13 +9,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="f" uri="function" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <html>
 <head>
     <title>Address</title>
-    <%@ include file="/WEB-INF/jsp/parts/head.jsp" %>
+    <u:head/>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>

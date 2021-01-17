@@ -10,6 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="f" uri="function" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
@@ -21,14 +22,12 @@
 <html>
 <head>
     <title>Categories</title>
-    <head>
-        <title>Music Land</title>
-        <%@include file="/WEB-INF/jsp/parts/head.jsp" %>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-<%--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
+
+<%--        <%@include file="/WEB-INF/jsp/parts/head.jsp" %>--%>
+        <u:head/>
+    <%--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
 <%--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
 <%--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>--%>
-    </head>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>

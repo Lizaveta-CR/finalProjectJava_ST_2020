@@ -706,23 +706,10 @@ textarea {
     padding: 10px 35px;
     font-size: 18px;
 }
-
 .valid {
-    color: green;
+    background-color: rgb(138, 219, 219);
 }
 
-.valid:before {
-    position: relative;
-    left: -35px;
-    content: "&#10004;";
-}
-
-.invalid {
-    color: red;
-}
-
-.invalid:before {
-    position: relative;
-    left: -35px;
-    content: "&#10006;";
+.notValid {
+    background-color: #eca9bb;
 }

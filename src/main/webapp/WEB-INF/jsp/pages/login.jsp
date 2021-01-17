@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 <%@ page session="false" %>
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
@@ -15,9 +16,10 @@
 <html lang="${cookie.lang.value}">
 <head>
     <title>Login</title>
-    <%@ include file="../parts/head.jsp" %>
+<%--    <%@ include file="../parts/head.jsp" %>--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css"/>
+    <u:head/>
 </head>
 <body>
 <script>

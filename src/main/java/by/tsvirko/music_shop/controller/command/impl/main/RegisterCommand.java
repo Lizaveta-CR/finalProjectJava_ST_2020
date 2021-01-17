@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -21,19 +22,17 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RegisterCommand extends Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
-    private static Map<Role, Menu> menu = new ConcurrentHashMap<>();
+    private static Map<Role, List<Menu>> menu = new ConcurrentHashMap<>();
 
     static {
 //        TODO:add i18n
 //        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
-        menu.put(Role.BUYER, new Menu("/buyer/buyerForm"));
+        menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstnant.BUYER_FORM, "app.menu.myPage")));
 //        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
 //        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }

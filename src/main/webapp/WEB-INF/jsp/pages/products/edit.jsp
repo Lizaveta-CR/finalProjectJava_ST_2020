@@ -9,6 +9,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 <%@ taglib prefix="f" uri="function" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
@@ -16,7 +17,8 @@
 <html>
 <head>
     <title>Admin</title>
-    <%@include file="/WEB-INF/jsp/parts/head.jsp" %>
+    <u:head/>
+<%--    <%@include file="/WEB-INF/jsp/parts/head.jsp" %>--%>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
