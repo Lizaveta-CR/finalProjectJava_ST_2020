@@ -17,6 +17,7 @@ let notFoundIndex = -1;
 
 let phone = document.getElementById("telephone");
 let password = document.getElementById("password");
+let newPassword = document.getElementById("new_password");
 let confirmPassword = document.getElementById("confirm_password");
 let submit = document.getElementById("submit");
 let firstName = document.getElementById("name");
@@ -52,6 +53,23 @@ let checkPassword = function () {
         setBackgroundFieldGreen(password);
     }
     if (password.value === confirmPassword.value) {
+        setBackgroundFieldGreen(confirmPassword);
+        passChecked = true;
+    } else {
+        setBackgroundFieldRed(confirmPassword);
+        passChecked = false;
+    }
+    submitChange();
+};
+
+let checkNewPassword = function () {
+    if (newPassword.value.search(passwordRegEx) > notFoundIndex ||
+        newPassword.value.length < minPasswordLength) {
+        setBackgroundFieldRed(newPassword);
+    } else {
+        setBackgroundFieldGreen(newPassword);
+    }
+    if (newPassword.value === confirmPassword.value) {
         setBackgroundFieldGreen(confirmPassword);
         passChecked = true;
     } else {

@@ -17,6 +17,7 @@
 <html>
 <head>
     <title>Edit profile</title>
+    <link href="${pageContext.request.contextPath}/css/main.css">
     <u:head/>
 </head>
 <body>
@@ -43,23 +44,36 @@
                 </c:if>
             </div>
             <h3><fmt:message key="label.buyer.edit.title"/></h3>
-            <form class="form-horizontal" role="form" action="<c:url value="/buyer/edit"/>" method="post">
+            <form name="myform" class="form-horizontal" role="form" action="<c:url value="/buyer/edit"/>" method="post"
+                  onsubmit="return validateform()">
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><fmt:message key="label.register.login"/></label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" id="login" name="login" value="${login}">
+                        <input class="form-control" type="text" id="login" name="login" value="${login}"
+                               pattern="[A-Za-z0-9_]{1,15}" title="<fmt:message key="label.login.pattern"/>"
+                               required
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.login.pattern"/>')"
+                               oninput="setCustomValidity('')"
+                        >
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><fmt:message key="label.register.email"/></label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" id="email" name="email" value="${email}">
+                        <input class="form-control" type="text" id="email" name="email" value="${email}"
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="<fmt:message key="label.email.pattern"/>"
+                               required
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.email.pattern"/>')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
                 <div class=" form-group">
                     <label class="col-lg-3 control-label"><fmt:message key="label.register.telephone"/></label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" id="telephone" name="telephone" value="${telephone}">
+                        <input class="form-control" type="number" id="telephone" name="telephone" value="${telephone}"
+                               required=""
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.telephone.pattern"/>')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
                 <div class="form-group">
@@ -72,7 +86,7 @@
                     <div class="container-fluid">
                         <label class="col-md-3 control-label"> </label>
 
-                        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                        <button class="btn btn--radius-2 btn--blue-2" type="submit" id="submit"><fmt:message
                                 key="label.confirm"/></button>
 
                     </div>

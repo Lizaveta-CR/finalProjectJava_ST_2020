@@ -42,6 +42,7 @@ public class BuyerEditCommand extends BuyerCommand {
 
             String login = request.getParameter(ParameterConstant.LOGIN.value());
             if (login != null && !login.isEmpty()) {
+                authorizedUser.setLogin(login);
                 userService.save(authorizedUser);
             }
         } catch (ValidatorException e) {

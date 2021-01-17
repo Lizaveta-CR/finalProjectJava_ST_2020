@@ -16,13 +16,6 @@ BODY {
     background: #DED;
 }
 
-#header {
-    width: 100%;
-    height: 50px;
-    background: url('img/logo.png') 10px 10px no-repeat #373;
-    color: white;
-}
-
 #header H1 {
     padding-left: 70px;
     font-size: 14pt;
@@ -256,4 +249,11 @@ IMG.arrow {
 #confirm-message FORM {
     position: absolute;
     bottom: 20px;
+}
+.valid {
+    background-color: rgb(138, 219, 219);
+}
+
+.notValid {
+    background-color: #eca9bb;
 }

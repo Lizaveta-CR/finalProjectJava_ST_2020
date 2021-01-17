@@ -65,8 +65,8 @@ public class UserValidator implements Validator<User> {
 
     @Override
     public void validate(User user, HttpServletRequest request) throws IncorrectFormDataException {
-        String newPassword = request.getParameter("new-password");
-        String newConfirmedPassword = request.getParameter("confirm-password");
+        String newPassword = request.getParameter("new_password");
+        String newConfirmedPassword = request.getParameter("confirm_password");
 
         if (!newPassword.isEmpty() && !newConfirmedPassword.isEmpty() && newPassword != null && newConfirmedPassword != null) {
             if (newPassword.equals(newConfirmedPassword)) {

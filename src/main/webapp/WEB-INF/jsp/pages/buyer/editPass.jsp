@@ -44,13 +44,19 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"><fmt:message key="label.register.newPass"/></label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" id="new-password" name="new-password">
+                        <input class="form-control" type="password" id="new_password" name="new_password"
+                               required=""
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.pass.required"/>')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label"><fmt:message key="label.register.submitPass"/></label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" id="confirm-password" name="confirm-password">
+                        <input class="form-control" type="password" id="confirm_password" name="confirm_password"
+                               required=""
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.confirm_pass.required"/>')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
                 <div class="form-group">
