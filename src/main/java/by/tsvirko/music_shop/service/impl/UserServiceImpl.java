@@ -125,7 +125,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findPersonal() throws ServicePersistentException {
+    public List<User> findEmployees() throws ServicePersistentException {
         return findAll().stream()
                 .filter(user -> !user.getRole().equals(Role.BUYER))
                 .collect(Collectors.toList());

@@ -56,6 +56,8 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
                 dao.update(product);
             } else {
                 product.setId(dao.create(product));
+                ProducerItemDAO producerItemDAO = transaction.createDao(ProducerItemDAO.class, false);
+                producerItemDAO.create(product.getProducer().getId(), product.getId());
             }
             transaction.commit();
         } catch (PersistentException e) {

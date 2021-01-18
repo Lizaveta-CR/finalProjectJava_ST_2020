@@ -23,11 +23,11 @@
 <head>
     <title>Categories</title>
 
-<%--        <%@include file="/WEB-INF/jsp/parts/head.jsp" %>--%>
-        <u:head/>
+    <%--        <%@include file="/WEB-INF/jsp/parts/head.jsp" %>--%>
+    <u:head/>
     <%--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
-<%--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
-<%--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>--%>
+    <%--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
+    <%--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>--%>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
@@ -117,6 +117,17 @@
                                                                         key="label.product.edit"/></a></td>
                                                             </td>
                                                         </c:when>
+                                                        <c:when test="${f:isManager(user)}">
+                                                            <td>
+                                                                <form action="<c:url value="/products/delete?productId=${product.id}"/>"
+                                                                      method="post">
+                                                                    <button class="btn-info"
+                                                                            type="submit">
+                                                                        <fmt:message
+                                                                                key="label.employee.delete"/></button>
+                                                                </form>
+                                                            </td>
+                                                        </c:when>
                                                     </c:choose>
                                                 </c:when>
                                             </c:choose>
@@ -132,6 +143,14 @@
         </div>
     </div>
 </c:forEach>
+<c:choose>
+    <c:when test="${f:isManager(user)}">
+        <form action="<c:url value="/products/create"/>" method="get">
+            <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                    key="label.product.add"/></button>
+        </form>
+    </c:when>
+</c:choose>
 <div class="col-md-4">
     <form action="<c:url value="/welcome"/>" method="get">
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message

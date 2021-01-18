@@ -19,88 +19,113 @@
 <head>
     <title>Create product</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/fonts/style.css">
-    <%--    <link rel="stylesheet"--%>
-    <%--          href="${pageContext.request.contextPath}/bootstrap/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/product.css">
     <u:head/>
 </head>
 <body>
-
+<%--JS validation--%>
 <div class="wrapper">
     <div class="inner">
-        <form action="">
+        <div class="col-md-10 col-md-offset-1">
+            <c:if test="${not empty redirectedData}">
+                <c:forEach items="${redirectedData}" var="item" varStatus="status">
+                    <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
+                </c:forEach>
+            </c:if>
+        </div>
+        <form action="<c:url value="/products/create"/>" method="post"  enctype="multipart/form-data">
             <h3><fmt:message key="label.product.add"/></h3>
             <div class="form-row">
                 <div class="form-wrapper">
-                    <label for="">Name *</label>
-                    <input type="text" class="form-control" placeholder="Your Name">
+                    <label for="category"><fmt:message key="label.product.category"/></label>
+                    <select name="category" id="category" class="form-control">
+                        <c:forEach items="${category.components}" var="child">
+                            <c:forEach items="${child.components}" var="childComp">
+                                <option value="${childComp.id}">
+                                    <c:out value=" ${childComp.name}"/>
+                                </option>
+                            </c:forEach>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="form-wrapper">
-                    <label for="">Phone *</label>
-                    <input type="text" class="form-control" placeholder="Phone">
+                    <label for="model"> <fmt:message key="label.product.model"/></label>
+                    <input type="text" class="form-control" placeholder=
+                            "<fmt:message key="label.product.model"/>" id="model" name="model">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-wrapper">
-                    <label for="">Check-in *</label>
-                    <span class="lnr lnr-calendar-full"></span>
-                    <input type="text" class="form-control datepicker-here" data-language='en'
-                           data-date-format="dd M yyyy" id="dp1">
+                    <label for="file"><fmt:message key="label.product.description"/></label>
+                    <input type="button" id="upload" value="<fmt:message key="label.file.upload"/>"
+                           onclick="document.getElementById('file').click();"/>
+                    <input type="file" style="display:none;" id="file" name="file"/>
                 </div>
+                <%--                <div class="form-wrapper">--%>
+                <%--                    <label for="imgFile"><fmt:message key="label.product.picture"/></label>--%>
+                <%--                    <input type="button" id="uploadImg" value="<fmt:message key="label.file.upload"/>"--%>
+                <%--                           onclick="document.getElementById('imgFile').click();"/>--%>
+                <%--                    <input type="file" style="display:none;" id="imgFile" name="imgFile"/>--%>
+                <%--                </div>--%>
                 <div class="form-wrapper">
-                    <label for="">Check-out *</label>
-                    <span class="lnr lnr-calendar-full"></span>
-                    <input type="text" class="form-control datepicker-here" data-language='en'
-                           data-date-format="dd M yyyy" id="dp2">
+                    <label for="price"><fmt:message key="label.product.price"/></label>
+                    <input type="number" id="price" name="price" min="10"
+                           step="any">
                 </div>
             </div>
             <div class="form-row last">
                 <div class="form-wrapper">
-                    <label for="">Adults *</label>
-                    <select name="" id="" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
+                    <label for="producer"><fmt:message key="label.producer.name"/></label>
+                    <select name="producer" id="producer" class="form-control">
+                        <c:forEach items="${producers}" var="producer">
+                            <option value="${producer.id}">
+                                <c:out value=" ${producer.name}"/>
+                            </option>
+                        </c:forEach>
                     </select>
-                    <i class="zmdi zmdi-chevron-down"></i>
-                </div>
-                <div class="form-wrapper">
-                    <label for="">Chidren *</label>
-                    <%--                    TODO--%>
-                    <select name="" id="" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                    </select>
+                    <a href="#producers" class="btn btn-info" data-toggle="collapse"><fmt:message
+                            key="label.producer.add"/></a>
+                    <div id="producers" class="collapse">
+                        <div class="form-row">
+                            <div class="form-wrapper">
+                                <label for="name"><fmt:message key="label.producer.name"/></label>
+                                <input type="text" id="name" name="name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-wrapper">
+                                <label for="country"><fmt:message key="label.address.country"/></label>
+                                <select id="country" name="country" class="form-control">
+                                    <c:forEach items="${countries}" var="country">
+                                        <option value="${country}">
+                                            <c:out value=" ${country}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <i class="zmdi zmdi-chevron-down"></i>
                 </div>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> No one rejects, dislikes, or avoids pleasure itself.
+                    <input type="checkbox" id="access" name="access"><fmt:message key="lanel.product.add.checkbox"/>
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <button data-text="Book Room">
-                <span>Book Room</span>
+            <button data-text="<fmt:message key="label.confirm"/>" type="submit">
+                <span>"<fmt:message key="label.confirm"/></span>
+            </button>
+        </form>
+        <form action="<c:url value="/welcome"/>" method="get">
+            <button type="submit" data-text=<fmt:message key="label.button.back"/>>
+                <span><fmt:message key="label.button.back"/></span>
             </button>
         </form>
     </div>
 </div>
-
-
-<%--<!-- DATE-PICKER -->--%>
-<%--<script src="vendor/date-picker/js/datepicker.js"></script>--%>
-<%--<script src="vendor/date-picker/js/datepicker.en.js"></script>--%>
-
-<%--<script src="js/main.js"></script>--%>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 </body>
 </html>

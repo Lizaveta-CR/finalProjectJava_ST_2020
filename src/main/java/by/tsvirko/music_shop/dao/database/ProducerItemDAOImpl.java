@@ -111,4 +111,37 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
             }
         }
     }
+
+    /**
+     * Creates producerItem in database
+     *
+     * @param producerIdentity
+     * @param productIdentity
+     * @return null
+     * @throws PersistentException
+     */
+    @Override
+    public Integer create(Integer producerIdentity, Integer productIdentity) throws PersistentException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_INSERT_PRODUCER_ITEM);
+            statement.setInt(1, producerIdentity);
+            statement.setInt(2, productIdentity);
+            statement.executeUpdate();
+
+            logger.debug("ProducerItem with id= " + producerIdentity + ", " + productIdentity + " was created");
+        } catch (SQLException e) {
+            logger.error("It is impossible co connect to database");
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
+        return null;
+    }
 }

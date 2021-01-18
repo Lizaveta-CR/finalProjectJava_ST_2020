@@ -156,7 +156,7 @@ public class UserServiceImplTest {
 
     @Test
     public void findPersonalTest() throws ServicePersistentException {
-        List<User> personal = userService.findPersonal();
+        List<User> personal = userService.findEmployees();
         personal.forEach(person -> Assert.assertTrue(!person.getRole().equals(Role.BUYER)));
     }
 }

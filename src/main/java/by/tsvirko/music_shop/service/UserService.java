@@ -21,6 +21,6 @@ public interface UserService extends Service {
 
     User findById(Integer identity) throws ServicePersistentException;
 
-    List<User> findPersonal() throws ServicePersistentException;
+    List<User> findEmployees() throws ServicePersistentException;
 }
 

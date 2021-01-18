@@ -16,7 +16,7 @@ public class ViewPersonalCommand extends ManagerCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             UserService userService = factory.getService(UserService.class);
-            List<User> personal = userService.findPersonal();
+            List<User> personal = userService.findEmployees();
             User currentUser = (User) request.getSession().getAttribute(AttributeConstant.AUTHORIZED_USER.value());
 
             //for not seeing himself

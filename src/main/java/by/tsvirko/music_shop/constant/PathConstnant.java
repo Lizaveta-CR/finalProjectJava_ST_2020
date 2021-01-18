@@ -13,4 +13,5 @@ public class PathConstnant {
     public static final String MANAGER_EARNINGS = "/manag/earnings.jsp";
     public static final String MANAGER_PERSONAL = "/manag/personal";
     public static final String MANAGER_ADD_PERSONAL = "/manag/add-personal";
+    public static final String PRODUCTS_CREATE = "/products/create";
 }

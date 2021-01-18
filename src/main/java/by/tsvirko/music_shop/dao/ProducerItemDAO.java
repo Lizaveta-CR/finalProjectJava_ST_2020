@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface ProducerItemDAO extends Dao<Integer, ProducerItem> {
     Optional<Producer> readProducerByProduct(Integer identity) throws PersistentException;
+
+    Integer create(Integer producerIdentity, Integer productIdentity) throws PersistentException;
 }

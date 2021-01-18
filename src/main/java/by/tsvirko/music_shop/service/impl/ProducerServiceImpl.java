@@ -46,6 +46,27 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             if (producer.getId() != null) {
                 dao.update(producer);
             } else {
+                CountryDAO countryDAO = transaction.createDao(CountryDAO.class, false);
+                //if we don't create producer
+                Country country = null;
+                Integer id = producer.getCountry().getId();
+                if (id != null) {
+                    Optional<Country> optionalCountry = countryDAO.read(id);
+                    if (optionalCountry.isPresent()) {
+                        country = optionalCountry.get();
+                    } else {
+                        throw new ServicePersistentException("Producer can not be saved because of country field");
+                    }
+                } else {
+                    //if we create producer
+                    Optional<Country> countryOptional = countryDAO.readCountryByName(producer.getCountry().getName());
+                    if (countryOptional.isPresent()) {
+                        country = countryOptional.get();
+                    } else {
+                        throw new ServicePersistentException("Producer can not be saved because of country field");
+                    }
+                }
+                producer.setCountry(country);
                 producer.setId(dao.create(producer));
             }
             transaction.commit();
@@ -60,7 +81,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
 
     private void buildList(List<Producer> producers) throws ServicePersistentException {
         try {
-            OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, false);
+            OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, true);
             CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
             CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
 

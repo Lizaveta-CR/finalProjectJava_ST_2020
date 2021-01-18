@@ -1,8 +1,6 @@
 package by.tsvirko.music_shop.validator.impl;
 
-import by.tsvirko.music_shop.domain.Buyer;
-import by.tsvirko.music_shop.domain.Category;
-import by.tsvirko.music_shop.domain.Product;
+import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
@@ -16,7 +14,7 @@ public class ProductValidator implements Validator<Product> {
      * Validates request, is used for new entities
      *
      * @param request
-     * @return
+     * @return Product instance
      * @throws IncorrectFormDataException
      */
     @Override
@@ -28,18 +26,39 @@ public class ProductValidator implements Validator<Product> {
         } else {
             throw new IncorrectFormDataException("model", parameter);
         }
-        parameter = request.getParameter("category_id");
+        parameter = request.getParameter("category");
         if (parameter != null && !parameter.isEmpty()) {
             Category category = new Category();
             try {
                 category.setId(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("category_id", parameter);
+                throw new IncorrectFormDataException("category", parameter);
             }
             product.setCategory(category);
         } else {
-            throw new IncorrectFormDataException("category_id", parameter);
+            throw new IncorrectFormDataException("category", parameter);
         }
+        parameter = request.getParameter("producer");
+        Producer producer = null;
+        if (parameter != null && !parameter.isEmpty()) {
+            producer = new Producer();
+            String name = request.getParameter("name");
+            String countryParam = request.getParameter("country");
+            if (name != null && !name.isEmpty() && countryParam != null && !countryParam.isEmpty()) {
+                producer.setName(name);
+                Country country = new Country();
+                country.setName(countryParam);
+                producer.setCountry(country);
+            } else {
+                try {
+                    producer.setId(Integer.parseInt(parameter));
+                } catch (NumberFormatException e) {
+                    throw new IncorrectFormDataException("category", parameter);
+                }
+            }
+            product.setProducer(producer);
+        }
+        product.setImageUrl("");
         validate(product, request);
         return product;
     }
@@ -55,18 +74,13 @@ public class ProductValidator implements Validator<Product> {
      * Validates request, is used for entities update
      *
      * @param request
-     * @return
      * @throws IncorrectFormDataException
      */
     @Override
     public void validate(Product product, HttpServletRequest request) throws IncorrectFormDataException {
         String parameter = request.getParameter("access");
         if (parameter != null && !parameter.isEmpty()) {
-            try {
-                product.setAvailable(true);
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("access", parameter);
-            }
+            product.setAvailable(true);
         } else {
             product.setAvailable(false);
         }
@@ -74,7 +88,7 @@ public class ProductValidator implements Validator<Product> {
         if (parameter != null && !parameter.isEmpty()) {
             product.setDescription(parameter);
         } else {
-            throw new IncorrectFormDataException("description", parameter);
+            product.setDescription("");
         }
         parameter = request.getParameter("price");
         if (parameter != null && !parameter.isEmpty() && isMoney(parameter)) {

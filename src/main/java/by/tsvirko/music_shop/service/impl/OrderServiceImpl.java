@@ -89,7 +89,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
     }
 
     private void buildList(List<Order> orders) throws PersistentException {
-        OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, false);
+        OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, true);
         CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
 
         Map<Integer, Set<Product>> productOrderMap = new HashMap<>();

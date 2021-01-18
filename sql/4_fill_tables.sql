@@ -37,8 +37,8 @@ VALUES
 #        (6, 'Bas', 2);
 (7, 'Violins', 5);
 delete
-from categories
-where id = 7;
+from products
+where id = 11;
 # TODO:change category_id
 INSERT INTO products(id, category_id, model, available, description, img, price)
 VALUES (1, 3, 'Fender CD-60S Natural', true,

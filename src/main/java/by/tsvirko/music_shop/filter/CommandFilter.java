@@ -70,6 +70,8 @@ public class CommandFilter implements Filter {
         postCommands.put("/buyer/buyerForm", new BuyerFormCommand());
         postCommands.put("/buyer/feedBack/submit", new SubmitFeedBackCommand());
         postCommands.put("/products/buy", new BuyerAddProductCommand());
+        postCommands.put("/products/create", new AddProductCommand());
+        postCommands.put("/products/delete", new DeleteProductCommand());
 
         postCommands.put("/admin/buyers", new AdminFormCommand());
         postCommands.put("/admin/buyers/disable", new DisableAccessCommand());
@@ -77,6 +79,7 @@ public class CommandFilter implements Filter {
         postCommands.put("/admin/unavailableProducts", new EnableProductCommand());
         postCommands.put("/admin/generate", new GenerateBuyerCommand());
         postCommands.put("/admin/mail", new AdminSendMailCommand());
+        postCommands.put("/products/edit", new AdminEditProductsCommand());
 
         postCommands.put("/manag/add-personal", new AddEmployeeCommand());
         postCommands.put("/manag/delete", new DeleteEmployeeCommand());
