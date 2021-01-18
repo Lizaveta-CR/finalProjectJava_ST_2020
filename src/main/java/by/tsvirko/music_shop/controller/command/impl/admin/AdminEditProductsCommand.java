@@ -25,6 +25,9 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+/**
+ * Command for editing products. Only admin access
+ */
 public class AdminEditProductsCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminEditProductsCommand.class);
 

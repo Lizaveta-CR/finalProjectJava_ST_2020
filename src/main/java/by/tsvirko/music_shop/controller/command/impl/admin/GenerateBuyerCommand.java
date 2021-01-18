@@ -12,7 +12,9 @@ import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
-
+/**
+ * Command for generating winner within buyer. Only admin access
+ */
 public class GenerateBuyerCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

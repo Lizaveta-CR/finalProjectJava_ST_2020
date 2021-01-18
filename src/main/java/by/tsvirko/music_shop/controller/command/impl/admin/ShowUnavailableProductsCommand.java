@@ -11,7 +11,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
+/**
+ * Command for showing unavailable products. Only admin access
+ */
 public class ShowUnavailableProductsCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(ShowUnavailableProductsCommand.class);
 

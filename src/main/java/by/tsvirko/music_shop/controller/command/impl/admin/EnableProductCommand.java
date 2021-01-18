@@ -11,7 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Command for enabling product access. Only admin access
+ */
 public class EnableProductCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(ShowUnavailableProductsCommand.class);
 

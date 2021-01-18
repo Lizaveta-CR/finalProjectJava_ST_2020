@@ -13,7 +13,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/**
+ * Command for viewing editing products page. Only admin access
+ */
 public class AdminEditProductsViewCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminEditProductsViewCommand.class);
 

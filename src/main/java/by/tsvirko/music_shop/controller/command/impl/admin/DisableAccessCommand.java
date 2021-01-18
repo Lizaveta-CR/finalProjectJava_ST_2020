@@ -11,7 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Command for disabling access to buyer. Only admin access
+ */
 public class DisableAccessCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(DisableAccessCommand.class);
 

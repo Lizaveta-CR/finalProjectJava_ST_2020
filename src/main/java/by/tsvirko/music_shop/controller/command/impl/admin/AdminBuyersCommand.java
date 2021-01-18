@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-public class AdminFormCommand extends AdminCommand {
-    private static final Logger logger = LogManager.getLogger(AdminFormCommand.class);
+/**
+ * Command for viewing all buyers. Only admin access
+ */
+public class AdminBuyersCommand extends AdminCommand {
+    private static final Logger logger = LogManager.getLogger(AdminBuyersCommand.class);
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

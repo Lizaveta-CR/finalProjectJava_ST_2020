@@ -7,7 +7,9 @@ import by.tsvirko.music_shop.domain.Buyer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/**
+ * Command for showing winner within buyers. Only admin access
+ */
 public class ShowWinnerCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

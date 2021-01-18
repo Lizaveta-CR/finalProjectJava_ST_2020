@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Properties;
-
+/**
+ * Command for sending email to buyer and adding bonus. Only admin access
+ */
 public class AdminSendMailCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminSendMailCommand.class);
 
