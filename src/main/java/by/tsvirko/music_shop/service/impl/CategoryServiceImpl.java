@@ -16,14 +16,30 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
     @Override
     public Category getCategory() throws ServicePersistentException {
         try {
-            CategoryDAO dao = transaction.createDao(CategoryDAO.class, true);
             ProductDAO productDAO = transaction.createDao(ProductDAO.class, true);
+            Category simpleCategory = getSimpleCategory();
+            List<Product> products = productDAO.read();
+            buildProducts(products);
+            buildListProductCategories(simpleCategory, products);
+            return simpleCategory;
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
+
+    /**
+     * Returns category without products
+     *
+     * @return category
+     * @throws ServicePersistentException
+     */
+    @Override
+    public Category getSimpleCategory() throws ServicePersistentException {
+        try {
+            CategoryDAO dao = transaction.createDao(CategoryDAO.class, true);
             Optional<Category> optionalCategory = dao.read();
             if (optionalCategory.isPresent()) {
                 Category category = optionalCategory.get();
-                List<Product> products = productDAO.read();
-                buildProducts(products);
-                buildListProductCategories(category, products);
                 return category;
             } else {
                 throw new ServicePersistentException("Empty category");
