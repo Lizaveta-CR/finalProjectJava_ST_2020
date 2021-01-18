@@ -57,6 +57,7 @@ public class CommandFilter implements Filter {
         getCommands.put("/manag/earnings", new ViewEarningsCommand());
         getCommands.put("/manag/personal", new ViewPersonalCommand());
         getCommands.put("/manag/add-personal", new ViewAddPersonalCommand());
+        getCommands.put("/products/create", new ViewAddProductCommand());
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/registration", new RegisterCommand());
