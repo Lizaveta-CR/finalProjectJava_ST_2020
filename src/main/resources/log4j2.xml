@@ -35,7 +35,7 @@
         <Logger name="by.tsvirko.music_shop.controller.DispatcherServlet" level="debug" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
-        <Logger name="by.tsvirko.music_shop.filter" level="error" additivity="true">
+        <Logger name="by.tsvirko.music_shop.filter" level="debug" additivity="true">
             <AppenderRef ref="TxtFile"/>
         </Logger>
         <Logger name="by.tsvirko.music_shop.listener" level="info" additivity="true">

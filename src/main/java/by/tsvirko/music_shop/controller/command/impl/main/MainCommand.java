@@ -12,7 +12,7 @@ import java.util.Set;
 public class MainCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward(PathConstnant.MAIN, true);
+        return new Forward("/index.jsp", true);
     }
 
     @Override

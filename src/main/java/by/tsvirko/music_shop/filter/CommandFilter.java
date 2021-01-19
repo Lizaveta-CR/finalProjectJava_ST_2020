@@ -27,7 +27,7 @@ public class CommandFilter implements Filter {
     private static Map<String, Command> postCommands = new ConcurrentHashMap<>();
 
     static {
-        getCommands.put("/finalProject/", new MainCommand());
+//        getCommands.put("/finalProject/", new MainCommand());
         getCommands.put("/", new MainCommand());
         getCommands.put("/index", new MainCommand());
         getCommands.put("/welcome", new MainCommand());
@@ -108,13 +108,16 @@ public class CommandFilter implements Filter {
                 actionName = uri.substring(beginAction);
             }
             Command command = null;
+//            String parameter = httpRequest.getParameter(AttributeConstant.COMMAND.value());
 
             switch (httpRequest.getMethod().toUpperCase()) {
                 case "GET":
                     command = getCommands.get(actionName);
+//                    command = getCommands.get(parameter);
                     break;
                 case "POST":
                     command = postCommands.get(actionName);
+//                    command = postCommands.get(parameter);
                     break;
             }
             if (command != null) {

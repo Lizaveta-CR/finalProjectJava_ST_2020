@@ -33,7 +33,7 @@
             <td>${product.model}</td>
             <td><fmt:formatNumber value="${product.price}" type="currency"/></td>
             <td>
-                <form action="<c:url value="/buyer/feedBack/submit?productId=${product.id}"/>"
+                <form action="<c:url value="/buyer/feedBack/submit.html?productId=${product.id}"/>"
                       method="post">
                     <p><fmt:message key="label.product.value"/></p>
                     <p><input type="number" min="1" max="10" value="10" name="mark"

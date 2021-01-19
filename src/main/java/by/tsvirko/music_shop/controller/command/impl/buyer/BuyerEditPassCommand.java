@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
@@ -25,7 +26,7 @@ public class BuyerEditPassCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward("/buyer/buyerForm", true);
+        Forward forward = new Forward(PathConstnant.BUYER_FORM, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession(false);
         User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
@@ -39,13 +40,13 @@ public class BuyerEditPassCommand extends BuyerCommand {
                 if (foundUser != null) {
                     userService.updatePassword(authorizedUser);
                 } else {
-                    forward.setForward("buyer/editPass");
+                    forward.setForward(PathConstnant.BUYER_EDIT_PASS);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
                     return forward;
                 }
             } catch (ServicePersistentException | IncorrectFormDataException ex) {
                 logger.info(String.format("User \"%s\" tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
-                forward.setForward("buyer/editPass");
+                forward.setForward(PathConstnant.BUYER_EDIT_PASS);
                 forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
                 return forward;
             } catch (ValidatorException e) {

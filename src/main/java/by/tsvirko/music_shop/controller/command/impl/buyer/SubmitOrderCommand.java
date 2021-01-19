@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.constant.ParameterConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderItemService;
@@ -30,7 +31,7 @@ public class SubmitOrderCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward("/products/list", true);
+        Forward forward = new Forward(PathConstnant.PRODUCTS_LIST, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         HttpSession session = request.getSession(false);
@@ -45,7 +46,7 @@ public class SubmitOrderCommand extends BuyerCommand {
                 logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
             } catch (IncorrectFormDataException e) {
                 logger.warn("Incorrect data was found when saving order", e);
-                forward.setForward("/buyer/order/submit");
+                forward.setForward(PathConstnant.BUYER_ORDER_SUBMIT);
                 forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.order.incorrect"));
                 return forward;
             }

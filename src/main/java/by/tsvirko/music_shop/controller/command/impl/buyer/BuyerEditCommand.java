@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.constant.ParameterConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
@@ -26,7 +27,7 @@ public class BuyerEditCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward("/buyer/buyerForm", true);
+        Forward forward = new Forward(PathConstnant.BUYER_FORM, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession(false);
         User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
@@ -49,13 +50,13 @@ public class BuyerEditCommand extends BuyerCommand {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when updating user", e);
-            forward.setForward("/buyer/edit");
+            forward.setForward(PathConstnant.BUYER_EDIT);
             forward.getAttributes().put("message", rb.getString("app.message.user.edit.incorrect"));
             return forward;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");
             logger.warn(String.format("Incorrect data was found when user \"%s\" tried to change information", authorizedUser.getLogin()));
-            forward.setForward("/buyer/edit");
+            forward.setForward(PathConstnant.BUYER_EDIT);
             forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.dublicate"));
         }
         return forward;

@@ -53,7 +53,7 @@ public class SecurityFilter implements Filter {
             if (canExecute) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                logger.info(String.format("Trying of %s access to forbidden resource", user.getLogin()));
+                logger.info(String.format("Trying of %s access to forbidden resource", command.getName()));
                 if (session != null && command.getClass() != MainCommand.class) {
                     ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
                     session.setAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value(), rb.getString("app.message.security"));

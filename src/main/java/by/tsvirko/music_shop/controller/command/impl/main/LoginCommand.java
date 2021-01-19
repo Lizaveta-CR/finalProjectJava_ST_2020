@@ -36,14 +36,14 @@ public class LoginCommand extends Command {
 
                 ));
         menu.put(Role.MANAGER, Arrays.asList(
-                new Menu("/manag/earnings", "app.menu.earnings"),
-                new Menu("/manag/personal", "app.menu.personal"))
+                new Menu("/manag/earnings.html", "app.menu.earnings"),
+                new Menu("/manag/personal.html", "app.menu.personal"))
         );
     }
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward("/login", true);
+        Forward forward = new Forward("/login.html", true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         String login = request.getParameter("login");
@@ -76,7 +76,8 @@ public class LoginCommand extends Command {
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
-                    forward.setForward("/index");
+                    forward.setForward("/index.html");
+//                    forward.setForward(/index);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

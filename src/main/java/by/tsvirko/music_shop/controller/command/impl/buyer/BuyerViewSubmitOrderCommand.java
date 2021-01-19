@@ -31,7 +31,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
                     buyer.setAddress(address);
                 }
             } catch (ServicePersistentException e) {
-                Forward forward = new Forward("/buyer/address", true);
+                Forward forward = new Forward("/buyer/address.html", true);
                 forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
                 logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
                 return forward;

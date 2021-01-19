@@ -11,7 +11,8 @@ import java.util.Set;
 public class ViewRegisterCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward("/registration.jsp");
+//        return new Forward("/registration.jsp");
+        return null;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class BuyerAddProductCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward("/buyer/order", true);
+        Forward forward = new Forward("/buyer/order.html", true);
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         String parameterAmount = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty()) {

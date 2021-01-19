@@ -35,7 +35,6 @@ public class TransactionFactoryImpl implements TransactionFactory {
      * Creates transaction
      *
      * @return TransactionImpl instance
-     * @throws PersistentException
      */
     @Override
     public Transaction createTransaction() {

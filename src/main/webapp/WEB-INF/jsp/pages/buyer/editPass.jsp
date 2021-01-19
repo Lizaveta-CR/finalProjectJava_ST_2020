@@ -14,12 +14,7 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<html>
-<head>
-    <title>Edit profile</title>
-    <u:head/>
-</head>
-<body>
+<u:html title="Edit profile">
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <div class="container">
     <h1><fmt:message key="label.buyer.edit.profile"/></h1>
@@ -34,7 +29,7 @@
                 </c:if>
             </div>
             <h3><fmt:message key="label.buyer.edit.title"/></h3>
-            <form class="form-horizontal" role="form" action="<c:url value="/buyer/editPass"/>" method="post">
+            <form class="form-horizontal" role="form" action="<c:url value="/buyer/editPass.html"/>" method="post">
                 <div class="form-group">
                     <label class="col-md-3 control-label"><fmt:message key="label.register.pass"/></label>
                     <div class="col-md-8">
@@ -69,12 +64,11 @@
                     </div>
                 </div>
             </form>
-            <form action="<c:url value="/welcome"/>" method="get">
+            <form action="<c:url value="/welcome.html"/>" method="get">
                 <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                         key="label.button.back"/></button>
             </form>
         </div>
     </div>
 </div>
-</body>
-</html>
+</u:html>

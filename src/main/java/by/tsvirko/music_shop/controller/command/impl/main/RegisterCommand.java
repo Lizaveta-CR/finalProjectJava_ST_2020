@@ -39,7 +39,7 @@ public class RegisterCommand extends Command {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
-        Forward forward = new Forward("/welcome", true);
+        Forward forward = new Forward("/welcome.html", true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User user = null;
@@ -55,9 +55,11 @@ public class RegisterCommand extends Command {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
-            forward.setForward("/registration");
-            request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.register.incorrect"));
-            return null;
+            forward.setForward("/registration.html");
+            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
+//            request.setAttribute();
+//            return null;
+            return forward;
         }
         if (user != null && buyer != null) {
             try {
@@ -72,8 +74,10 @@ public class RegisterCommand extends Command {
                 session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.register.duplicate"));
-                return null;
+                forward.setForward("/registration.html");
+                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
+                return forward;
+//                return null;
             }
         }
         return forward;

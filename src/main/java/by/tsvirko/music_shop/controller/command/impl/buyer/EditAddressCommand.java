@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -58,14 +59,14 @@ public class EditAddressCommand extends BuyerCommand {
             logger.error("Address can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when updating address", e);
-            Forward forward = new Forward("/buyer/address", true);
-            forward.setForward("/buyer/address");
+            Forward forward = new Forward(PathConstnant.BUYER_ADDRESS, true);
+//            forward.setForward("/buyer/address.html");
             forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.incorrect"));
             return forward;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");
             logger.warn(String.format("Incorrect data was found when buyer tried to change address"));
         }
-        return new Forward("/buyer/buyerForm", true);
+        return new Forward(PathConstnant.BUYER_FORM, true);
     }
 }
