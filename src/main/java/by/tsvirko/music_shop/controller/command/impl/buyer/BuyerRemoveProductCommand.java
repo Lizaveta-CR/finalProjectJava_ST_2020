@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
-
+/**
+ * Command for removing product from order
+ */
 public class BuyerRemoveProductCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerRemoveProductCommand.class);
 

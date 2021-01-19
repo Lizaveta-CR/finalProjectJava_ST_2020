@@ -25,7 +25,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+/**
+ * Command for submitting order
+ */
 public class SubmitOrderCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(SubmitOrderCommand.class);
 

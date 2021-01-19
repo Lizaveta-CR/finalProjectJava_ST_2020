@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Command for viewing buyer page
+ */
 public class BuyerFormCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerFormCommand.class);
 

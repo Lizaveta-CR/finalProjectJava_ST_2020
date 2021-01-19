@@ -15,7 +15,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Command for submitting feedback
+ */
 public class SubmitFeedBackCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(SubmitFeedBackCommand.class);
 

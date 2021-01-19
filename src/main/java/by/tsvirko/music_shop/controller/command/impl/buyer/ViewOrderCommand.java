@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command for viewing order
+ */
 public class ViewOrderCommand extends BuyerCommand {
 
     @Override

@@ -14,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
-
+/**
+ * Command for viewing submit form
+ */
 public class BuyerViewSubmitOrderCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerViewSubmitOrderCommand.class);
 

@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Command for adding product to order
+ */
 public class BuyerAddProductCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerAddProductCommand.class);
 

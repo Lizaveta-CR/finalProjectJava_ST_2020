@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ResourceBundle;
-
+/**
+ * Command for editing buyer information
+ */
 public class BuyerEditCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerEditCommand.class);
 

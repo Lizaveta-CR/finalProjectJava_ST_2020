@@ -12,7 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Command for viewing edit form
+ */
 public class BuyerViewEditFormCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerViewEditFormCommand.class);
 
