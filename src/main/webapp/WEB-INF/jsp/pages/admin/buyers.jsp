@@ -15,12 +15,7 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<html>
-<head>
-    <title>Buyers</title>
-    <u:head/>
-</head>
-<body>
+<u:html title="Buyers">
 <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="content">
@@ -56,7 +51,7 @@
                                             <c:choose>
                                                 <c:when test="${enabled}">
                                                     <h4><fmt:message key="label.admin.buyer.have"/></h4>
-                                                    <form action="<c:url value="/admin/buyers/disable?buyerId=${buyer.id}"/>"
+                                                    <form action="<c:url value="/admin/buyers/disable.html?buyerId=${buyer.id}"/>"
                                                           method="post">
                                                         <button class="btn btn-primary" type="submit"><fmt:message
                                                                 key="label.admin.buyer.disable"/></button>
@@ -64,7 +59,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <h4><fmt:message key="label.admin.buyer.no"/></h4>
-                                                    <form action="<c:url value="/admin/buyers/enable?buyerId=${buyer.id}"/>"
+                                                    <form action="<c:url value="/admin/buyers/enable.html?buyerId=${buyer.id}"/>"
                                                           method="post">
                                                         <button class="btn btn-primary" type="submit"><fmt:message
                                                                 key="label.admin.buyer.enable"/></button>
@@ -101,7 +96,7 @@
                     <c:otherwise>
                         <div class="btn-group">
                             <li>
-                                <form action="<c:url value="/admin/buyers?page=${i}"/>" method="post">
+                                <form action="<c:url value="/admin/buyers.html?page=${i}"/>" method="post">
                                     <button class="btn btn-primary" type="submit">${i}</button>
                                 </form>
                             </li>
@@ -111,15 +106,14 @@
             </c:forEach>
         </ul>
     </div>
-    <form action="<c:url value="/welcome"/>" method="get">
+    <form action="<c:url value="/welcome.html"/>" method="get">
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                 key="label.button.back"/></button>
     </form>
-    <form action="<c:url value="/admin/generate"/>" method="post">
+    <form action="<c:url value="/admin/generate.html"/>" method="post">
         <p><input type="number" min="0" value="1" name="amount" id="amount"/></p>
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                 key="label.button.generate"/></button>
     </form>
 </div>
-</body>
-</html>
+</u:html>

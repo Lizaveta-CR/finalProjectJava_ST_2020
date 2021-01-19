@@ -17,8 +17,6 @@
         <c:forEach var="cssFile" items="${cssFiles}">
             <link href="${pageContext.request.contextPath}/css/${cssFile}" rel="stylesheet">
         </c:forEach>
-        <%--        <SCRIPT type="text/javascript" src="${javascriptUrl}/validator.js"></SCRIPT>--%>
-        <%--        <SCRIPT type="text/javascript" src="${javascriptUrl}/${validator}"></SCRIPT>--%>
     </c:if>
     <c:if test="${not empty cssFile}">
         <link href="${pageContext.request.contextPath}/css/${cssFile}" rel="stylesheet">

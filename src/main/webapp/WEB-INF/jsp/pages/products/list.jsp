@@ -104,7 +104,7 @@
                                                             </c:when>
                                                             <c:when test="${f:isAdmin(user)}">
                                                                 <td>
-                                                                    <a href="<c:url value="/products/edit?productId=${product.id}"/>"><fmt:message
+                                                                    <a href="<c:url value="/products/edit.html?productId=${product.id}"/>"><fmt:message
                                                                             key="label.product.edit"/></a></td>
                                                                 </td>
                                                             </c:when>

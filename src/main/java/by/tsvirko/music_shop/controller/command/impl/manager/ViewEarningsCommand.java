@@ -18,7 +18,7 @@ public class ViewEarningsCommand extends ManagerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.MAIN);
+        Forward forward = new Forward(PathConstnant.MAIN_JSP);
         try {
             OrderService service = factory.getService(OrderService.class);
             List<Order> orders = service.findAll();

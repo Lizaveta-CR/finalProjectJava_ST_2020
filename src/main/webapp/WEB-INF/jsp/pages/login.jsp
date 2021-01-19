@@ -16,14 +16,6 @@
 <%--<html lang="${cookie.lang.value}">--%>
 <c:set var="cssFiles" value="${['login.css','panel.css']}" scope="page"/>
 <u:html title="Login" cssFiles="${cssFiles}">
-    <%--    <head>--%>
-    <%--        <title>Login</title>--%>
-    <%--            &lt;%&ndash;    <%@ include file="../parts/head.jsp" %>&ndash;%&gt;--%>
-    <%--        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"/>--%>
-    <%--        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css"/>--%>
-    <%--        <u:head/>--%>
-    <%--    </head>--%>
-    <%--    <body>--%>
     <script>
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
@@ -86,5 +78,4 @@
             </div>
         </div>
     </div>
-    <%--    </body>--%>
 </u:html>

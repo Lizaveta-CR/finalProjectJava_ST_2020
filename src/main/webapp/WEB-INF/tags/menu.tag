@@ -9,21 +9,10 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<%--<html lang="${cookie.lang.value}">--%>
-<%--<head>--%>
-<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
-<%--    <link href="<c:url value="/bootstrap/css/bootstrap.css"/>>">--%>
-<%--    <script src="<c:url value="/bootstrap/js/bootstrap.min.js"/>"></script>--%>
-<%--    <script src="<c:url value="/bootstrap/jQuery/jquery-3.5.1.min.js"/>"></script>--%>
-<%--</head>--%>
-<%--<body>--%>
 
 <div class="btn-group btn-group-justified">
     <c:forEach var="itemUrl" items="${buttons}">
         <a href="<c:url value="${itemUrl.url}"/>" class="btn btn-primary"><fmt:message
                 key="${itemUrl.name}"/></a>
     </c:forEach>
-    <%--    <jsp:doBody/>--%>
 </div>
-<%--</body>--%>
-<%--</html>--%>

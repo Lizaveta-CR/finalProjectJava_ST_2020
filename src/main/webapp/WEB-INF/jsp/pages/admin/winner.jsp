@@ -15,93 +15,87 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<html>
-<head>
-    <title>Buyers</title>
-    <u:head/>
-</head>
-<body>
-<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="content text-center">
+<u:html title="Buyers">
+    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="content text-center">
     <c:if test="${not empty buyer}">
-    <div class="container text-center">
-        <div class="page-header">
-            <h1><fmt:message key="label.admin.buyer.winner"/></h1>
-        </div>
-        <div class="col-lg-4 text-center">
-            <div class="text-center card-box text-center">
-                <div class="member-card pt-2 pb-2">
-                    <div class="thumb-lg member-thumb mx-auto">
-                        <img src="<c:url value="/img/profile.jpg"/>"
-                             class="rounded-circle img-thumbnail" alt="profile-image" height="200" width="200">
-                    </div>
-                    <div class="">
-                        <h4>${buyer.email}</h4>
-                        <p class="text-muted"><span>| </span>
-                                <%--                        TODO: добавить поле с количеством бонуса--%>
-                        <form action="<c:url value="/admin/mail?buyerId=${buyer.id}"/>" method="POST">
-                            <table>
-                                <tr>
-                                    <td><fmt:message key="label.register.bonus"/>:</td>
-                                    <td><input type="number" name="bonus" required/></td>
-                                </tr>
-                                <tr>
-                                    <td><fmt:message key="label.admin.mail.sendTo"/>:</td>
-                                    <td><input type="text" name="to" value="${buyer.email}"/></td>
-                                </tr>
-                                <tr>
-                                    <td><fmt:message key="label.admin.mail.subject"/>:</td>
-                                    <td><input type="text" name="subject"
-                                               value="<fmt:message key="label.admin.mail.subject.value"/>"/></td>
-                                </tr>
-                            </table>
-                            <hr/>
-                            <textarea type="text" name="body" rows="5" cols="45"><fmt:message
-                                    key="label.admin.mail.text"/></textarea>
-                            <br/><br/>
-                            <input type="submit" value="<fmt:message
+        <div class="container text-center">
+            <div class="page-header">
+                <h1><fmt:message key="label.admin.buyer.winner"/></h1>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="text-center card-box text-center">
+                    <div class="member-card pt-2 pb-2">
+                        <div class="thumb-lg member-thumb mx-auto">
+                            <img src="<c:url value="/img/profile.jpg"/>"
+                                 class="rounded-circle img-thumbnail" alt="profile-image" height="200" width="200">
+                        </div>
+                        <div class="">
+                            <h4>${buyer.email}</h4>
+                            <p class="text-muted"><span>| </span>
+                                    <%--                        TODO: добавить поле с количеством бонуса--%>
+                            <form action="<c:url value="/admin/mail.html?buyerId=${buyer.id}"/>" method="POST">
+                                <table>
+                                    <tr>
+                                        <td><fmt:message key="label.register.bonus"/>:</td>
+                                        <td><input type="number" name="bonus" required/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><fmt:message key="label.admin.mail.sendTo"/>:</td>
+                                        <td><input type="text" name="to" value="${buyer.email}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><fmt:message key="label.admin.mail.subject"/>:</td>
+                                        <td><input type="text" name="subject"
+                                                   value="<fmt:message key="label.admin.mail.subject.value"/>"/></td>
+                                    </tr>
+                                </table>
+                                <hr/>
+                                <textarea type="text" name="body" rows="5" cols="45"><fmt:message
+                                        key="label.admin.mail.text"/></textarea>
+                                <br/><br/>
+                                <input type="submit" value="<fmt:message
                                     key="label.admin.mail.send"/>">
-                        </form>
+                            </form>
+                            </p>
+                        </div>
                         </p>
                     </div>
-                    </p>
-                </div>
 
-                <div class="mt-4">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="mt-3">
-                                <p class="mb-0 text-muted"><fmt:message key="label.admin.buyer.access"/></p>
-                                <c:set var="enabled" scope="request" value="${buyer.enabled}"/>
-                                <c:choose>
-                                    <c:when test="${enabled}">
-                                        <h4><fmt:message key="label.admin.buyer.have"/></h4>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <h4><fmt:message key="label.admin.buyer.no"/></h4>
-                                    </c:otherwise>
-                                </c:choose>
+                    <div class="mt-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mt-3">
+                                    <p class="mb-0 text-muted"><fmt:message key="label.admin.buyer.access"/></p>
+                                    <c:set var="enabled" scope="request" value="${buyer.enabled}"/>
+                                    <c:choose>
+                                        <c:when test="${enabled}">
+                                            <h4><fmt:message key="label.admin.buyer.have"/></h4>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h4><fmt:message key="label.admin.buyer.no"/></h4>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mt-3">
-                                <h4>${fn:length(buyer.orders)}</h4>
-                                <p class="mb-0 text-muted"><fmt:message
-                                        key="label.admin.buyer.total.orders"/></p>
+                            <div class="col-4">
+                                <div class="mt-3">
+                                    <h4>${fn:length(buyer.orders)}</h4>
+                                    <p class="mb-0 text-muted"><fmt:message
+                                            key="label.admin.buyer.total.orders"/></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
+    </c:if>
+    <form action="<c:url value="/welcome.html"/>" method="get">
+        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                key="label.button.back"/></button>
+    </form>
     </div>
-</div>
-</c:if>
-<form action="<c:url value="/welcome"/>" method="get">
-    <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-            key="label.button.back"/></button>
-</form>
-</div>
-</body>
-</html>
+</u:html>

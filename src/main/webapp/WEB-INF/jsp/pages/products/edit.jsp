@@ -43,7 +43,7 @@
                     </c:forEach>
                 </c:if>
             </div>
-            <form class="form-horizontal" role="form" action="<c:url value="/products/edit"/>" method="post"
+            <form class="form-horizontal" role="form" action="<c:url value="/products/edit.html"/>" method="post"
                   enctype="multipart/form-data">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" name="access" id="access"
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </form>
-            <form action="<c:url value="/welcome"/>" method="get">
+            <form action="<c:url value="/welcome.html"/>" method="get">
                 <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                         key="label.button.back"/></button>
             </form>

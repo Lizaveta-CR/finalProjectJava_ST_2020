@@ -14,16 +14,7 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 
-<%--<html lang="${cookie.lang.value}">--%>
 <u:html title="Registration" cssFile="register.css">
-    <%--    <head>--%>
-    <%--        <title>Registration</title>--%>
-    <%--        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"--%>
-    <%--              rel="stylesheet">--%>
-    <%--        <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" media="all">--%>
-    <%--        <u:head/>--%>
-    <%--    </head>--%>
-    <%--    <body>--%>
     <jsp:include page="../parts/nav-bar.jsp"/>
     <div class="page-wrapper bg-dark p-t-100 p-b-50">
         <div class="wrapper wrapper--w900">

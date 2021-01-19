@@ -25,7 +25,7 @@ public class ViewPersonalCommand extends ManagerCommand {
             }
             request.setAttribute(AttributeConstant.PERSONAL.value(), personal);
         } catch (ServicePersistentException e) {
-            return new Forward(PathConstnant.MAIN, true);
+            return new Forward(PathConstnant.MAIN_JSP, true);
         }
         return null;
     }

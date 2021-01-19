@@ -33,7 +33,7 @@ public class AdminEditProductsCommand extends AdminCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.MAIN, true);
+        Forward forward = new Forward(PathConstnant.MAIN_JSP, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
