@@ -25,7 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ResourceBundle;
-
+/**
+ * Command to add product
+ */
 public class AddProductCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(AddProductCommand.class);
 

@@ -10,7 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Command to delete employee
+ */
 public class DeleteEmployeeCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(DeleteEmployeeCommand.class);
 

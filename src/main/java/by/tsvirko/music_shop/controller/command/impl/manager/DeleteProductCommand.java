@@ -10,7 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Command to delete product
+ */
 public class DeleteProductCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(DeleteProductCommand.class);
 
