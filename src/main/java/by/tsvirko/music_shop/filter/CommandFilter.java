@@ -27,7 +27,6 @@ public class CommandFilter implements Filter {
     private static Map<String, Command> postCommands = new ConcurrentHashMap<>();
 
     static {
-//        getCommands.put("/finalProject/", new MainCommand());
         getCommands.put("/", new MainCommand());
         getCommands.put("/index", new MainCommand());
         getCommands.put("/welcome", new MainCommand());
@@ -43,8 +42,6 @@ public class CommandFilter implements Filter {
         getCommands.put("/admin/buyers", new AdminBuyersCommand());
         getCommands.put("/admin/unavailableProducts", new ShowUnavailableProductsCommand());
         getCommands.put("/admin/winner", new ShowWinnerCommand());
-//        getCommands.put("/admin/adminForm", new ShowBuyersCommand());
-//        getCommands.put("/admin/users", new ShowUsersCommand());
 
         getCommands.put("/buyer/buyerForm", new BuyerFormCommand());
         getCommands.put("/buyer/feedBack", new ViewFeedBackPage());

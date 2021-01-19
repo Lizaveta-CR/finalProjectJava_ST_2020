@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+/**
+ * Security filter. To reject unforeseen interference with other roles
+ */
 public class SecurityFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(SecurityFilter.class);
 

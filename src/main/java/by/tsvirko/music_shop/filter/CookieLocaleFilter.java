@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Locale filter
+ */
 public class CookieLocaleFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
