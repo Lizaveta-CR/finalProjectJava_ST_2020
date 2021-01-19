@@ -21,23 +21,24 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Command for login into system
+ */
 public class LoginCommand extends Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static Map<Role, List<Menu>> menu = new HashMap<>();
 
-    //
     static {
         menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstnant.BUYER_FORM, "app.menu.myPage")));
         menu.put(Role.ADMINISTRATOR
                 , Arrays.asList(
-//                        new Menu(PathConstnant.ADMIN_FORM, "app.menu.myPage"),
                         new Menu(PathConstnant.ADMIN_BUYERS, "app.menu.buyers")
                         , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")
 
                 ));
         menu.put(Role.MANAGER, Arrays.asList(
-                new Menu("/manag/earnings.html", "app.menu.earnings"),
-                new Menu("/manag/personal.html", "app.menu.personal"))
+                new Menu(PathConstnant.MANAGER_EARNINGS, "app.menu.earnings"),
+                new Menu(PathConstnant.MANAGER_PERSONAL, "app.menu.personal"))
         );
     }
 
@@ -76,8 +77,7 @@ public class LoginCommand extends Command {
                     logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
-                    forward.setForward("/index.html");
-//                    forward.setForward(/index);
+                    forward.setForward(PathConstnant.MAIN);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

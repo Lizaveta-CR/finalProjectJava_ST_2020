@@ -7,7 +7,9 @@ import by.tsvirko.music_shop.domain.enums.Role;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
-
+/**
+ * Command for viewing login page
+ */
 public class ViewLoginCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

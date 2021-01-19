@@ -25,16 +25,15 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Command to register
+ */
 public class RegisterCommand extends Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
     private static Map<Role, List<Menu>> menu = new ConcurrentHashMap<>();
 
     static {
-//        TODO:add i18n
-//        menu.put(Role.BUYER, "/buyer/buyerForm.jsp");
         menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstnant.BUYER_FORM, "app.menu.myPage")));
-//        menu.put(Role.ADMINISTRATOR, "/admin/adminForm.jsp");
-//        menu.put(Role.MANAGER, "/manager/managerForm.jsp");
     }
 
     @Override
@@ -57,8 +56,6 @@ public class RegisterCommand extends Command {
             logger.warn("Incorrect data was found when saving user", e);
             forward.setForward("/registration.html");
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
-//            request.setAttribute();
-//            return null;
             return forward;
         }
         if (user != null && buyer != null) {
@@ -77,7 +74,6 @@ public class RegisterCommand extends Command {
                 forward.setForward("/registration.html");
                 forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
                 return forward;
-//                return null;
             }
         }
         return forward;

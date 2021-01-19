@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Command for viewing all products
+ */
 public class CategoriesCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -32,7 +35,7 @@ public class CategoriesCommand extends Command {
         } catch (ServicePersistentException e) {
             throw new CommandException(e);
         }
-        return new Forward("/products/list.jsp");
+        return null;
     }
 
     @Override
