@@ -16,6 +16,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Create product" cssFile="product.css" fontFile="style.css">
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/products/create.html"/>
+    </jsp:include>
     <div class="wrapper">
         <div class="inner">
             <div class="col-md-10 col-md-offset-1">

@@ -15,7 +15,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Edit profile">
-<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/buyer/editPass.html"/>
+    </jsp:include>
 <div class="container">
     <h1><fmt:message key="label.buyer.edit.profile"/></h1>
     <hr>

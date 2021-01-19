@@ -15,9 +15,10 @@
 <u:html title="Music Land">
     <div class="text-center">
         <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" height="300" width="400"/>
-        <%@include file="../parts/nav-bar.jsp" %>
+        <jsp:include page="../parts/nav-bar.jsp">
+            <jsp:param name="page" value="/welcome.html"/>
+        </jsp:include>
     </div>
-
     <div class="container">
         <div class="vertical-center-row">
             <div class="page-header" style="">

@@ -15,7 +15,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Edit profile" cssFile="main.css">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/buyer/edit.html"/>
+    </jsp:include>
     <c:choose>
         <c:when test="${not empty buyerInfo}">
             <c:set var="login" value="${sessionScope.authorizedUser.login}"/>

@@ -16,7 +16,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Buyers">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/admin/winner.html"/>
+    </jsp:include>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="content text-center">
     <c:if test="${not empty buyer}">

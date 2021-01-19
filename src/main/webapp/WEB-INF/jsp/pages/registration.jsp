@@ -15,7 +15,9 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <u:html title="Registration" cssFile="register.css">
-    <jsp:include page="../parts/nav-bar.jsp"/>
+    <jsp:include page="../parts/nav-bar.jsp">
+        <jsp:param name="page" value="/registration.html"/>
+    </jsp:include>
     <div class="page-wrapper bg-dark p-t-100 p-b-50">
         <div class="wrapper wrapper--w900">
             <div class="card card-6">

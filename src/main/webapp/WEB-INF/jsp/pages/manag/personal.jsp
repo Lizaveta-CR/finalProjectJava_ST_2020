@@ -15,7 +15,9 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <u:html title="Add shop personal">
-    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/manag/personal.html"/>
+    </jsp:include>
     <c:choose>
         <c:when test="${not empty personal}">
             <c:set var="personal" value="${personal}"/>

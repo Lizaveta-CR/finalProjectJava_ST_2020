@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.enums.Role;
@@ -11,7 +12,7 @@ import java.util.Set;
 public class ChangeLanguageCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        String referer = request.getHeader("Referer");
+        String referer = request.getParameter(ParameterConstant.PAGE.value());
         return new Forward(referer, true);
     }
 

@@ -15,7 +15,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Submit order">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/buyer/order/submit.html"/>
+    </jsp:include>
     <c:choose>
         <c:when test="${not empty order}">
             <c:set var="buyer" value="${order.buyer}"/>

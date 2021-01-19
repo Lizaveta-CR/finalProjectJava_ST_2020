@@ -13,7 +13,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Earnings" cssFile="earnings.css">
-    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/manag/earnings.html"/>
+    </jsp:include>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="<fmt:message key="label.orders.serach"/>"
            title="<fmt:message key="label.orders.search.title"/>">
     <table id="myTable">

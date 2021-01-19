@@ -15,7 +15,9 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <u:html title="Order">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/buyer/order.html"/>
+    </jsp:include>
     <c:choose>
         <c:when test="${not empty order.productIts and not empty orderItem}">
             <div class="container">

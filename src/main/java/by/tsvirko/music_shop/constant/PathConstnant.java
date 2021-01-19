@@ -20,4 +20,5 @@ public class PathConstnant {
     public static final String BUYER_EDIT_PASS = "buyer/editPass.html";
     public static final String LOGOUT = "/login.html";
     public static final String BUYER_ORDER_SUBMIT = "/buyer/order/submit.html";
+    public static final String LOGIN = "/login.html";
 }

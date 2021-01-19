@@ -23,10 +23,11 @@
         <a class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="label.chooseCookieLocale"/>
             <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="<c:url value="/changeLocale.html?cookieLocale=en_US"/>"><fmt:message
-                    key="label.lang.en"/></a>
+            <li>
+                <a href="<c:url value="/changeLocale.html?cookieLocale=en_US&page=${param.page}"/>"><fmt:message
+                        key="label.lang.en"/></a>
             </li>
-            <li><a href="<c:url value="/changeLocale.html?cookieLocale=ru_RU"/>"><fmt:message
+            <li><a href="<c:url value="/changeLocale.html?cookieLocale=ru_RU&page=${param.page}"/>"><fmt:message
                     key="label.lang.ru"/></a>
             </li>
         </ul>

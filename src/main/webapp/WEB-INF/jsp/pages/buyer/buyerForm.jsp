@@ -15,7 +15,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Buyer">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/buyer/buyerForm.html"/>
+    </jsp:include>
     <c:set var="user" scope="session" value="${sessionScope.authorizedUser}"/>
     <c:set var="buyer" scope="session" value="${sessionScope.authorizedBuyer}"/>
     <div class="container" style="background-image:  url('<c:url value="/img/back.jpg"/>');">

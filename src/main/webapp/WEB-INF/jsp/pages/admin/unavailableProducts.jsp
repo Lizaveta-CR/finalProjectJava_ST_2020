@@ -20,7 +20,9 @@
     </c:when>
 </c:choose>
 <u:html title="Products">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/admin/unavailableProducts.html"/>
+    </jsp:include>
     <c:choose>
         <c:when test="${not empty products}">
             <table class="table">

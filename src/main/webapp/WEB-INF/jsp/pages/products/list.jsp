@@ -20,7 +20,9 @@
     </c:when>
 </c:choose>
 <u:html title="Categories">
-    <%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/products/list.html"/>
+    </jsp:include>
     <c:forEach items="${category.components}" var="parentItem">
         <div class="container">
             <div class="panel-group">
@@ -73,7 +75,7 @@
                                                 <td> ${product.description}</td>
                                                 <td> ${product.producer.country.name}</td>
                                                 <td> ${product.producer.name}</td>
-                                                <td> <fmt:formatNumber value="${product.price}" type="currency"/></td>
+                                                <td><fmt:formatNumber value="${product.price}" type="currency"/></td>
                                                 <c:choose>
                                                     <c:when test="${not empty rateMap[product.id]}">
                                                         <c:url value=" ${rateMap[product.id]}" var="mark"/>

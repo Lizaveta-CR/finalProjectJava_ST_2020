@@ -13,7 +13,7 @@
 <%@ page session="false" %>
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<%--<html lang="${cookie.lang.value}">--%>
+
 <c:set var="cssFiles" value="${['login.css','panel.css']}" scope="page"/>
 <u:html title="Login" cssFiles="${cssFiles}">
     <script>

@@ -19,7 +19,6 @@
     <u:head/>
 </head>
 <body>
-<%@include file="/WEB-INF/jsp/parts/nav-bar.jsp" %>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -46,5 +45,11 @@
     </c:forEach>
     </tbody>
 </table>
+<div class="col-md-4">
+    <form action="<c:url value="/welcome.html"/>" method="get">
+        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                key="label.button.back"/></button>
+    </form>
+</div>
 </body>
 </html>
