@@ -14,15 +14,7 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 
-<html lang="${cookie.lang.value}">
-<head>
-    <title>Add shop personal</title>
-<%--    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"--%>
-<%--          rel="stylesheet">--%>
-    <link href="${pageContext.request.contextPath}/css/register.css" rel="stylesheet" media="all">
-    <u:head/>
-</head>
-<body>
+<u:html title="Add shop personal" cssFile="register.css">
 <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp"/>
 <div class="page-wrapper bg-dark p-t-100 p-b-50">
     <div class="wrapper wrapper--w900">
@@ -43,7 +35,7 @@
                     </a>
                 </div>
                 </c:if>
-                <form method="POST" action="<c:url value="/manag/add-personal"/>">
+                <form method="POST" action="<c:url value="/manag/add-personal.html"/>">
                     <div class="form-row">
                         <div class="name"><fmt:message key="label.register.name"/></div>
                         <div class="value">
@@ -110,7 +102,7 @@
                     </div>
                 </form>
                 <div class="card-footer">
-                    <form action="<c:url value="/welcome"/>" method="get">
+                    <form action="<c:url value="/welcome.html"/>" method="get">
                         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                                 key="label.button.back"/></button>
                     </form>
@@ -127,5 +119,4 @@
         window.history.replaceState(null, null, window.location.href);
     }
 </script>
-</body>
-</html>
+</u:html>

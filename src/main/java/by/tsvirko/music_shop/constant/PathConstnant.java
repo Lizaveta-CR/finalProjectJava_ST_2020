@@ -12,9 +12,9 @@ public class PathConstnant {
     public static final String PRODUCTS_UNAVAILABLE = "/admin/unavailableProducts.html";
     public static final String ADMIN_WINNER = "/admin/winner.html";
     public static final String MANAGER_EARNINGS = "/manag/earnings.jsp";
-    public static final String MANAGER_PERSONAL = "/manag/personal";
+    public static final String MANAGER_PERSONAL = "/manag/personal.html";
     public static final String MANAGER_ADD_PERSONAL = "/manag/add-personal";
-    public static final String PRODUCTS_CREATE = "/products/create";
+    public static final String PRODUCTS_CREATE = "/products/create.html";
     public static final String BUYER_ADDRESS = "/buyer/address.html";
     public static final String BUYER_EDIT = "/buyer/edit.html";
     public static final String BUYER_EDIT_PASS = "buyer/editPass.html";

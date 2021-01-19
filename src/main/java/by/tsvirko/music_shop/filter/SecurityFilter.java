@@ -58,7 +58,7 @@ public class SecurityFilter implements Filter {
                     ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
                     session.setAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value(), rb.getString("app.message.security"));
                 }
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html");
             }
         } else {
             logger.error("It is impossible to use HTTP filter");

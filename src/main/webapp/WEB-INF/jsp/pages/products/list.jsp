@@ -110,7 +110,7 @@
                                                             </c:when>
                                                             <c:when test="${f:isManager(user)}">
                                                                 <td>
-                                                                    <form action="<c:url value="/products/delete?productId=${product.id}"/>"
+                                                                    <form action="<c:url value="/products/delete.html?productId=${product.id}"/>"
                                                                           method="post">
                                                                         <button class="btn-info"
                                                                                 type="submit">
@@ -136,7 +136,7 @@
     </c:forEach>
     <c:choose>
         <c:when test="${f:isManager(user)}">
-            <form action="<c:url value="/products/create"/>" method="get">
+            <form action="<c:url value="/products/create.html"/>" method="get">
                 <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                         key="label.product.add"/></button>
             </form>

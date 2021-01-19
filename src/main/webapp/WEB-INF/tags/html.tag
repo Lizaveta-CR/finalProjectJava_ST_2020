@@ -4,6 +4,7 @@
 <%@attribute name="title" required="true" rtexprvalue="true" type="java.lang.String" %>
 <%@attribute name="cssFiles" required="false" rtexprvalue="true" type="java.util.List" %>
 <%@attribute name="cssFile" required="false" rtexprvalue="true" type="java.lang.String" %>
+<%@attribute name="fontFile" required="false" rtexprvalue="true" type="java.lang.String" %>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
@@ -20,6 +21,9 @@
     </c:if>
     <c:if test="${not empty cssFile}">
         <link href="${pageContext.request.contextPath}/css/${cssFile}" rel="stylesheet">
+    </c:if>
+    <c:if test="${not empty fontFile}">
+        <link href="${pageContext.request.contextPath}/bootstrap/fonts/"${fontFile} rel="stylesheet">
     </c:if>
 </head>
 <body>
