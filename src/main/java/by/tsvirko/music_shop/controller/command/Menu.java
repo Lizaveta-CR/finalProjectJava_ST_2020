@@ -3,6 +3,9 @@ package by.tsvirko.music_shop.controller.command;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Main page menu. Is used when user logs in or registers
+ */
 @Getter
 @Setter
 public class Menu {

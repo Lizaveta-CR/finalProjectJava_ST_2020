@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Main servlet - controller
+ */
 @MultipartConfig
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);

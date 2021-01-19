@@ -13,11 +13,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Abstract command class. Is used to perform different operations according to user request
+ */
 @Setter
 public abstract class Command {
     private String name;
     private Set<Role> allowRoles = new HashSet<>();
-    //    private User user;
     protected ServiceFactory factory;
 
     public Set<Role> getAllowRoles() {
@@ -28,8 +30,19 @@ public abstract class Command {
         return name;
     }
 
+    /**
+     * Executes given request
+     *
+     * @param request
+     * @param response
+     * @return Forward - paged response
+     * @throws CommandException
+     */
     public abstract Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
 
+    /**
+     *Is used to build user output
+     */
     public static class Forward {
         private String forward;
         private boolean redirect;

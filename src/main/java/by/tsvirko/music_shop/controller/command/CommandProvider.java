@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Persists Service factory and executes requests with given command
+ */
 public class CommandProvider implements CommandManager {
     private ServiceFactory factory;
 
