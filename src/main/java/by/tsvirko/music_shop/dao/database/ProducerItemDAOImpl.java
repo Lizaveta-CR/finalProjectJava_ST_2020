@@ -2,15 +2,15 @@ package by.tsvirko.music_shop.dao.database;
 
 import by.tsvirko.music_shop.dao.ProducerItemDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
-import by.tsvirko.music_shop.domain.Country;
-import by.tsvirko.music_shop.domain.Producer;
-import by.tsvirko.music_shop.domain.ProducerItem;
+import by.tsvirko.music_shop.domain.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
@@ -18,6 +18,7 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
     private static final String SQL_INSERT_PRODUCER_ITEM = "INSERT INTO producer_items (producer_id, product_id) VALUES (?, ?)";
     private static final String SQL_READ_PRODUCT_BY_PRODUCER = "SELECT pr_it.producer_id, pr.name, pr.country_id FROM producer_items as pr_it" +
             " INNER JOIN producers as pr ON pr_it.producer_id = pr.id WHERE pr_it.product_id = ?";
+    private static final String SQL_READ_PRODUCTS_BY_PRODUCER = "SELECT p.id,p.category_id,p.model,p.available,p.description,p.img, p.price FROM products p INNER JOIN producer_items pr_it  ON pr_it.product_id = p.id WHERE pr_it.producer_id =?";
 
     /**
      * Creates producerItem in database
@@ -143,5 +144,50 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Product> readProductsByProducer(Integer identity) throws PersistentException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SQL_READ_PRODUCTS_BY_PRODUCER);
+            statement.setInt(1, identity);
+            resultSet = statement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            Product product = null;
+            while (resultSet.next()) {
+                product = new Product();
+                product.setId(resultSet.getInt(Field.ID.value()));
+                Category category = new Category();
+                category.setId(resultSet.getInt(Field.CATEGORY_ID.value()));
+                product.setCategory(category);
+                product.setModel(resultSet.getString(Field.MODEL.value()));
+                product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
+                product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
+                product.setImageUrl(resultSet.getString(Field.IMG.value()));
+                product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
+                products.add(product);
+            }
+            logger.debug("Products from ProductItem with product id=" + identity + " were read");
+            return products;
+        } catch (SQLException e) {
+            throw new PersistentException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close result set");
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Database access connection failed. Impossible to close statement");
+            }
+        }
     }
 }

@@ -11,4 +11,6 @@ public interface ProducerService extends Service {
     void delete(Integer identity) throws ServicePersistentException;
 
     void save(Producer producer) throws ServicePersistentException;
+
+    Producer findById(Integer identity) throws ServicePersistentException;
 }

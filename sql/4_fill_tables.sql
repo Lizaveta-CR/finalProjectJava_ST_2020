@@ -120,8 +120,9 @@ WHERE id = 25;
 # VALUES (1, 10, 1, 1);
 # TODO:!!!!!
 
-SELECT pr_it.producer_id, pr.name, pr.country_id
-FROM producer_items as pr_it
-         INNER JOIN producers as pr
-                    ON pr_it.producer_id = pr.id
-WHERE pr_it.product_id = 1
+
+SELECT p.id, p.category_id, p.model, p.available, p.description, p.img, p.price
+FROM products p
+         INNER JOIN producer_items pr_it
+                    ON pr_it.product_id = p.id
+WHERE pr_it.producer_id = 1

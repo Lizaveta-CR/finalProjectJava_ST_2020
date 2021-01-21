@@ -25,7 +25,8 @@ public enum AttributeConstant {
     BUYER("buyer"),
     BUYERS("buyers"),
     PERSONAL("personal"),
-    PRODUCERS("producers");
+    PRODUCERS("producers"),
+    PRODUCER("producer");
     private final String name;
 
     private AttributeConstant(String name) {

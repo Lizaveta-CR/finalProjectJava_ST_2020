@@ -19,10 +19,15 @@
         <c:set var="user" value="${sessionScope.authorizedUser}"/>
     </c:when>
 </c:choose>
-<u:html title="Categories">
+<u:html title="Categories" jsFile="clicable-table.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/list.html"/>
     </jsp:include>
+    <c:if test="${not empty redirectedData}">
+        <c:forEach items="${redirectedData}" var="item" varStatus="status">
+            <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
+        </c:forEach>
+    </c:if>
     <c:forEach items="${category.components}" var="parentItem">
         <div class="container">
             <div class="panel-group">
@@ -67,7 +72,8 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <tbody>
-                                            <tr>
+                                            <tr class='clickable-row'
+                                                data-href='<c:url value="/products/producer.html?producerId=${product.producer.id}"/>'>
                                                 <td>
                                                     <img src="${image}" class="img-thumbnail" height="200" width="300"/>
                                                 </td>

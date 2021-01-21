@@ -5,6 +5,7 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.OrderItem;
 import by.tsvirko.music_shop.domain.Product;
+import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     private static final String SQL_INSERT_ORDER_ITEM = "INSERT INTO order_items (id,product_id, price,amount) VALUES (?, ?,?,?)";
     private static final String SQL_DELETE_ORDER_ITEM = "DELETE FROM order_items WHERE id=?";
     private static final String SQL_DELETE_ORDER_ITEM_PRODUCT = "DELETE FROM order_items WHERE id=? AND product_id=?";
-    private static final String SQL_READ_ORDER_ITEM = "SELECT* FROM order_items";
+    private static final String SQL_READ_ORDER_ITEM = "SELECT id,product_id,price,amount FROM order_items";
 
     private static final String SQL_READ_PRODUCTS_BY_ORDER = "SELECT p.id,p.category_id,p.model,p.available,p.description,p.img, p.price FROM products p INNER JOIN order_items o  ON o.product_id = p.id WHERE o.id =?";
     private static final String SQL_UPDATE_ORDER_ITEM = "UPDATE order_items SET price=?,amount=? WHERE id = ? AND  product_id =?";
@@ -190,7 +191,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
 
     @Override
     public Optional<OrderItem> read(Integer identity) throws PersistentException {
-        return null;
+        throw new PersistentException("Unable read(Integer identity) operation with OrderItem");
     }
 
     /**

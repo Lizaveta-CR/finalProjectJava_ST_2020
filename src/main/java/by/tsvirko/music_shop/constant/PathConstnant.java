@@ -22,4 +22,6 @@ public class PathConstnant {
     public static final String BUYER_ORDER_SUBMIT = "/buyer/order/submit.html";
     public static final String LOGIN = "/login.html";
     public static final String MAIN = "/index.html";
+    public static final String WELCOME = "/welcome.html";
+    public static final String PRODUCT_PRODUCER = "/products/producer.html";
 }

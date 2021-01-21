@@ -16,6 +16,7 @@ public enum ParameterConstant {
     TO("to"),
     SUBJECT("subject"),
     BODY("body"),
+    PRODUCER_ID("producerId"),
     MAIL_PROP("mail.properties");
 
     private final String name;

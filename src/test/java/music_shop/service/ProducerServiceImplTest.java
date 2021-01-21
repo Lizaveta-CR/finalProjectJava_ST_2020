@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.domain.Producer;
+import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -85,5 +86,16 @@ public class ProducerServiceImplTest {
         Country country = new Country();
         country.setId(1);
         Assert.assertThrows(ServicePersistentException.class, () -> producerService.save(producer));
+    }
+
+    @Test
+    public void findByIdExceptionTest() throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> producerService.findById(1000));
+    }
+
+    @Test
+    public void findByIdTest() throws ServicePersistentException {
+        Producer foundUser = producerService.findById(producer.getId());
+        Assert.assertEquals(producer.getId(), foundUser.getId());
     }
 }

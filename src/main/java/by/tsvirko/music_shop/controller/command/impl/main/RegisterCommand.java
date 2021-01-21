@@ -38,7 +38,7 @@ public class RegisterCommand extends Command {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
-        Forward forward = new Forward("/welcome.html", true);
+        Forward forward = new Forward(PathConstnant.WELCOME, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User user = null;

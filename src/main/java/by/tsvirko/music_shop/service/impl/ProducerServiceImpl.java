@@ -2,10 +2,7 @@ package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.*;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
-import by.tsvirko.music_shop.domain.Category;
-import by.tsvirko.music_shop.domain.Country;
-import by.tsvirko.music_shop.domain.Producer;
-import by.tsvirko.music_shop.domain.Product;
+import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
@@ -79,9 +76,25 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
         }
     }
 
+    @Override
+    public Producer findById(Integer identity) throws ServicePersistentException {
+        try {
+            ProducerDAO dao = transaction.createDao(ProducerDAO.class, true);
+            Optional<Producer> optionalProducer = dao.read(identity);
+            if (optionalProducer.isPresent()) {
+                Producer producer = optionalProducer.get();
+                buildList(Arrays.asList(producer));
+                return producer;
+            }
+            throw new ServicePersistentException("No such producer");
+        } catch (PersistentException | ServicePersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
+
     private void buildList(List<Producer> producers) throws ServicePersistentException {
         try {
-            OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, true);
+            ProducerItemDAO producerItemDAO = transaction.createDao(ProducerItemDAO.class, true);
             CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
             CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
 
@@ -97,12 +110,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
                     if (country.isPresent()) {
                         producer.setCountry(country.get());
                     }
-                    orderProductList = productProducerMap.get(identity);
-                    if (orderProductList == null) {
-                        orderProductList = new HashSet<>();
-                        productProducerMap.put(identity, orderProductList);
-                    }
-                    List<Product> products = orderItemDAO.readProductsByOrder(identity);
+                    List<Product> products = producerItemDAO.readProductsByProducer(identity);
                     if (!products.isEmpty()) {
                         for (Product product : products) {
                             productIdentity = product.getCategory().getId();
@@ -113,8 +121,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
                                 }
                             }
                         }
-                        orderProductList.addAll(products);
-                        producer.setProducts(orderProductList);
+                        producer.getProducts().addAll(products);
                     }
                 }
             }

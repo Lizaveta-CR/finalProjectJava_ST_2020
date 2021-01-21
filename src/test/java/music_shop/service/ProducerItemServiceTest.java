@@ -3,6 +3,8 @@ package music_shop.service;
 import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Order;
+import by.tsvirko.music_shop.domain.OrderItem;
+import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.ProducerItemService;
 import by.tsvirko.music_shop.service.ServiceFactory;
@@ -11,6 +13,8 @@ import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class ProducerItemServiceTest {
     ProducerItemService producerItemService;

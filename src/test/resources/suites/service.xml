@@ -82,6 +82,8 @@
                     <include name="findAll"/>
                     <include name="saveTest"/>
                     <include name="updateTest"/>
+                    <include name="findByIdTest"/>
+                    <include name="findByIdExceptionTest"/>
                     <include name="saveExceptionTest"/>
                     <include name="updateExceptionTest"/>
                     <include name="delete"/>

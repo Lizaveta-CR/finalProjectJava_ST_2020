@@ -5,6 +5,7 @@
 <%@attribute name="cssFiles" required="false" rtexprvalue="true" type="java.util.List" %>
 <%@attribute name="cssFile" required="false" rtexprvalue="true" type="java.lang.String" %>
 <%@attribute name="fontFile" required="false" rtexprvalue="true" type="java.lang.String" %>
+<%@attribute name="jsFile" required="false" rtexprvalue="true" type="java.lang.String" %>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
@@ -16,7 +17,6 @@
     <u:head/>
     <c:if test="${not empty cssFiles}">
         <c:forEach var="cssFileItem" items="${cssFiles}">
-            <%--            ${pageContext.request.contextPath}/css/${cssFile}--%>
             <link href="<c:url value="/css/${cssFileItem}"/>" rel="stylesheet">
         </c:forEach>
     </c:if>
@@ -25,6 +25,9 @@
     </c:if>
     <c:if test="${not empty fontFile}">
         <link href="<c:url value="/bootstrap/fonts/${fontFile}"/>" rel="stylesheet">
+    </c:if>
+    <c:if test="${not empty jsFile}">
+        <script type="text/javascript" src="<c:url value="/js/${jsFile}"/>"></script>
     </c:if>
 </head>
 <body>
