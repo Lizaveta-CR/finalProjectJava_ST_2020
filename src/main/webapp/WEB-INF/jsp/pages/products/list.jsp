@@ -137,11 +137,15 @@
         </div>
     </c:forEach>
     <c:choose>
-        <c:when test="${f:isManager(user)}">
-            <form action="<c:url value="/products/create.html"/>" method="get">
-                <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                        key="label.product.add"/></button>
-            </form>
+        <c:when test="${not empty user}">
+            <c:choose>
+                <c:when test="${f:isManager(user)}">
+                    <form action="<c:url value="/products/create.html"/>" method="get">
+                        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                                key="label.product.add"/></button>
+                    </form>
+                </c:when>
+            </c:choose>
         </c:when>
     </c:choose>
     <div class="col-md-4">

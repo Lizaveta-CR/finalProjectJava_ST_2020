@@ -15,15 +15,16 @@
     <title>${title}</title>
     <u:head/>
     <c:if test="${not empty cssFiles}">
-        <c:forEach var="cssFile" items="${cssFiles}">
-            <link href="${pageContext.request.contextPath}/css/${cssFile}" rel="stylesheet">
+        <c:forEach var="cssFileItem" items="${cssFiles}">
+            <%--            ${pageContext.request.contextPath}/css/${cssFile}--%>
+            <link href="<c:url value="/css/${cssFileItem}"/>" rel="stylesheet">
         </c:forEach>
     </c:if>
     <c:if test="${not empty cssFile}">
-        <link href="${pageContext.request.contextPath}/css/${cssFile}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/${cssFile}"/>">
     </c:if>
     <c:if test="${not empty fontFile}">
-        <link href="${pageContext.request.contextPath}/bootstrap/fonts/"${fontFile} rel="stylesheet">
+        <link href="<c:url value="/bootstrap/fonts/${fontFile}"/>" rel="stylesheet">
     </c:if>
 </head>
 <body>

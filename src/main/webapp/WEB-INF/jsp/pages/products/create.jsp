@@ -46,7 +46,9 @@
                     <div class="form-wrapper">
                         <label for="model"> <fmt:message key="label.product.model"/></label>
                         <input type="text" class="form-control" placeholder=
-                                "<fmt:message key="label.product.model"/>" id="model" name="model">
+                                "<fmt:message key="label.product.model"/>" id="model" name="model" required=""
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.product.model.required"/>')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
                 <div class="form-row">
@@ -64,8 +66,10 @@
                         <%--                </div>--%>
                     <div class="form-wrapper">
                         <label for="price"><fmt:message key="label.product.price"/></label>
-                        <input type="number" id="price" name="price" min="10"
-                               step="any">
+                        <input type="number" id="price" name="price" min="10" placeholder="<fmt:message key="label.product.price"/>"
+                               step="any" required=""
+                               oninvalid="this.setCustomValidity('<fmt:message key="label.product.price.required"/>')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
                 <div class="form-row last">
@@ -84,7 +88,7 @@
                             <div class="form-row">
                                 <div class="form-wrapper">
                                     <label for="name"><fmt:message key="label.producer.name"/></label>
-                                    <input type="text" id="name" name="name">
+                                    <input type="text" id="name" name="name" placeholder="<fmt:message key="label.producer.name"/>">
                                 </div>
                             </div>
                             <div class="form-row">
