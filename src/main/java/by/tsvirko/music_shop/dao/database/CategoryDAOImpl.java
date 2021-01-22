@@ -11,12 +11,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Data access object for category
+ */
 public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
     private static final Logger logger = LogManager.getLogger(CategoryDAOImpl.class);
 
     private static final String SQL_READ_ALL_CATEGORIES = "SELECT id,name, parent_id FROM categories";
     private static final String SQL_READ_CATEGORY_NAME = "SELECT name,parent_id FROM categories WHERE id=?";
 
+    /**
+     * Reads category
+     *
+     * @return If a value is present return an Optional describing the category,
+     * otherwise return an empty Optional.
+     * @throws PersistentException - if database error occurs
+     */
     @Override
     public Optional<Category> read() throws PersistentException {
         PreparedStatement statement = null;
@@ -81,6 +91,14 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
         throw new PersistentException("Unable to perform create() operation with Category");
     }
 
+    /**
+     * Reads category by identity
+     *
+     * @param identity - country identity
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the category, otherwise return an empty Optional.
+     * @throws PersistentException - if database error occurs
+     */
     @Override
     public Optional<Category> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;

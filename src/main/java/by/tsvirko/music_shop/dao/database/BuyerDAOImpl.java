@@ -10,7 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.*;
-
+/**
+ * Data access object for buyer
+ */
 public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
     private static final Logger logger = LogManager.getLogger(BuyerDAOImpl.class);
 
@@ -182,7 +184,14 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
         }
         return index;
     }
-
+    /**
+     * Reads buyer by identity
+     *
+     * @param identity - country identity
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the buyer, otherwise return an empty Optional.
+     * @throws PersistentException - if database error occurs
+     */
     @Override
     public Optional<Buyer> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
@@ -285,5 +294,4 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             }
         }
     }
-
 }

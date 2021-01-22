@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data access object for order producer item
+ */
 public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
     private static final Logger logger = LogManager.getLogger(ProducerItemDAOImpl.class);
     private static final String SQL_INSERT_PRODUCER_ITEM = "INSERT INTO producer_items (producer_id, product_id) VALUES (?, ?)";
@@ -71,7 +74,8 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
      * Reads producer by product identity
      *
      * @param identity
-     * @return
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the producer, otherwise return an empty Optional.
      * @throws PersistentException
      */
     @Override
@@ -119,7 +123,7 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
      * @param producerIdentity
      * @param productIdentity
      * @return null
-     * @throws PersistentException
+     * @throws PersistentException if database error occurs
      */
     @Override
     public Integer create(Integer producerIdentity, Integer productIdentity) throws PersistentException {
@@ -146,6 +150,13 @@ public class ProducerItemDAOImpl extends BaseDAO implements ProducerItemDAO {
         return null;
     }
 
+    /**
+     * Reads products by producer
+     *
+     * @param identity - producer identity
+     * @return list of products matching producer
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<Product> readProductsByProducer(Integer identity) throws PersistentException {
         PreparedStatement statement = null;

@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data access object for product
+ */
 public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final Logger logger = LogManager.getLogger(ProductDAOImpl.class);
 
@@ -79,8 +82,10 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
 
     /**
      * Reads product by identity
-     * @param identity
-     * @return
+     *
+     * @param identity - product identity
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the product, otherwise return an empty Optional.
      * @throws PersistentException if database access failed
      */
     @Override
@@ -132,7 +137,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     /**
      * Updates product in database
      *
-     * @param entity
+     * @param entity - Product instance
      * @throws PersistentException if database error occurs
      */
     @Override
@@ -165,7 +170,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     /**
      * Deletes product by identity
      *
-     * @param identity
+     * @param identity - product identity
      * @throws PersistentException if database error occurs
      */
     @Override

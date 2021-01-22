@@ -9,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Data access object for order product rate
+ */
 public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     private static final Logger logger = LogManager.getLogger(ProductRateDAOImpl.class);
 
@@ -68,6 +71,14 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
         return index;
     }
 
+    /**
+     * Reads product rate by identity
+     *
+     * @param identity
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the product rate, otherwise return an empty Optional.
+     * @throws PersistentException
+     */
     @Override
     public Optional<ProductRate> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;

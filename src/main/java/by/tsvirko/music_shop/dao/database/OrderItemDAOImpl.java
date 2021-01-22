@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data access object for order item
+ */
 public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
     private static final Logger logger = LogManager.getLogger(OrderItemDAOImpl.class);
 
@@ -26,8 +29,6 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
 
     private static final String SQL_READ_PRODUCTS_BY_ORDER = "SELECT p.id,p.category_id,p.model,p.available,p.description,p.img, p.price FROM products p INNER JOIN order_items o  ON o.product_id = p.id WHERE o.id =?";
     private static final String SQL_UPDATE_ORDER_ITEM = "UPDATE order_items SET price=?,amount=? WHERE id = ? AND  product_id =?";
-
-    private static final String SQL_READ_PRODUCT_CATEGORY = "SELECT child_table FROM categories WHERE id = ?";
 
     /**
      * Reads all orders from 'orders' table
@@ -84,7 +85,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
      *
      * @param orderIdentity
      * @param productIdentity
-     * @throws PersistentException
+     * @throws PersistentException if database error occurs
      */
     @Override
     public void delete(Integer orderIdentity, Integer productIdentity) throws PersistentException {
@@ -108,6 +109,13 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
         logger.debug("OrderItem with id= " + orderIdentity + "," + productIdentity + " was deleted");
     }
 
+    /**
+     * Reads products by order identity
+     *
+     * @param orderIdentity
+     * @return list of products matching order identity
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<Product> readProductsByOrder(Integer orderIdentity) throws PersistentException {
         PreparedStatement statement = null;

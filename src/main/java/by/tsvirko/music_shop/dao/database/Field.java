@@ -1,5 +1,8 @@
 package by.tsvirko.music_shop.dao.database;
 
+/**
+ * Enum for storing database fields names
+ */
 public enum Field {
     ID("id"),
     BUYER_ID("buyer_id"),

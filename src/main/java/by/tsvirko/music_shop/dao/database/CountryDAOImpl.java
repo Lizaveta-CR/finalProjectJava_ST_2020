@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data access object for country
+ */
 public class CountryDAOImpl extends BaseDAO implements CountryDAO {
     private static final Logger logger = LogManager.getLogger(CountryDAOImpl.class);
 
@@ -27,6 +30,14 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
         throw new PersistentException("Unable to perform create() operation with Country");
     }
 
+    /**
+     * Reads country by identity
+     *
+     * @param identity - country identity
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the country, otherwise return an empty Optional.
+     * @throws PersistentException - if database error occurs
+     */
     @Override
     public Optional<Country> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
@@ -74,6 +85,14 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
         throw new PersistentException("Unable to perform delete() operation with Country");
     }
 
+    /**
+     * Reads country by name
+     *
+     * @param name - country name
+     * @return If a value is present, and the value matches the given name,
+     * return an Optional describing the country, otherwise return an empty Optional.
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public Optional<Country> readCountryByName(String name) throws PersistentException {
         PreparedStatement statement = null;
@@ -111,6 +130,12 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
         }
     }
 
+    /**
+     * Reads all country names in database
+     *
+     * @return list of names
+     * @throws PersistentException if database error occurs
+     */
     @Override
     public List<String> readNames() throws PersistentException {
         PreparedStatement statementReadBuyer = null;

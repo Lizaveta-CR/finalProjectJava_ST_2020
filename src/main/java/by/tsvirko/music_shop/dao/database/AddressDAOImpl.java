@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data access object for address
+ */
 public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private static final Logger logger = LogManager.getLogger(AddressDAOImpl.class);
 
@@ -77,7 +80,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     /**
      * Creates address in database
      *
-     * @param entity
+     * @param entity - address
      * @return entity key
      * @throws PersistentException if a database access error occurs
      */
@@ -116,6 +119,14 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         }
     }
 
+    /**
+     * Reads address by identity
+     *
+     * @param identity - address identity
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the address, otherwise return an empty Optional.
+     * @throws PersistentException - if database error occurs
+     */
     @Override
     public Optional<Address> read(Integer identity) throws PersistentException {
         PreparedStatement statement = null;
@@ -163,7 +174,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     /**
      * Updates address in database
      *
-     * @param entity
+     * @param entity - address to update
      * @throws PersistentException if database error occurs
      */
     @Override
@@ -196,7 +207,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     /**
      * Deletes address from 'addresses' table by identity
      *
-     * @param identity
+     * @param identity -given value
      * @throws PersistentException if database error occurs
      */
     @Override

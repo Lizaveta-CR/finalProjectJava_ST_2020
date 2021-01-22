@@ -11,6 +11,9 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+/**
+ * Data access object for order
+ */
 public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     private static final Logger logger = LogManager.getLogger(OrderDAOImpl.class);
 
@@ -95,11 +98,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             while (resultSet.next()) {
                 order = new Order();
                 order.setId(resultSet.getInt(Field.ID.value()));
-//
-//                Buyer buyer = new Buyer();
-//                buyer.setId(resultSet.getInt(Field.BUYER_ID.value()));
-//                order.setBuyer(buyer);
-
                 order.setDate(resultSet.getDate(Field.DATE.value()));
                 order.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
                 orders.add(order);

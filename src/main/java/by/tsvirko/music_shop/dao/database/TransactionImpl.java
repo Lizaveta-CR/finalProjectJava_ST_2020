@@ -10,11 +10,17 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Transaction implementation
+ */
 public class TransactionImpl implements Transaction {
     private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
     private static final Map<Class<? extends Dao<?, ?>>, BaseDAO> CLASSES = new ConcurrentHashMap<>();
 
+    /**
+     * All dao classes are created in static block
+     */
     static {
         CLASSES.put(UserDAO.class, new UserDAOImpl());
         CLASSES.put(BuyerDAO.class, new BuyerDAOImpl());

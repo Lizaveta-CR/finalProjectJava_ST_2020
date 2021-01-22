@@ -11,6 +11,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Transaction factory implementation
+ */
 public class TransactionFactoryImpl implements TransactionFactory {
     private static final Logger logger = LogManager.getLogger(TransactionFactoryImpl.class);
 

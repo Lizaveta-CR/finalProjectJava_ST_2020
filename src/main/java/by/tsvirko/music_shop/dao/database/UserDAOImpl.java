@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//TODO: не отлавливать NullPointer, делать через if
+/**
+ * Data access object for user
+ */
 public class UserDAOImpl extends BaseDAO implements UserDAO {
     private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
 
@@ -77,9 +79,10 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     /**
      * Reads user by given password and login
      *
-     * @param login
-     * @param password
-     * @return user
+     * @param login    - user login
+     * @param password - user password
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the user, otherwise return an empty Optional.
      */
     @Override
     public Optional<User> read(String login, String password) throws PersistentException {
@@ -126,8 +129,8 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     /**
      * Creates user in database
      *
-     * @param entity
-     * @return generated key
+     * @param entity - user entity
+     * @return generated key corresponding users' id in database
      * @throws PersistentException if a database access error occurs
      */
     @Override
@@ -180,7 +183,8 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      * Reads user by identity
      *
      * @param identity
-     * @return
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the user, otherwise return an empty Optional.
      * @throws PersistentException
      */
     @Override

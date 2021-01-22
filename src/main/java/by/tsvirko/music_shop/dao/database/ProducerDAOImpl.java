@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data access object for order producer
+ */
 public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
     private static final Logger logger = LogManager.getLogger(ProducerDAOImpl.class);
 
@@ -79,7 +82,8 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
      * Reads producer by identity
      *
      * @param identity - producers' identity
-     * @return read Producer
+     * @return If a value is present, and the value matches the given identity,
+     * return an Optional describing the producer, otherwise return an empty Optional.
      * @throws PersistentException
      */
     @Override
