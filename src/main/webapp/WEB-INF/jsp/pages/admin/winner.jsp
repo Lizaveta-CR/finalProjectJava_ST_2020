@@ -16,9 +16,6 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Buyers">
-    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
-        <jsp:param name="page" value="/admin/winner.html"/>
-    </jsp:include>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="content text-center">
     <c:if test="${not empty buyer}">
@@ -36,16 +33,19 @@
                         <div class="">
                             <h4>${buyer.email}</h4>
                             <p class="text-muted"><span>| </span>
-                                    <%--                        TODO: добавить поле с количеством бонуса--%>
                             <form action="<c:url value="/admin/mail.html?buyerId=${buyer.id}"/>" method="POST">
                                 <table>
                                     <tr>
                                         <td><fmt:message key="label.register.bonus"/>:</td>
-                                        <td><input type="number" name="bonus" required/></td>
+                                        <td><input type="number" name="bonus" required
+                                                   oninvalid="this.setCustomValidity('<fmt:message
+                                                           key="label.bonus.required"/>')"
+                                                   oninput="setCustomValidity('')"/></td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="label.admin.mail.sendTo"/>:</td>
-                                        <td><input type="text" name="to" value="${buyer.email}"/></td>
+                                        <td><input type=" text" name="to" value="${buyer.email}"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="label.admin.mail.subject"/>:</td>

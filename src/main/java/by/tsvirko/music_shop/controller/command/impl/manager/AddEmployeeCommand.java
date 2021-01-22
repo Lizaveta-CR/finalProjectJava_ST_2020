@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
+
 /**
  * Command to add employee
  */
@@ -37,8 +38,8 @@ public class AddEmployeeCommand extends ManagerCommand {
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
             forward.setForward(PathConstnant.MANAGER_ADD_PERSONAL);
-            request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.register.incorrect"));
-            return null;
+            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
+            return forward;
         }
         if (employee != null) {
             try {
@@ -46,8 +47,9 @@ public class AddEmployeeCommand extends ManagerCommand {
                 service.save(employee);
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.register.duplicate"));
-                return null;
+                forward.setForward(PathConstnant.MANAGER_ADD_PERSONAL);
+                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
+                return forward;
             }
         }
         return forward;

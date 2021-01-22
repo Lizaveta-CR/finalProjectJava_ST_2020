@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
 import by.tsvirko.music_shop.domain.User;
@@ -25,7 +26,6 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -61,11 +61,11 @@ public class SecurityFilter implements Filter {
                     ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
                     session.setAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value(), rb.getString("app.message.security"));
                 }
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.html");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + PathConstnant.LOGIN);
             }
         } else {
             logger.error("It is impossible to use HTTP filter");
-            servletRequest.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(servletRequest, servletResponse);
+            servletRequest.getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
         }
     }
 

@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
 import by.tsvirko.music_shop.constant.ParameterConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
@@ -23,7 +24,7 @@ public class BuyerRemoveProductCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward("/buyer/order.html", true);
+        Forward forward = new Forward(PathConstnant.BUYER_ORDER, true);
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         if (!parameter.isEmpty()) {
             try {

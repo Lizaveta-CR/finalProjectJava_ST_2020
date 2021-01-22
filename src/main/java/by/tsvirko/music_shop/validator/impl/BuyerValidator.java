@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.validator.impl;
 
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.enums.Role;
@@ -15,23 +16,23 @@ public class BuyerValidator implements Validator<Buyer> {
     @Override
     public Buyer validate(HttpServletRequest request) throws IncorrectFormDataException {
         Buyer buyer = new Buyer();
-        String parameter = request.getParameter("email");
+        String parameter = request.getParameter(ParameterConstant.EMAIL.value());
         if (parameter != null && !parameter.isEmpty() && isEmailValid(parameter)) {
             buyer.setEmail(parameter);
         } else {
-            throw new IncorrectFormDataException("email", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.EMAIL.value(), parameter);
         }
-        parameter = request.getParameter("telephone");
+        parameter = request.getParameter(ParameterConstant.TELEPHONE.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 buyer.setTelephone(Long.parseLong(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("telephone", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("telephone", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
         }
-        parameter = request.getParameter("balance");
+        parameter = request.getParameter(ParameterConstant.BALANCE.value());
         if (parameter != null && !parameter.isEmpty() && isMoney(parameter)) {
             try {
                 if (parameter.contains(",")) {
@@ -40,13 +41,13 @@ public class BuyerValidator implements Validator<Buyer> {
                 if (Double.valueOf(parameter) > 0) {
                     buyer.setBalance(new BigDecimal(parameter));
                 } else {
-                    throw new IncorrectFormDataException("balance", parameter);
+                    throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter);
                 }
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("balance", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("balance", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter);
         }
         return buyer;
     }
@@ -76,7 +77,8 @@ public class BuyerValidator implements Validator<Buyer> {
     }
 
     private boolean isEmailValid(String email) {
-        Pattern validEmailRegex = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Pattern validEmailRegex = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"
+                , Pattern.CASE_INSENSITIVE);
         Matcher matcher = validEmailRegex.matcher(email);
         return matcher.find();
     }

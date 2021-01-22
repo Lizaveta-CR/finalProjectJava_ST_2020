@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 /**
  * Command for submitting order
  */
@@ -69,7 +70,7 @@ public class SubmitOrderCommand extends BuyerCommand {
                     orderItemService.save(orderItems);
                 } catch (ServicePersistentException e) {
                     logger.error("Service error occurred");
-                    forward.setForward(getName());
+                    forward.setForward(PathConstnant.BUYER_ORDER_SUBMIT);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(),
                             rb.getString("app.message.order.noMoney"));
                     return forward;

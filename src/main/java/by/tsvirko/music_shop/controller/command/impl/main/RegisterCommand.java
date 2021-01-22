@@ -54,7 +54,7 @@ public class RegisterCommand extends Command {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
-            forward.setForward("/registration.html");
+            forward.setForward(PathConstnant.REGISTRATION);
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
             return forward;
         }
@@ -71,7 +71,7 @@ public class RegisterCommand extends Command {
                 session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                forward.setForward("/registration.html");
+                forward.setForward(PathConstnant.REGISTRATION);
                 forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
                 return forward;
             }

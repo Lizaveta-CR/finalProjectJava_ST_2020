@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * Command for viewing earnings
  */
@@ -29,7 +30,7 @@ public class ViewEarningsCommand extends ManagerCommand {
             logger.error("Earning can not be send to manager: " + e.getMessage());
             return forward;
         }
-        forward.setForward(PathConstnant.MANAGER_EARNINGS);
+        forward.setForward(PathConstnant.MANAG_EARNINGS_JSP);
         return forward;
     }
 }

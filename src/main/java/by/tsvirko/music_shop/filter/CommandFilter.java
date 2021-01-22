@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
 import by.tsvirko.music_shop.controller.command.impl.admin.*;
@@ -22,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CommandFilter.class);
 
-    //TODO: all pathes with enum/static
     private static Map<String, Command> getCommands = new ConcurrentHashMap<>();
     private static Map<String, Command> postCommands = new ConcurrentHashMap<>();
 
@@ -118,11 +118,16 @@ public class CommandFilter implements Filter {
             if (command != null) {
                 httpRequest.setAttribute(AttributeConstant.COMMAND.value(), command);
                 command.setName(actionName);
+                filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 logger.error("It is impossible to create command handler object and use filter");
-//                servletRequest.getServletContext().getRequestDispatcher("/WEB-INF/error.jsp");
+                //TODO:
+//                httpRequest.setAttribute("error", String.format("Запрошенный адрес %s не может быть обработан сервером", uri));
+                httpRequest.getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
             }
-            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            logger.error("It is impossible to use HTTP filter");
+            servletRequest.getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
         }
     }
 

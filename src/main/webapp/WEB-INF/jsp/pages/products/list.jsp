@@ -72,10 +72,14 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <tbody>
-                                            <tr class='clickable-row'
-                                                data-href='<c:url value="/products/producer.html?producerId=${product.producer.id}"/>'>
+                                            <tr
+                                                <%--                                                    class='clickable-row'--%>
+                                                <%--                                                data-href='<c:url value="/products/producer.html?producerId=${product.producer.id}"/>'--%>
+                                            >
                                                 <td>
-                                                    <img src="${image}" class="img-thumbnail" height="200" width="300"/>
+                                                    <a href="<c:url value="/products/producer.html?producerId=${product.producer.id}"/>">
+                                                        <img src="${image}" class="img-thumbnail" height="200"
+                                                             width="300"/></a>
                                                 </td>
                                                 <td> ${product.model}</td>
                                                 <td> ${product.description}</td>

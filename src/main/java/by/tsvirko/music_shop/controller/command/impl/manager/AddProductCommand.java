@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.controller.command.impl.admin.AdminEditProductsCommand;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 /**
  * Command to add product
  */
@@ -49,7 +51,7 @@ public class AddProductCommand extends ManagerCommand {
         }
         String description;
         try {
-            Part filePart = request.getPart("file");
+            Part filePart = request.getPart(ParameterConstant.FILE.value());
             description = FileUtil.readFile(filePart);
         } catch (IOException | ServletException | FileUtilException e) {
             logger.error("File can not be processed", e.getMessage());

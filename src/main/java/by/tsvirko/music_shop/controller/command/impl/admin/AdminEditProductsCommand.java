@@ -44,7 +44,7 @@ public class AdminEditProductsCommand extends AdminCommand {
                 validator.validate(product, request);
                 String description;
                 try {
-                    Part filePart = request.getPart("file");
+                    Part filePart = request.getPart(ParameterConstant.FILE.value());
                     description = FileUtil.readFile(filePart);
                 } catch (IOException | ServletException | FileUtilException e) {
                     logger.error("File can not be processed", e.getMessage());

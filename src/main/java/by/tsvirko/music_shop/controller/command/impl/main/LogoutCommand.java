@@ -13,7 +13,6 @@ public class LogoutCommand extends AuthorizedUserCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         request.getSession(false).invalidate();
-        Forward forward = new Forward(PathConstnant.LOGOUT, true);
-        return forward;
+        return new Forward(PathConstnant.LOGOUT, true);
     }
 }

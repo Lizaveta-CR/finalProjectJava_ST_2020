@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.validator.impl;
 
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.validator.Validator;
@@ -11,59 +12,59 @@ public class AddressValidator implements Validator<Address> {
     @Override
     public Address validate(HttpServletRequest request) throws IncorrectFormDataException {
         Address address = new Address();
-        String parameter = request.getParameter("country");
+        String parameter = request.getParameter(ParameterConstant.COUNTRY.value());
         if (parameter != null && !parameter.isEmpty()) {
             Country country = new Country();
             country.setName(parameter);
             address.setCountry(country);
         } else {
-            throw new IncorrectFormDataException("country", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.COUNTRY.value(), parameter);
         }
-        parameter = request.getParameter("city");
+        parameter = request.getParameter(ParameterConstant.CITY.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setCity(parameter);
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("city", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("city", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter);
         }
-        parameter = request.getParameter("zip_code");
+        parameter = request.getParameter(ParameterConstant.ZIP_CODE.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setZipCode(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("zip_code", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("zip_code", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter);
         }
-        parameter = request.getParameter("street");
+        parameter = request.getParameter(ParameterConstant.STREET.value());
         if (parameter != null && !parameter.isEmpty()) {
             address.setStreet(parameter);
         } else {
-            throw new IncorrectFormDataException("street", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.STREET.value(), parameter);
         }
-        parameter = request.getParameter("apartmentNumber");
+        parameter = request.getParameter(ParameterConstant.APARTMENT_NUMBER.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setApartmentNumber(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("apartmentNumber", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("apartmentNumber", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter);
         }
-        parameter = request.getParameter("houseNumber");
+        parameter = request.getParameter(ParameterConstant.HOUSE_NUMBER.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setHouseNumber(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("houseNumber", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("houseNumber", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter);
         }
         return address;
     }

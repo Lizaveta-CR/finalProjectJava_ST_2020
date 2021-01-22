@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Producer;
@@ -34,6 +35,6 @@ public class ViewAddProductCommand extends ManagerCommand {
             request.setAttribute(AttributeConstant.COUNTRIES.value(), countries);
         } catch (ServicePersistentException e) {
         }
-        return null;
+        return new Forward(PathConstnant.PRODUCTS_CREATE_JSP);
     }
 }

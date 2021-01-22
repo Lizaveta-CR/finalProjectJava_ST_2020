@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Command for login into system
@@ -33,13 +33,10 @@ public class LoginCommand extends Command {
         menu.put(Role.ADMINISTRATOR
                 , Arrays.asList(
                         new Menu(PathConstnant.ADMIN_BUYERS, "app.menu.buyers")
-                        , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")
-
-                ));
+                        , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")));
         menu.put(Role.MANAGER, Arrays.asList(
-                new Menu(PathConstnant.MANAGER_EARNINGS, "app.menu.earnings"),
-                new Menu(PathConstnant.MANAGER_PERSONAL, "app.menu.personal"))
-        );
+                new Menu(PathConstnant.MANAG_EARNINGS, "app.menu.earnings"),
+                new Menu(PathConstnant.MANAGER_PERSONAL, "app.menu.personal")));
     }
 
     @Override
@@ -47,8 +44,8 @@ public class LoginCommand extends Command {
         Forward forward = new Forward(PathConstnant.LOGIN, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        String login = request.getParameter(ParameterConstant.LOGIN.value());
+        String password = request.getParameter(ParameterConstant.PASS.value());
         if (!login.isEmpty() && !password.isEmpty()) {
             UserService service = null;
             try {

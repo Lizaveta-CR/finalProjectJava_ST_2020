@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
+
 /**
  * Command for viewing submit form
  */
@@ -33,7 +35,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
                     buyer.setAddress(address);
                 }
             } catch (ServicePersistentException e) {
-                Forward forward = new Forward("/buyer/address.html", true);
+                Forward forward = new Forward(PathConstnant.BUYER_ADDRESS, true);
                 forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
                 logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
                 return forward;

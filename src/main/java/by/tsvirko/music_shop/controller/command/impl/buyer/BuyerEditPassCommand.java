@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -32,7 +33,7 @@ public class BuyerEditPassCommand extends BuyerCommand {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession(false);
         User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
-        String password = request.getParameter("password");
+        String password = request.getParameter(ParameterConstant.PASS.value());
         if (!password.isEmpty() && password != null) {
             try {
                 UserService userService = factory.getService(UserService.class);

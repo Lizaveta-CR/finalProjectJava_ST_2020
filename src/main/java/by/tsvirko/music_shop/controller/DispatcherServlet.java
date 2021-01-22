@@ -1,6 +1,8 @@
 package by.tsvirko.music_shop.controller;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.ParameterConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.CommandManager;
 import by.tsvirko.music_shop.controller.command.CommandManagerFactory;
@@ -11,6 +13,7 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.dao.pool.ConnectionPool;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,13 +34,9 @@ import java.util.ResourceBundle;
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
 
-    private static final String DATASOURCE_NAME = "database";
-    private static final String JSP_LOCATION = "/WEB-INF/jsp/pages";
-    private static final String JSP_ERROR_LOCATION = "/WEB-INF/jsp/error/error.jsp";
-
     @Override
     public void init() {
-        ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
+        ResourceBundle resource = ResourceBundle.getBundle(ParameterConstant.DATASOURCE_NAME.value());
         String driver = resource.getString("db.driver");
         String url = resource.getString("db.url");
         String user = resource.getString("db.user");
@@ -101,14 +100,15 @@ public class DispatcherServlet extends HttpServlet {
                 } else {
                     jspPage = command.getName() + ".jsp";
                 }
-                jspPage = JSP_LOCATION + jspPage;
+                jspPage = PathConstnant.PAGES_LOCATION + jspPage;
                 logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));
                 getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
             }
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
-//            req.setAttribute("error", "Ошибка обработки данных");
-//            getServletContext().getRequestDispatcher(JSP_ERROR_LOCATION).forward(req, resp);
+            ResourceBundle rb = ResourceBundleUtil.getResourceBundle(req);
+            req.setAttribute(AttributeConstant.ERROR.value(), rb.getString("app.global.process.error"));
+            getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(req, resp);
         }
     }
 }

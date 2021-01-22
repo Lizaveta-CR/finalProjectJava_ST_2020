@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.validator.impl;
 
+import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
@@ -20,30 +21,30 @@ public class ProductValidator implements Validator<Product> {
     @Override
     public Product validate(HttpServletRequest request) throws IncorrectFormDataException {
         Product product = new Product();
-        String parameter = request.getParameter("model");
+        String parameter = request.getParameter(ParameterConstant.MODEL.value());
         if (parameter != null && !parameter.isEmpty()) {
             product.setModel(parameter);
         } else {
-            throw new IncorrectFormDataException("model", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.MODEL.value(), parameter);
         }
-        parameter = request.getParameter("category");
+        parameter = request.getParameter(ParameterConstant.CATEGORY.value());
         if (parameter != null && !parameter.isEmpty()) {
             Category category = new Category();
             try {
                 category.setId(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("category", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter);
             }
             product.setCategory(category);
         } else {
-            throw new IncorrectFormDataException("category", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter);
         }
-        parameter = request.getParameter("producer");
+        parameter = request.getParameter(ParameterConstant.PRODUCER.value());
         Producer producer = null;
         if (parameter != null && !parameter.isEmpty()) {
             producer = new Producer();
-            String name = request.getParameter("name");
-            String countryParam = request.getParameter("country");
+            String name = request.getParameter(ParameterConstant.NAME.value());
+            String countryParam = request.getParameter(ParameterConstant.COUNTRY.value());
             if (name != null && !name.isEmpty() && countryParam != null && !countryParam.isEmpty()) {
                 producer.setName(name);
                 Country country = new Country();
@@ -53,7 +54,7 @@ public class ProductValidator implements Validator<Product> {
                 try {
                     producer.setId(Integer.parseInt(parameter));
                 } catch (NumberFormatException e) {
-                    throw new IncorrectFormDataException("category", parameter);
+                    throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter);
                 }
             }
             product.setProducer(producer);
@@ -78,19 +79,19 @@ public class ProductValidator implements Validator<Product> {
      */
     @Override
     public void validate(Product product, HttpServletRequest request) throws IncorrectFormDataException {
-        String parameter = request.getParameter("access");
+        String parameter = request.getParameter(ParameterConstant.ACCESS.value());
         if (parameter != null && !parameter.isEmpty()) {
             product.setAvailable(true);
         } else {
             product.setAvailable(false);
         }
-        parameter = request.getParameter("description");
+        parameter = request.getParameter(ParameterConstant.DESCRIPTION.value());
         if (parameter != null && !parameter.isEmpty()) {
             product.setDescription(parameter);
         } else {
             product.setDescription("");
         }
-        parameter = request.getParameter("price");
+        parameter = request.getParameter(ParameterConstant.PRICE.value());
         if (parameter != null && !parameter.isEmpty() && isMoney(parameter)) {
             try {
                 if (parameter.contains(",")) {
@@ -99,13 +100,13 @@ public class ProductValidator implements Validator<Product> {
                 if (Double.valueOf(parameter) > 0) {
                     product.setPrice(new BigDecimal(parameter));
                 } else {
-                    throw new IncorrectFormDataException("price", parameter);
+                    throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter);
                 }
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("price", parameter);
+                throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter);
             }
         } else {
-            throw new IncorrectFormDataException("price", parameter);
+            throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter);
         }
     }
 }

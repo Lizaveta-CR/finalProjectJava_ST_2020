@@ -8,13 +8,14 @@ import by.tsvirko.music_shop.domain.enums.Role;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
+
 /**
  * Command to return to main page
  */
 public class MainCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward("/index.jsp", true);
+        return new Forward(PathConstnant.MAIN_JSP, true);
     }
 
     @Override

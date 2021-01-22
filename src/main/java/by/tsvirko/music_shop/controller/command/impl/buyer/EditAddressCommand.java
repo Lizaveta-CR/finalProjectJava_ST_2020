@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ResourceBundle;
+
 /**
  * Command for editing address
  */
@@ -62,7 +63,6 @@ public class EditAddressCommand extends BuyerCommand {
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when updating address", e);
             Forward forward = new Forward(PathConstnant.BUYER_ADDRESS, true);
-//            forward.setForward("/buyer/address.html");
             forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.incorrect"));
             return forward;
         } catch (ServicePersistentException e) {

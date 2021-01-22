@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.AttributeConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Order;
@@ -20,6 +21,6 @@ public class ViewOrderCommand extends BuyerCommand {
         HttpSession session = request.getSession(false);
         Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
         request.setAttribute(AttributeConstant.ORDER.value(), order);
-        return null;
+        return new Forward(PathConstnant.BUYER_ORDER_JSP);
     }
 }

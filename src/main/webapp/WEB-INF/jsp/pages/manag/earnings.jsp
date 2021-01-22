@@ -12,7 +12,7 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<u:html title="Earnings" cssFile="earnings.css">
+<u:html title="Earnings" cssFile="earnings.css" jsFile="table-search.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/manag/earnings.html"/>
     </jsp:include>
@@ -30,9 +30,9 @@
             </tr>
         </c:forEach>
     </table>
-    <script>
-        <jsp:directive.include file="/js/table-search.js"/>
-    </script>
+    <%--    <script>--%>
+    <%--        <jsp:directive.include file="/js/table-search.js"/>--%>
+    <%--    </script>--%>
     <form action="<c:url value="/welcome.html"/>" method="get">
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                 key="label.button.back"/></button>

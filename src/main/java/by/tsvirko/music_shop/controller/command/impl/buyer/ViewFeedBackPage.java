@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.constant.ParameterConstant;
+import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderItemService;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * Command for viewing feedback page
  */
@@ -29,7 +31,7 @@ public class ViewFeedBackPage extends BuyerCommand {
             } catch (ServicePersistentException e) {
                 logger.error(String.format("Products for order with id=%s can not be read. " +
                         "Service Exception occurred", parameter));
-                return new Forward("buyer/buyerForm", true);
+                return new Forward(PathConstnant.BUYER_FORM, true);
             }
         }
         return null;

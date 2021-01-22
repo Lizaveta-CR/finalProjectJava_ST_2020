@@ -30,6 +30,6 @@ public class ViewPersonalCommand extends ManagerCommand {
         } catch (ServicePersistentException e) {
             return new Forward(PathConstnant.MAIN_JSP, true);
         }
-        return null;
+        return new Forward(PathConstnant.MANAGER_PERSONAL_JSP);
     }
 }
