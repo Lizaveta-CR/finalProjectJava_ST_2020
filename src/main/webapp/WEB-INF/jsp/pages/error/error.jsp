@@ -5,18 +5,15 @@
   Time: 16:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<u:html title="Error" cssFile="error.css" jsFile="error.js">
-    <%--<head>--%>
-    <%--    <title>Error</title>--%>
-    <%--    <link href="<c:url value="/css/error.css"/>" rel="stylesheet">--%>
-    <%--    <script type="text/javascript" src="<c:url value="/js/error.js"/>"></script>--%>
-    <%--</head>--%>
-    <%--<body>--%>
-    error
+<fmt:setLocale value="${cookie.lang.value}"/>
+<fmt:setBundle basename="i18n.messages"/>
+
+<u:html title="Error" cssFile="error.css">
     <div class="moon"></div>
     <div class="moon__crater moon__crater1"></div>
     <div class="moon__crater moon__crater2"></div>
@@ -29,11 +26,25 @@
     <div class="star star5"></div>
 
     <div class="error">
-        <div class="error__title">404</div>
+        <c:set var="errorData" value="${pageContext.errorData}"/>
+        <div class="error__title">${errorData.statusCode}</div>
         <div class="error__subtitle">Hmmm...</div>
-        <div class="error__description">It looks like one of the developers fell asleep</div>
-        <button class="error__button error__button--active">LOGIN</button>
-        <button class="error__button">CONTACT</button>
+        <div class="error__description">
+            <c:choose>
+                <c:when test="${not empty error}">
+                    ${error}
+                </c:when>
+                <c:when test="${not empty errorData.requestURI}">
+                    <fmt:message key="label.error.requested"/> ${errorData.requestURI} <fmt:message
+                        key="label.error.not.found"/>
+                </c:when>
+                <c:otherwise><fmt:message key="label.error.unpredictable"/></c:otherwise>
+            </c:choose>
+        </div>
+        <form method="get" action="<c:url value="/index.html"/>">
+            <button class="error__button error__button--active"><fmt:message
+                    key="label.main"/></button>
+        </form>
     </div>
 
     <div class="astronaut">
@@ -63,5 +74,7 @@
             <div class="astronaut__head-visor-flare2"></div>
         </div>
     </div>
-    <%--</body>--%>
+    <script>
+        <jsp:directive.include file="/js/error.js"/>
+    </script>
 </u:html>

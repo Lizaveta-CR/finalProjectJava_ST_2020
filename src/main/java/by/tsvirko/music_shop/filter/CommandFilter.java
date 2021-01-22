@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.controller.command.impl.admin.*;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
 import by.tsvirko.music_shop.controller.command.impl.main.*;
 import by.tsvirko.music_shop.controller.command.impl.manager.*;
+import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -121,8 +123,9 @@ public class CommandFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 logger.error("It is impossible to create command handler object and use filter");
-                //TODO:
-//                httpRequest.setAttribute("error", String.format("Запрошенный адрес %s не может быть обработан сервером", uri));
+                ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
+                String errMes = rb.getString("app.error.requested") + uri + rb.getString("app.error.requested.not.found");
+                httpRequest.setAttribute(AttributeConstant.ERROR.value(), errMes);
                 httpRequest.getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
             }
         } else {
