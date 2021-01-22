@@ -3,7 +3,7 @@ package by.tsvirko.music_shop.controller.command.impl.main;
 import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -3,7 +3,7 @@ package by.tsvirko.music_shop.service.impl;
 import by.tsvirko.music_shop.dao.UserDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.*;
 import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;

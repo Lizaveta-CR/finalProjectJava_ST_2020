@@ -7,7 +7,16 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.List;
 
+/**
+ * Country service
+ */
 public class CountryServiceImpl extends ServiceImpl implements CountryService {
+    /**
+     * Reads countries names
+     *
+     * @return list of names
+     * @throws ServicePersistentException if reading error occurs
+     */
     @Override
     public List<String> readNames() throws ServicePersistentException {
         try {

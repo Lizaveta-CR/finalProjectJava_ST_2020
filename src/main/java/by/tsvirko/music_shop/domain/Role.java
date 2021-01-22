@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.domain.enums;
+package by.tsvirko.music_shop.domain;
 
 /**
  * Role enum

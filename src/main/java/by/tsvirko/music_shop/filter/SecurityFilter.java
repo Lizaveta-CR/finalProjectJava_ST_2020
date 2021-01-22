@@ -5,7 +5,7 @@ import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
 import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,7 +45,6 @@ public class SecurityFilter implements Filter {
                     httpRequest.setAttribute(AttributeConstant.MESSAGE.value(), errorMessage);
                     session.removeAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value());
                 }
-
             }
             boolean canExecute = allowRoles == null;
 

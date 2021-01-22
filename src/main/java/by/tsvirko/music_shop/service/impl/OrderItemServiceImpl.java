@@ -12,8 +12,16 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Order item service
+ */
 public class OrderItemServiceImpl extends ServiceImpl implements OrderItemService {
-
+    /**
+     * Saves order item
+     *
+     * @param order - order to save
+     * @throws ServicePersistentException if saving exception occurs
+     */
     @Override
     public void save(OrderItem order) throws ServicePersistentException {
         try {
@@ -29,11 +37,17 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
         }
     }
 
+    /**
+     * Saves orders
+     *
+     * @param orders - orders to save
+     * @throws ServicePersistentException if saving exception occurs
+     */
     @Override
-    public void save(List<OrderItem> order) throws ServicePersistentException {
+    public void save(List<OrderItem> orders) throws ServicePersistentException {
         try {
             OrderItemDAO dao = transaction.createDao(OrderItemDAO.class, false);
-            for (OrderItem orderItem : order) {
+            for (OrderItem orderItem : orders) {
                 dao.create(orderItem);
             }
             transaction.commit();
@@ -46,6 +60,12 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
         }
     }
 
+    /**
+     * Deletes order item by identity
+     *
+     * @param orderId - order item identity
+     * @throws ServicePersistentException if deletion error occurs
+     */
     @Override
     public void delete(Integer orderId) throws ServicePersistentException {
         OrderItemDAO dao;
@@ -62,6 +82,13 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
         }
     }
 
+    /**
+     * Reads products by order identity
+     *
+     * @param id - order identity
+     * @return list of products
+     * @throws ServicePersistentException if products are empty
+     */
     @Override
     public List<Product> readProductsByOrderId(Integer id) throws ServicePersistentException {
         try {

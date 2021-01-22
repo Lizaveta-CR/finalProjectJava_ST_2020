@@ -6,7 +6,7 @@ import by.tsvirko.music_shop.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Producer;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;

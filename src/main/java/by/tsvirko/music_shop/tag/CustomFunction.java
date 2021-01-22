@@ -2,10 +2,9 @@ package by.tsvirko.music_shop.tag;
 
 import by.tsvirko.music_shop.domain.Component;
 import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFunction {

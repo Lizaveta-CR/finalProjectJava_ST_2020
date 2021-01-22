@@ -14,7 +14,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Address service
+ */
 public class AddressServiceImpl extends ServiceImpl implements AddressService {
+    /**
+     * Finds all addresses
+     *
+     * @return list of addresses
+     * @throws ServicePersistentException if addresses are empty
+     */
     @Override
     public List<Address> findAll() throws ServicePersistentException {
         try {
@@ -31,7 +40,12 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         }
     }
 
-
+    /**
+     * Deletes address by identity
+     *
+     * @param identity - address identity
+     * @throws ServicePersistentException if deletion error occurs
+     */
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         AddressDAO dao;
@@ -48,6 +62,12 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Saves address
+     *
+     * @param address - address to save
+     * @throws ServicePersistentException if saving exception occurs
+     */
     @Override
     public void save(Address address) throws ServicePersistentException {
         try {
@@ -71,6 +91,12 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Updates address
+     *
+     * @param address - address to update
+     * @throws ServicePersistentException if updating error occurs
+     */
     @Override
     public void update(Address address) throws ServicePersistentException {
         try {
@@ -92,6 +118,13 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Finds address by identity
+     *
+     * @param id - address identity
+     * @return - address corresponding to identity
+     * @throws ServicePersistentException if address  corresponding to identity does not exist
+     */
     @Override
     public Address findById(Integer id) throws ServicePersistentException {
         try {
@@ -108,6 +141,12 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Fills addresses with corresponding fields
+     *
+     * @param addresses - addresses to fill with data
+     * @throws ServicePersistentException if filling error occurs
+     */
     private void buildList(List<Address> addresses) throws ServicePersistentException {
         try {
             CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);

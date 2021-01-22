@@ -12,7 +12,6 @@ import java.util.List;
  * Buyer class
  */
 @EqualsAndHashCode(callSuper = true)
-//@ToString
 @Getter
 @Setter
 public class Buyer extends Person {

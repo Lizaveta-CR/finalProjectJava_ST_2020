@@ -12,7 +12,16 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Category service
+ */
 public class CategoryServiceImpl extends ServiceImpl implements CategoryService {
+    /**
+     * Returns category object
+     *
+     * @return category
+     * @throws ServicePersistentException if error while getting occurs
+     */
     @Override
     public Category getCategory() throws ServicePersistentException {
         try {
@@ -31,7 +40,7 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
      * Returns category without products
      *
      * @return category
-     * @throws ServicePersistentException
+     * @throws ServicePersistentException if category is empty
      */
     @Override
     public Category getSimpleCategory() throws ServicePersistentException {
@@ -49,6 +58,12 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
         }
     }
 
+    /**
+     * Fills products with corresponding fields
+     *
+     * @param products - products to fill with data
+     * @throws ServicePersistentException if some of fields are empty
+     */
     private void buildProducts(List<Product> products) throws ServicePersistentException {
         try {
             ProducerItemDAO producerDAO = transaction.createDao(ProducerItemDAO.class, true);
@@ -73,6 +88,12 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
         }
     }
 
+    /**
+     * Fills category with products with corresponding fields
+     *
+     * @param products - products to fill  data category with
+     * @param category - category to fill with products
+     */
     private void buildListProductCategories(Category category, List<Product> products) {
         for (Product product : products) {
             if (product.getCategory().getId() == category.getId()) {

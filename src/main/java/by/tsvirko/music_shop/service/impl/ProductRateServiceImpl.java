@@ -9,6 +9,9 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.Map;
 
+/**
+ * Product rate service
+ */
 public class ProductRateServiceImpl extends ServiceImpl implements ProductRateService {
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
@@ -44,6 +47,12 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
         }
     }
 
+    /**
+     * Counts average rate(mark) for each product
+     *
+     * @return Map<Integer, Integer>, where first Integer represents Product id and second-average mark
+     * @throws ServicePersistentException if rates are empty
+     */
     @Override
     public Map<Integer, Integer> countAverageRate() throws ServicePersistentException {
         try {

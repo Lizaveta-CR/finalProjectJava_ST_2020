@@ -1,8 +1,7 @@
 package by.tsvirko.music_shop.controller.command;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import lombok.Setter;
 

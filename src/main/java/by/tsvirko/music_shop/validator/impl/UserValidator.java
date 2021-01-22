@@ -2,12 +2,11 @@ package by.tsvirko.music_shop.validator.impl;
 
 import by.tsvirko.music_shop.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.validator.Validator;
 import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ResourceBundle;
 
 public class UserValidator implements Validator<User> {
 

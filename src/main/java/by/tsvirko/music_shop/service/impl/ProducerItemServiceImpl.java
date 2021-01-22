@@ -11,7 +11,17 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.Optional;
 
+/**
+ * Producer item service
+ */
 public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItemService {
+
+    /**
+     * Saves producer item
+     *
+     * @param item - producer item to save
+     * @throws ServicePersistentException if saving exception occurs
+     */
     @Override
     public void save(ProducerItem item) throws ServicePersistentException {
         try {
@@ -27,14 +37,22 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
         }
     }
 
+    /**
+     * Reads producer by product identity
+     *
+     * @param identity - producer identity
+     * @return producer corresponding product identity
+     * @throws ServicePersistentException if producer is empty
+     */
     @Override
-    public Optional<Producer> readProducerByProduct(Integer identity) throws ServicePersistentException {
+    public Producer readProducerByProduct(Integer identity) throws ServicePersistentException {
         try {
             ProducerItemDAO dao = transaction.createDao(ProducerItemDAO.class, true);
             Optional<Producer> producer = dao.readProducerByProduct(identity);
             if (producer.isPresent()) {
-                buildList(producer.get());
-                return producer;
+                Producer prod = producer.get();
+                buildList(prod);
+                return prod;
             }
             throw new ServicePersistentException("Empty producer");
         } catch (PersistentException e) {
@@ -42,6 +60,12 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
         }
     }
 
+    /**
+     * Fills producer with corresponding fields
+     *
+     * @param producer - producer to fill with data
+     * @throws ServicePersistentException if filling error occurs or empty fields were found
+     */
     private void buildList(Producer producer) throws ServicePersistentException {
         try {
             CountryDAO dao = transaction.createDao(CountryDAO.class, true);

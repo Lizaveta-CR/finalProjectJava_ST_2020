@@ -10,11 +10,16 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Service factory
+ */
 public class ServiceFactoryImpl implements ServiceFactory {
     private static final Logger logger = LogManager.getLogger(ServiceFactoryImpl.class);
-    //TODO: Concurrent скорее излишен, ибо сервисы создаются постоянно?
     private static final Map<Class<? extends Service>, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
 
+    /**
+     * All services are created in static block
+     */
     static {
         SERVICES.put(UserService.class, new UserServiceImpl());
         SERVICES.put(BuyerService.class, new BuyerServiceImpl());
@@ -35,6 +40,13 @@ public class ServiceFactoryImpl implements ServiceFactory {
         this.factory = factory;
     }
 
+    /**
+     * Gets service by interface name class
+     *
+     * @param key - given service interface
+     * @return service implementation corresponding input key interface
+     * @throws ServicePersistentException if service can not be returned or does not exist
+     */
     @Override
     public <Type extends Service> Type getService(Class<Type> key) throws ServicePersistentException {
         ServiceImpl value = SERVICES.get(key);
@@ -47,6 +59,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
         throw new ServicePersistentException("Service can not be returned");
     }
 
+    /**
+     * Closes transaction factory
+     */
     @Override
     public void close() {
         factory.close();

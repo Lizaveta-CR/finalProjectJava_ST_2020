@@ -1,6 +1,5 @@
 package by.tsvirko.music_shop.domain;
 
-import by.tsvirko.music_shop.domain.enums.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

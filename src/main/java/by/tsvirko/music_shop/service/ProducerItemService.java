@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface ProducerItemService extends Service {
     void save(ProducerItem item) throws ServicePersistentException;
 
-    Optional<Producer> readProducerByProduct(Integer identity) throws ServicePersistentException;
+    Producer readProducerByProduct(Integer identity) throws ServicePersistentException;
 }

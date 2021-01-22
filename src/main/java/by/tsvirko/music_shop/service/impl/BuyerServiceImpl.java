@@ -9,7 +9,16 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Buyer service
+ */
 public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
+    /**
+     * Finds all buyers
+     *
+     * @return list of buyers
+     * @throws ServicePersistentException if buyers are empty
+     */
     @Override
     public List<Buyer> findAll() throws ServicePersistentException {
         BuyerDAO dao;
@@ -28,7 +37,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
      *
      * @param orderAmount - number of orders
      * @return random Buyer
-     * @throws ServicePersistentException
+     * @throws ServicePersistentException if buyer does not exist
      */
     @Override
     public Buyer find(Integer orderAmount) throws ServicePersistentException {
@@ -43,6 +52,14 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * Reads all buyers with specified offset and number of records
+     *
+     * @param offset
+     * @param noOfRecords
+     * @return Map<Integer, List < Buyer>>,where Integer represents number of found rows
+     * @throws ServicePersistentException if finding error occurs
+     */
     @Override
     public Map<Integer, List<Buyer>> find(int offset, int noOfRecords) throws ServicePersistentException {
         try {
@@ -57,6 +74,12 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * Deletes buyer by identity
+     *
+     * @param identity - buyer identity
+     * @throws ServicePersistentException if deletion error occurs
+     */
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         BuyerDAO dao;
@@ -73,6 +96,12 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * Saves buyer
+     *
+     * @param buyer - buyer to save
+     * @throws ServicePersistentException if saving exception occurs
+     */
     @Override
     public void save(Buyer buyer) throws ServicePersistentException {
         try {
@@ -88,6 +117,12 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * Updates buyer
+     *
+     * @param buyer - buyer to update
+     * @throws ServicePersistentException if updating error occurs
+     */
     @Override
     public void update(Buyer buyer) throws ServicePersistentException {
         try {
@@ -103,6 +138,13 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * Finds buyer by identity
+     *
+     * @param identity - buyers' identity
+     * @return - buyer corresponding to identity
+     * @throws ServicePersistentException if buyer corresponding to identity does not exist
+     */
     @Override
     public Buyer findById(Integer identity) throws ServicePersistentException {
         try {
@@ -119,6 +161,12 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         }
     }
 
+    /**
+     * Fills buyers with corresponding fields
+     *
+     * @param buyers - buyers to fill with data
+     * @throws ServicePersistentException if filling error occurs
+     */
     private void buildList(List<Buyer> buyers) throws PersistentException {
         AddressDAO addressDAO = transaction.createDao(AddressDAO.class, true);
         OrderDAO orderDAO = transaction.createDao(OrderDAO.class, true);

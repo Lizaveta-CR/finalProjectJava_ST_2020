@@ -10,7 +10,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Product service
+ */
 public class ProductServiceImpl extends ServiceImpl implements ProductService {
+    /**
+     * Finds all products
+     *
+     * @return list of products
+     * @throws ServicePersistentException if products are empty
+     */
     @Override
     public List<Product> findAll() throws ServicePersistentException {
         try {
@@ -26,13 +35,23 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * Finds not available products
+     * @return list of not available products
+     * @throws ServicePersistentException if products are empty
+     */
     @Override
     public List<Product> findNotAvailable() throws ServicePersistentException {
         return findAll().stream()
                 .filter(product -> product.getAvailable() == false)
                 .collect(Collectors.toList());
     }
-
+    /**
+     * Deletes product by identity
+     *
+     * @param identity - products' identity
+     * @throws ServicePersistentException if deletion error occurs
+     */
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
@@ -47,7 +66,12 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Saves product
+     *
+     * @param product - product to save
+     * @throws ServicePersistentException if null or empty fields were found
+     */
     @Override
     public void save(Product product) throws ServicePersistentException {
         try {
@@ -68,7 +92,13 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Finds product by identity
+     *
+     * @param identity - product identity
+     * @return - product corresponding to identity
+     * @throws ServicePersistentException if product  corresponding to identity does not exist
+     */
     @Override
     public Product findById(Integer identity) throws ServicePersistentException {
         try {
@@ -82,7 +112,12 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Fills products with corresponding fields
+     *
+     * @param products - products to fill with data
+     * @throws ServicePersistentException if filling error occurs
+     */
     private void buildList(List<Product> products) throws ServicePersistentException {
         try {
             CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);

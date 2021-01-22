@@ -12,6 +12,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+/**
+ * Mail service
+ */
 public class MailThreadService extends Thread {
     private static final Logger logger = LogManager.getLogger(MailThreadService.class);
 

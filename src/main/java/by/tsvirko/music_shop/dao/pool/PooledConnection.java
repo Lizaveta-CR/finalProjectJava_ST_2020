@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * Pooled connection class
+ */
 public class PooledConnection implements Connection, Comparable<PooledConnection> {
     private Connection connection;
 

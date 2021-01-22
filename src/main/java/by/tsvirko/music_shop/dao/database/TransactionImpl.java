@@ -44,7 +44,8 @@ public class TransactionImpl implements Transaction {
     /**
      * Creates Dao
      *
-     * @param key - given dao interface
+     * @param key          - given dao interface
+     * @param isAutoCommit if we need or not autocomming
      * @return BaseDAO with setted connection
      */
     @Override

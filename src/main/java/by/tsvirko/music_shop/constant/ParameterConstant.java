@@ -40,7 +40,8 @@ public enum ParameterConstant {
     SURNAME("surname"),
     CONFIRM_PASS("confirm_password"),
     ROLE("role"),
-    NEW_PASS("new_password");
+    NEW_PASS("new_password"),
+    COOKIE_LOCALE("cookieLocale");
 
     private final String name;
 

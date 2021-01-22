@@ -8,7 +8,16 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 
 import java.util.*;
 
+/**
+ * Producer service
+ */
 public class ProducerServiceImpl extends ServiceImpl implements ProducerService {
+    /**
+     * Finds all producers
+     *
+     * @return list of producers
+     * @throws ServicePersistentException if reading error occurs
+     */
     @Override
     public List<Producer> findAll() throws ServicePersistentException {
         try {
@@ -20,7 +29,12 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Deletes producer  by identity
+     *
+     * @param identity - producers' identity
+     * @throws ServicePersistentException if deletion error occurs
+     */
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
@@ -35,7 +49,12 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Saves producer
+     *
+     * @param producer - producer to save
+     * @throws ServicePersistentException if null or empty fields were found
+     */
     @Override
     public void save(Producer producer) throws ServicePersistentException {
         try {
@@ -75,7 +94,13 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Finds producer by identity
+     *
+     * @param identity - producers' identity
+     * @return - producer corresponding to identity
+     * @throws ServicePersistentException if producer  corresponding to identity does not exist
+     */
     @Override
     public Producer findById(Integer identity) throws ServicePersistentException {
         try {
@@ -91,7 +116,12 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Fills producers with corresponding fields
+     *
+     * @param producers - producers to fill with data
+     * @throws ServicePersistentException if filling error occurs
+     */
     private void buildList(List<Producer> producers) throws ServicePersistentException {
         try {
             ProducerItemDAO producerItemDAO = transaction.createDao(ProducerItemDAO.class, true);

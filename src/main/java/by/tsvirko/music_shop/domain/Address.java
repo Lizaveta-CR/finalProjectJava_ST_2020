@@ -7,7 +7,7 @@ import lombok.ToString;
 
 
 /**
- * Buyer's addresses class
+ * Address class
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString

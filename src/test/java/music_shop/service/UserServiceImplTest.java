@@ -5,7 +5,7 @@ import by.tsvirko.music_shop.dao.exception.ConnectionPoolException;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.dao.pool.ConnectionPool;
 import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.domain.enums.Role;
+import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.PasswordException;

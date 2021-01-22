@@ -11,6 +11,12 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class OrderServiceImpl extends ServiceImpl implements OrderService {
+    /**
+     * Finds all orders
+     *
+     * @return list of orders
+     * @throws ServicePersistentException if reading error occurs
+     */
     @Override
     public List<Order> findAll() throws ServicePersistentException {
         try {
@@ -23,17 +29,31 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Reads all orders with specified offset and number of records
+     *
+     * @param offset
+     * @param noOfRecords
+     * @return Map<Integer, List < Order>>,where Integer represents number of found rows
+     * @throws ServicePersistentException if finding error occurs
+     */
     @Override
-    public Map<Integer, List<Order>> find(int offset, int noOfRecords,Integer buyerId) throws ServicePersistentException {
+    public Map<Integer, List<Order>> find(int offset, int noOfRecords, Integer buyerId) throws ServicePersistentException {
         try {
             OrderDAO dao = transaction.createDao(OrderDAO.class, true);
-            Map<Integer, List<Order>> map = dao.read(offset, noOfRecords,buyerId);
+            Map<Integer, List<Order>> map = dao.read(offset, noOfRecords, buyerId);
             return map;
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
     }
 
+    /**
+     * Deletes order  by identity
+     *
+     * @param identity - order identity
+     * @throws ServicePersistentException if deletion error occurs
+     */
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         OrderDAO dao;
@@ -50,6 +70,12 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Saves order
+     *
+     * @param order - order to save
+     * @throws ServicePersistentException if saving exception occurs
+     */
     @Override
     public void save(Order order) throws ServicePersistentException {
         try {
@@ -87,7 +113,12 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             throw new ServicePersistentException(e);
         }
     }
-
+    /**
+     * Fills orders with corresponding fields
+     *
+     * @param orders - orders to fill with data
+     * @throws ServicePersistentException if filling error occurs
+     */
     private void buildList(List<Order> orders) throws PersistentException {
         OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, true);
         CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
