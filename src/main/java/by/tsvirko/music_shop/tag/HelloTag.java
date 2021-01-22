@@ -8,6 +8,9 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+/**
+ * Custom tag class to welcome user
+ */
 @SuppressWarnings("serial")
 public class HelloTag extends TagSupport {
     private String name;

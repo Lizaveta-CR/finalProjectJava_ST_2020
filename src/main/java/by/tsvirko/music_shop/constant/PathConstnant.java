@@ -1,5 +1,8 @@
 package by.tsvirko.music_shop.constant;
 
+/**
+ * Class for application paths
+ */
 public class PathConstnant {
     public static final String ADMIN_BUYERS = "/admin/buyers.html";
     public static final String PRODUCTS_LIST = "/products/list.html";

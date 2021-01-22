@@ -1,5 +1,8 @@
 package by.tsvirko.music_shop.constant;
 
+/**
+ * Enum for resource bundle attributes
+ */
 public enum ResourceBundleAttributes {
     RESOURCE("i18n.messages"),
     LANGUAGE("lang");

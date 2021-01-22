@@ -1,5 +1,8 @@
 package by.tsvirko.music_shop.constant;
 
+/**
+ * Enum for parameters
+ */
 public enum ParameterConstant {
     DATASOURCE_NAME("database"),
     PRODUCT_ID("productId"),
