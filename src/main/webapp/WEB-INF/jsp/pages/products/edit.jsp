@@ -14,7 +14,7 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<u:html title="Edit product">
+<u:html title="Edit product" jsFile="prevent-refresh.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/edit.html"/>
     </jsp:include>
@@ -84,18 +84,9 @@
                         </div>
                     </div>
                 </form>
-<%--                <form action="<c:url value="/welcome.html"/>" method="get">--%>
-<%--                    <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message--%>
-<%--                            key="label.button.back"/></button>--%>
-<%--                </form>--%>
             </div>
         </div>
     </div>
     <hr>
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

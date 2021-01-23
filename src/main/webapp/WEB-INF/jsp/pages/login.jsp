@@ -15,12 +15,7 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <c:set var="cssFiles" value="${['login.css','panel.css']}" scope="page"/>
-<u:html title="Login" cssFiles="${cssFiles}">
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
+<u:html title="Login" cssFiles="${cssFiles}" jsFile="prevent-refresh.js">
     <div class="sidenav">
         <div class="login-main-text">
             <h2><fmt:message key="label.login.title"/></h2>

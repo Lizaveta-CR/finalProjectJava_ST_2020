@@ -15,7 +15,7 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<u:html title="Create product" cssFile="product.css" fontFile="style.css">
+<u:html title="Create product" cssFile="product.css" fontFile="style.css" jsFile="prevent-refresh.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/create.html"/>
     </jsp:include>
@@ -117,11 +117,6 @@
                     <span>"<fmt:message key="label.confirm"/></span>
                 </button>
             </form>
-<%--            <form action="<c:url value="/welcome.html"/>" method="get">--%>
-<%--                <button type="submit" data-text=<fmt:message key="label.button.back"/>>--%>
-<%--                    <span><fmt:message key="label.button.back"/></span>--%>
-<%--                </button>--%>
-<%--            </form>--%>
         </div>
     </div>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>

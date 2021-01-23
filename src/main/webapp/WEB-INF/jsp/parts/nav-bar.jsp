@@ -39,10 +39,6 @@
                 <a href="<c:url value="/welcome.html"/>"><fmt:message
                         key="label.button.back"/></a>
             </c:if>
-                <%--            <form action="<c:url value="/welcome.html"/>" method="get">--%>
-                <%--                <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message--%>
-                <%--                        key="label.button.back"/></button>--%>
-                <%--            </form>--%>
         </li>
     </ul>
 </u:html>

@@ -62,7 +62,6 @@
 
                         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                                 key="label.confirm"/></button>
-                        <%--                        <label class="col-md-3 control-label"></label>--%>
                     </div>
                 </div>
             </form>

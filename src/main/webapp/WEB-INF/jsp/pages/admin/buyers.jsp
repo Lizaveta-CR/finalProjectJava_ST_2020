@@ -20,8 +20,6 @@
         <jsp:param name="page" value="/admin/buyers.html"/>
     </jsp:include>
     <div class="container">
-
-            <%--    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">--%>
         <div class="content">
             <div class="container">
                 <div class="row">

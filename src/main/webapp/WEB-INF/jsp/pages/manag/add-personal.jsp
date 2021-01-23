@@ -14,7 +14,7 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 
-<u:html title="Add shop personal" cssFile="register.css">
+<u:html title="Add shop personal" cssFile="register.css" jsFile="prevent-refresh.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/manag/add-personal.html"/>
     </jsp:include>
@@ -119,10 +119,5 @@
             <jsp:directive.include file="/js/validator-register.js"/>
         </script>
     </div>
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

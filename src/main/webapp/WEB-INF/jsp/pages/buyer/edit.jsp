@@ -14,7 +14,7 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<u:html title="Edit profile" cssFile="main.css">
+<u:html title="Edit profile" cssFile="main.css" jsFile="prevent-refresh.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/edit.html"/>
     </jsp:include>
