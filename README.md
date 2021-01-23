@@ -32,8 +32,14 @@
 ***
 Инструкция по установке приложения:
 
-Для создания тестовой базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
+Для создания базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
 - 1_drop_database.sql
 - 2_create_database.sql
 - 3_create_tables.sql
 - 4_fill_tables.sql
+
+Для создания *тестовой* базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql/test)
+- 1_drop_test_database.sql
+- 2_create_test_database.sql
+- 3_create_test_tables.sql
+- 4_fill_test_ables.sql
