@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ResourceBundle;
+
 /**
  * Command for editing buyer information
  */
@@ -32,8 +33,17 @@ public class BuyerEditCommand extends BuyerCommand {
         Forward forward = new Forward(PathConstnant.BUYER_FORM, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession(false);
-        User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
-        Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+
+        User authorizedUser = null;
+        Buyer authorizedBuyer = null;
+        if (session != null) {
+            authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
+            authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+        } else {
+            forward.setForward(PathConstnant.ERROR_PAGES_LOCATION);
+            forward.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
+            return forward;
+        }
         try {
             BuyerService buyerService = factory.getService(BuyerService.class);
             UserService userService = factory.getService(UserService.class);

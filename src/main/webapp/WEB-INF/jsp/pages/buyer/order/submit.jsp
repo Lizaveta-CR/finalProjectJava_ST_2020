@@ -131,4 +131,5 @@
                     key="label.button.back"/></button>
         </form>
     </div>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

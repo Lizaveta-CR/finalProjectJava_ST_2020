@@ -52,4 +52,5 @@
     </form>
 </div>
 </body>
+<c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </html>

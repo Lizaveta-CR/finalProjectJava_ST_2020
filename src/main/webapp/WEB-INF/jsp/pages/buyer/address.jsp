@@ -107,4 +107,5 @@
         </div>
     </div>
     <hr>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

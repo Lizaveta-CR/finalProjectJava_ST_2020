@@ -9,33 +9,40 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="f" uri="function" %>
 
 <fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="i18n.messages"/>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
-<html>
-<head>
-    <title>Action Selector</title>
-</head>
-<body>
-<ul class="nav nav-tabs">
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="label.chooseCookieLocale"/>
-            <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="<c:url value="/changeLocale.html?cookieLocale=en_US&page=${param.page}"/>"><fmt:message
-                        key="label.lang.en"/></a>
-            </li>
-            <li><a href="<c:url value="/changeLocale.html?cookieLocale=ru_RU&page=${param.page}"/>"><fmt:message
-                    key="label.lang.ru"/></a>
-            </li>
-        </ul>
-    </li>
-    <c:if test="${authorizedUser!=null}">
-        <li><a href="<c:url value="/logout.html"/>"><fmt:message
-                key="label.title.logout"/></a></li>
-    </c:if>
-</ul>
-</body>
-</html>
+<u:html title="Action Selector">
+    <ul class="nav nav-tabs">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="label.chooseCookieLocale"/>
+                <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="<c:url value="/changeLocale.html?cookieLocale=en_US&page=${param.page}"/>"><fmt:message
+                            key="label.lang.en"/></a>
+                </li>
+                <li><a href="<c:url value="/changeLocale.html?cookieLocale=ru_RU&page=${param.page}"/>"><fmt:message
+                        key="label.lang.ru"/></a>
+                </li>
+            </ul>
+        </li>
+        <c:if test="${authorizedUser!=null}">
+            <li><a href="<c:url value="/logout.html"/>"><fmt:message
+                    key="label.title.logout"/></a></li>
+        </c:if>
+        <li>
+            <c:if test="${not f:equals(param.page, '/welcome.html')}">
+                <a href="<c:url value="/welcome.html"/>"><fmt:message
+                        key="label.button.back"/></a>
+            </c:if>
+                <%--            <form action="<c:url value="/welcome.html"/>" method="get">--%>
+                <%--                <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message--%>
+                <%--                        key="label.button.back"/></button>--%>
+                <%--            </form>--%>
+        </li>
+    </ul>
+</u:html>

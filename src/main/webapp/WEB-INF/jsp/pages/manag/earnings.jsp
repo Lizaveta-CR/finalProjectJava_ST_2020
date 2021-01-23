@@ -30,11 +30,9 @@
             </tr>
         </c:forEach>
     </table>
-    <%--    <script>--%>
-    <%--        <jsp:directive.include file="/js/table-search.js"/>--%>
-    <%--    </script>--%>
     <form action="<c:url value="/welcome.html"/>" method="get">
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                 key="label.button.back"/></button>
     </form>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

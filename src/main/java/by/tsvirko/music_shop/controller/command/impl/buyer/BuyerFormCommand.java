@@ -37,7 +37,7 @@ public class BuyerFormCommand extends BuyerCommand {
         }
         try {
             OrderService service = factory.getService(OrderService.class);
-            Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
+            Buyer buyer = (Buyer) request.getSession().getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
             Map<Integer, List<Order>> map = service.find((page - 1) * recordsPerPage, recordsPerPage, buyer.getId());
             int noOfRecords = 1;
             for (Integer key : map.keySet()) {

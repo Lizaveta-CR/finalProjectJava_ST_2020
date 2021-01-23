@@ -133,4 +133,5 @@
             </div>
         </c:otherwise>
     </c:choose>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

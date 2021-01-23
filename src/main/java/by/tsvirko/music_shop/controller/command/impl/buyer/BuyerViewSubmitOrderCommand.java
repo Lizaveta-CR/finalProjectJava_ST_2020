@@ -27,22 +27,29 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
-        if (buyer.getAddress() == null) {
-            try {
-                AddressService addressService = factory.getService(AddressService.class);
-                Address address = addressService.findById(buyer.getId());
-                if (address != null) {
-                    buyer.setAddress(address);
+        if (buyer != null) {
+            if (buyer.getAddress() == null) {
+                try {
+                    AddressService addressService = factory.getService(AddressService.class);
+                    Address address = addressService.findById(buyer.getId());
+                    if (address != null) {
+                        buyer.setAddress(address);
+                    }
+                } catch (ServicePersistentException e) {
+                    Forward forward = new Forward(PathConstnant.BUYER_ADDRESS, true);
+                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
+                    logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
+                    return forward;
                 }
-            } catch (ServicePersistentException e) {
-                Forward forward = new Forward(PathConstnant.BUYER_ADDRESS, true);
-                forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
-                logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
-                return forward;
             }
+            Order order = (Order) request.getSession(false).getAttribute(AttributeConstant.ORDER.value());
+            order.setBuyer(buyer);
+        } else {
+            Forward forward = new Forward(PathConstnant.ERROR_PAGES_LOCATION);
+            forward.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
+            return forward;
         }
-        Order order = (Order) request.getSession(false).getAttribute(AttributeConstant.ORDER.value());
-        order.setBuyer(buyer);
+
         return null;
     }
 }

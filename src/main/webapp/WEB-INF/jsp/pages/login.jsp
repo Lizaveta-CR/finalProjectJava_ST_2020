@@ -78,4 +78,5 @@
             </div>
         </div>
     </div>
+    <c:import url="../parts/footer.jsp"/>
 </u:html>

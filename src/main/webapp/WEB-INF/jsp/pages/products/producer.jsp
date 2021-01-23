@@ -67,10 +67,5 @@
             </div>
         </section>
     </c:if>
-    <div class="col-md-4">
-        <form action="<c:url value="/welcome.html"/>" method="get">
-            <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                    key="label.button.back"/></button>
-        </form>
-    </div>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

@@ -81,4 +81,5 @@
         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                 key="label.button.back"/></button>
     </form>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Command for adding product to order
  */
@@ -33,29 +34,35 @@ public class BuyerAddProductCommand extends BuyerCommand {
                 ProductService productService = factory.getService(ProductService.class);
                 Product product = productService.findById(Integer.parseInt(parameter));
                 HttpSession session = request.getSession(false);
-                Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
-                Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
+                if (session != null) {
+                    Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
+                    Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
 
-                if (map == null) {
-                    map = new HashMap<>();
-                    session.setAttribute(AttributeConstant.ORDER_ITEM.value(), map);
-                }
-
-                if (order == null) {
-                    order = new Order();
-                    session.setAttribute(AttributeConstant.ORDER.value(), order);
-                }
-
-                byte amount = 1;
-                if (!parameterAmount.isEmpty()) {
-                    amount = Byte.parseByte(parameterAmount);
-                    if (amount != 0) {
-                        map.put(product, amount);
+                    if (map == null) {
+                        map = new HashMap<>();
+                        session.setAttribute(AttributeConstant.ORDER_ITEM.value(), map);
                     }
+
+                    if (order == null) {
+                        order = new Order();
+                        session.setAttribute(AttributeConstant.ORDER.value(), order);
+                    }
+
+                    byte amount = 1;
+                    if (!parameterAmount.isEmpty()) {
+                        amount = Byte.parseByte(parameterAmount);
+                        if (amount != 0) {
+                            map.put(product, amount);
+                        }
+                    }
+                    order.setPrice(TotalPriceUtil.countPrice(map));
+                    order.addProduct(product);
+                    logger.info("Product with id=" + product.getId() + " was added to order");
+                } else {
+                    forward.setForward(PathConstnant.LOGIN);
+                    forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), "app.mess.authorize");
+                    return forward;
                 }
-                order.setPrice(TotalPriceUtil.countPrice(map));
-                order.addProduct(product);
-                logger.info("Product with id=" + product.getId() + " was added to order");
             } catch (ServicePersistentException e) {
                 logger.error("Service exception occurred while adding product in " +
                         "BuyerAddProductCommand class. No product with id=" + parameter);

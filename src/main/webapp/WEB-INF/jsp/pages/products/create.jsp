@@ -117,11 +117,12 @@
                     <span>"<fmt:message key="label.confirm"/></span>
                 </button>
             </form>
-            <form action="<c:url value="/welcome.html"/>" method="get">
-                <button type="submit" data-text=<fmt:message key="label.button.back"/>>
-                    <span><fmt:message key="label.button.back"/></span>
-                </button>
-            </form>
+<%--            <form action="<c:url value="/welcome.html"/>" method="get">--%>
+<%--                <button type="submit" data-text=<fmt:message key="label.button.back"/>>--%>
+<%--                    <span><fmt:message key="label.button.back"/></span>--%>
+<%--                </button>--%>
+<%--            </form>--%>
         </div>
     </div>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

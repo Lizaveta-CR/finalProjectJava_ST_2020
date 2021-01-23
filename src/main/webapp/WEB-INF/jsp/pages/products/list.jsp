@@ -72,10 +72,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <tbody>
-                                            <tr
-                                                <%--                                                    class='clickable-row'--%>
-                                                <%--                                                data-href='<c:url value="/products/producer.html?producerId=${product.producer.id}"/>'--%>
-                                            >
+                                            <tr>
                                                 <td>
                                                     <a href="<c:url value="/products/producer.html?producerId=${product.producer.id}"/>">
                                                         <img src="${image}" class="img-thumbnail" height="200"
@@ -158,10 +155,5 @@
             </c:choose>
         </c:when>
     </c:choose>
-    <div class="col-md-4">
-        <form action="<c:url value="/welcome.html"/>" method="get">
-            <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                    key="label.button.back"/></button>
-        </form>
-    </div>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

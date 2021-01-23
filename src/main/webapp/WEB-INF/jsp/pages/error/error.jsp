@@ -77,4 +77,5 @@
     <script>
         <jsp:directive.include file="/js/error.js"/>
     </script>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

@@ -116,4 +116,5 @@
             window.history.replaceState(null, null, window.location.href);
         }
     </script>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>
