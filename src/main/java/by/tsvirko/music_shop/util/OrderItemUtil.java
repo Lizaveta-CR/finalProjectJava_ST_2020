@@ -15,7 +15,7 @@ public class OrderItemUtil {
      * Builds order items
      *
      * @param map, where Product is given product and Byte - amount
-     * @return List<OrderItem>
+     * @return list of order items
      */
     public static List<OrderItem> buildOrderItems(Map<Product, Byte> map) {
         List<OrderItem> orderItems = new ArrayList<>();
