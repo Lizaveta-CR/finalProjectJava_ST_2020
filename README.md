@@ -29,7 +29,11 @@
 * не более 6-8 таблиц. Реализовано: users(пользователи системы), buyers(покупатели), addresses(адреса покупателей. Создана отдельная таблица, чтобы правильно оформить адрес доставки с точной информацией), products(товары магазина), producers(производители товаров), orders(заказы), order_items(чек заказа), producer_items(producer-products embedded таблица), product_rates(оценки товаров), countries(таблица-справочник стран), categories(таблица-справочник категорий товаров)
 * работа с данными в приложении осуществляется посредством шаблона DAO 
 * реализовать защиту от sql injection
-<Инструкция по установке приложения:
+***
+Инструкция по установке приложения:
 
-Для создания тестовой базы данных необходимо запустить скрипт DataBase_creation_script.sql Для доступа к базе даннных: Имя пользователя: testproject Пароль: testproject
-Для наполнения базы тестовыми данными необходимо запустить скритп TestData_creation_script.sql>
+Для создания тестовой базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
+- 1_drop_database.sql
+- 2_create_database.sql
+- 3_create_tables.sql
+- 4_fill_tables.sql
