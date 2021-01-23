@@ -5,8 +5,6 @@ import by.tsvirko.music_shop.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Persists Service factory and executes requests with given command
