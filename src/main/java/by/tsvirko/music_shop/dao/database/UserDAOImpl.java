@@ -24,7 +24,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     private static final String SQL_INSERT_USER = "INSERT INTO users (login, name,surname,password, role) VALUES (?, ?,?,?,?)";
     private static final String SQL_UPDATE_USER = "UPDATE users SET login = ?, name =? ,surname=?, password = ?, role = ? WHERE id = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
-    private static final String SQL_READ_ALL_USERS = "SELECT * FROM users";
+    private static final String SQL_READ_ALL_USERS = "SELECT id,login,name,surname,password,role FROM users";
     private static final String SQL_SELECT_USERS = "SELECT login, name,surname,password, role FROM users WHERE id = ?";
     private static final String SQL_SELECT_USER_LOGIN_PASS = "SELECT id,name,surname, role FROM users WHERE login = ? AND password=?";
 

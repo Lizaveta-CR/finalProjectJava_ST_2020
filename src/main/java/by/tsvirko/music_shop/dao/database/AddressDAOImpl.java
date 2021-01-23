@@ -21,7 +21,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private static final Logger logger = LogManager.getLogger(AddressDAOImpl.class);
 
     private static final String SQL_INSERT_ADDRESS = "INSERT INTO addresses (buyer_id,country_id, city,zip_code,street, apartment_number,house_number) VALUES (?, ?,?,?,?,?,?)";
-    private static final String SQL_READ_ALL_ADDRESSES = "SELECT * FROM addresses";
+    private static final String SQL_READ_ALL_ADDRESSES = "SELECT buyer_id,country_id,city,zip_code,street,apartment_number,house_number FROM addresses";
     private static final String SQL_DELETE_ADDRESS = "DELETE FROM addresses WHERE buyer_id = ?";
     private static final String SQL_UPDATE_ADDRESS = "UPDATE addresses SET country_id = ?, city =? ,zip_code=?, street = ?, apartment_number = ?,house_number = ? WHERE buyer_id = ?";
     private static final String SQL_SELECT_ADDRESSES = "SELECT country_id, city,zip_code,street, apartment_number, house_number FROM addresses WHERE buyer_id = ?";
