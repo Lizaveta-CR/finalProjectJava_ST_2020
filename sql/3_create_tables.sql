@@ -85,7 +85,6 @@ CREATE table orders
 (
     id       INTEGER        NOT NULL AUTO_INCREMENT,
     buyer_id INTEGER        NOT NULL,
-#     Or orders_items?
     date     DATE,
     price    DECIMAL(10, 2) NOT NULL,
     CONSTRAINT PK_Order PRIMARY KEY (id),
