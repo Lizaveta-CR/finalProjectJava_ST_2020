@@ -12,9 +12,9 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 
-<u:html title="Music Land">
+<u:html title="Music Land" cssFile="main.css">
     <div class="text-center">
-        <img src='<c:url value="/img/main.jpg"></c:url>' alt="Shop" height="300" width="400"/>
+        <img src='<c:url value="/img/main.jpg"/>' alt="Shop" height="300" width="400"/>
         <jsp:include page="../parts/nav-bar.jsp">
             <jsp:param name="page" value="/welcome.html"/>
         </jsp:include>

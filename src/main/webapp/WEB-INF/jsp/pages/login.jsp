@@ -25,15 +25,19 @@
     <div class="main">
         <div class="row">
             <div class="col-md-4">
-                <c:url value="/registration.html" var="registrationUrl"/>
-                <form action="${registrationUrl}" method="get">
-                    <button type="submit" class="btn btn-secondary"><fmt:message key="label.register.title"/></button>
-                </form>
-                <c:url value="/welcome.html" var="welcomeUrl"/>
-                <form action="${welcomeUrl}" method="get">
-                    <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                            key="label.button.back"/></button>
-                </form>
+                <div class="btn-group btn-group-lg">
+                    <c:url value="/registration.html" var="registrationUrl"/>
+                    <form action="${registrationUrl}" method="get">
+                        <button type="submit" class="btn btn-secondary"><fmt:message
+                                key="label.register.title"/></button>
+                    </form>
+                    <br>
+                    <c:url value="/welcome.html" var="welcomeUrl"/>
+                    <form action="${welcomeUrl}" method="get">
+                        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                                key="label.button.back"/></button>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
