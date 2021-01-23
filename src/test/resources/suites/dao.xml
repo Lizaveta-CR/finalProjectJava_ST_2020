@@ -6,7 +6,6 @@
             <class name="music_shop.dao.pool.ConnectionPoolTest">
                 <methods>
                     <include name="initPoolDataException"/>
-<!--                    <include name="availableConnectionsAmount"/>-->
                     <include name="destroy"/>
                     <include name="availableConnectionsAmountGetConnectionPoolSize"/>
                     <include name="availableConnectionsAmountGetConnectionMaxPoolSizeException"/>

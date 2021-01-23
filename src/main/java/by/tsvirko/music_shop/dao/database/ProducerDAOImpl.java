@@ -152,7 +152,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
                 logger.error("Database access connection failed. Impossible to close statement");
             }
         }
-        logger.debug("Address with id= " + entity.getId() + " was updated");
+        logger.debug("Producer with id= " + entity.getId() + " was updated");
     }
 
     /**
