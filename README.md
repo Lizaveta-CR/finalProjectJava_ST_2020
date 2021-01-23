@@ -12,11 +12,11 @@
 * фильтры: [CashFilter(для отключения кеша)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CashFilter.java), [CommandFilter(проверка запроса/ответа)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CommandFilter.java),[CookieLocaleFilter(хранение информации о языке)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CookieLocaleFilter.java), [EncodingFilter (кодировка запроса/ответа)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/EncodingFilter.java), [SecurityFilter (для предотвращения несанкционированного доступа к пользователя к запрещенному ему ресурсу)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/SecurityFilter.java), [XSSPreventionFilter (защита от cross site scripting (xss))](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/XSSPreventionFilter.java) 
 * использование тегов библиотеки JSTL
 * защита от повторного выполнения запроса нажатием F5
-* собственные теги (реализованы как наследники класса TagSupport(вывод приветственного сообщения, функции), так и *.tag(меню, "контейнер" *.html, html head))
+* собственные теги (реализованы как [наследники класса TagSupport(вывод приветственного сообщения, функции)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/src/main/java/by/tsvirko/music_shop/tag), так и [*.tag(меню, "контейнер" *.html, html head))](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/src/main/webapp/WEB-INF/tags)
 * просмотр длинных списков (реализовано: просмотр заказов **Покупателя**, просмотр самих **Покупателей** )
 * валидация входных данных на клиенте и на сервере
 * документация
-* тесты. Использована технология TestNG. Протестированы все сервисы и ConnectionPool
+* тесты. Использована технология TestNG. Протестированы все сервисы и ConnectionPool. Была создана отдельная БД
 ### Выполнены такие минимальные требования к функционалу приложению, как:
 * авторизация (sign in) и выход (sign out) в/из системы.
 * регистрация пользователя и/или добавление артефакта предметной области системы.
@@ -25,7 +25,7 @@
 * добавление и модификация информации
 ### Выполнены такие минимальные к БД, как:
 * технология доступа к БД  - JDBC
-* реализован потокобезопасный пул с использованием потокобезопасных коллекций и библиотеки java.util.concurrent.*
+* реализован [потокобезопасный пул](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/src/main/java/by/tsvirko/music_shop/dao/pool) с использованием потокобезопасных коллекций и библиотеки java.util.concurrent.*
 * не более 6-8 таблиц. Реализовано: users(пользователи системы), buyers(покупатели), addresses(адреса покупателей. Создана отдельная таблица, чтобы правильно оформить адрес доставки с точной информацией), products(товары магазина), producers(производители товаров), orders(заказы), order_items(чек заказа), producer_items(producer-products embedded таблица), product_rates(оценки товаров), countries(таблица-справочник стран), categories(таблица-справочник категорий товаров)
 * работа с данными в приложении осуществляется посредством шаблона DAO 
 * реализовать защиту от sql injection
