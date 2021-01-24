@@ -51,8 +51,12 @@ public class BuyerAddProductCommand extends BuyerCommand {
                     byte amount = 1;
                     if (!parameterAmount.isEmpty()) {
                         amount = Byte.parseByte(parameterAmount);
-                        if (amount != 0) {
+                        if (amount != 0 && amount > 0) {
                             map.put(product, amount);
+                        } else {
+                            forward.setForward(PathConstnant.PRODUCTS_LIST);
+                            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), "app.mess.not-negative");
+                            return forward;
                         }
                     }
                     order.setPrice(TotalPriceUtil.countPrice(map));
