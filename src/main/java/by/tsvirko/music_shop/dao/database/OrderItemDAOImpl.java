@@ -60,8 +60,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             logger.debug("OrderItems were read");
             return orders;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -183,8 +182,7 @@ public class OrderItemDAOImpl extends BaseDAO implements OrderItemDAO {
             index = entity.getId();
             logger.debug("OrderItem with id= " + index + " ," + entity.getProduct().getId() + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (statement != null) {

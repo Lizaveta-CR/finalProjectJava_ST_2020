@@ -3,7 +3,7 @@ let firstNameChecked = false;
 let lastNameChecked = false;
 let loginChecked = false;
 let phoneChecked = false;
-
+//TODO:
 let phoneRegex = /\((17|29|33|44)\)[0-9]{8}/;
 let logRegEx = /\W/;
 let passwordRegEx = /\d\W/;

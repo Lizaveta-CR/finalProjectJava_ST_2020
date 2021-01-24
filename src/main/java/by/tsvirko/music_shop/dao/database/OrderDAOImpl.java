@@ -53,8 +53,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             logger.debug("Orders were read");
             return orders;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -114,8 +113,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             logger.debug("Orders were read");
             return map;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -162,13 +160,11 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
             } else {
-                logger.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new PersistentException();
+                throw new PersistentException("There is no autoincremented index after trying to add record into table `users`");
             }
             logger.debug("Order with id= " + index + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {

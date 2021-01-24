@@ -60,8 +60,7 @@ public class TransactionImpl implements Transaction {
                 logger.error("Commit can not be setted");
             }
         }
-        logger.error("Dao can not be created");
-        throw new PersistentException("No dao instance");
+        throw new PersistentException("Dao can not be created");
     }
 
     /**
@@ -75,8 +74,7 @@ public class TransactionImpl implements Transaction {
         try {
             connection.commit();
         } catch (SQLException e) {
-            logger.error("It is impossible to commit transaction", e);
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to commit transaction", e);
         }
     }
 
@@ -91,8 +89,7 @@ public class TransactionImpl implements Transaction {
         try {
             connection.rollback();
         } catch (SQLException e) {
-            logger.error("It is impossible to rollback transaction", e);
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to rollback transaction", e);
         }
     }
 }

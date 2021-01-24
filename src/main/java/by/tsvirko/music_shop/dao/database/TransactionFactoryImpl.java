@@ -29,8 +29,7 @@ public class TransactionFactoryImpl implements TransactionFactory {
             connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
         } catch (SQLException | ConnectionPoolException e) {
-            logger.error("It is impossible to turn off autocommiting for database connection", e);
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to turn off autocommiting for database connection",e);
         }
     }
 

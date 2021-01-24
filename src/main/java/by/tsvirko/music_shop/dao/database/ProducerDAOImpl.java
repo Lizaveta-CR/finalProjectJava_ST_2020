@@ -57,8 +57,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             }
             logger.debug("Producer with id= " + index + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -106,8 +105,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             logger.debug("Producer with id=" + identity + " was read");
             return Optional.ofNullable(producer);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -214,8 +212,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             logger.debug("Producers were read");
             return producers;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {

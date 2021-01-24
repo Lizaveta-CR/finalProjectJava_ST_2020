@@ -57,8 +57,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             logger.debug("Addresses were read");
             return addresses;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -102,8 +101,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             index = entity.getId();
             logger.debug("Address with id= " + index + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (statement != null) {
@@ -151,8 +149,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             logger.debug("Address with id=" + identity + " was read");
             return Optional.ofNullable(address);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {

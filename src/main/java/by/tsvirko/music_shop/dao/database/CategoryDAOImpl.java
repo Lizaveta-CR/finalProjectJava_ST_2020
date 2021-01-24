@@ -66,8 +66,7 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
             logger.debug("Categories were read");
             return Optional.ofNullable((Category) categoryMap.get(0).getChild(0));
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -117,8 +116,7 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
             logger.debug("Category name with id= " + identity + "was read");
             return Optional.ofNullable(category);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {

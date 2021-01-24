@@ -45,13 +45,11 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
             } else {
-                logger.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new PersistentException();
+                throw new PersistentException("There is no autoincremented index after trying to add record into table `product_rates`");
             }
             logger.debug("ProductRate with id= " + index + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -102,8 +100,7 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
             logger.debug("ProductRate with id=" + identity + " was read");
             return Optional.ofNullable(rate);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -197,8 +194,7 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
             logger.debug("Average prices were counted for products");
             return map;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {

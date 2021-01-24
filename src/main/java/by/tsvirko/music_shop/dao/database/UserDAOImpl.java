@@ -56,8 +56,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("Users were read");
             return users;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -106,8 +105,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("User with login=" + login + " was read");
             return Optional.ofNullable(user);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -152,8 +150,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
             } else {
-                logger.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new PersistentException();
+                throw new PersistentException("There is no autoincremented index after trying to add record into table `users`");
             }
             logger.debug("User with id= " + index + " was created");
         } catch (SQLException e) {
@@ -208,8 +205,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("User with id=" + identity + " was read");
             return Optional.ofNullable(user);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database",e);
         } finally {
             try {
                 if (resultSet != null) {

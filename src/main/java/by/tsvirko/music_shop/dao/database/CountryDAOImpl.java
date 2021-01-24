@@ -150,8 +150,7 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
             logger.debug("Countries' names were read");
             return countries;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible to connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {

@@ -54,8 +54,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             logger.debug("Buyers were read");
             return buyers;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSetBuyer != null) {
@@ -119,8 +118,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             logger.debug("Orders were read");
             return map;
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -164,8 +162,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
 
             logger.debug("Buyer with id= " + index + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -213,8 +210,7 @@ public class BuyerDAOImpl extends BaseDAO implements BuyerDAO {
             logger.debug("Buyer with id=" + identity + " was read");
             return Optional.ofNullable(buyer);
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
