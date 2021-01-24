@@ -6,11 +6,15 @@ import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.TotalPriceUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 public class OrderServiceImpl extends ServiceImpl implements OrderService {
+    private static final Logger logger = LogManager.getLogger(OrderServiceImpl.class);
+
     /**
      * Finds all orders
      *
@@ -65,8 +69,8 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -109,8 +113,8 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
     /**

@@ -3,12 +3,15 @@ package by.tsvirko.music_shop.service.impl;
 import by.tsvirko.music_shop.dao.AddressDAO;
 import by.tsvirko.music_shop.dao.BuyerDAO;
 import by.tsvirko.music_shop.dao.CountryDAO;
+import by.tsvirko.music_shop.dao.database.TransactionImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +21,8 @@ import java.util.Optional;
  * Address service
  */
 public class AddressServiceImpl extends ServiceImpl implements AddressService {
+    private static final Logger logger = LogManager.getLogger(AddressServiceImpl.class);
+
     /**
      * Finds all addresses
      *
@@ -57,8 +62,8 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -86,8 +91,8 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -113,8 +118,8 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 

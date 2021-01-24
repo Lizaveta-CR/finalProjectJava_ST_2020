@@ -5,6 +5,8 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
  * Buyer service
  */
 public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
+    private static final Logger logger = LogManager.getLogger(BuyerServiceImpl.class);
+
     /**
      * Finds all buyers
      *
@@ -91,8 +95,8 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -112,8 +116,8 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -133,8 +137,8 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 

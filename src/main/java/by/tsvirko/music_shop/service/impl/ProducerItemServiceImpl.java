@@ -8,6 +8,8 @@ import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.ProducerItem;
 import by.tsvirko.music_shop.service.ProducerItemService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
  * Producer item service
  */
 public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItemService {
+    private static final Logger logger = LogManager.getLogger(ProducerItemServiceImpl.class);
 
     /**
      * Saves producer item
@@ -32,8 +35,8 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 

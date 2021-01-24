@@ -5,6 +5,8 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,6 +16,8 @@ import java.util.stream.Stream;
  * Product service
  */
 public class ProductServiceImpl extends ServiceImpl implements ProductService {
+    private static final Logger logger = LogManager.getLogger(ProductServiceImpl.class);
+
     /**
      * Finds all products
      *
@@ -62,8 +66,8 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
     /**
@@ -88,8 +92,8 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
     /**

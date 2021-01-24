@@ -8,13 +8,25 @@ import by.tsvirko.music_shop.service.*;
 import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.PasswordUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * User service implementation
+ */
 public class UserServiceImpl extends ServiceImpl implements UserService {
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
+    /**
+     * Finds all users
+     *
+     * @return list of users
+     * @throws ServicePersistentException if users are empty
+     */
     @Override
     public List<User> findAll() throws ServicePersistentException {
         try {
@@ -23,13 +35,18 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             if (!list.isEmpty()) {
                 return list;
             } else {
-                throw new ServicePersistentException("List is empty");
+                throw new ServicePersistentException("List of users is empty");
             }
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
     }
 
+    /**
+     * Deletes user by identity
+     * @param identity - user identity
+     * @throws ServicePersistentException if user access failed
+     */
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
@@ -40,11 +57,16 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
+    /**
+     * Saves user
+     * @param user - entity to save
+     * @throws ServicePersistentException if user can not be saved
+     */
     @Override
     public void save(User user) throws ServicePersistentException {
         try {
@@ -69,11 +91,16 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
+    /**
+     * Updates user password
+     * @param user - entity to update
+     * @throws ServicePersistentException if user can not be updated
+     */
     @Override
     public void updatePassword(User user) throws ServicePersistentException {
         try {
@@ -89,11 +116,18 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
+    /**
+     * Finds user by login and password
+     * @param login - user login
+     * @param password - user password
+     * @return found user with specified login and password
+     * @throws ServicePersistentException if user wasn't found
+     */
     @Override
     public User findByLoginAndPassword(String login, String password) throws ServicePersistentException {
         try {
@@ -110,6 +144,12 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Finds user by identity
+     * @param identity - user identity
+     * @return user corresponding to identity
+     * @throws ServicePersistentException
+     */
     @Override
     public User findById(Integer identity) throws ServicePersistentException {
         try {
@@ -124,6 +164,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Finds all users except those whose role is Buyer
+     * @return list of users, whose role is not Buyer
+     * @throws ServicePersistentException if users can not be obtained
+     */
     @Override
     public List<User> findEmployees() throws ServicePersistentException {
         return findAll().stream()

@@ -6,6 +6,8 @@ import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.domain.ProductRate;
 import by.tsvirko.music_shop.service.ProductRateService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
@@ -13,6 +15,8 @@ import java.util.Map;
  * Product rate service
  */
 public class ProductRateServiceImpl extends ServiceImpl implements ProductRateService {
+    private static final Logger logger = LogManager.getLogger(ProductRateServiceImpl.class);
+
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
@@ -23,8 +27,8 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -42,8 +46,8 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 

@@ -8,6 +8,8 @@ import by.tsvirko.music_shop.domain.OrderItem;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,8 @@ import java.util.Optional;
  * Order item service
  */
 public class OrderItemServiceImpl extends ServiceImpl implements OrderItemService {
+    private static final Logger logger = LogManager.getLogger(OrderItemServiceImpl.class);
+
     /**
      * Saves order item
      *
@@ -32,8 +36,8 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -55,8 +59,8 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 
@@ -77,8 +81,8 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             try {
                 transaction.rollback();
             } catch (PersistentException ex) {
+                logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
-            throw new ServicePersistentException(e);
         }
     }
 

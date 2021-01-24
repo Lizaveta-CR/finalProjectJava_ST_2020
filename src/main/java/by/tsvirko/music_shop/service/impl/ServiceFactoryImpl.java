@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * Service factory
  */
 public class ServiceFactoryImpl implements ServiceFactory {
-    private static final Logger logger = LogManager.getLogger(ServiceFactoryImpl.class);
     private static final Map<Class<? extends Service>, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
 
     /**
@@ -55,7 +54,6 @@ public class ServiceFactoryImpl implements ServiceFactory {
             value.setTransaction(transaction);
             return (Type) value;
         }
-        logger.error("Can not return service instance");
         throw new ServicePersistentException("Service can not be returned");
     }
 
