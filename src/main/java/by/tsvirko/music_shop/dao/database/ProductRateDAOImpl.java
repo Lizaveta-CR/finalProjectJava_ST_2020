@@ -31,16 +31,13 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
     @Override
     public Integer create(ProductRate entity) throws PersistentException {
         Integer index = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_INSERT_PRODUCT_RATE, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_PRODUCT_RATE, Statement.RETURN_GENERATED_KEYS)) {
             statement.setByte(1, entity.getMark());
             statement.setInt(2, entity.getProduct().getId());
             statement.setInt(3, entity.getBuyer().getId());
             statement.executeUpdate();
 
-            resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
@@ -49,22 +46,7 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
             }
             logger.debug("ProductRate with id= " + index + " was created");
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
         return index;
     }
@@ -100,7 +82,7 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
             logger.debug("ProductRate with id=" + identity + " was read");
             return Optional.ofNullable(rate);
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -194,7 +176,7 @@ public class ProductRateDAOImpl extends BaseDAO implements ProductRateDAO {
             logger.debug("Average prices were counted for products");
             return map;
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
+            throw new PersistentException("It is impossible co connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {

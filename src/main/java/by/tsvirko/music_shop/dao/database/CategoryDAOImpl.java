@@ -29,11 +29,8 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
      */
     @Override
     public Optional<Category> read() throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_ALL_CATEGORIES);
-            resultSet = statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_ALL_CATEGORIES)) {
+            ResultSet resultSet = statement.executeQuery();
 
             Map<Integer, Category> categoryMap = new HashMap<>();
 
@@ -67,21 +64,6 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
             return Optional.ofNullable((Category) categoryMap.get(0).getChild(0));
         } catch (SQLException e) {
             throw new PersistentException("It is impossible to connect to database", e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -100,12 +82,10 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
      */
     @Override
     public Optional<Category> read(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_CATEGORY_NAME);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_CATEGORY_NAME)) {
+
             statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
             Category category = null;
             if (resultSet.next()) {
@@ -117,21 +97,6 @@ public class CategoryDAOImpl extends BaseDAO implements CategoryDAO {
             return Optional.ofNullable(category);
         } catch (SQLException e) {
             throw new PersistentException("It is impossible to connect to database", e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 

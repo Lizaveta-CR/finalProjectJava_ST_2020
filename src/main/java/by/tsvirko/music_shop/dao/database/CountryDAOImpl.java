@@ -40,12 +40,9 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
      */
     @Override
     public Optional<Country> read(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_COUNTRY_NAME_BY_ID);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_COUNTRY_NAME_BY_ID)) {
             statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
             Country country = null;
             if (resultSet.next()) {
@@ -57,21 +54,6 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
             return Optional.ofNullable(country);
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -95,12 +77,9 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
      */
     @Override
     public Optional<Country> readCountryByName(String name) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_COUNTRY_ID_BY_NAME);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_COUNTRY_ID_BY_NAME)) {
             statement.setString(1, name);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
             Country country = null;
             if (resultSet.next()) {
@@ -112,21 +91,6 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
             return Optional.ofNullable(country);
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -138,11 +102,8 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
      */
     @Override
     public List<String> readNames() throws PersistentException {
-        PreparedStatement statementReadBuyer = null;
-        ResultSet resultSet = null;
-        try {
-            statementReadBuyer = connection.prepareStatement(SQL_READ_COUNTRIES_NAMES);
-            resultSet = statementReadBuyer.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_COUNTRIES_NAMES)) {
+            ResultSet resultSet = statement.executeQuery();
             List<String> countries = new ArrayList<>();
             while (resultSet.next()) {
                 countries.add(resultSet.getString(Field.NAME.value()));
@@ -151,21 +112,6 @@ public class CountryDAOImpl extends BaseDAO implements CountryDAO {
             return countries;
         } catch (SQLException e) {
             throw new PersistentException("It is impossible to connect to database", e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statementReadBuyer != null) {
-                    statementReadBuyer.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 }

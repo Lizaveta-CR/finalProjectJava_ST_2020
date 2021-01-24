@@ -31,11 +31,9 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
      */
     @Override
     public List<Order> read() throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_ALL_ORDERS);
-            resultSet = statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_ALL_ORDERS)
+        ) {
+            ResultSet resultSet = statement.executeQuery();
             List<Order> orders = new ArrayList<>();
             Order order = null;
             while (resultSet.next()) {
@@ -54,21 +52,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             return orders;
         } catch (SQLException e) {
             throw new PersistentException("It is impossible to connect to database", e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -142,10 +125,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     @Override
     public Integer create(Order entity) throws PersistentException {
         Integer index = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, entity.getBuyer().getId());
             if (entity.getDate() != null) {
                 statement.setDate(2, new Date(entity.getDate().getTime()));
@@ -155,7 +135,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             statement.setBigDecimal(3, entity.getPrice());
             statement.executeUpdate();
 
-            resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
@@ -164,29 +144,14 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             }
             logger.debug("Order with id= " + index + " was created");
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
         return index;
     }
 
     @Override
     public Optional<Order> read(Integer identity) throws PersistentException {
-        return null;
+        throw new PersistentException("Unable to perform read(Integer identity) operation in" + getClass().getName());
     }
 
     /**
@@ -197,9 +162,8 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
      */
     @Override
     public void update(Order entity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_UPDATE_ORDER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ORDER);
+        ) {
             statement.setInt(1, entity.getBuyer().getId());
             statement.setDate(2, new Date(entity.getDate().getTime()));
             statement.setBigDecimal(3, entity.getPrice());
@@ -207,14 +171,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
         logger.debug("Order with id= " + entity.getId() + " was updated");
     }
@@ -227,9 +183,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
      */
     @Override
     public void delete(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_DELETE_ORDER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ORDER)) {
             statement.setInt(1, identity);
             int num = statement.executeUpdate();
 
@@ -239,14 +193,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
             logger.debug("Order with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 }

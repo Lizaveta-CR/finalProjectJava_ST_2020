@@ -39,15 +39,12 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
     @Override
     public Integer create(Producer entity) throws PersistentException {
         Integer index = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_INSERT_PRODUCER, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_PRODUCER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, entity.getName());
             statement.setInt(2, entity.getCountry().getId());
             statement.executeUpdate();
 
-            resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
@@ -57,22 +54,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             }
             logger.debug("Producer with id= " + index + " was created");
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
         return index;
     }
@@ -87,12 +69,10 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
      */
     @Override
     public Optional<Producer> read(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_SELECT_PRODUCER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRODUCER)
+        ) {
             statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             Producer producer = null;
             if (resultSet.next()) {
                 producer = new Producer();
@@ -105,22 +85,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             logger.debug("Producer with id=" + identity + " was read");
             return Optional.ofNullable(producer);
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
     }
 
@@ -132,23 +97,13 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
      */
     @Override
     public void update(Producer entity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_UPDATE_PRODUCER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PRODUCER)) {
             statement.setString(1, entity.getName());
             statement.setInt(2, entity.getCountry().getId());
             statement.setInt(3, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
         logger.debug("Producer with id= " + entity.getId() + " was updated");
     }
@@ -161,9 +116,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
      */
     @Override
     public void delete(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_DELETE_PRODUCER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_PRODUCER)) {
             statement.setInt(1, identity);
             int num = statement.executeUpdate();
 
@@ -173,14 +126,6 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             logger.debug("Producer with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -192,11 +137,8 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
      */
     @Override
     public List<Producer> read() throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_PRODUCERS);
-            resultSet = statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_PRODUCERS)) {
+            ResultSet resultSet = statement.executeQuery();
             List<Producer> producers = new ArrayList<>();
             Producer producer = null;
 
@@ -212,22 +154,7 @@ public class ProducerDAOImpl extends BaseDAO implements ProducerDAO {
             logger.debug("Producers were read");
             return producers;
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
     }
 }

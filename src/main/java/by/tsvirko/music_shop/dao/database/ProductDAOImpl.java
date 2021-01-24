@@ -37,10 +37,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     @Override
     public Integer create(Product entity) throws PersistentException {
         Integer index = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_INSERT_PRODUCT, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, entity.getCategory().getId());
             statement.setString(2, entity.getModel());
             statement.setBoolean(3, entity.getAvailable());
@@ -48,7 +45,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             statement.setString(5, entity.getImageUrl());
             statement.setBigDecimal(6, entity.getPrice());
             statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
@@ -57,25 +54,9 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             }
             logger.debug("Product with id= " + index + " was created");
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
         return index;
-
     }
 
     /**
@@ -88,12 +69,9 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      */
     @Override
     public Optional<Product> read(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_SELECT_PRODUCTS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PRODUCTS)) {
             statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             Product product = null;
             if (resultSet.next()) {
                 product = new Product();
@@ -112,22 +90,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             logger.debug("Product with id=" + identity + " was read");
             return Optional.ofNullable(product);
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
     }
 
@@ -139,9 +102,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      */
     @Override
     public void update(Product entity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_UPDATE_PRODUCT);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PRODUCT)) {
             statement.setInt(1, entity.getCategory().getId());
             statement.setString(2, entity.getModel());
             statement.setBoolean(3, entity.getAvailable());
@@ -152,14 +113,6 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
         logger.debug("Product with id= " + entity.getId() + " was updated");
     }
@@ -172,9 +125,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      */
     @Override
     public void delete(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_DELETE_PRODUCT);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_PRODUCT)) {
             statement.setInt(1, identity);
             int num = statement.executeUpdate();
 
@@ -184,14 +135,6 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             logger.debug("Product with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -203,11 +146,8 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
      */
     @Override
     public List<Product> read() throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_ALL_PRODUCTS);
-            resultSet = statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_ALL_PRODUCTS)) {
+            ResultSet resultSet = statement.executeQuery();
             List<Product> products = new ArrayList<>();
             Product product = null;
             while (resultSet.next()) {
@@ -226,22 +166,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
             logger.debug("Products were read");
             return products;
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible co connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
     }
 }

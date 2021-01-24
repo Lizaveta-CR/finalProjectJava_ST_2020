@@ -36,11 +36,8 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      */
     @Override
     public List<User> read() throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_ALL_USERS);
-            resultSet = statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_ALL_USERS)) {
+            ResultSet resultSet = statement.executeQuery();
             List<User> users = new ArrayList<>();
             User user = null;
             while (resultSet.next()) {
@@ -56,22 +53,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("Users were read");
             return users;
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible to connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible to connect to database", e);
         }
     }
 
@@ -85,13 +67,10 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      */
     @Override
     public Optional<User> read(String login, String password) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_SELECT_USER_LOGIN_PASS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_LOGIN_PASS)) {
             statement.setString(1, login);
             statement.setString(2, password);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             User user = null;
             if (resultSet.next()) {
                 user = new User();
@@ -105,22 +84,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("User with login=" + login + " was read");
             return Optional.ofNullable(user);
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible to connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible to connect to database", e);
         }
     }
 
@@ -134,10 +98,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     @Override
     public Integer create(User entity) throws PersistentException {
         Integer index = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_INSERT_USER, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getName());
             statement.setString(3, entity.getSurname());
@@ -145,7 +106,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             statement.setInt(5, entity.getRole().getIdentity());
             statement.executeUpdate();
 
-            resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next()) {
                 index = resultSet.getInt(1);
@@ -154,23 +115,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             }
             logger.debug("User with id= " + index + " was created");
         } catch (SQLException e) {
-            logger.error("It is impossible co connect to database");
-            throw new PersistentException(e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible co connect to database", e);
         }
         return index;
 
@@ -186,12 +131,9 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      */
     @Override
     public Optional<User> read(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_SELECT_USERS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USERS)) {
             statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             User user = null;
             if (resultSet.next()) {
                 user = new User();
@@ -205,22 +147,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("User with id=" + identity + " was read");
             return Optional.ofNullable(user);
         } catch (SQLException e) {
-            throw new PersistentException("It is impossible to connect to database",e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
+            throw new PersistentException("It is impossible to connect to database", e);
         }
     }
 
@@ -232,9 +159,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      */
     @Override
     public void update(User entity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_UPDATE_USER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getName());
             statement.setString(3, entity.getSurname());
@@ -245,14 +170,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("User with id= " + entity.getId() + " was updated");
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -264,9 +181,7 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
      */
     @Override
     public void delete(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_DELETE_USER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
             statement.setInt(1, identity);
             int num = statement.executeUpdate();
             if (num == 0) {
@@ -275,14 +190,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             logger.debug("User with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 }

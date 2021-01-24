@@ -34,11 +34,8 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public List<Address> read() throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_READ_ALL_ADDRESSES);
-            resultSet = statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(SQL_READ_ALL_ADDRESSES)) {
+            ResultSet resultSet = statement.executeQuery();
             List<Address> addresses = new ArrayList<>();
             Address address = null;
             while (resultSet.next()) {
@@ -58,21 +55,6 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             return addresses;
         } catch (SQLException e) {
             throw new PersistentException("It is impossible co connect to database", e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -85,10 +67,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public Integer create(Address entity) throws PersistentException {
-        Integer index = null;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_INSERT_ADDRESS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
             statement.setInt(1, entity.getId());
             statement.setInt(2, entity.getCountry().getId());
             statement.setString(3, entity.getCity());
@@ -98,22 +77,10 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             statement.setInt(7, entity.getHouseNumber());
             statement.executeUpdate();
 
-            index = entity.getId();
-            logger.debug("Address with id= " + index + " was created");
+            logger.debug("Address with id= " + entity.getId() + " was created");
+            return entity.getId();
         } catch (SQLException e) {
             throw new PersistentException("It is impossible co connect to database", e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
-            if (index == null) {
-                throw new PersistentException();
-            }
-            return index;
         }
     }
 
@@ -127,12 +94,9 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public Optional<Address> read(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SQL_SELECT_ADDRESSES);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
             statement.setInt(1, identity);
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             Address address = null;
             if (resultSet.next()) {
                 address = new Address();
@@ -150,21 +114,6 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             return Optional.ofNullable(address);
         } catch (SQLException e) {
             throw new PersistentException("It is impossible co connect to database", e);
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close result set");
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 
@@ -176,9 +125,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public void update(Address entity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_UPDATE_ADDRESS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
             statement.setInt(1, entity.getCountry().getId());
             statement.setString(2, entity.getCity());
             statement.setInt(3, entity.getZipCode());
@@ -189,14 +136,6 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
         logger.debug("Address with id= " + entity.getId() + " was updated");
     }
@@ -209,9 +148,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public void delete(Integer identity) throws PersistentException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(SQL_DELETE_ADDRESS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
             statement.setInt(1, identity);
             int num = statement.executeUpdate();
 
@@ -221,14 +158,6 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
             logger.debug("Address with id= " + identity + " was deleted");
         } catch (SQLException e) {
             throw new PersistentException(e);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Database access connection failed. Impossible to close statement");
-            }
         }
     }
 }
