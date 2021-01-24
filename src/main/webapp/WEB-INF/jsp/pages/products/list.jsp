@@ -24,9 +24,10 @@
         <jsp:param name="page" value="/products/list.html"/>
     </jsp:include>
     <c:if test="${not empty redirectedData}">
-        <c:forEach items="${redirectedData}" var="item" varStatus="status">
-            <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
-        </c:forEach>
+        <script type="text/javascript">
+            var message = '<c:out value="${redirectedData}"/>';
+            alert(message);
+        </script>
     </c:if>
     <c:forEach items="${category.components}" var="parentItem">
         <div class="container">

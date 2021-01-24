@@ -94,7 +94,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public Optional<Address> read(Integer identity) throws PersistentException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ADDRESSES)) {
             statement.setInt(1, identity);
             ResultSet resultSet = statement.executeQuery();
             Address address = null;
@@ -125,7 +125,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public void update(Address entity) throws PersistentException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ADDRESS)) {
             statement.setInt(1, entity.getCountry().getId());
             statement.setString(2, entity.getCity());
             statement.setInt(3, entity.getZipCode());
@@ -148,7 +148,7 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
      */
     @Override
     public void delete(Integer identity) throws PersistentException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ADDRESS)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ADDRESS)) {
             statement.setInt(1, identity);
             int num = statement.executeUpdate();
 

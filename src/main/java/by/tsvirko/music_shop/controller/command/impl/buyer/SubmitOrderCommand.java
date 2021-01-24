@@ -79,6 +79,7 @@ public class SubmitOrderCommand extends BuyerCommand {
             }
             session.removeAttribute(AttributeConstant.ORDER.value());
         }
+        forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.success"));
         return forward;
     }
 }
