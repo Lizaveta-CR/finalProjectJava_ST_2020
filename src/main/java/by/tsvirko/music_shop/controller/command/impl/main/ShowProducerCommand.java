@@ -31,7 +31,7 @@ public class ShowProducerCommand extends Command {
                 Producer producer = producerService.findById(Integer.parseInt(parameter));
                 request.setAttribute(AttributeConstant.PRODUCER.value(), producer);
             } catch (ServicePersistentException e) {
-                logger.warn("Producer with id=" + parameter + " can not be found:" + e.getMessage());
+                logger.info("Producer with id=" + parameter + " can not be found:" + e.getMessage());
                 Forward forward = new Forward(PathConstnant.PRODUCT_PRODUCER, true);
                 forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noProducer"));
                 return forward;

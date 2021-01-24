@@ -52,7 +52,7 @@ public class RegisterCommand extends Command {
         } catch (ValidatorException e) {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
-            logger.warn("Incorrect data was found when saving user", e);
+            logger.info("Incorrect data was found when saving user");
             forward.setForward(PathConstnant.REGISTRATION);
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
             return forward;
