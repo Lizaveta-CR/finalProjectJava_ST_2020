@@ -10,7 +10,6 @@ public interface AddressService extends Service {
 
     void delete(Integer identity) throws ServicePersistentException;
 
-    //TODO: в 1 метод
     void save(Address address) throws ServicePersistentException;
 
     void update(Address address) throws ServicePersistentException;

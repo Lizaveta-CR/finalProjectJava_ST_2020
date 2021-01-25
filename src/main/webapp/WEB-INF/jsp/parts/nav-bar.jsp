@@ -30,15 +30,29 @@
                 </li>
             </ul>
         </li>
-        <c:if test="${authorizedUser!=null}">
-            <li><a href="<c:url value="/logout.html"/>"><fmt:message
-                    key="label.title.logout"/></a></li>
-        </c:if>
+        <c:choose>
+            <c:when test="${authorizedUser!=null}">
+                <li><a href="<c:url value="/logout.html"/>"><fmt:message
+                        key="label.title.logout"/></a></li>
+            </c:when>
+            <c:otherwise> <c:url value="/login.html" var="loginUrl"/>
+                <li>
+                    <a href="${loginUrl}"><fmt:message
+                            key="label.title.login"/></a></li>
+            </c:otherwise>
+
+        </c:choose>
         <li>
             <c:if test="${not f:equals(param.page, '/welcome.html')}">
                 <a href="<c:url value="/welcome.html"/>"><fmt:message
                         key="label.button.back"/></a>
             </c:if>
         </li>
+        <c:url value="/products/list.html" var="listUrl"/>
+        <c:if test="${not f:equals(param.page, '/products/list.html')}">
+            <li><a href="${listUrl}" role="button"><fmt:message
+                    key="label.title.showProducts"/></a></li>
+        </c:if>
+
     </ul>
 </u:html>

@@ -32,3 +32,21 @@
 .notValid {
     background-color: #eca9bb;
 }
+
+.bg {
+    background-image: url(../img/header2.jpg);
+
+    height: 85%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+pre {
+    border: 0;
+    background-color: transparent;
+    /*line-height: normal;*/
+    font-family: "Courier New", "Courier", monospace;
+    /*white-space:normal;*/
+}

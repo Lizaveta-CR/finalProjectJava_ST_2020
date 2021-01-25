@@ -16,6 +16,8 @@
 <u:html title="Footer" cssFile="main.css">
     <div class="clear"></div>
     <div id="footer">
-        <p>&copy; 2021 Tsvirko Lizaveta</p>
+        <p align="right">&copy; 2021 Tsvirko Lizaveta. <fmt:message
+                key="label.welcome.message"/><a href="mailto:elizaveta.tsvirko@gmail.com"><img
+                src="<c:url value="/img/mail.jpg"/>" height="20" width="20"/></a></p>
     </div>
 </u:html>

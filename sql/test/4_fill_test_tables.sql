@@ -29,7 +29,6 @@ INSERT
 INTO addresses(buyer_id, country_id, city, zip_code, street, apartment_number, house_number)
 VALUES (2, 1, 'Minsk', 220007, 'Pobeda', 12, 12),
        (3, 1, 'Minsk', 220005, 'Pobeda', 11, 29);
-# TODO:change
 INSERT INTO categories(id, name, parent_id)
 VALUES (1, 'Instruments', NULL),
        (2, 'Guitars', 1),
@@ -87,4 +86,3 @@ VALUES (1, 10, 1, 2),
        (3, 7, 1, 3),
        (4, 7, 1, 4);
 
-Delete from producers where id=73 ;

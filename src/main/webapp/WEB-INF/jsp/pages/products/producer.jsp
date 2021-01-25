@@ -20,7 +20,7 @@
         <section id="t-cards">
             <div class="container">
                 <c:forEach var="product" items="${producer.products}">
-                    <div class="row">
+<%--                    <div class="row">--%>
                         <div class="col-sm-6 col-md-3">
                             <div class="panel panel-default panel-card">
                                 <div class="panel-heading">
@@ -61,11 +61,13 @@
                                     <small><fmt:formatNumber value="${product.price}" type="currency"/></small>
                                 </div>
                             </div>
-                        </div>
+<%--                        </div>--%>
                     </div>
                 </c:forEach>
             </div>
         </section>
     </c:if>
+    <a href="<c:url value="/welcome.html"/>"><fmt:message
+            key="label.button.back"/></a>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

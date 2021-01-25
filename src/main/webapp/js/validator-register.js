@@ -3,8 +3,7 @@ let firstNameChecked = false;
 let lastNameChecked = false;
 let loginChecked = false;
 let phoneChecked = false;
-//TODO:
-let phoneRegex = /\((17|29|33|44)\)[0-9]{8}/;
+let phoneRegex = /\(^(17|29|33|44)\)[0-9]{8}/;
 let logRegEx = /\W/;
 let passwordRegEx = /\d\W/;
 let peek = /[.,!?()\\|\[\]`@$^*-+=:;№#"'_\s></%&*]+/;
@@ -138,7 +137,7 @@ let checkLogin = function () {
     submitChange();
 };
 
-function checkPhone() {
+let checkPhone = function () {
     if (phone.value.search(phoneRegex) > notFoundIndex ||
         phone.value.length < 8) {
         setBackgroundFieldRed(phone);
@@ -148,4 +147,4 @@ function checkPhone() {
         phoneChecked = true;
     }
     submitChange();
-}
+};
