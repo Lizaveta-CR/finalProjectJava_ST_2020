@@ -18,7 +18,7 @@ public class FileUtil {
      * @return file information in String
      * @throws FileUtilException
      */
-    public static String readFile(Part filePart) throws FileUtilException {
+    public String readFile(Part filePart) throws FileUtilException {
         try {
             InputStream inputStream = filePart.getInputStream();
             ByteArrayOutputStream result = new ByteArrayOutputStream();

@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderItemService;
@@ -35,7 +35,7 @@ public class SubmitOrderCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.PRODUCTS_LIST, true);
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         HttpSession session = request.getSession(false);
         Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
@@ -55,7 +55,7 @@ public class SubmitOrderCommand extends BuyerCommand {
             }
             String bonus = request.getParameter(ParameterConstant.BONUS.value());
             if (bonus != null) {
-                order.setPrice(TotalPriceUtil.countPrice(order, new BigDecimal(bonus)));
+                order.setPrice(new TotalPriceUtil().countPrice(order, new BigDecimal(bonus)));
                 order.getBuyer().setBonus(BigDecimal.ZERO);
             }
             Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
@@ -64,7 +64,7 @@ public class SubmitOrderCommand extends BuyerCommand {
                     OrderService orderService = factory.getService(OrderService.class);
                     orderService.save(order);
 
-                    List<OrderItem> orderItems = OrderItemUtil.buildOrderItems(map);
+                    List<OrderItem> orderItems = new OrderItemUtil().buildOrderItems(map);
                     orderItems.forEach(orderItem -> orderItem.setId(order.getId()));
                     OrderItemService orderItemService = factory.getService(OrderItemService.class);
                     orderItemService.save(orderItems);

@@ -1,10 +1,9 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.controller.command.impl.admin.AdminEditProductsCommand;
 import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProducerService;
@@ -36,7 +35,7 @@ public class AddProductCommand extends ManagerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.PRODUCTS_CREATE, true);
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         Product product = null;
         try {
@@ -52,7 +51,7 @@ public class AddProductCommand extends ManagerCommand {
         String description;
         try {
             Part filePart = request.getPart(ParameterConstant.FILE.value());
-            description = FileUtil.readFile(filePart);
+            description = new FileUtil().readFile(filePart);
         } catch (IOException | ServletException | FileUtilException e) {
             logger.error("File can not be processed", e.getMessage());
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));

@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -42,7 +42,7 @@ public class LoginCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.LOGIN, true);
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         String login = request.getParameter(ParameterConstant.LOGIN.value());
         String password = request.getParameter(ParameterConstant.PASS.value());

@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -29,7 +29,7 @@ public class EditAddressCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         HttpSession session = request.getSession();
         Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         Integer buyerId = authorizedBuyer.getId();

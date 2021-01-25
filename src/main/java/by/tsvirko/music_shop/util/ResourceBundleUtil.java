@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.util;
 
-import by.tsvirko.music_shop.constant.ResourceBundleAttributes;
+import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ public class ResourceBundleUtil {
      * @param req
      * @return ResourceBundle
      */
-    public static ResourceBundle getResourceBundle(HttpServletRequest req) {
+    public ResourceBundle getResourceBundle(HttpServletRequest req) {
         Optional<String> lang = Arrays.stream(req.getCookies())
                 .filter(c -> ResourceBundleAttributes.LANGUAGE.value().equals(c.getName()))
                 .map(Cookie::getValue)

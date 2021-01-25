@@ -1,11 +1,9 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Order;
-import by.tsvirko.music_shop.domain.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

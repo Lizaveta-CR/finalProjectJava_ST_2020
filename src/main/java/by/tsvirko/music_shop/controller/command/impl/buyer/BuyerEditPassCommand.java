@@ -1,12 +1,10 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
-import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
@@ -31,7 +29,7 @@ public class BuyerEditPassCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.BUYER_FORM, true);
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         HttpSession session = request.getSession(false);
         if (session != null) {
             User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());

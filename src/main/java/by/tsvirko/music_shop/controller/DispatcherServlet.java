@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.CommandManager;
 import by.tsvirko.music_shop.controller.command.CommandManagerFactory;
@@ -106,7 +106,7 @@ public class DispatcherServlet extends HttpServlet {
             }
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
-            ResourceBundle rb = ResourceBundleUtil.getResourceBundle(req);
+            ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(req);
             req.setAttribute(AttributeConstant.ERROR.value(), rb.getString("app.global.process.error"));
             getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(req, resp);
         }

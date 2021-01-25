@@ -44,6 +44,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     /**
      * Deletes user by identity
+     *
      * @param identity - user identity
      * @throws ServicePersistentException if user access failed
      */
@@ -64,6 +65,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     /**
      * Saves user
+     *
      * @param user - entity to save
      * @throws ServicePersistentException if user can not be saved
      */
@@ -83,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 }
                 dao.update(user);
             } else {
-                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
+                user.setPassword(new PasswordUtil().hashPassword(user.getPassword()));
                 user.setId(dao.create(user));
             }
             transaction.commit();
@@ -98,6 +100,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     /**
      * Updates user password
+     *
      * @param user - entity to update
      * @throws ServicePersistentException if user can not be updated
      */
@@ -106,7 +109,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try {
             UserDAO dao = transaction.createDao(UserDAO.class, false);
             if (user.getPassword() != null && user.getId() != null) {
-                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
+                user.setPassword(new PasswordUtil().hashPassword(user.getPassword()));
                 dao.update(user);
             } else {
                 throw new ServicePersistentException("User can not be updated");
@@ -123,7 +126,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     /**
      * Finds user by login and password
-     * @param login - user login
+     *
+     * @param login    - user login
      * @param password - user password
      * @return found user with specified login and password
      * @throws ServicePersistentException if user wasn't found
@@ -133,7 +137,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try {
             UserDAO dao = transaction.createDao(UserDAO.class, true);
             if (password != null) {
-                Optional<User> optionalUser = dao.read(login, PasswordUtil.hashPassword(password));
+                Optional<User> optionalUser = dao.read(login, new PasswordUtil().hashPassword(password));
                 if (optionalUser.isPresent()) {
                     return optionalUser.get();
                 }
@@ -146,6 +150,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     /**
      * Finds user by identity
+     *
      * @param identity - user identity
      * @return user corresponding to identity
      * @throws ServicePersistentException
@@ -166,6 +171,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     /**
      * Finds all users except those whose role is Buyer
+     *
      * @return list of users, whose role is not Buyer
      * @throws ServicePersistentException if users can not be obtained
      */

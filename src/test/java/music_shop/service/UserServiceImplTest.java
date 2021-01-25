@@ -89,7 +89,7 @@ public class UserServiceImplTest {
     public void updatePasswordTest(String pass) throws ServicePersistentException, PasswordException {
         user.setPassword(pass);
         userService.updatePassword(user);
-        Assert.assertEquals(user.getPassword(), PasswordUtil.hashPassword(pass));
+        Assert.assertEquals(user.getPassword(), new PasswordUtil().hashPassword(pass));
     }
 
     @Test(dataProvider = "passwords")

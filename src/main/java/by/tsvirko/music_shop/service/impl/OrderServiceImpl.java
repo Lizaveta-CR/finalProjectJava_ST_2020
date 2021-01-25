@@ -99,7 +99,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                         throw new ServicePersistentException("No money");
                     } else {
                         buyer.setBalance(buyerBalance.subtract(orderPrice));
-                        buyer.addBonus(TotalPriceUtil.countBonus(order));
+                        buyer.addBonus(new TotalPriceUtil().countBonus(order));
                         BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
                         buyerDAO.update(buyer);
                     }

@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.main;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -38,7 +38,7 @@ public class RegisterCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
         Forward forward = new Forward(PathConstnant.WELCOME, true);
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         User user = null;
         Buyer buyer = null;

@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.constant;
+package by.tsvirko.music_shop.controller.command.constant;
 
 /**
  * Class for application paths

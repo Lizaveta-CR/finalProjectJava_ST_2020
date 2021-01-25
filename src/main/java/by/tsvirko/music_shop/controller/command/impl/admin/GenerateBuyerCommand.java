@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 public class GenerateBuyerCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         Forward forward = new Forward(PathConstnant.ADMIN_WINNER, true);
         String parameter = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty() && parameter != null) {

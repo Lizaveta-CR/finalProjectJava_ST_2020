@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
@@ -34,7 +34,7 @@ public class AdminEditProductsCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.MAIN_JSP, true);
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
             if (parameter != null && !parameter.isEmpty()) {
@@ -45,7 +45,7 @@ public class AdminEditProductsCommand extends AdminCommand {
                 String description;
                 try {
                     Part filePart = request.getPart(ParameterConstant.FILE.value());
-                    description = FileUtil.readFile(filePart);
+                    description = new FileUtil().readFile(filePart);
                 } catch (IOException | ServletException | FileUtilException e) {
                     logger.error("File can not be processed", e.getMessage());
                     forward.setForward(PathConstnant.PRODUCTS_EDIT);

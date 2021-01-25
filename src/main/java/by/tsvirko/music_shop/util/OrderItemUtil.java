@@ -17,14 +17,14 @@ public class OrderItemUtil {
      * @param map, where Product is given product and Byte - amount
      * @return list of order items
      */
-    public static List<OrderItem> buildOrderItems(Map<Product, Byte> map) {
+    public List<OrderItem> buildOrderItems(Map<Product, Byte> map) {
         List<OrderItem> orderItems = new ArrayList<>();
         OrderItem orderItem = null;
         for (Map.Entry<Product, Byte> entry : map.entrySet()) {
             orderItem = new OrderItem();
             orderItem.setProduct(entry.getKey());
             orderItem.setAmount(entry.getValue());
-            orderItem.setPrice(TotalPriceUtil.countPrice(entry));
+            orderItem.setPrice(new TotalPriceUtil().countPrice(entry));
             orderItems.add(orderItem);
         }
         return orderItems;

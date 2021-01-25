@@ -22,7 +22,7 @@ public class HelloTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         String title = rb.getString("label.welcome.happy");
         try {
             pageContext.getOut().write(title + ", " + name);

@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.filter;
 
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.ResourceBundleAttributes;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttributes;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;

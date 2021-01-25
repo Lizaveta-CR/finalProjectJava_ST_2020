@@ -9,19 +9,19 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class PasswordUtil {
-    private static final String SALT = "defaultsalt";
+    private final String SALT = "defaultsalt";
     /**
      * no. of iterations to be done. This value can manage speed of the algorithm.
      */
-    private static final int ITERATIONS = 100;
+    private final int ITERATIONS = 100;
     /**
      * This is the required output length of the hashed function.
      */
-    private static final int KEY_LENGTH = 128;
+    private final int KEY_LENGTH = 128;
     /**
      * Algorithm to be used in SecretKeyFactory
      */
-    private static final String KEY_ALGORITHM = "PBKDF2WithHmacSHA1";
+    private final String KEY_ALGORITHM = "PBKDF2WithHmacSHA1";
 
     /**
      * Hashes password using PBKDF2 algorithm
@@ -31,7 +31,7 @@ public class PasswordUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static String hashPassword(String password) throws PasswordException {
+    public String hashPassword(String password) throws PasswordException {
         char[] chars = password.toCharArray();
         byte[] salt = getSalt().getBytes();
 
@@ -51,7 +51,7 @@ public class PasswordUtil {
      *
      * @return salt value - byte array
      */
-    private static String getSalt() {
+    private String getSalt() {
         return SALT;
     }
 
@@ -61,7 +61,7 @@ public class PasswordUtil {
      * @param array - array to be converted
      * @return converted string
      */
-    private static String toHex(byte[] array) {
+    private String toHex(byte[] array) {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
         int paddingLength = (array.length * 2) - hex.length();

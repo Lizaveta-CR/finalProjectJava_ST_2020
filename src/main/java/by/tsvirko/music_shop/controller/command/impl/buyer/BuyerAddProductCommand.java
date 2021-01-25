@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
-import by.tsvirko.music_shop.constant.AttributeConstant;
-import by.tsvirko.music_shop.constant.ParameterConstant;
-import by.tsvirko.music_shop.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
@@ -59,7 +59,7 @@ public class BuyerAddProductCommand extends BuyerCommand {
                             return forward;
                         }
                     }
-                    order.setPrice(TotalPriceUtil.countPrice(map));
+                    order.setPrice(new TotalPriceUtil().countPrice(map));
                     order.addProduct(product);
                     logger.info("Product with id=" + product.getId() + " was added to order");
                 } else {

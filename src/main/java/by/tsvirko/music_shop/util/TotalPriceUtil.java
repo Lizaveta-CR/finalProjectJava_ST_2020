@@ -13,7 +13,7 @@ public class TotalPriceUtil {
     /**
      * Koefficient to provide bonus percent of total price
      */
-    private static final BigDecimal KOEFFICIENT = new BigDecimal(3);
+    private final BigDecimal KOEFFICIENT = new BigDecimal(3);
 
     /**
      * Counts price for products depending on amount
@@ -21,7 +21,7 @@ public class TotalPriceUtil {
      * @param map, where Product-given product and Byte - amount
      * @return BigDecimal-total price
      */
-    public static BigDecimal countPrice(Map<Product, Byte> map) {
+    public BigDecimal countPrice(Map<Product, Byte> map) {
         BigDecimal total = BigDecimal.ZERO;
         for (Map.Entry<Product, Byte> entry : map.entrySet()) {
             BigDecimal productPrice = entry.getKey().getPrice();
@@ -36,7 +36,7 @@ public class TotalPriceUtil {
      * @param entry, where Product-given product and Byte - amount
      * @return BigDecimal-total price
      */
-    public static BigDecimal countPrice(Map.Entry<Product, Byte> entry) {
+    public BigDecimal countPrice(Map.Entry<Product, Byte> entry) {
         return entry.getKey().getPrice().multiply(new BigDecimal(entry.getValue()));
     }
 
@@ -47,7 +47,7 @@ public class TotalPriceUtil {
      * @param bonus
      * @return
      */
-    public static BigDecimal countPrice(Order order, BigDecimal bonus) {
+    public BigDecimal countPrice(Order order, BigDecimal bonus) {
         return order.getPrice().subtract(bonus);
     }
 
@@ -57,7 +57,7 @@ public class TotalPriceUtil {
      * @param order
      * @return BigDecimal- total bonus
      */
-    public static BigDecimal countBonus(Order order) {
+    public BigDecimal countBonus(Order order) {
         BigDecimal total = order.getPrice().multiply(KOEFFICIENT).divide(new BigDecimal(100));
         total = total.setScale(2, BigDecimal.ROUND_HALF_UP);
         return total;
