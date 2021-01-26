@@ -31,6 +31,12 @@
 * работа с данными в приложении осуществляется посредством шаблона DAO 
 * реализована защита от sql injection
 ***
+##
+ Схема базы данных
+
+ ![scheme](https://user-images.githubusercontent.com/56049061/105872094-0df50400-600b-11eb-8e8e-3ad98f4f012d.png)
+***
+ 
 Инструкция по установке приложения:
 
 Для создания базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
@@ -44,10 +50,8 @@
 - 2_create_test_database.sql
 - 3_create_test_tables.sql
 - 4_fill_test_ables.sql
-***
- Схема базы данных
- ![Alt text](/Users/elizaveta/Desktop/EPAM/scheme.png?raw=true "Optional Title")
+
  
  ***
  Для достпа к приложению необходимо
- *
+ * 
