@@ -23,16 +23,16 @@
             <ul class="dropdown-menu">
                 <li>
                     <a href="<c:url value="/changeLocale.html?cookieLocale=en_US&page=${param.page}"/>">
-                        <img src="/img/language/usa.svg" alt="English" width="20" height="15">
+                        <img src="<c:url value="/img/language/usa.svg"/>" alt="English" width="20" height="15">
                         <fmt:message key="label.lang.en"/></a>
                 </li>
                 <li><a href="<c:url value="/changeLocale.html?cookieLocale=ru_RU&page=${param.page}"/>">
-                    <img src="/img/language/russian.png" alt="Russian" width="20" height="15">
+                    <img src="<c:url value="/img/language/russian.png"/>" alt="Russian" width="20" height="15">
                     <fmt:message
                             key="label.lang.ru"/></a>
                 </li>
                 <li><a href="<c:url value="/changeLocale.html?cookieLocale=be_BY&page=${param.page}"/>">
-                    <img src="/img/language/belarus.png" alt="Belorussian" width="20" height="15">
+                    <img src="<c:url value="/img/language/belarus.png"/>" alt="Belorussian" width="20" height="15">
                     <fmt:message
                             key="label.lang.by"/></a>
                 </li>

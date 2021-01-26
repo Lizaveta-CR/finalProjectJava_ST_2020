@@ -19,10 +19,10 @@
         <c:set var="user" value="${sessionScope.authorizedUser}"/>
     </c:when>
 </c:choose>
-<u:html title="Categories" jsFile="clicable-table.js">
-    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
-        <jsp:param name="page" value="/products/list.html"/>
-    </jsp:include>
+<u:html title="Categories">
+    <c:import url="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <c:param name="page" value="/products/list.html"/>
+    </c:import>
     <c:if test="${not empty redirectedData}">
         <script type="text/javascript">
             var message = '<c:out value="${redirectedData}"/>';
@@ -35,11 +35,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <c:set var="collapse" value="${parentItem.name}"/>
-                            <a data-toggle="collapse" href="#${collapse}">${collapse}</a>
+                            <c:set var="collapseVar" value="${parentItem.name}"/>
+                            <a data-toggle="collapse" href="#${collapseVar}">${collapseVar}</a>
                         </h4>
                     </div>
-                    <div id="${collapse}" class="panel-collapse collapse">
+                    <div id="${collapseVar}" class="panel-collapse collapse">
                         <c:forEach items="${parentItem.components}" var="childItem">
                             <div class="panel-body">
                                 <table class="table">
