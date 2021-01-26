@@ -16,6 +16,7 @@
 
 <c:set var="cssFiles" value="${['login.css','panel.css']}" scope="page"/>
 <u:html title="Login" cssFiles="${cssFiles}" jsFile="prevent-refresh.js">
+    <u:head/>
     <div class="sidenav">
         <div class="login-main-text">
             <h2><fmt:message key="label.login.title"/></h2>

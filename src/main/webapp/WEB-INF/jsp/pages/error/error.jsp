@@ -14,6 +14,7 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <u:html title="Error" cssFile="error.css">
+    <u:head/>
     <div class="moon"></div>
     <div class="moon__crater moon__crater1"></div>
     <div class="moon__crater moon__crater2"></div>

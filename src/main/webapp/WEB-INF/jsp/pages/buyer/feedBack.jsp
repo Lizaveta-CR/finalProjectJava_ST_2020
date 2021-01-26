@@ -13,44 +13,39 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<html>
-<head>
-    <title>FeedBack</title>
+<u:html title="Feedback">
     <u:head/>
-</head>
-<body>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th><fmt:message key="label.product.model"/></th>
-        <th><fmt:message key="label.product.price"/></th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="product" items="${products}">
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <td>${product.model}</td>
-            <td><fmt:formatNumber value="${product.price}" type="currency"/></td>
-            <td>
-                <form action="<c:url value="/buyer/feedBack/submit.html?productId=${product.id}"/>"
-                      method="post">
-                    <p><fmt:message key="label.product.value"/></p>
-                    <p><input type="number" min="1" max="10" value="10" name="mark"
-                              id="mark"/></p>
-                    <button class="btn btn-info btn-block" type="submit"><fmt:message
-                            key="label.product.mark"/></button>
-                </form>
-            </td>
+            <th><fmt:message key="label.product.model"/></th>
+            <th><fmt:message key="label.product.price"/></th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<div class="col-md-4">
-    <form action="<c:url value="/welcome.html"/>" method="get">
-        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                key="label.button.back"/></button>
-    </form>
-</div>
-</body>
-<c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
-</html>
+        </thead>
+        <tbody>
+        <c:forEach var="product" items="${products}">
+            <tr>
+                <td>${product.model}</td>
+                <td><fmt:formatNumber value="${product.price}" type="currency"/></td>
+                <td>
+                    <form action="<c:url value="/buyer/feedBack/submit.html?productId=${product.id}"/>"
+                          method="post">
+                        <p><fmt:message key="label.product.value"/></p>
+                        <p><input type="number" min="1" max="10" value="10" name="mark"
+                                  id="mark"/></p>
+                        <button class="btn btn-info btn-block" type="submit"><fmt:message
+                                key="label.product.mark"/></button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <div class="col-md-4">
+        <form action="<c:url value="/welcome.html"/>" method="get">
+            <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                    key="label.button.back"/></button>
+        </form>
+    </div>
+    <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
+</u:html>

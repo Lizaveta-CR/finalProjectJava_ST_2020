@@ -20,9 +20,9 @@
     </c:when>
 </c:choose>
 <u:html title="Categories">
-    <c:import url="/WEB-INF/jsp/parts/nav-bar.jsp">
-        <c:param name="page" value="/products/list.html"/>
-    </c:import>
+    <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
+        <jsp:param name="page" value="/products/list.html"/>
+    </jsp:include>
     <c:if test="${not empty redirectedData}">
         <script type="text/javascript">
             var message = '<c:out value="${redirectedData}"/>';
@@ -83,7 +83,8 @@
                                                 <td> ${product.description}</td>
                                                 <td> ${product.producer.country.name}</td>
                                                 <td> ${product.producer.name}</td>
-                                                <td><fmt:formatNumber value="${product.price}" type="currency"/></td>
+                                                <td><fmt:formatNumber value="${product.price}"
+                                                                      type="currency"/></td>
                                                 <c:choose>
                                                     <c:when test="${not empty rateMap[product.id]}">
                                                         <c:url value=" ${rateMap[product.id]}" var="mark"/>
@@ -101,7 +102,8 @@
                                                                 <td>
                                                                     <form action="${buyUrl}?productId=${product.id}"
                                                                           method="post">
-                                                                        <p><fmt:message key="label.product.amount"/></p>
+                                                                        <p><fmt:message
+                                                                                key="label.product.amount"/></p>
                                                                         <p><input type="number" min="1" value="1"
                                                                                   name="amount"
                                                                                   id="amount"/></p>

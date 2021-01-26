@@ -6,7 +6,6 @@
 <%@attribute name="cssFile" required="false" rtexprvalue="true" type="java.lang.String" %>
 <%@attribute name="fontFile" required="false" rtexprvalue="true" type="java.lang.String" %>
 <%@attribute name="jsFile" required="false" rtexprvalue="true" type="java.lang.String" %>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
@@ -14,12 +13,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>${title}</title>
-    <u:head/>
     <%--    <script type="text/javascript"--%>
     <%--            src="${pageContext.request.contextPath}/bootstrap/jQuery/jquery-3.5.1.min.js"></script>--%>
     <%--    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">--%>
     <%--    <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>--%>
-    <%--    <link rel="shortcut icon" href="<c:url value="/img/favicon/favicon.ico"/>" type="image/x-icon"/>--%>
+    <link rel="shortcut icon" href="<c:url value="/img/favicon/favicon.ico"/>" type="image/x-icon"/>
     <c:if test="${not empty cssFiles}">
         <c:forEach var="cssFileItem" items="${cssFiles}">
             <link href="<c:url value="/css/${cssFileItem}"/>" rel="stylesheet">

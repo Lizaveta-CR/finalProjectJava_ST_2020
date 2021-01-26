@@ -16,6 +16,8 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <u:html title="Action Selector">
+    <u:head/>
+    <%--    <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>--%>
     <ul class="nav nav-tabs">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="label.chooseCookieLocale"/>

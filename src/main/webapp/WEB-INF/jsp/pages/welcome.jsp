@@ -29,13 +29,11 @@
         <header class="text-left">
             <h1>Music Land <small><fmt:message key="label.welcome.small"/></small></h1>
             <pre style="border: 0; background-color: transparent;"><fmt:message key="label.welcome.main"/></pre>
-                <%--            <c:choose>--%>
             <c:if test="${not empty user}">
                 <p class="lead" align="left">
                     <ctg:welcome name="${user.name}"/>
                 </p>
             </c:if>
-                <%--                <c:otherwise>--%>
             <div class="row">
                 <div class="col-md-3">
                     <div class="container" style="height: 450px;width: 450px">
@@ -75,8 +73,6 @@
                     </div>
                 </div>
             </div>
-                <%--                </c:otherwise>--%>
-                <%--            </c:choose>--%>
         </header>
     </div>
     <div class="container">

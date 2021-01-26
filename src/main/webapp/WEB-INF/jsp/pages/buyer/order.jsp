@@ -119,6 +119,7 @@
                                         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                                                 key="label.button.fix"/></button>
                                     </form>
+                                    <br>
                                     <div class="card-footer">
                                         <form action="<c:url value="/buyer/buyerForm.html"/>" method="get">
                                             <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message

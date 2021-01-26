@@ -15,6 +15,7 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Product producer info" cssFile="panel.css">
+    <u:head/>
     <c:if test="${not empty producer}">
         <h3 class="text-center"><fmt:message key="label.producer.page"/> ${producer.name}</h3>
         <section id="t-cards">
