@@ -21,7 +21,7 @@
         }
     </style>
     <c:set var="user" scope="session" value="${authorizedUser}"/>
-    <div class="bg">
+    <div class="bg" style="background-image: url(/img/header2.jpg);">
         <jsp:include page="../parts/nav-bar.jsp">
             <jsp:param name="page" value="/welcome.html"/>
         </jsp:include>

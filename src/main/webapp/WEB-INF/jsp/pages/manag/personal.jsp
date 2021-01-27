@@ -15,6 +15,11 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <u:html title="Add shop personal">
+    <style>
+        body {
+            background-image: url(/img/wallpaper/wallpaper-personal.jpg);
+        }
+    </style>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/manag/personal.html"/>
     </jsp:include>

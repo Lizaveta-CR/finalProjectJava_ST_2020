@@ -18,59 +18,65 @@
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/editPass.html"/>
     </jsp:include>
-<div class="container">
-    <h1><fmt:message key="label.buyer.edit.profile"/></h1>
-    <hr>
-    <div class="row">
-        <div class="col-md-9">
-            <div class="col-md-10 col-md-offset-1">
-                <c:if test="${not empty message}">
-                    <c:forEach items="${message}" var="item" varStatus="status">
-                        <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
-                    </c:forEach>
-                </c:if>
-            </div>
-            <h3><fmt:message key="label.buyer.edit.title"/></h3>
-            <form class="form-horizontal" role="form" action="<c:url value="/buyer/editPass.html"/>" method="post">
-                <div class="form-group">
-                    <label class="col-md-3 control-label"><fmt:message key="label.register.pass"/></label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" id="password" name="password">
-                    </div>
+    <div class="container">
+        <h1><fmt:message key="label.buyer.edit.profile"/></h1>
+        <style>
+            body {
+                background-image: url(/img/wallpaper/wallpaper-edit.jpg);
+            }
+        </style>
+        <hr>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="col-md-10 col-md-offset-1">
+                    <c:if test="${not empty message}">
+                        <c:forEach items="${message}" var="item" varStatus="status">
+                            <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
+                        </c:forEach>
+                    </c:if>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label"><fmt:message key="label.register.newPass"/></label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" id="new_password" name="new_password"
-                               required=""
-                               oninvalid="this.setCustomValidity('<fmt:message key="label.pass.required"/>')"
-                               oninput="setCustomValidity('')">
+                <h3><fmt:message key="label.buyer.edit.title"/></h3>
+                <form class="form-horizontal" role="form" action="<c:url value="/buyer/editPass.html"/>" method="post">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><fmt:message key="label.register.pass"/></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" id="password" name="password">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label"><fmt:message key="label.register.submitPass"/></label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" id="confirm_password" name="confirm_password"
-                               required=""
-                               oninvalid="this.setCustomValidity('<fmt:message key="label.confirm_pass.required"/>')"
-                               oninput="setCustomValidity('')">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><fmt:message key="label.register.newPass"/></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" id="new_password" name="new_password"
+                                   required=""
+                                   oninvalid="this.setCustomValidity('<fmt:message key="label.pass.required"/>')"
+                                   oninput="setCustomValidity('')">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="container-fluid">
-                        <label class="col-md-3 control-label"> </label>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><fmt:message key="label.register.submitPass"/></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" id="confirm_password" name="confirm_password"
+                                   required=""
+                                   oninvalid="this.setCustomValidity('<fmt:message
+                                           key="label.confirm_pass.required"/>')"
+                                   oninput="setCustomValidity('')">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <label class="col-md-3 control-label"> </label>
 
-                        <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                                key="label.confirm"/></button>
+                            <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                                    key="label.confirm"/></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-            <form action="<c:url value="/welcome.html"/>" method="get">
-                <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
-                        key="label.button.back"/></button>
-            </form>
+                </form>
+                <form action="<c:url value="/welcome.html"/>" method="get">
+                    <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
+                            key="label.button.back"/></button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

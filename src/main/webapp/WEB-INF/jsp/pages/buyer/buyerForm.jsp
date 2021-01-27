@@ -14,16 +14,16 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<u:html title="Buyer">
+<u:html title="Buyer" jsFile="main.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/buyerForm.html"/>
     </jsp:include>
     <c:set var="user" scope="session" value="${sessionScope.authorizedUser}"/>
     <c:set var="buyer" scope="session" value="${sessionScope.authorizedBuyer}"/>
+
     <div class="container" style="background-image:  url('<c:url value="/img/back.jpg"/>');">
         <h2 class="text-center"><ctg:welcome name="${user.name}"/></h2>
         <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                <%--        <div class="well profile">--%>
             <div class="col-sm-12">
                 <div class="col-xs-12 col-sm-8">
                     <br>
@@ -57,12 +57,6 @@
                     <form action="<c:url value="/buyer/order.html"/>" method="get">
                         <button class="btn btn-info btn-block" type="submit"><fmt:message
                                 key="label.buyer.button.order"/></button>
-                    </form>
-                </div>
-                <div class="col-xs-12 col-sm-4 emphasis">
-                    <form action="<c:url value="/welcome.html"/>" method="get">
-                        <button class="btn btn-info btn-block" type="submit"><fmt:message
-                                key="label.button.back"/></button>
                     </form>
                 </div>
             </div>
@@ -111,10 +105,5 @@
             </c:forEach>
         </ul>
     </div>
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

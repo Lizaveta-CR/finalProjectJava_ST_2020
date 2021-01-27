@@ -14,10 +14,15 @@
 
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
-<u:html title="Edit product" jsFile="prevent-refresh.js">
+<u:html title="Edit product" jsFile="main.js">
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/edit.html"/>
     </jsp:include>
+    <style>
+        body {
+            background-image: url(/img/wallpaper/wallpaper-edit.jpg);
+        }
+    </style>
     <c:choose>
         <c:when test="${not empty product}">
             <c:set var="product" value="${product}"/>

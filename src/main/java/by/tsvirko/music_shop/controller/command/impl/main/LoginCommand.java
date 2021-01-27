@@ -71,7 +71,7 @@ public class LoginCommand extends Command {
                         } catch (ServicePersistentException e) {
                         }
                     }
-                    logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login,
+                    logger.info(String.format("user %s is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
                     forward.setForward(PathConstnant.MAIN);
@@ -79,7 +79,7 @@ public class LoginCommand extends Command {
                 }
             } catch (ServicePersistentException e) {
                 request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.notRecognized"));
-                logger.info(String.format("user \"%s\" unsuccessfully tried to log in from %s (%s:%s)",
+                logger.info(String.format("user %s unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                 return null;
             }

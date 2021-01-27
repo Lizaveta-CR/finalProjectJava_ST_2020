@@ -20,6 +20,11 @@
     </c:when>
 </c:choose>
 <u:html title="Categories">
+    <style>
+        body {
+            background: #c7b39b url(/img/wallpaper/wallpaper.jpg);
+        }
+    </style>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/list.html"/>
     </jsp:include>

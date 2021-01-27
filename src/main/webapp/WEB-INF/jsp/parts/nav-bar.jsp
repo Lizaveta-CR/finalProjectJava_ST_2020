@@ -17,8 +17,7 @@
 
 <u:html title="Action Selector">
     <u:head/>
-    <%--    <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>--%>
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="background: aliceblue">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="label.chooseCookieLocale"/>
                 <span class="caret"></span></a>
@@ -63,6 +62,5 @@
             <li><a href="${listUrl}" role="button"><fmt:message
                     key="label.title.showProducts"/></a></li>
         </c:if>
-
     </ul>
 </u:html>

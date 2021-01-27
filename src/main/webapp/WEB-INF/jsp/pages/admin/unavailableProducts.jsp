@@ -23,10 +23,15 @@
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/admin/unavailableProducts.html"/>
     </jsp:include>
+    <style>
+        body {
+            background-image: url(/img/wallpaper/wallpaper-unavail.png);
+        }
+    </style>
     <c:choose>
         <c:when test="${not empty products}">
-            <table class="table">
-                <tr>
+            <table class="table" style="background: gray">
+                <tr >
                     <th scope="col"><fmt:message
                             key="label.product.model"/></th>
                     <th scope="col"><fmt:message
@@ -38,7 +43,7 @@
                 </tr>
                 <c:forEach var="product" items="${products}">
                     <tbody>
-                    <tr>
+                    <tr >
                         <td> ${product.model}</td>
                         <td> ${product.producer.name}</td>
                         <td> ${product.price}</td>

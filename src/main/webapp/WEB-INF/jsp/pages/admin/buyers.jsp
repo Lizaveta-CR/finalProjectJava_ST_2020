@@ -19,6 +19,11 @@
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/admin/buyers.html"/>
     </jsp:include>
+    <style>
+        body {
+            background-image: url(/img/wallpaper/wallpaper-buyers.jpg);
+        }
+    </style>
     <div class="container">
         <div class="content">
             <div class="container">

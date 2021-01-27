@@ -15,7 +15,7 @@
 <fmt:setBundle basename="i18n.messages"/>
 
 <c:set var="cssFiles" value="${['login.css','panel.css']}" scope="page"/>
-<u:html title="Login" cssFiles="${cssFiles}" jsFile="prevent-refresh.js">
+<u:html title="Login" cssFiles="${cssFiles}" jsFile="main.js">
     <u:head/>
     <div class="sidenav">
         <div class="login-main-text">
