@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -7,6 +8,7 @@ import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.mail.MailThreadService;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Properties;
+import java.util.ResourceBundle;
+
 /**
  * Command for sending email to buyer and adding bonus. Only admin access
  */
@@ -60,6 +64,9 @@ public class AdminSendMailCommand extends AdminCommand {
                 logger.warn("Buyer can not be updated. Bonus update operation failed");
             }
         }
-        return new Forward(PathConstnant.ADMIN_BUYERS, true);
+        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        Forward forward = new Forward(PathConstnant.ADMIN_BUYERS, true);
+        forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.winner.email.success"));
+        return forward;
     }
 }

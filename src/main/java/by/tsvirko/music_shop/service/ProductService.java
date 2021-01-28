@@ -16,4 +16,6 @@ public interface ProductService extends Service {
     void save(Product product) throws ServicePersistentException;
 
     Product findById(Integer identity) throws ServicePersistentException;
+
+    List<Product> readProductsByMark(int mark) throws ServicePersistentException;
 }

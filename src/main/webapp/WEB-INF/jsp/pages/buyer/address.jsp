@@ -14,9 +14,10 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Address">
+    <c:url value="/img/wallpaper/wallpaper-address.jpg" var="image"/>
     <style>
         body {
-            background-image: url(/img/wallpaper/wallpaper-address.jpg);
+            background-image: url(${image});
         }
     </style>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">

@@ -111,4 +111,9 @@ public class DispatcherServlet extends HttpServlet {
             getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(req, resp);
         }
     }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().destroy();
+    }
 }

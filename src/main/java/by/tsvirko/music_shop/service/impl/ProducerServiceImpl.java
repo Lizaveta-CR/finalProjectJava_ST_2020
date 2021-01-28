@@ -50,6 +50,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
     /**
@@ -116,7 +117,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
                 return producer;
             }
             throw new ServicePersistentException("No such producer");
-        } catch (PersistentException | ServicePersistentException e) {
+        } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
     }

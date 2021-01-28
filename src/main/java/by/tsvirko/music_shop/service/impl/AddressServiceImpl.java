@@ -83,6 +83,8 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
                 Optional<Country> optionalCountry = countryDAO.readCountryByName(country.getName());
                 if (optionalCountry.isPresent()) {
                     address.setCountry(optionalCountry.get());
+                } else {
+                    throw new ServicePersistentException("Error while saving address=" + address.getId() + ";country was't found");
                 }
             }
             AddressDAO dao = transaction.createDao(AddressDAO.class, false);
@@ -144,7 +146,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
                 return address;
             }
             throw new ServicePersistentException("No such address");
-        } catch (PersistentException | ServicePersistentException e) {
+        } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
     }

@@ -54,9 +54,10 @@ public class SubmitOrderCommand extends BuyerCommand {
                 return forward;
             }
             String bonus = request.getParameter(ParameterConstant.BONUS.value());
+            Buyer buyer = order.getBuyer();
             if (bonus != null) {
                 order.setPrice(new TotalPriceUtil().countPrice(order, new BigDecimal(bonus)));
-                order.getBuyer().setBonus(BigDecimal.ZERO);
+                buyer.setBonus(BigDecimal.ZERO);
             }
             Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
             if (map != null) {
@@ -73,6 +74,7 @@ public class SubmitOrderCommand extends BuyerCommand {
                     forward.setForward(PathConstnant.BUYER_ORDER_SUBMIT);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(),
                             rb.getString("app.message.order.noMoney"));
+                    buyer.setBonus(new BigDecimal(bonus));
                     return forward;
                 }
                 session.removeAttribute(AttributeConstant.ORDER_ITEM.value());

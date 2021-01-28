@@ -23,9 +23,10 @@
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/admin/unavailableProducts.html"/>
     </jsp:include>
+    <c:url value="/img/wallpaper/wallpaper-unavail.png" var="image"/>
     <style>
         body {
-            background-image: url(/img/wallpaper/wallpaper-unavail.png);
+            background-image: url(${image});
         }
     </style>
     <c:choose>

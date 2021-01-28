@@ -15,9 +15,10 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Edit profile" cssFile="main.css" jsFile="main.js">
+    <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image"/>
     <style>
         body {
-            background-image: url(/img/wallpaper/wallpaper-edit.jpg);
+            background-image: url(${image});
         }
     </style>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">

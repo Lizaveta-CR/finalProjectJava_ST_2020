@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.ProductRateDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.domain.ProductRate;
 import by.tsvirko.music_shop.service.ProductRateService;
@@ -9,6 +10,7 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +53,6 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
             throw new ServicePersistentException(e);
         }
     }
-
     /**
      * Counts average rate(mark) for each product
      *

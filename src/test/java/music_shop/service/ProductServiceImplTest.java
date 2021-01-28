@@ -109,4 +109,23 @@ public class ProductServiceImplTest {
         List<Product> notAvailable = productService.findNotAvailable();
         notAvailable.forEach(product -> Assert.assertTrue(product.getAvailable() == false));
     }
+
+    @DataProvider(name = "marks")
+    public Object[] createCorrectMarks() {
+
+        return new Object[]{
+                8, 9
+        };
+    }
+
+    @Test(dataProvider = "marks")
+    public void readProductsByMark(Integer mark) throws ServicePersistentException {
+        List<Product> products = productService.readProductsByMark(mark);
+        Assert.assertNotNull(products);
+    }
+
+    @Test
+    public void readProductsByMarkException() throws ServicePersistentException {
+        Assert.assertThrows(ServicePersistentException.class, () -> productService.readProductsByMark(100));
+    }
 }

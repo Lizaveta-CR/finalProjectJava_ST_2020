@@ -16,14 +16,15 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Buyers">
+    <c:url value="/img/wallpaper/wallpaper-buyers.jpg" var="image"/>
+    <style>
+        body {
+            background-image: url(${image});
+        }
+    </style>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/admin/buyers.html"/>
     </jsp:include>
-    <style>
-        body {
-            background-image: url(/img/wallpaper/wallpaper-buyers.jpg);
-        }
-    </style>
     <div class="container">
         <div class="content">
             <div class="container">

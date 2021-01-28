@@ -20,9 +20,10 @@
     </jsp:include>
     <div class="container">
         <h1><fmt:message key="label.buyer.edit.profile"/></h1>
+        <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image"/>
         <style>
             body {
-                background-image: url(/img/wallpaper/wallpaper-edit.jpg);
+                background-image: url(${image});
             }
         </style>
         <hr>

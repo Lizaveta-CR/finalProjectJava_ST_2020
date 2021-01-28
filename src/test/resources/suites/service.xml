@@ -51,6 +51,8 @@
                     <include name="findNotAvailableTest"/>
                     <include name="updateTest"/>
                     <include name="saveExceptionTest"/>
+                    <include name="readProductsByMark"/>
+                    <include name="readProductsByMarkException"/>
                     <include name="updateExceptionTest"/>
                     <include name="delete"/>
                     <include name="deleteException"/>

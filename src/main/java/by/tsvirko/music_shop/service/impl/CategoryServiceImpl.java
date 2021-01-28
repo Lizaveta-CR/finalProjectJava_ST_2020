@@ -96,7 +96,7 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
      * @param products - products to fill  data category with
      * @param category - category to fill with products
      */
-    private void buildListProductCategories(Category category, List<Product> products) {
+    public void buildListProductCategories(Category category, List<Product> products) {
         for (Product product : products) {
             if (product.getCategory().getId() == category.getId()) {
                 category.addProduct(product);

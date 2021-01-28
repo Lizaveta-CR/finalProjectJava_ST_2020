@@ -17,7 +17,8 @@
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Buyers" cssFile="loading.css" jsFile="main.js">
     <u:head/>
-    <body onload="load()" style="margin:0; background: url(/img/wallpaper/wallpaper-winner.jpg);">
+    <c:url value="/img/wallpaper/wallpaper-winner.jpg" var="image"/>
+    <body onload="load()" style="margin:0; background: url(${image}">
     <div id="loader"></div>
     <div style="display:none;" id="myDiv" class="animate-bottom">
         <c:if test="${not empty buyer}">

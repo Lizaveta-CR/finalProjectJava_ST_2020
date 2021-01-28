@@ -20,8 +20,9 @@
             margin: 0;
         }
     </style>
+    <c:url value="/img/header2.jpg" var="image"/>
     <c:set var="user" scope="session" value="${authorizedUser}"/>
-    <div class="bg" style="background-image: url(/img/header2.jpg);">
+    <div class="bg" style="background-image: url(${image});">
         <jsp:include page="../parts/nav-bar.jsp">
             <jsp:param name="page" value="/welcome.html"/>
         </jsp:include>

@@ -26,6 +26,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     private static final String SQL_DELETE_PRODUCT = "DELETE FROM products WHERE id = ?";
     private static final String SQL_READ_ALL_PRODUCTS = "SELECT id,category_id,model,available,description,img,price FROM products";
     private static final String SQL_SELECT_PRODUCTS = "SELECT category_id, model,available,description, img, price FROM products WHERE id = ?";
+    private static final String SQL_PRODUCTS_BY_RATE = "SELECT AVG(pr_r.mark) AS avg_mark,pr.id,pr.category_id, pr.model,pr.available,pr.description, pr.img, pr.price FROM products AS pr JOIN product_rates AS pr_r ON pr.id=pr_r.product_id  GROUP BY pr.id";
 
     /**
      * Creates product in database
@@ -141,7 +142,7 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
     /**
      * Reads all products from 'products' table
      *
-     * @return users list
+     * @return product list
      * @throws PersistentException if database error occurs
      */
     @Override
@@ -162,6 +163,41 @@ public class ProductDAOImpl extends BaseDAO implements ProductDAO {
                 product.setImageUrl(resultSet.getString(Field.IMG.value()));
                 product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
                 products.add(product);
+            }
+            logger.debug("Products were read");
+            return products;
+        } catch (SQLException e) {
+            throw new PersistentException("It is impossible co connect to database", e);
+        }
+    }
+
+    /**
+     * Reads all products from 'products' table by 'product_rates' mark field
+     *
+     * @return users list
+     * @throws PersistentException if database error occurs
+     */
+    @Override
+    public List<Product> readProductsByMark(int mark) throws PersistentException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_PRODUCTS_BY_RATE)) {
+            ResultSet resultSet = statement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            Product product = null;
+            while (resultSet.next()) {
+                int avgMark = resultSet.getInt(Field.AVG_MARK.value());
+                if (avgMark == mark) {
+                    product = new Product();
+                    product.setId(resultSet.getInt(Field.ID.value()));
+                    Category category = new Category();
+                    category.setId(resultSet.getInt(Field.CATEGORY_ID.value()));
+                    product.setCategory(category);
+                    product.setModel(resultSet.getString(Field.MODEL.value()));
+                    product.setAvailable(resultSet.getBoolean(Field.AVAILABLE.value()));
+                    product.setDescription(resultSet.getString(Field.DESCRIPTION.value()));
+                    product.setImageUrl(resultSet.getString(Field.IMG.value()));
+                    product.setPrice(resultSet.getBigDecimal(Field.PRICE.value()));
+                    products.add(product);
+                }
             }
             logger.debug("Products were read");
             return products;

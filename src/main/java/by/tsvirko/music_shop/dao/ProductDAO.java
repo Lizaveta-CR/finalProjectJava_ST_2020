@@ -8,5 +8,6 @@ import java.util.List;
 public interface ProductDAO extends Dao<Integer, Product> {
     List<Product> read() throws PersistentException;
 
-//    String readCategoryChild(Integer category_id, Integer product_id) throws PersistentException;
+    List<Product> readProductsByMark(int mark) throws PersistentException;
+
 }

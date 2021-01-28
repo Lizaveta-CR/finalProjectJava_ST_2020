@@ -18,9 +18,10 @@
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/edit.html"/>
     </jsp:include>
+    <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image"/>
     <style>
         body {
-            background-image: url(/img/wallpaper/wallpaper-edit.jpg);
+            background-image: url(${image});
         }
     </style>
     <c:choose>

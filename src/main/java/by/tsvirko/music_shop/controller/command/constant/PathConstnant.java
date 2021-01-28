@@ -6,6 +6,7 @@ package by.tsvirko.music_shop.controller.command.constant;
 public class PathConstnant {
     public static final String ADMIN_BUYERS = "/admin/buyers.html";
     public static final String PRODUCTS_LIST = "/products/list.html";
+    public static final String PRODUCTS_LIST_JSP = "/products/list.jsp";
     public static final String PRODUCTS_EDIT = "/products/edit.html";
     public static final String MAIN_JSP = "/index.jsp";
     public static final String BUYER_FORM = "/buyer/buyerForm.html";

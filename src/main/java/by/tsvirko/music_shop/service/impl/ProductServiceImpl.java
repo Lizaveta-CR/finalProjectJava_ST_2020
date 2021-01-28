@@ -41,6 +41,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
 
     /**
      * Finds not available products
+     *
      * @return list of not available products
      * @throws ServicePersistentException if products are empty
      */
@@ -50,6 +51,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
                 .filter(product -> product.getAvailable() == false)
                 .collect(Collectors.toList());
     }
+
     /**
      * Deletes product by identity
      *
@@ -68,8 +70,10 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
+
     /**
      * Saves product
      *
@@ -97,6 +101,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
             throw new ServicePersistentException(e);
         }
     }
+
     /**
      * Finds product by identity
      *
@@ -113,10 +118,31 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
                 return optionalProduct.get();
             }
             throw new ServicePersistentException("No such product");
-        } catch (PersistentException | ServicePersistentException e) {
+        } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
     }
+
+    /**
+     * Returns products with specified mark
+     *
+     * @param mark - product mark
+     * @return category, whose products equals mark
+     */
+    public List<Product> readProductsByMark(int mark) throws ServicePersistentException {
+        try {
+            ProductDAO dao = transaction.createDao(ProductDAO.class, true);
+            List<Product> products = dao.readProductsByMark(mark);
+            if (!products.isEmpty()) {
+                buildList(products);
+                return products;
+            }
+            throw new ServicePersistentException("Products with mark=" + mark + " weren't found");
+        } catch (PersistentException e) {
+            throw new ServicePersistentException(e);
+        }
+    }
+
     /**
      * Fills products with corresponding fields
      *
