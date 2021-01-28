@@ -38,6 +38,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -61,6 +62,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -83,6 +85,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 

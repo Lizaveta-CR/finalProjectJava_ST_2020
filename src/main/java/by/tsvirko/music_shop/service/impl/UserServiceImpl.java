@@ -95,6 +95,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -121,6 +122,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 

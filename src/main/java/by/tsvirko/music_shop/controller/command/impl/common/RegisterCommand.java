@@ -54,7 +54,7 @@ public class RegisterCommand extends Command {
         } catch (IncorrectFormDataException e) {
             logger.info("Incorrect data was found when saving user");
             forward.setForward(PathConstnant.REGISTRATION);
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
+            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect" + " :" + e.getMessage()));
             return forward;
         }
         if (user != null && buyer != null) {

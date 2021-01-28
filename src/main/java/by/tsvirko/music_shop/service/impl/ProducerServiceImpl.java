@@ -95,6 +95,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
     /**

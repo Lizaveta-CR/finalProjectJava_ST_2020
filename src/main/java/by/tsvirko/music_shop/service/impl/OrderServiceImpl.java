@@ -71,6 +71,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -115,8 +116,10 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
+
     /**
      * Fills orders with corresponding fields
      *

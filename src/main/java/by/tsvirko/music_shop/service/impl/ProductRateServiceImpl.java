@@ -48,6 +48,7 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 

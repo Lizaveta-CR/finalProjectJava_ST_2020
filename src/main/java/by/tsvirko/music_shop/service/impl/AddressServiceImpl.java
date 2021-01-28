@@ -64,6 +64,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -93,6 +94,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -120,6 +122,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 

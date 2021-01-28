@@ -118,6 +118,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
@@ -139,6 +140,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
             } catch (PersistentException ex) {
                 logger.warn("Transaction can not be rollbacked: ", ex.getMessage());
             }
+            throw new ServicePersistentException(e);
         }
     }
 
