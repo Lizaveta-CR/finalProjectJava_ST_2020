@@ -8,7 +8,7 @@ import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.util.TotalPriceUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

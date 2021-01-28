@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.validator.exceprion;
+package by.tsvirko.music_shop.service.validator.exceprion;
 
 public class IncorrectFormDataException extends Exception {
     public IncorrectFormDataException(String param, String value) {

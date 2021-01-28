@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.util.exception;
+package by.tsvirko.music_shop.service.util.exception;
 
 public class FileUtilException extends Exception {
     public FileUtilException() {

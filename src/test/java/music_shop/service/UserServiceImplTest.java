@@ -11,7 +11,7 @@ import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
-import by.tsvirko.music_shop.util.PasswordUtil;
+import by.tsvirko.music_shop.service.util.PasswordUtil;
 import org.testng.Assert;
 import org.testng.annotations.*;
 

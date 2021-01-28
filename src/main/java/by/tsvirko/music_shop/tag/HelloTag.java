@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.tag;
 
-import by.tsvirko.music_shop.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;

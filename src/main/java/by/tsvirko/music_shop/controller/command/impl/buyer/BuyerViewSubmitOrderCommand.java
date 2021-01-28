@@ -8,7 +8,7 @@ import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

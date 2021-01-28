@@ -9,7 +9,7 @@ import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

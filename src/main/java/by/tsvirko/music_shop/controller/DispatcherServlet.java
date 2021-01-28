@@ -13,7 +13,7 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.dao.pool.ConnectionPool;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
-import by.tsvirko.music_shop.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

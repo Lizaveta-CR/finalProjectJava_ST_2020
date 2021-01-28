@@ -1,9 +1,9 @@
-package by.tsvirko.music_shop.validator.impl;
+package by.tsvirko.music_shop.service.validator.impl;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.Buyer;
-import by.tsvirko.music_shop.validator.Validator;
-import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
+import by.tsvirko.music_shop.service.validator.Validator;
+import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;

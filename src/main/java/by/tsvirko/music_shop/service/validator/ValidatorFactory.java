@@ -1,8 +1,8 @@
-package by.tsvirko.music_shop.validator;
+package by.tsvirko.music_shop.service.validator;
 
 import by.tsvirko.music_shop.domain.*;
-import by.tsvirko.music_shop.validator.exceprion.ValidatorException;
-import by.tsvirko.music_shop.validator.impl.*;
+import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
+import by.tsvirko.music_shop.service.validator.impl.*;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

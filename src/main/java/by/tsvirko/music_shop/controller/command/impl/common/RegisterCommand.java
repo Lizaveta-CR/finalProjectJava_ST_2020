@@ -10,11 +10,11 @@ import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.util.ResourceBundleUtil;
-import by.tsvirko.music_shop.validator.Validator;
-import by.tsvirko.music_shop.validator.ValidatorFactory;
-import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
-import by.tsvirko.music_shop.validator.exceprion.ValidatorException;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
+import by.tsvirko.music_shop.service.validator.Validator;
+import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
+import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

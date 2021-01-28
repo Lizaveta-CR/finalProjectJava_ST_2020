@@ -1,32 +1,30 @@
-package by.tsvirko.music_shop.validator.impl;
+package by.tsvirko.music_shop.service.validator.impl;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.domain.Order;
-import by.tsvirko.music_shop.validator.Validator;
-import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
+import by.tsvirko.music_shop.domain.Address;
+import by.tsvirko.music_shop.domain.Country;
+import by.tsvirko.music_shop.service.validator.Validator;
+import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class OrderValidator implements Validator<Order> {
+public class AddressValidator implements Validator<Address> {
     @Override
-    public void validate(Order entity, HttpServletRequest request) throws IncorrectFormDataException {
-        String parameter = request.getParameter(ParameterConstant.TELEPHONE.value());
+    public Address validate(HttpServletRequest request) throws IncorrectFormDataException {
+        Address address = new Address();
+        String parameter = request.getParameter(ParameterConstant.COUNTRY.value());
         if (parameter != null && !parameter.isEmpty()) {
-            long telephone;
-            try {
-                telephone = Long.parseLong(parameter);
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
-            }
-            if (entity.getBuyer().getTelephone().longValue() != telephone) {
-                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
-            }
+            Country country = new Country();
+            country.setName(parameter);
+            address.setCountry(country);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.COUNTRY.value(), parameter);
         }
         parameter = request.getParameter(ParameterConstant.CITY.value());
         if (parameter != null && !parameter.isEmpty()) {
-            if (!entity.getBuyer().getAddress().getCity().equals(parameter)) {
+            try {
+                address.setCity(parameter);
+            } catch (NumberFormatException e) {
                 throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter);
             }
         } else {
@@ -34,13 +32,9 @@ public class OrderValidator implements Validator<Order> {
         }
         parameter = request.getParameter(ParameterConstant.ZIP_CODE.value());
         if (parameter != null && !parameter.isEmpty()) {
-            int zip;
             try {
-                zip = Integer.parseInt(parameter);
+                address.setZipCode(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter);
-            }
-            if (entity.getBuyer().getAddress().getZipCode() != zip) {
                 throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter);
             }
         } else {
@@ -48,21 +42,15 @@ public class OrderValidator implements Validator<Order> {
         }
         parameter = request.getParameter(ParameterConstant.STREET.value());
         if (parameter != null && !parameter.isEmpty()) {
-            if (!entity.getBuyer().getAddress().getStreet().equals(parameter)) {
-                throw new IncorrectFormDataException(ParameterConstant.STREET.value(), parameter);
-            }
+            address.setStreet(parameter);
         } else {
             throw new IncorrectFormDataException(ParameterConstant.STREET.value(), parameter);
         }
         parameter = request.getParameter(ParameterConstant.APARTMENT_NUMBER.value());
         if (parameter != null && !parameter.isEmpty()) {
-            int num;
             try {
-                num = Integer.parseInt(parameter);
+                address.setApartmentNumber(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter);
-            }
-            if (entity.getBuyer().getAddress().getApartmentNumber() != num) {
                 throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter);
             }
         } else {
@@ -70,22 +58,43 @@ public class OrderValidator implements Validator<Order> {
         }
         parameter = request.getParameter(ParameterConstant.HOUSE_NUMBER.value());
         if (parameter != null && !parameter.isEmpty()) {
-            int num;
             try {
-                num = Integer.parseInt(parameter);
+                address.setHouseNumber(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter);
-            }
-            if (entity.getBuyer().getAddress().getHouseNumber() != num) {
                 throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter);
             }
         } else {
             throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter);
         }
+        return address;
     }
 
     @Override
-    public Order validate(HttpServletRequest request) throws IncorrectFormDataException {
-        return null;
+    public void validate(Address entity, HttpServletRequest request) throws IncorrectFormDataException {
+        Address address = validate(request);
+        Country country = address.getCountry();
+        if (country != null) {
+            entity.setCountry(country);
+        }
+        String city = address.getCity();
+        if (!city.isEmpty() && city != null) {
+            entity.setCity(city);
+        }
+        Integer zipCode = address.getZipCode();
+        if (zipCode != null) {
+            entity.setZipCode(zipCode);
+        }
+        String street = address.getStreet();
+        if (!street.isEmpty() && street != null) {
+            entity.setStreet(street);
+        }
+        Integer apartmentNumber = address.getApartmentNumber();
+        if (apartmentNumber != null) {
+            entity.setApartmentNumber(apartmentNumber);
+        }
+        Integer houseNumber = address.getHouseNumber();
+        if (houseNumber != null) {
+            entity.setHouseNumber(houseNumber);
+        }
     }
 }

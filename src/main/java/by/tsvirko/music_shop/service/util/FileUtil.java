@@ -1,6 +1,6 @@
-package by.tsvirko.music_shop.util;
+package by.tsvirko.music_shop.service.util;
 
-import by.tsvirko.music_shop.util.exception.FileUtilException;
+import by.tsvirko.music_shop.service.util.exception.FileUtilException;
 
 import javax.servlet.http.Part;
 import java.io.ByteArrayOutputStream;

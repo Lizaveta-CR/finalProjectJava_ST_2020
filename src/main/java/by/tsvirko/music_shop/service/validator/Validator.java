@@ -1,7 +1,7 @@
-package by.tsvirko.music_shop.validator;
+package by.tsvirko.music_shop.service.validator;
 
 import by.tsvirko.music_shop.domain.Entity;
-import by.tsvirko.music_shop.validator.exceprion.IncorrectFormDataException;
+import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 
 import javax.servlet.http.HttpServletRequest;
 

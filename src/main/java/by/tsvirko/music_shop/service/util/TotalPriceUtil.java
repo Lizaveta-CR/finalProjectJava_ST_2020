@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.util;
+package by.tsvirko.music_shop.service.util;
 
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
