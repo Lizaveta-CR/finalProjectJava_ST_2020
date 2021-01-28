@@ -15,6 +15,11 @@
 <fmt:setLocale value="${cookie.lang.value}"/>
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Submit order" jsFile="main.js">
+    <style>
+        body {
+            background-image: url(/img/wallpaper/wallpaper-personal.jpg);
+        }
+    </style>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/order/submit.html"/>
     </jsp:include>
@@ -125,11 +130,5 @@
             </div>
         </div>
     </c:if>
-    <div class="col-xs-12 col-sm-4 emphasis">
-        <form action="<c:url value="/welcome.html"/>" method="get">
-            <button class="btn btn-info btn-block" type="submit"><fmt:message
-                    key="label.button.back"/></button>
-        </form>
-    </div>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>
