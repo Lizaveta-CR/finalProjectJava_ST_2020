@@ -3,7 +3,7 @@ package by.tsvirko.music_shop.filter;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
-import by.tsvirko.music_shop.controller.command.impl.main.MainCommand;
+import by.tsvirko.music_shop.controller.command.impl.common.MainCommand;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;

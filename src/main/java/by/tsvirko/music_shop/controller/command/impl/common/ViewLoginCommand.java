@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.impl.main;
+package by.tsvirko.music_shop.controller.command.impl.common;
 
 import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.Command;
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
- * Command to return to main page
+ * Command for viewing login page
  */
-public class MainCommand extends Command {
+public class ViewLoginCommand extends Command {
     @Override
-    public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward(PathConstnant.MAIN_JSP, true);
+    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        return new Forward(PathConstnant.LOGIN_JSP);
     }
 
     @Override

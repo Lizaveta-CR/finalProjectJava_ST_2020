@@ -6,7 +6,7 @@ import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
 import by.tsvirko.music_shop.controller.command.impl.admin.*;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
-import by.tsvirko.music_shop.controller.command.impl.main.*;
+import by.tsvirko.music_shop.controller.command.impl.common.*;
 import by.tsvirko.music_shop.controller.command.impl.manager.*;
 import by.tsvirko.music_shop.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
