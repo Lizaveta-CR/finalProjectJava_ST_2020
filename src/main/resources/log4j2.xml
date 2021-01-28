@@ -17,30 +17,31 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="error">
+        <Logger name="by.tsvirko.music_shop.listener" level="info" additivity="false">
             <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="TxtFile"/>
         </Root>
-        <Logger name="by.tsvirko.music_shop.dao.database" level="debug" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
-        <Logger name="by.tsvirko.music_shop.dao.pool" level="error" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
-        <Logger name="by.tsvirko.music_shop.service" level="error" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
-        <Logger name="by.tsvirko.music_shop.controller.command" level="error" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
-        <Logger name="by.tsvirko.music_shop.controller.DispatcherServlet" level="debug" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
-        <Logger name="by.tsvirko.music_shop.filter" level="debug" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
-        <Logger name="by.tsvirko.music_shop.listener" level="info" additivity="true">
-            <AppenderRef ref="TxtFile"/>
-        </Logger>
+        <!--        <Logger name="by.tsvirko.music_shop.dao.database" level="debug" additivity="true">-->
+        <!--            <AppenderRef ref="TxtFile"/>-->
+        <!--        </Logger>-->
+        <!--        <Logger name="by.tsvirko.music_shop.dao.pool" level="error" additivity="true">-->
+        <!--            <AppenderRef ref="TxtFile"/>-->
+        <!--        </Logger>-->
+        <!--        <Logger name="by.tsvirko.music_shop.service" level="error" additivity="true">-->
+        <!--            <AppenderRef ref="TxtFile"/>-->
+        <!--        </Logger>-->
+        <!--        <Logger name="by.tsvirko.music_shop.controller.command" level="debug" additivity="true">-->
+        <!--            <AppenderRef ref="TxtFile"/>-->
+        <!--        </Logger>-->
+        <!--        <Logger name="by.tsvirko.music_shop.controller.DispatcherServlet" level="debug" additivity="true">-->
+        <!--            <AppenderRef ref="TxtFile"/>-->
+        <!--        </Logger>-->
+        <!--        <Logger name="by.tsvirko.music_shop.filter" level="debug" additivity="true">-->
+        <!--            <AppenderRef ref="TxtFile"/>-->
+        <!--        </Logger>-->
     </Loggers>
 </Configuration>
 
