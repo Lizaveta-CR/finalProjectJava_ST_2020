@@ -25,9 +25,9 @@ public class ResourceBundleUtil {
         if (lang.isPresent()) {
             String[] params = lang.get().split("_");
             Locale currentLocale = new Locale(params[0], params[1]);
-            return ResourceBundle.getBundle(ResourceBundleAttribute.RESOURCE, currentLocale);
+            return ResourceBundle.getBundle(ResourceBundleAttribute.RESOURCE.value(), currentLocale);
         } else {
-            return ResourceBundle.getBundle(ResourceBundleAttribute.RESOURCE
+            return ResourceBundle.getBundle(ResourceBundleAttribute.RESOURCE.value()
                     , Locale.getDefault());
         }
     }
