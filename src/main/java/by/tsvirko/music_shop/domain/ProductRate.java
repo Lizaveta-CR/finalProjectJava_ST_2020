@@ -1,9 +1,7 @@
 package by.tsvirko.music_shop.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Product Rate class
@@ -12,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class ProductRate extends Entity <Integer>{
+public class ProductRate extends Entity<Integer> {
     private Buyer buyer;
     private Product product;
     private byte mark;

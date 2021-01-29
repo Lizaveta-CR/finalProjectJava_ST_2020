@@ -6,9 +6,6 @@ import lombok.experimental.SuperBuilder;
 /**
  * User class
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter

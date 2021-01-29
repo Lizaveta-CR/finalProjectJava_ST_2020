@@ -47,7 +47,7 @@ public class AddProductCommand extends ManagerCommand {
             logger.error("Product can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.info("Incorrect data while updating product", e.getMessage());
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect"));
+            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect") + " " + e.getMessage());
             return forward;
         }
         String description;

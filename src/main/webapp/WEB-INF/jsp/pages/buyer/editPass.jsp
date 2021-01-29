@@ -18,14 +18,14 @@
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/editPass.html"/>
     </jsp:include>
+    <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image" scope="session"/>
+    <style>
+        body {
+            background-image: url(${image});
+        }
+    </style>
     <div class="container">
         <h1><fmt:message key="label.buyer.edit.profile"/></h1>
-        <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image"/>
-        <style>
-            body {
-                background-image: url(${image});
-            }
-        </style>
         <hr>
         <div class="row">
             <div class="col-md-9">

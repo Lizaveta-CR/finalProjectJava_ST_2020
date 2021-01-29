@@ -69,7 +69,7 @@ public class BuyerEditCommand extends BuyerCommand {
             return forward;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");
-            logger.warn(String.format("Incorrect data was found when user \"%s\" tried to change information", authorizedUser.getLogin()));
+            logger.warn(String.format("Incorrect data was found when user %s tried to change information", authorizedUser.getLogin()));
             forward.setForward(PathConstnant.BUYER_EDIT);
             forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.incorrect"));
         }

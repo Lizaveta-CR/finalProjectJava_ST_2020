@@ -49,8 +49,12 @@ public class BuyerEditPassCommand extends BuyerCommand {
                         forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
                         return forward;
                     }
-                } catch (ServicePersistentException | IncorrectFormDataException ex) {
-                    logger.info(String.format("User \"%s\" tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
+                } catch (IncorrectFormDataException ex) {
+                    forward.setForward(PathConstnant.BUYER_EDIT_PASS);
+                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(), ex.getMessage());
+                    return forward;
+                } catch (ServicePersistentException ex) {
+                    logger.info(String.format("User %s tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
                     forward.setForward(PathConstnant.BUYER_EDIT_PASS);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
                     return forward;

@@ -20,7 +20,7 @@
     </c:when>
 </c:choose>
 <u:html title="Categories">
-    <c:url value="/img/wallpaper/wallpaper.jpg" var="image"/>
+    <c:url value="/img/wallpaper/wallpaper.jpg" var="image"  scope="session"/>
     <style>
         body {
             background: #c7b39b url(${image});

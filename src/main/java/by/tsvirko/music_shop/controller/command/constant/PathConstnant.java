@@ -19,7 +19,7 @@ public class PathConstnant {
     public static final String PRODUCTS_CREATE = "/products/create.html";
     public static final String BUYER_ADDRESS = "/buyer/address.html";
     public static final String BUYER_EDIT = "/buyer/edit.html";
-    public static final String BUYER_EDIT_PASS = "buyer/editPass.html";
+    public static final String BUYER_EDIT_PASS = "/buyer/editPass.html";
     public static final String LOGOUT = "/login.html";
     public static final String BUYER_ORDER_SUBMIT = "/buyer/order/submit.html";
     public static final String LOGIN = "/login.html";
