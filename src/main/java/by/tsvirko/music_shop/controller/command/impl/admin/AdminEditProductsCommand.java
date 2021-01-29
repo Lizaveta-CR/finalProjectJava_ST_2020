@@ -13,6 +13,7 @@ import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +42,7 @@ public class AdminEditProductsCommand extends AdminCommand {
             if (parameter != null && !parameter.isEmpty()) {
                 ProductService service = factory.getService(ServiceType.PRODUCT);
                 Product product = service.findById(Integer.parseInt(parameter));
-                Validator<Product> validator = ValidatorFactory.getValidator(Product.class);
+                Validator<Product> validator = ValidatorFactory.getValidator(ValidatorType.PRODUCT);
                 validator.validate(product, request);
                 String description;
                 try {

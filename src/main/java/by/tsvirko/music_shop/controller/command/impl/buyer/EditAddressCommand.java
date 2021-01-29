@@ -12,6 +12,7 @@ import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -39,7 +40,7 @@ public class EditAddressCommand extends BuyerCommand {
             AddressService addressService = factory.getService(ServiceType.ADDRESS);
 
             Buyer buyerById = buyerService.findById(buyerId);
-            Validator<Address> validator = ValidatorFactory.getValidator(Address.class);
+            Validator<Address> validator = ValidatorFactory.getValidator(ValidatorType.ADDRESS);
 
             Address address = null;
             try {

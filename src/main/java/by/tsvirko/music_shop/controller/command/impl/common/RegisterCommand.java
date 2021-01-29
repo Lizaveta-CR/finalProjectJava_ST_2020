@@ -14,6 +14,7 @@ import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -44,8 +45,8 @@ public class RegisterCommand extends Command {
         User user = null;
         Buyer buyer = null;
         try {
-            Validator<User> userValidator = ValidatorFactory.getValidator(User.class);
-            Validator<Buyer> buyerValidator = ValidatorFactory.getValidator(Buyer.class);
+            Validator<User> userValidator = ValidatorFactory.getValidator(ValidatorType.USER);
+            Validator<Buyer> buyerValidator = ValidatorFactory.getValidator(ValidatorType.BUYER);
 
 
             user = userValidator.validate(request);

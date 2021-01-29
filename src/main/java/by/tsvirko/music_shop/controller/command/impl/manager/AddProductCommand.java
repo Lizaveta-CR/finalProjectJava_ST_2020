@@ -15,6 +15,7 @@ import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -40,7 +41,7 @@ public class AddProductCommand extends ManagerCommand {
 
         Product product = null;
         try {
-            Validator<Product> productValidator = ValidatorFactory.getValidator(Product.class);
+            Validator<Product> productValidator = ValidatorFactory.getValidator(ValidatorType.PRODUCT);
             product = productValidator.validate(request);
         } catch (ValidatorException e) {
             logger.error("Product can not validated because of ValidatorFactory error", e.getMessage());

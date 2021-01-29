@@ -11,6 +11,7 @@ import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +39,7 @@ public class BuyerEditPassCommand extends BuyerCommand {
             if (!password.isEmpty() && password != null) {
                 try {
                     UserService userService = factory.getService(ServiceType.USER);
-                    Validator<User> userValidator = ValidatorFactory.getValidator(User.class);
+                    Validator<User> userValidator = ValidatorFactory.getValidator(ValidatorType.USER);
                     userValidator.validate(authorizedUser, request);
                     User foundUser = userService.findByLoginAndPassword(authorizedUser.getLogin(), password);
                     if (foundUser != null) {

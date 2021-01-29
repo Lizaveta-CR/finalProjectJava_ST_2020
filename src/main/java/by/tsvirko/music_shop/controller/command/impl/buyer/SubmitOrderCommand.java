@@ -14,6 +14,7 @@ import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.TotalPriceUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +44,7 @@ public class SubmitOrderCommand extends BuyerCommand {
 
         if (order != null) {
             try {
-                Validator<Order> orderValidator = ValidatorFactory.getValidator(Order.class);
+                Validator<Order> orderValidator = ValidatorFactory.getValidator(ValidatorType.ORDER);
 
                 orderValidator.validate(order, request);
             } catch (ValidatorException e) {

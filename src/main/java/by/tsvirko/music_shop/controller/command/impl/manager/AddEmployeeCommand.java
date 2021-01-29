@@ -10,6 +10,7 @@ import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
+import by.tsvirko.music_shop.service.validator.ValidatorType;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
 import by.tsvirko.music_shop.service.validator.exceprion.ValidatorException;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,7 @@ public class AddEmployeeCommand extends ManagerCommand {
 
         User employee = null;
         try {
-            Validator<User> validator = ValidatorFactory.getValidator(User.class);
+            Validator<User> validator = ValidatorFactory.getValidator(ValidatorType.USER);
             employee = validator.validate(request);
         } catch (ValidatorException e) {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
