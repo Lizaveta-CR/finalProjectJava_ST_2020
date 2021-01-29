@@ -1,13 +1,14 @@
 package by.tsvirko.music_shop.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * User class
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter

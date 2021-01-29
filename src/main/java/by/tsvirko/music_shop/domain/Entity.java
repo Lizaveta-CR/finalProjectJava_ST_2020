@@ -1,9 +1,7 @@
 package by.tsvirko.music_shop.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
@@ -17,6 +15,9 @@ import java.io.Serializable;
  * to the disk and were read from the disk upon reboot and the server
  * continued to work with those objects that were before the reboot.
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @EqualsAndHashCode
 @ToString
 @Getter

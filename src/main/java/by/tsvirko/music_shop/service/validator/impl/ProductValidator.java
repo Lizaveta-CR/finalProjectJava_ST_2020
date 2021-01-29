@@ -25,7 +25,7 @@ public class ProductValidator implements Validator<Product> {
         if (parameter != null && !parameter.isEmpty()) {
             product.setModel(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.MODEL.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.MODEL.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.CATEGORY.value());
         if (parameter != null && !parameter.isEmpty()) {
@@ -33,11 +33,11 @@ public class ProductValidator implements Validator<Product> {
             try {
                 category.setId(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter);
+                throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter, request);
             }
             product.setCategory(category);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.PRODUCER.value());
         Producer producer = null;
@@ -54,7 +54,7 @@ public class ProductValidator implements Validator<Product> {
                 try {
                     producer.setId(Integer.parseInt(parameter));
                 } catch (NumberFormatException e) {
-                    throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter);
+                    throw new IncorrectFormDataException(ParameterConstant.CATEGORY.value(), parameter, request);
                 }
             }
             product.setProducer(producer);
@@ -100,13 +100,13 @@ public class ProductValidator implements Validator<Product> {
                 if (Double.valueOf(parameter) > 0) {
                     product.setPrice(new BigDecimal(parameter));
                 } else {
-                    throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter);
+                    throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter, request);
                 }
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter);
+                throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.PRICE.value(), parameter, request);
         }
     }
 }

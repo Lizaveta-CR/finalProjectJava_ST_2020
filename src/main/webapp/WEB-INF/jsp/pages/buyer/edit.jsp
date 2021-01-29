@@ -64,8 +64,8 @@
                         <label class="col-lg-3 control-label"><fmt:message key="label.register.email"/></label>
                         <div class="col-lg-8">
                             <input class="form-control" type="text" id="email" name="email" value="${email}"
-                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                   title="<fmt:message key="label.email.pattern"/>"
+<%--                                   pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$"--%>
+<%--                                   title="<fmt:message key="label.email.pattern"/>"--%>
                                    required
                                    oninvalid="this.setCustomValidity('<fmt:message key="label.email.pattern"/>')"
                                    oninput="setCustomValidity('')">

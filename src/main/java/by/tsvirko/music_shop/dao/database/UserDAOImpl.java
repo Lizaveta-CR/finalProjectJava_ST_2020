@@ -41,13 +41,14 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             List<User> users = new ArrayList<>();
             User user = null;
             while (resultSet.next()) {
-                user = new User();
+                user = User.builder()
+                        .login(resultSet.getString(Field.LOGIN.value()))
+                        .name(resultSet.getString(Field.NAME.value()))
+                        .surname(resultSet.getString(Field.SURNAME.value()))
+                        .password(resultSet.getString(Field.PASSWORD.value()))
+                        .role(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())))
+                        .build();
                 user.setId(resultSet.getInt(Field.ID.value()));
-                user.setLogin(resultSet.getString(Field.LOGIN.value()));
-                user.setName(resultSet.getString(Field.NAME.value()));
-                user.setSurname(resultSet.getString(Field.SURNAME.value()));
-                user.setPassword(resultSet.getString(Field.PASSWORD.value()));
-                user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
                 users.add(user);
             }
             logger.debug("Users were read");
@@ -73,13 +74,14 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
             User user = null;
             if (resultSet.next()) {
-                user = new User();
+                user = User.builder()
+                        .login(login)
+                        .name(resultSet.getString(Field.NAME.value()))
+                        .surname(resultSet.getString(Field.SURNAME.value()))
+                        .password(password)
+                        .role(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())))
+                        .build();
                 user.setId(resultSet.getInt(Field.ID.value()));
-                user.setLogin(login);
-                user.setName(resultSet.getString(Field.NAME.value()));
-                user.setSurname(resultSet.getString(Field.SURNAME.value()));
-                user.setPassword(password);
-                user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
             }
             logger.debug("User with login=" + login + " was read");
             return Optional.ofNullable(user);
@@ -136,13 +138,14 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
             User user = null;
             if (resultSet.next()) {
-                user = new User();
+                user = User.builder()
+                        .login(resultSet.getString(Field.LOGIN.value()))
+                        .name(resultSet.getString(Field.NAME.value()))
+                        .surname(resultSet.getString(Field.SURNAME.value()))
+                        .password(resultSet.getString(Field.PASSWORD.value()))
+                        .role(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())))
+                        .build();
                 user.setId(identity);
-                user.setLogin(resultSet.getString(Field.LOGIN.value()));
-                user.setName(resultSet.getString(Field.NAME.value()));
-                user.setSurname(resultSet.getString(Field.SURNAME.value()));
-                user.setPassword(resultSet.getString(Field.PASSWORD.value()));
-                user.setRole(Role.getByIdentity(resultSet.getInt(Field.ROLE.value())));
             }
             logger.debug("User with id=" + identity + " was read");
             return Optional.ofNullable(user);

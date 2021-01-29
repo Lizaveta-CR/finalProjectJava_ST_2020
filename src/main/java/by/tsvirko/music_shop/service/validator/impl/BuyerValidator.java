@@ -18,17 +18,17 @@ public class BuyerValidator implements Validator<Buyer> {
         if (parameter != null && !parameter.isEmpty() && isEmailValid(parameter)) {
             buyer.setEmail(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.EMAIL.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.EMAIL.value(), parameter,request);
         }
         parameter = request.getParameter(ParameterConstant.TELEPHONE.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 buyer.setTelephone(Long.parseLong(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
+                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter,request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter,request);
         }
         parameter = request.getParameter(ParameterConstant.BALANCE.value());
         if (parameter != null && !parameter.isEmpty() && isMoney(parameter)) {
@@ -39,13 +39,13 @@ public class BuyerValidator implements Validator<Buyer> {
                 if (Double.valueOf(parameter) > 0) {
                     buyer.setBalance(new BigDecimal(parameter));
                 } else {
-                    throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter);
+                    throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter,request);
                 }
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter);
+                throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter,request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter,request);
         }
         return buyer;
     }

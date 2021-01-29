@@ -18,26 +18,26 @@ public class UserValidator implements Validator<User> {
             try {
                 user.setId(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.IDENTITY.value(), parameter);
+                throw new IncorrectFormDataException(ParameterConstant.IDENTITY.value(), parameter,request);
             }
         }
         parameter = request.getParameter(ParameterConstant.LOGIN.value());
         if (parameter != null && !parameter.isEmpty()) {
             user.setLogin(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.LOGIN.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.LOGIN.value(), parameter,request);
         }
         parameter = request.getParameter(ParameterConstant.NAME.value());
         if (parameter != null && !parameter.isEmpty()) {
             user.setName(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.NAME.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.NAME.value(), parameter,request);
         }
         parameter = request.getParameter(ParameterConstant.SURNAME.value());
         if (parameter != null && !parameter.isEmpty()) {
             user.setSurname(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.SURNAME.value(), parameter);
+            throw new IncorrectFormDataException(ParameterConstant.SURNAME.value(), parameter,request);
         }
 
         String password = request.getParameter(ParameterConstant.PASS.value());
@@ -46,7 +46,7 @@ public class UserValidator implements Validator<User> {
             if (password.equals(confirmedPassword)) {
                 user.setPassword(password);
             } else {
-                throw new IncorrectFormDataException(ParameterConstant.PASS.value(), password);
+                throw new IncorrectFormDataException(ParameterConstant.PASS.value(), password,request);
             }
         }
         parameter = request.getParameter(ParameterConstant.ROLE.value());
@@ -54,7 +54,7 @@ public class UserValidator implements Validator<User> {
             try {
                 user.setRole(Role.getByIdentity(Integer.parseInt(parameter)));
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                throw new IncorrectFormDataException(ParameterConstant.ROLE.value(), parameter);
+                throw new IncorrectFormDataException(ParameterConstant.ROLE.value(), parameter,request);
             }
         } else {
             user.setRole(Role.BUYER);
@@ -71,7 +71,7 @@ public class UserValidator implements Validator<User> {
             if (newPassword.equals(newConfirmedPassword)) {
                 user.setPassword(newPassword);
             } else {
-                throw new IncorrectFormDataException(ParameterConstant.NEW_PASS.value(), newPassword);
+                throw new IncorrectFormDataException(ParameterConstant.NEW_PASS.value(), newPassword,request);
             }
         }
     }
