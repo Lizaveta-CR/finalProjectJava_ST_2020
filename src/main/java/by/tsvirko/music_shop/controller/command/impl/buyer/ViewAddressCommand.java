@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.CountryService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +24,11 @@ public class ViewAddressCommand extends BuyerCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_USER.value());
         try {
-            CountryService service = factory.getService(CountryService.class);
+            CountryService service = factory.getService(ServiceType.COUNTRY);
             List<String> countries = service.readNames();
             request.setAttribute(AttributeConstant.COUNTRIES.value(), countries);
 
-            AddressService addressService = factory.getService(AddressService.class);
+            AddressService addressService = factory.getService(ServiceType.ADDRESS);
             Address address = addressService.findById(authorizedUser.getId());
             if (address != null) {
                 request.setAttribute(AttributeConstant.ADDRESS.value(), address);

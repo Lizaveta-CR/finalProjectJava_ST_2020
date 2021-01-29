@@ -14,23 +14,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * Service factory
  */
 public class ServiceFactoryImpl implements ServiceFactory {
-    private static final Map<Class<? extends Service>, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
+    private static final Map<ServiceType, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
 
     /**
      * All services are created in static block
      */
     static {
-        SERVICES.put(UserService.class, new UserServiceImpl());
-        SERVICES.put(BuyerService.class, new BuyerServiceImpl());
-        SERVICES.put(AddressService.class, new AddressServiceImpl());
-        SERVICES.put(OrderService.class, new OrderServiceImpl());
-        SERVICES.put(OrderItemService.class, new OrderItemServiceImpl());
-        SERVICES.put(ProducerService.class, new ProducerServiceImpl());
-        SERVICES.put(ProducerItemService.class, new ProducerItemServiceImpl());
-        SERVICES.put(ProductService.class, new ProductServiceImpl());
-        SERVICES.put(ProductRateService.class, new ProductRateServiceImpl());
-        SERVICES.put(CategoryService.class, new CategoryServiceImpl());
-        SERVICES.put(CountryService.class, new CountryServiceImpl());
+        SERVICES.put(ServiceType.USER, new UserServiceImpl());
+        SERVICES.put(ServiceType.BUYER, new BuyerServiceImpl());
+        SERVICES.put(ServiceType.ADDRESS, new AddressServiceImpl());
+        SERVICES.put(ServiceType.ORDER, new OrderServiceImpl());
+        SERVICES.put(ServiceType.ORDER_ITEM, new OrderItemServiceImpl());
+        SERVICES.put(ServiceType.PRODUCER, new ProducerServiceImpl());
+        SERVICES.put(ServiceType.PRODUCER_ITEM, new ProducerItemServiceImpl());
+        SERVICES.put(ServiceType.PRODUCT, new ProductServiceImpl());
+        SERVICES.put(ServiceType.PRODUCT_RATE, new ProductRateServiceImpl());
+        SERVICES.put(ServiceType.CATEGORY, new CategoryServiceImpl());
+        SERVICES.put(ServiceType.COUNTRY, new CountryServiceImpl());
     }
 
     private TransactionFactory factory;
@@ -47,7 +47,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
      * @throws ServicePersistentException if service can not be returned or does not exist
      */
     @Override
-    public <Type extends Service> Type getService(Class<Type> key) throws ServicePersistentException {
+    public <Type extends Service> Type getService(ServiceType key) throws ServicePersistentException {
         ServiceImpl value = SERVICES.get(key);
         if (value != null) {
             Transaction transaction = factory.createTransaction();

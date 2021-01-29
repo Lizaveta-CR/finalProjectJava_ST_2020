@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +31,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
         if (buyer != null) {
             if (buyer.getAddress() == null) {
                 try {
-                    AddressService addressService = factory.getService(AddressService.class);
+                    AddressService addressService = factory.getService(ServiceType.ADDRESS);
                     Address address = addressService.findById(buyer.getId());
                     if (address != null) {
                         buyer.setAddress(address);

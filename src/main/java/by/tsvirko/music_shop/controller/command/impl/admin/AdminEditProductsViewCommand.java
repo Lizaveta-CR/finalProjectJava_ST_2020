@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +27,7 @@ public class AdminEditProductsViewCommand extends AdminCommand {
         if (parameter != null && !parameter.isEmpty()) {
             session.removeAttribute(AttributeConstant.PRODUCT.value());
             try {
-                ProductService service = factory.getService(ProductService.class);
+                ProductService service = factory.getService(ServiceType.PRODUCT);
                 Product product = service.findById(Integer.parseInt(parameter));
                 session.setAttribute(AttributeConstant.PRODUCT.value(), product);
                 return null;

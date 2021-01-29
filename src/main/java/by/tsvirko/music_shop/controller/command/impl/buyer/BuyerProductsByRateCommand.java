@@ -10,6 +10,7 @@ import by.tsvirko.music_shop.service.CategoryService;
 import by.tsvirko.music_shop.service.ProductRateService;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,7 +51,7 @@ public class BuyerProductsByRateCommand extends BuyerCommand {
         }
         List<Product> products;
         try {
-            ProductService productService = factory.getService(ProductService.class);
+            ProductService productService = factory.getService(ServiceType.PRODUCT);
             products = productService.readProductsByMark(mark);
         } catch (ServicePersistentException e) {
             logger.warn("Products by mark can not be read");
@@ -61,7 +62,7 @@ public class BuyerProductsByRateCommand extends BuyerCommand {
         Category category = null;
         if (!products.isEmpty()) {
             try {
-                CategoryService categoryService = factory.getService(CategoryService.class);
+                CategoryService categoryService = factory.getService(ServiceType.CATEGORY);
                 category = categoryService.getSimpleCategory();
                 categoryService.buildListProductCategories(category, products);
             } catch (ServicePersistentException e) {

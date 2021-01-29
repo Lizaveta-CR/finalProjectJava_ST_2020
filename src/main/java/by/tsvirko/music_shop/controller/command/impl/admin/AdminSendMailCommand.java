@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.mail.MailThreadService;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
@@ -55,7 +56,7 @@ public class AdminSendMailCommand extends AdminCommand {
         if (buyerParameter != null && !buyerParameter.isEmpty()
                 && bonusParameter != null && !bonusParameter.isEmpty()) {
             try {
-                BuyerService service = factory.getService(BuyerService.class);
+                BuyerService service = factory.getService(ServiceType.BUYER);
                 Buyer buyer = service.findById(Integer.parseInt(buyerParameter));
                 BigDecimal totalBonus = buyer.getBonus().add(new BigDecimal(bonusParameter));
                 buyer.setBonus(totalBonus);

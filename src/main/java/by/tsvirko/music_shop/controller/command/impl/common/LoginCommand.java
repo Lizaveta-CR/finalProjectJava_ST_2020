@@ -12,6 +12,7 @@ import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,7 +50,7 @@ public class LoginCommand extends Command {
         if (!login.isEmpty() && !password.isEmpty()) {
             UserService service = null;
             try {
-                service = factory.getService(UserService.class);
+                service = factory.getService(ServiceType.USER);
                 User user = service.findByLoginAndPassword(login, password);
                 if (user != null) {
                     HttpSession session = request.getSession();
@@ -57,7 +58,7 @@ public class LoginCommand extends Command {
 
                     if (user.getRole().equals(Role.BUYER)) {
                         try {
-                            BuyerService buyerService = factory.getService(BuyerService.class);
+                            BuyerService buyerService = factory.getService(ServiceType.BUYER);
                             Buyer buyer = buyerService.findById(user.getId());
                             if (buyer.isEnabled()) {
                                 session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);

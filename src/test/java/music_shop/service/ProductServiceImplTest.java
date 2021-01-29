@@ -10,6 +10,7 @@ import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -23,7 +24,7 @@ public class ProductServiceImplTest {
     @BeforeClass
     public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
         ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-        productService = serviceFactory.getService(ProductService.class);
+        productService = serviceFactory.getService(ServiceType.PRODUCT);
     }
 
     @BeforeTest

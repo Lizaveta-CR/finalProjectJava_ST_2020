@@ -9,6 +9,7 @@ import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,7 @@ public class ShowProducerCommand extends Command {
         String parameter = request.getParameter(ParameterConstant.PRODUCER_ID.value());
         if (parameter != null) {
             try {
-                ProducerService producerService = factory.getService(ProducerService.class);
+                ProducerService producerService = factory.getService(ServiceType.PRODUCER);
                 Producer producer = producerService.findById(Integer.parseInt(parameter));
                 request.setAttribute(AttributeConstant.PRODUCER.value(), producer);
             } catch (ServicePersistentException e) {

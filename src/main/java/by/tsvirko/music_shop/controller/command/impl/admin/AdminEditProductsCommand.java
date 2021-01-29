@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.FileUtil;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
@@ -38,7 +39,7 @@ public class AdminEditProductsCommand extends AdminCommand {
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
             if (parameter != null && !parameter.isEmpty()) {
-                ProductService service = factory.getService(ProductService.class);
+                ProductService service = factory.getService(ServiceType.PRODUCT);
                 Product product = service.findById(Integer.parseInt(parameter));
                 Validator<Product> validator = ValidatorFactory.getValidator(Product.class);
                 validator.validate(product, request);

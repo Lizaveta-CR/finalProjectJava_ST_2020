@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
@@ -34,8 +35,8 @@ public class EditAddressCommand extends BuyerCommand {
         Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         Integer buyerId = authorizedBuyer.getId();
         try {
-            BuyerService buyerService = factory.getService(BuyerService.class);
-            AddressService addressService = factory.getService(AddressService.class);
+            BuyerService buyerService = factory.getService(ServiceType.BUYER);
+            AddressService addressService = factory.getService(ServiceType.ADDRESS);
 
             Buyer buyerById = buyerService.findById(buyerId);
             Validator<Address> validator = ValidatorFactory.getValidator(Address.class);

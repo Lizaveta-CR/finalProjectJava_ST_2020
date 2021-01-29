@@ -5,6 +5,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class ShowUnavailableProductsCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
-            ProductService service = factory.getService(ProductService.class);
+            ProductService service = factory.getService(ServiceType.PRODUCT);
             List<Product> products = service.findNotAvailable();
 
             request.setAttribute(AttributeConstant.NOT_AVAILABLE_PRODUCTS.value(), products);

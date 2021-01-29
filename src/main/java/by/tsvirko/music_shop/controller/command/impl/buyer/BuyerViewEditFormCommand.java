@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,7 @@ public class BuyerViewEditFormCommand extends BuyerCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_USER.value());
-            BuyerService buyerService = factory.getService(BuyerService.class);
+            BuyerService buyerService = factory.getService(ServiceType.BUYER);
             Buyer buyer = buyerService.findById(authorizedUser.getId());
             request.setAttribute(AttributeConstant.BUYER_INFO.value(), buyer);
         } catch (ServicePersistentException e) {

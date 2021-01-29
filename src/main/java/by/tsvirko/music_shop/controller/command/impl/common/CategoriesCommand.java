@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.CategoryService;
 import by.tsvirko.music_shop.service.ProductRateService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +22,10 @@ public class CategoriesCommand extends Command {
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
-            CategoryService service = factory.getService(CategoryService.class);
+            CategoryService service = factory.getService(ServiceType.CATEGORY);
             Category category = service.getCategory();
 
-            ProductRateService rateService = factory.getService(ProductRateService.class);
+            ProductRateService rateService = factory.getService(ServiceType.PRODUCT_RATE);
             Map<Integer, Integer> map = rateService.countAverageRate();
 
             request.setAttribute(AttributeConstant.CATEGORY.value(), category);

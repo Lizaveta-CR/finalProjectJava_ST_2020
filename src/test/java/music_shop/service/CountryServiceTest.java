@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.service.CountryService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ public class CountryServiceTest {
     @BeforeClass
     public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
         ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-        countryService = serviceFactory.getService(CountryService.class);
+        countryService = serviceFactory.getService(ServiceType.COUNTRY);
     }
 
     @Test

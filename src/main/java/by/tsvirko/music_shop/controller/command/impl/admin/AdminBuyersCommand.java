@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +37,7 @@ public class AdminBuyersCommand extends AdminCommand {
             }
         }
         try {
-            BuyerService buyerService = factory.getService(BuyerService.class);
+            BuyerService buyerService = factory.getService(ServiceType.BUYER);
             Map<Integer, List<Buyer>> map = buyerService.find((page - 1) * recordsPerPage, recordsPerPage);
             int noOfRecords = 1;
             for (Integer key : map.keySet()) {

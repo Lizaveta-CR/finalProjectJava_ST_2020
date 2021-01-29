@@ -5,6 +5,7 @@ import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,7 @@ public class DeleteEmployeeCommand extends ManagerCommand {
         String parameter = request.getParameter(ParameterConstant.EMPLOYEE_ID.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
-                UserService service = factory.getService(UserService.class);
+                UserService service = factory.getService(ServiceType.USER);
                 service.delete(Integer.parseInt(parameter));
             } catch (ServicePersistentException e) {
                 logger.warn("User with id=" + parameter + " can not be deleted");

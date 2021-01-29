@@ -9,6 +9,7 @@ import by.tsvirko.music_shop.service.AddressService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -20,7 +21,7 @@ public class AddressServiceImplTest {
     @BeforeClass
     public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
         ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-        addressService = serviceFactory.getService(AddressService.class);
+        addressService = serviceFactory.getService(ServiceType.ADDRESS);
     }
 
     @DataProvider(name = "addressIncorrect")

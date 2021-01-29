@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class ViewEarningsCommand extends ManagerCommand {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstnant.MAIN_JSP);
         try {
-            OrderService service = factory.getService(OrderService.class);
+            OrderService service = factory.getService(ServiceType.ORDER);
             List<Order> orders = service.findAll();
             request.setAttribute(AttributeConstant.ORDERS.value(), orders);
         } catch (ServicePersistentException e) {

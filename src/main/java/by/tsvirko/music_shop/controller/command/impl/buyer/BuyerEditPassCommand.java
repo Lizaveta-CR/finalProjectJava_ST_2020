@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
@@ -36,7 +37,7 @@ public class BuyerEditPassCommand extends BuyerCommand {
             String password = request.getParameter(ParameterConstant.PASS.value());
             if (!password.isEmpty() && password != null) {
                 try {
-                    UserService userService = factory.getService(UserService.class);
+                    UserService userService = factory.getService(ServiceType.USER);
                     Validator<User> userValidator = ValidatorFactory.getValidator(User.class);
                     userValidator.validate(authorizedUser, request);
                     User foundUser = userService.findByLoginAndPassword(authorizedUser.getLogin(), password);

@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.OrderItemUtil;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.TotalPriceUtil;
@@ -62,12 +63,12 @@ public class SubmitOrderCommand extends BuyerCommand {
             Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());
             if (map != null) {
                 try {
-                    OrderService orderService = factory.getService(OrderService.class);
+                    OrderService orderService = factory.getService(ServiceType.ORDER);
                     orderService.save(order);
 
                     List<OrderItem> orderItems = new OrderItemUtil().buildOrderItems(map);
                     orderItems.forEach(orderItem -> orderItem.setId(order.getId()));
-                    OrderItemService orderItemService = factory.getService(OrderItemService.class);
+                    OrderItemService orderItemService = factory.getService(ServiceType.ORDER_ITEM);
                     orderItemService.save(orderItems);
                 } catch (ServicePersistentException e) {
                     logger.error("Service error occurred");

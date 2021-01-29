@@ -9,6 +9,7 @@ import by.tsvirko.music_shop.service.CategoryService;
 import by.tsvirko.music_shop.service.CountryService;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,15 +21,15 @@ public class ViewAddProductCommand extends ManagerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
-            ProducerService producerService = factory.getService(ProducerService.class);
+            ProducerService producerService = factory.getService(ServiceType.PRODUCER);
             List<Producer> producers = producerService.findAll();
             request.setAttribute(AttributeConstant.PRODUCERS.value(), producers);
 
-            CategoryService categoryService = factory.getService(CategoryService.class);
+            CategoryService categoryService = factory.getService(ServiceType.CATEGORY);
             Category simpleCategory = categoryService.getSimpleCategory();
             request.setAttribute(AttributeConstant.CATEGORY.value(), simpleCategory);
 
-            CountryService service = factory.getService(CountryService.class);
+            CountryService service = factory.getService(ServiceType.COUNTRY);
             List<String> countries = service.readNames();
             request.setAttribute(AttributeConstant.COUNTRIES.value(), countries);
         } catch (ServicePersistentException e) {

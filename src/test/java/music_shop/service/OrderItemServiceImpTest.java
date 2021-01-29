@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -21,7 +22,7 @@ public class OrderItemServiceImpTest {
     @BeforeClass
     public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
         ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-        orderItemService = serviceFactory.getService(OrderItemService.class);
+        orderItemService = serviceFactory.getService(ServiceType.ORDER_ITEM);
     }
 
     @DataProvider(name = "orderItemCorrect")

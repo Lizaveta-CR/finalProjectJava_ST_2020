@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class GenerateBuyerCommand extends AdminCommand {
         String parameter = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty() && parameter != null) {
             try {
-                BuyerService service = factory.getService(BuyerService.class);
+                BuyerService service = factory.getService(ServiceType.BUYER);
                 Buyer buyer = service.find(Integer.parseInt(parameter));
                 forward.getAttributes().put(AttributeConstant.BUYER.value(), buyer);
             } catch (ServicePersistentException e) {

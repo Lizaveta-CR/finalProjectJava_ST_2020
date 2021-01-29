@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +25,7 @@ public class ViewFeedBackPage extends BuyerCommand {
         String parameter = request.getParameter(ParameterConstant.ORDER.value());
         if (parameter != null) {
             try {
-                OrderItemService service = factory.getService(OrderItemService.class);
+                OrderItemService service = factory.getService(ServiceType.ORDER_ITEM);
                 List<Product> products = service.readProductsByOrderId(Integer.parseInt(parameter));
                 request.setAttribute(ParameterConstant.PRODUCTS.value(), products);
                 logger.info(String.format("Products for order with id=%s were read.", parameter));

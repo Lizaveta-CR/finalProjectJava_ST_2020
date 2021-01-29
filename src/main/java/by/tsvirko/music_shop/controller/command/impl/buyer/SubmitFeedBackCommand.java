@@ -10,11 +10,13 @@ import by.tsvirko.music_shop.domain.ProductRate;
 import by.tsvirko.music_shop.service.ProductRateService;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * Command for submitting feedback
  */
@@ -28,10 +30,10 @@ public class SubmitFeedBackCommand extends BuyerCommand {
         if (mark != null && productId != null && !mark.isEmpty()
                 && !productId.isEmpty()) {
             try {
-                ProductService productService = factory.getService(ProductService.class);
+                ProductService productService = factory.getService(ServiceType.PRODUCT);
                 Product product = productService.findById(Integer.parseInt(productId));
                 if (product != null) {
-                    ProductRateService service = factory.getService(ProductRateService.class);
+                    ProductRateService service = factory.getService(ServiceType.PRODUCT_RATE);
                     Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
                     ProductRate productRate = new ProductRate();
                     productRate.setBuyer(buyer);

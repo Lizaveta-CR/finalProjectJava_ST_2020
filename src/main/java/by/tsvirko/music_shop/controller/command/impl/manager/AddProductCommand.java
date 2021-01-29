@@ -9,6 +9,7 @@ import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.FileUtil;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
@@ -62,7 +63,7 @@ public class AddProductCommand extends ManagerCommand {
             Producer producer = product.getProducer();
             try {
                 if (producer.getId() == null) {
-                    ProducerService producerService = factory.getService(ProducerService.class);
+                    ProducerService producerService = factory.getService(ServiceType.PRODUCER);
                     producerService.save(producer);
                 }
             } catch (ServicePersistentException e) {
@@ -71,7 +72,7 @@ public class AddProductCommand extends ManagerCommand {
                 return forward;
             }
             try {
-                ProductService productService = factory.getService(ProductService.class);
+                ProductService productService = factory.getService(ServiceType.PRODUCT);
                 productService.save(product);
             } catch (ServicePersistentException e) {
                 logger.warn("Service for saving product can not be instantiated: ", e.getMessage());

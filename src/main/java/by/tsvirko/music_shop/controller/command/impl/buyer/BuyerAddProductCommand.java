@@ -8,6 +8,7 @@ import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.TotalPriceUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class BuyerAddProductCommand extends BuyerCommand {
         String parameterAmount = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty()) {
             try {
-                ProductService productService = factory.getService(ProductService.class);
+                ProductService productService = factory.getService(ServiceType.PRODUCT);
                 Product product = productService.findById(Integer.parseInt(parameter));
                 HttpSession session = request.getSession(false);
                 if (session != null) {

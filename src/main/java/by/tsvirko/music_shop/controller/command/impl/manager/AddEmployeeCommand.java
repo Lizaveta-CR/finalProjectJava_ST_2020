@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
@@ -43,7 +44,7 @@ public class AddEmployeeCommand extends ManagerCommand {
         }
         if (employee != null) {
             try {
-                UserService service = factory.getService(UserService.class);
+                UserService service = factory.getService(ServiceType.USER);
                 service.save(employee);
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());

@@ -7,6 +7,7 @@ import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +37,7 @@ public class BuyerFormCommand extends BuyerCommand {
             }
         }
         try {
-            OrderService service = factory.getService(OrderService.class);
+            OrderService service = factory.getService(ServiceType.ORDER);
             Buyer buyer = (Buyer) request.getSession().getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
             Map<Integer, List<Order>> map = service.find((page - 1) * recordsPerPage, recordsPerPage, buyer.getId());
             int noOfRecords = 1;

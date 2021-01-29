@@ -10,6 +10,7 @@ import by.tsvirko.music_shop.domain.Role;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
@@ -59,8 +60,8 @@ public class RegisterCommand extends Command {
         }
         if (user != null && buyer != null) {
             try {
-                UserService userService = factory.getService(UserService.class);
-                BuyerService buyerService = factory.getService(BuyerService.class);
+                UserService userService = factory.getService(ServiceType.USER);
+                BuyerService buyerService = factory.getService(ServiceType.BUYER);
                 userService.save(user);
                 buyer.setId(user.getId());
                 buyerService.save(buyer);

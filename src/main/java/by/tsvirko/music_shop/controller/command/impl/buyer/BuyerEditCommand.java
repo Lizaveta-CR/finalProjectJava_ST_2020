@@ -9,6 +9,7 @@ import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
@@ -45,8 +46,8 @@ public class BuyerEditCommand extends BuyerCommand {
             return forward;
         }
         try {
-            BuyerService buyerService = factory.getService(BuyerService.class);
-            UserService userService = factory.getService(UserService.class);
+            BuyerService buyerService = factory.getService(ServiceType.BUYER);
+            UserService userService = factory.getService(ServiceType.USER);
 
             Validator<Buyer> buyerValidator = ValidatorFactory.getValidator(Buyer.class);
             buyerValidator.validate(authorizedBuyer, request);

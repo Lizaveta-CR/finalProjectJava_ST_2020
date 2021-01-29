@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +23,7 @@ public class EnableProductCommand extends AdminCommand {
         String id = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         if (id != null && !id.isEmpty()) {
             try {
-                ProductService productService = factory.getService(ProductService.class);
+                ProductService productService = factory.getService(ServiceType.PRODUCT);
                 Product product = productService.findById(Integer.parseInt(id));
                 product.setAvailable(true);
                 productService.save(product);

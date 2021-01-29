@@ -11,6 +11,7 @@ import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.PasswordException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.PasswordUtil;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -39,7 +40,7 @@ public class UserServiceImplTest {
     @BeforeClass
     public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
         ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
-        userService = serviceFactory.getService(UserService.class);
+        userService = serviceFactory.getService(ServiceType.USER);
     }
 
     @BeforeTest

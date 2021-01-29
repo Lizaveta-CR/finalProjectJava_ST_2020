@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +23,7 @@ public class EnableAccessCommand extends AdminCommand {
         String parameter = request.getParameter(ParameterConstant.BUYER_ID.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
-                BuyerService buyerService = factory.getService(BuyerService.class);
+                BuyerService buyerService = factory.getService(ServiceType.BUYER);
                 Buyer buyer = buyerService.findById(Integer.parseInt(parameter));
                 if (buyer != null) {
                     buyer.setEnabled(true);
