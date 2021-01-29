@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.UserService;
@@ -28,7 +28,7 @@ public class AddEmployeeCommand extends ManagerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.MANAGER_PERSONAL, true);
+        Forward forward = new Forward(PathConstant.MANAGER_PERSONAL, true);
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         User employee = null;
@@ -39,7 +39,7 @@ public class AddEmployeeCommand extends ManagerCommand {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
-            forward.setForward(PathConstnant.MANAGER_ADD_PERSONAL);
+            forward.setForward(PathConstant.MANAGER_ADD_PERSONAL);
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
             return forward;
         }
@@ -49,7 +49,7 @@ public class AddEmployeeCommand extends ManagerCommand {
                 service.save(employee);
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                forward.setForward(PathConstnant.MANAGER_ADD_PERSONAL);
+                forward.setForward(PathConstant.MANAGER_ADD_PERSONAL);
                 forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
                 return forward;
             }

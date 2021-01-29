@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.Product;
@@ -36,7 +36,7 @@ public class AddProductCommand extends ManagerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.PRODUCTS_CREATE, true);
+        Forward forward = new Forward(PathConstant.PRODUCTS_CREATE, true);
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         Product product = null;
@@ -81,7 +81,7 @@ public class AddProductCommand extends ManagerCommand {
                 return forward;
             }
         }
-        forward.setForward(PathConstnant.PRODUCTS_LIST);
+        forward.setForward(PathConstant.PRODUCTS_LIST);
         return forward;
     }
 }

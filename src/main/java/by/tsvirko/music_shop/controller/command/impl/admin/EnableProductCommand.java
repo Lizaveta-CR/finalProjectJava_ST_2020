@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
@@ -31,6 +31,6 @@ public class EnableProductCommand extends AdminCommand {
                 logger.error("Service can not perform operation with updating product availability");
             }
         }
-        return new Forward(PathConstnant.PRODUCTS_LIST, true);
+        return new Forward(PathConstant.PRODUCTS_LIST, true);
     }
 }

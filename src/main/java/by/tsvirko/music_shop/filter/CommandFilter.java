@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 //import by.tsvirko.music_shop.controller.command.impl.buyer.BuyerEditCommand;
 import by.tsvirko.music_shop.controller.command.impl.admin.*;
@@ -127,11 +127,11 @@ public class CommandFilter implements Filter {
                 ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(httpRequest);
                 String errMes = rb.getString("app.error.requested") + uri + rb.getString("app.error.requested.not.found");
                 httpRequest.setAttribute(AttributeConstant.ERROR.value(), errMes);
-                httpRequest.getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
+                httpRequest.getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
             }
         } else {
             logger.error("It is impossible to use HTTP filter");
-            servletRequest.getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
+            servletRequest.getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);
         }
     }
 

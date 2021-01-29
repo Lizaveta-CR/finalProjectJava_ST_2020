@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.UserService;
@@ -30,42 +30,36 @@ public class BuyerEditPassCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.BUYER_FORM, true);
+        Forward forward = new Forward(PathConstant.BUYER_FORM, true);
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
-            String password = request.getParameter(ParameterConstant.PASS.value());
-            if (!password.isEmpty() && password != null) {
-                try {
-                    UserService userService = factory.getService(ServiceType.USER);
-                    Validator<User> userValidator = ValidatorFactory.getValidator(ValidatorType.USER);
-                    userValidator.validate(authorizedUser, request);
-                    User foundUser = userService.findByLoginAndPassword(authorizedUser.getLogin(), password);
-                    if (foundUser != null) {
-                        userService.updatePassword(authorizedUser);
-                    } else {
-                        forward.setForward(PathConstnant.BUYER_EDIT_PASS);
-                        forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
-                        return forward;
-                    }
-                } catch (IncorrectFormDataException ex) {
-                    forward.setForward(PathConstnant.BUYER_EDIT_PASS);
-                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(), ex.getMessage());
-                    return forward;
-                } catch (ServicePersistentException ex) {
-                    logger.info(String.format("User %s tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
-                    forward.setForward(PathConstnant.BUYER_EDIT_PASS);
+        HttpSession session = request.getSession();
+        User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
+        String password = request.getParameter(ParameterConstant.PASS.value());
+        if (!password.isEmpty() && password != null) {
+            try {
+                UserService userService = factory.getService(ServiceType.USER);
+                Validator<User> userValidator = ValidatorFactory.getValidator(ValidatorType.USER);
+                userValidator.validate(authorizedUser, request);
+                User foundUser = userService.findByLoginAndPassword(authorizedUser.getLogin(), password);
+                if (foundUser != null) {
+                    userService.updatePassword(authorizedUser);
+                } else {
+                    forward.setForward(PathConstant.BUYER_EDIT_PASS);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
                     return forward;
-                } catch (ValidatorException e) {
-                    logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
                 }
+            } catch (IncorrectFormDataException ex) {
+                forward.setForward(PathConstant.BUYER_EDIT_PASS);
+                forward.getAttributes().put(AttributeConstant.MESSAGE.value(), ex.getMessage());
+                return forward;
+            } catch (ServicePersistentException ex) {
+                logger.info(String.format("User %s tried to change password and specified the incorrect previous one", authorizedUser.getLogin()));
+                forward.setForward(PathConstant.BUYER_EDIT_PASS);
+                forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.pass"));
+                return forward;
+            } catch (ValidatorException e) {
+                logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
             }
-        } else {
-            forward.setForward(PathConstnant.ERROR_PAGES_LOCATION);
-            forward.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
-            return forward;
         }
         return forward;
     }

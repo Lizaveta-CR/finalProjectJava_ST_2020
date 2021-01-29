@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.Product;
@@ -45,6 +45,6 @@ public class SubmitFeedBackCommand extends BuyerCommand {
                 logger.error(String.format("Unable to save feedback for product with id=%s", productId));
             }
         }
-        return new Forward(PathConstnant.BUYER_FORM, true);
+        return new Forward(PathConstant.BUYER_FORM, true);
     }
 }

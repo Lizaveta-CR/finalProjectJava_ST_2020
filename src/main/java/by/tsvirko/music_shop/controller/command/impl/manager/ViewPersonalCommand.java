@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.UserService;
@@ -29,8 +29,8 @@ public class ViewPersonalCommand extends ManagerCommand {
             }
             request.setAttribute(AttributeConstant.PERSONAL.value(), personal);
         } catch (ServicePersistentException e) {
-            return new Forward(PathConstnant.MAIN_JSP, true);
+            return new Forward(PathConstant.MAIN_JSP, true);
         }
-        return new Forward(PathConstnant.MANAGER_PERSONAL_JSP);
+        return new Forward(PathConstant.MANAGER_PERSONAL_JSP);
     }
 }

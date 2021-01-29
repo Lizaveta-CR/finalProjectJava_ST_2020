@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.admin;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
@@ -35,7 +35,7 @@ public class AdminEditProductsCommand extends AdminCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.MAIN_JSP, true);
+        Forward forward = new Forward(PathConstant.MAIN_JSP, true);
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
@@ -50,7 +50,7 @@ public class AdminEditProductsCommand extends AdminCommand {
                     description = new FileUtil().readFile(filePart);
                 } catch (IOException | ServletException | FileUtilException e) {
                     logger.error("File can not be processed", e.getMessage());
-                    forward.setForward(PathConstnant.PRODUCTS_EDIT);
+                    forward.setForward(PathConstant.PRODUCTS_EDIT);
                     forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));
                     return forward;
                 }
@@ -65,7 +65,7 @@ public class AdminEditProductsCommand extends AdminCommand {
             logger.warn("Product Service can not be instantiated");
         } catch (IncorrectFormDataException e) {
             logger.info("Incorrect data while updating product", e.getMessage());
-            forward.setForward(PathConstnant.PRODUCTS_EDIT);
+            forward.setForward(PathConstant.PRODUCTS_EDIT);
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect"));
             return forward;
         }

@@ -2,12 +2,11 @@ package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.CategoryService;
-import by.tsvirko.music_shop.service.ProductRateService;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceType;
@@ -29,7 +28,7 @@ public class BuyerProductsByRateCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.PRODUCTS_LIST, true);
+        Forward forward = new Forward(PathConstant.PRODUCTS_LIST, true);
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
         int mark = 0;
         String parameter = request.getParameter(ParameterConstant.MARK.value());
@@ -79,7 +78,7 @@ public class BuyerProductsByRateCommand extends BuyerCommand {
             request.setAttribute(AttributeConstant.RATEMAP.value(), productsRate);
             request.setAttribute(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.mark.see_all"));
         }
-        forward.setForward(PathConstnant.PRODUCTS_LIST_JSP);
+        forward.setForward(PathConstant.PRODUCTS_LIST_JSP);
         forward.setRedirect(false);
         return forward;
     }

@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.service.UserService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -28,6 +28,6 @@ public class DeleteEmployeeCommand extends ManagerCommand {
                 logger.warn("User with id=" + parameter + " can not be deleted");
             }
         }
-        return new Forward(PathConstnant.MANAGER_PERSONAL, true);
+        return new Forward(PathConstant.MANAGER_PERSONAL, true);
     }
 }

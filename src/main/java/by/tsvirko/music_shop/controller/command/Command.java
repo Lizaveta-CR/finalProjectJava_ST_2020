@@ -40,7 +40,7 @@ public abstract class Command {
     public abstract Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
 
     /**
-     *Is used to build user output
+     * Is used to build user output
      */
     public static class Forward {
         private String forward;
@@ -76,5 +76,8 @@ public abstract class Command {
             return attributes;
         }
 
+        public void addSuffix(String suffix) {
+            forward = forward.concat(suffix);
+        }
     }
 }

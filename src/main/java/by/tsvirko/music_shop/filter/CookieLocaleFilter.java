@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.filter;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttributes;
+import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttribute;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -24,7 +24,7 @@ public class CookieLocaleFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         String cookieLocale = req.getParameter(ParameterConstant.COOKIE_LOCALE.value());
         if (cookieLocale != null) {
-            Cookie cookie = new Cookie(ResourceBundleAttributes.LANGUAGE.value(), cookieLocale);
+            Cookie cookie = new Cookie(ResourceBundleAttribute.LANGUAGE.value(), cookieLocale);
             res.addCookie(cookie);
         }
         filterChain.doFilter(servletRequest, servletResponse);

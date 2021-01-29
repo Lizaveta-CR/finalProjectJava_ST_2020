@@ -2,9 +2,8 @@ package by.tsvirko.music_shop.controller.command.impl.common;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
-import by.tsvirko.music_shop.controller.command.Menu;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
@@ -30,19 +29,19 @@ public class LoginCommand extends Command {
     private static Map<Role, List<Menu>> menu = new HashMap<>();
 
     static {
-        menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstnant.BUYER_FORM, "app.menu.myPage")));
+        menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstant.BUYER_FORM, "app.menu.myPage")));
         menu.put(Role.ADMINISTRATOR
                 , Arrays.asList(
-                        new Menu(PathConstnant.ADMIN_BUYERS, "app.menu.buyers")
-                        , new Menu(PathConstnant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")));
+                        new Menu(PathConstant.ADMIN_BUYERS, "app.menu.buyers")
+                        , new Menu(PathConstant.PRODUCTS_UNAVAILABLE, "app.menu.unavailableProducts")));
         menu.put(Role.MANAGER, Arrays.asList(
-                new Menu(PathConstnant.MANAG_EARNINGS, "app.menu.earnings"),
-                new Menu(PathConstnant.MANAGER_PERSONAL, "app.menu.personal")));
+                new Menu(PathConstant.MANAG_EARNINGS, "app.menu.earnings"),
+                new Menu(PathConstant.MANAGER_PERSONAL, "app.menu.personal")));
     }
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstnant.LOGIN, true);
+        Forward forward = new Forward(PathConstant.LOGIN, true);
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
 
         String login = request.getParameter(ParameterConstant.LOGIN.value());
@@ -75,7 +74,7 @@ public class LoginCommand extends Command {
                     logger.info(String.format("user %s is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
-                    forward.setForward(PathConstnant.MAIN);
+                    forward.setForward(PathConstant.MAIN);
                     return forward;
                 }
             } catch (ServicePersistentException e) {

@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.common;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Producer;
@@ -33,7 +33,7 @@ public class ShowProducerCommand extends Command {
                 request.setAttribute(AttributeConstant.PRODUCER.value(), producer);
             } catch (ServicePersistentException e) {
                 logger.info("Producer with id=" + parameter + " can not be found:" + e.getMessage());
-                Forward forward = new Forward(PathConstnant.PRODUCT_PRODUCER, true);
+                Forward forward = new Forward(PathConstant.PRODUCT_PRODUCER, true);
                 forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noProducer"));
                 return forward;
             }

@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command.impl.admin;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
@@ -20,7 +20,7 @@ public class GenerateBuyerCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
-        Forward forward = new Forward(PathConstnant.ADMIN_WINNER, true);
+        Forward forward = new Forward(PathConstant.ADMIN_WINNER, true);
         String parameter = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty() && parameter != null) {
             try {
@@ -28,7 +28,7 @@ public class GenerateBuyerCommand extends AdminCommand {
                 Buyer buyer = service.find(Integer.parseInt(parameter));
                 forward.getAttributes().put(AttributeConstant.BUYER.value(), buyer);
             } catch (ServicePersistentException e) {
-                forward.setForward(PathConstnant.ADMIN_BUYERS);
+                forward.setForward(PathConstant.ADMIN_BUYERS);
                 forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noBuyer"));
                 return forward;
             }

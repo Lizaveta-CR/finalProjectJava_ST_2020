@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderItemService;
@@ -32,7 +32,7 @@ public class ViewFeedBackPage extends BuyerCommand {
             } catch (ServicePersistentException e) {
                 logger.error(String.format("Products for order with id=%s can not be read. " +
                         "Service Exception occurred", parameter));
-                return new Forward(PathConstnant.BUYER_FORM, true);
+                return new Forward(PathConstant.BUYER_FORM, true);
             }
         }
         return null;

@@ -3,7 +3,7 @@ package by.tsvirko.music_shop.controller.command.constant;
 /**
  * Class for application paths
  */
-public class PathConstnant {
+public class PathConstant {
     public static final String ADMIN_BUYERS = "/admin/buyers.html";
     public static final String PRODUCTS_LIST = "/products/list.html";
     public static final String PRODUCTS_LIST_JSP = "/products/list.jsp";

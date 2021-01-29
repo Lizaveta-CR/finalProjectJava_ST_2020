@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Role;
@@ -21,7 +21,7 @@ public class ChangeLanguageCommand extends Command {
         if (referer != null && !referer.isEmpty()) {
             return new Forward(referer, true);
         } else {
-            return new Forward(PathConstnant.WELCOME, true);
+            return new Forward(PathConstant.WELCOME, true);
         }
     }
 

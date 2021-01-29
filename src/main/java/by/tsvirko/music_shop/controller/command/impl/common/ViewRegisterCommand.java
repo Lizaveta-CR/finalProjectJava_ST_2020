@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Role;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class ViewRegisterCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward(PathConstnant.REGISTRATION_JSP);
+        return new Forward(PathConstant.REGISTRATION_JSP);
     }
 
     @Override

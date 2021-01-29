@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.BuyerService;
@@ -34,6 +34,6 @@ public class DisableAccessCommand extends AdminCommand {
                 logger.warn("Buyer with id=" + parameter + " can not be disabled");
             }
         }
-        return new Forward(PathConstnant.ADMIN_BUYERS, true);
+        return new Forward(PathConstant.ADMIN_BUYERS, true);
     }
 }

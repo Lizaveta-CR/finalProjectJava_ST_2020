@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
@@ -37,7 +37,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
                         buyer.setAddress(address);
                     }
                 } catch (ServicePersistentException e) {
-                    Forward forward = new Forward(PathConstnant.BUYER_ADDRESS, true);
+                    Forward forward = new Forward(PathConstant.BUYER_ADDRESS, true);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
                     logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
                     return forward;
@@ -46,7 +46,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
             Order order = (Order) request.getSession(false).getAttribute(AttributeConstant.ORDER.value());
             order.setBuyer(buyer);
         } else {
-            Forward forward = new Forward(PathConstnant.ERROR_PAGES_LOCATION);
+            Forward forward = new Forward(PathConstant.ERROR_PAGES_LOCATION);
             forward.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
             return forward;
         }

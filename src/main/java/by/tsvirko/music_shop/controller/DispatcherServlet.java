@@ -2,10 +2,11 @@ package by.tsvirko.music_shop.controller;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstnant;
+import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.CommandManager;
 import by.tsvirko.music_shop.controller.command.CommandManagerFactory;
+import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttribute;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dao.exception.ConnectionPoolException;
@@ -28,7 +29,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * Main servlet - controller
+ * Main controlling servlet
+ *
+ * @author Tsvirko Lizaveta
  */
 @MultipartConfig
 public class DispatcherServlet extends HttpServlet {
@@ -37,14 +40,13 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init() {
         ResourceBundle resource = ResourceBundle.getBundle(ParameterConstant.DATASOURCE_NAME.value());
-        String driver = resource.getString("db.driver");
-        String url = resource.getString("db.url");
-        String user = resource.getString("db.user");
-        String password = resource.getString("db.password");
-        int poolSize = Integer.parseInt(resource.getString("db.poolsize"));
-        int maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
-        int checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
-
+        String driver = resource.getString(ResourceBundleAttribute.DRIVER.value());
+        String url = resource.getString(ResourceBundleAttribute.URL.value());
+        String user = resource.getString(ResourceBundleAttribute.USER.value());
+        String password = resource.getString(ResourceBundleAttribute.PASSWORD.value());
+        int poolSize = Integer.parseInt(resource.getString(ResourceBundleAttribute.POOL_SIZE.value()));
+        int maxSize = Integer.parseInt(resource.getString(ResourceBundleAttribute.POOL_MAX_SIZE.value()));
+        int checkConnectionTimeout = Integer.parseInt(resource.getString(ResourceBundleAttribute.CONNECTIONS_TIMEOUT.value()));
         try {
             ConnectionPool.getInstance().initPoolData(driver, url, user, password, poolSize, maxSize, checkConnectionTimeout);
         } catch (ConnectionPoolException e) {
@@ -100,7 +102,7 @@ public class DispatcherServlet extends HttpServlet {
                 } else {
                     jspPage = command.getName() + ".jsp";
                 }
-                jspPage = PathConstnant.PAGES_LOCATION + jspPage;
+                jspPage = PathConstant.PAGES_LOCATION + jspPage;
                 logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));
                 getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
             }
@@ -108,7 +110,7 @@ public class DispatcherServlet extends HttpServlet {
             logger.error("It is impossible to process request", e);
             ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(req);
             req.setAttribute(AttributeConstant.ERROR.value(), rb.getString("app.global.process.error"));
-            getServletContext().getRequestDispatcher(PathConstnant.ERROR_PAGES_LOCATION).forward(req, resp);
+            getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(req, resp);
         }
     }
 
