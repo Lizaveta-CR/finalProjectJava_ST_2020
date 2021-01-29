@@ -27,7 +27,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     public List<Buyer> findAll() throws ServicePersistentException {
         BuyerDAO dao;
         try {
-            dao = transaction.createDao(BuyerDAO.class, true);
+            dao = transaction.createDao(DAOType.BUYER, true);
             List<Buyer> buyers = dao.read();
             buildList(buyers);
             return buyers;
@@ -67,7 +67,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
     public Map<Integer, List<Buyer>> find(int offset, int noOfRecords) throws ServicePersistentException {
         try {
-            BuyerDAO dao = transaction.createDao(BuyerDAO.class, true);
+            BuyerDAO dao = transaction.createDao(DAOType.BUYER, true);
             Map<Integer, List<Buyer>> map = dao.read(offset, noOfRecords);
             for (Map.Entry<Integer, List<Buyer>> entry : map.entrySet()) {
                 buildList(entry.getValue());
@@ -88,7 +88,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     public void delete(Integer identity) throws ServicePersistentException {
         BuyerDAO dao;
         try {
-            dao = transaction.createDao(BuyerDAO.class, false);
+            dao = transaction.createDao(DAOType.BUYER, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -110,7 +110,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
     public void save(Buyer buyer) throws ServicePersistentException {
         try {
-            BuyerDAO dao = transaction.createDao(BuyerDAO.class, false);
+            BuyerDAO dao = transaction.createDao(DAOType.BUYER, false);
             buyer.setId(dao.create(buyer));
             transaction.commit();
         } catch (PersistentException e) {
@@ -132,7 +132,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
     public void update(Buyer buyer) throws ServicePersistentException {
         try {
-            BuyerDAO dao = transaction.createDao(BuyerDAO.class, false);
+            BuyerDAO dao = transaction.createDao(DAOType.BUYER, false);
             dao.update(buyer);
             transaction.commit();
         } catch (PersistentException e) {
@@ -155,7 +155,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     @Override
     public Buyer findById(Integer identity) throws ServicePersistentException {
         try {
-            BuyerDAO dao = transaction.createDao(BuyerDAO.class, true);
+            BuyerDAO dao = transaction.createDao(DAOType.BUYER, true);
             Optional<Buyer> optionalUser = dao.read(identity);
             if (optionalUser.isPresent()) {
                 Buyer buyer = optionalUser.get();
@@ -175,9 +175,9 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
      * @throws ServicePersistentException if filling error occurs
      */
     private void buildList(List<Buyer> buyers) throws PersistentException {
-        AddressDAO addressDAO = transaction.createDao(AddressDAO.class, true);
-        OrderDAO orderDAO = transaction.createDao(OrderDAO.class, true);
-        OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, true);
+        AddressDAO addressDAO = transaction.createDao(DAOType.ADDRESS, true);
+        OrderDAO orderDAO = transaction.createDao(DAOType.ORDER, true);
+        OrderItemDAO orderItemDAO = transaction.createDao(DAOType.ORDER_ITEM, true);
         List<Order> orderList = orderDAO.read();
         Map<Integer, List<Order>> ordersMap = new HashMap<>();
         List<Order> buyerOrderList;

@@ -3,6 +3,7 @@ package by.tsvirko.music_shop.service.impl;
 import by.tsvirko.music_shop.dao.AddressDAO;
 import by.tsvirko.music_shop.dao.BuyerDAO;
 import by.tsvirko.music_shop.dao.CountryDAO;
+import by.tsvirko.music_shop.dao.DAOType;
 import by.tsvirko.music_shop.dao.database.TransactionImpl;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Address;
@@ -32,7 +33,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     @Override
     public List<Address> findAll() throws ServicePersistentException {
         try {
-            AddressDAO dao = transaction.createDao(AddressDAO.class, true);
+            AddressDAO dao = transaction.createDao(DAOType.ADDRESS, true);
             List<Address> addresses = dao.read();
             if (!addresses.isEmpty()) {
                 buildList(addresses);
@@ -55,7 +56,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     public void delete(Integer identity) throws ServicePersistentException {
         AddressDAO dao;
         try {
-            dao = transaction.createDao(AddressDAO.class, false);
+            dao = transaction.createDao(DAOType.ADDRESS, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -79,7 +80,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
         try {
             Country country = address.getCountry();
             if (country.getId() == null) {
-                CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+                CountryDAO countryDAO = transaction.createDao(DAOType.COUNTRY, true);
                 Optional<Country> optionalCountry = countryDAO.readCountryByName(country.getName());
                 if (optionalCountry.isPresent()) {
                     address.setCountry(optionalCountry.get());
@@ -87,7 +88,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
                     throw new ServicePersistentException("Error while saving address=" + address.getId() + ";country was't found");
                 }
             }
-            AddressDAO dao = transaction.createDao(AddressDAO.class, false);
+            AddressDAO dao = transaction.createDao(DAOType.ADDRESS, false);
             dao.create(address);
             transaction.commit();
         } catch (PersistentException e) {
@@ -110,12 +111,12 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     public void update(Address address) throws ServicePersistentException {
         try {
             Country country = address.getCountry();
-            CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+            CountryDAO countryDAO = transaction.createDao(DAOType.COUNTRY, true);
             Optional<Country> optionalCountry = countryDAO.readCountryByName(country.getName());
             if (optionalCountry.isPresent()) {
                 address.setCountry(optionalCountry.get());
             }
-            AddressDAO dao = transaction.createDao(AddressDAO.class, false);
+            AddressDAO dao = transaction.createDao(DAOType.ADDRESS, false);
             dao.update(address);
             transaction.commit();
         } catch (PersistentException e) {
@@ -138,7 +139,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
     @Override
     public Address findById(Integer id) throws ServicePersistentException {
         try {
-            AddressDAO dao = transaction.createDao(AddressDAO.class, true);
+            AddressDAO dao = transaction.createDao(DAOType.ADDRESS, true);
             Optional<Address> optionalAddress = dao.read(id);
             if (optionalAddress.isPresent()) {
                 Address address = optionalAddress.get();
@@ -159,7 +160,7 @@ public class AddressServiceImpl extends ServiceImpl implements AddressService {
      */
     private void buildList(List<Address> addresses) throws ServicePersistentException {
         try {
-            CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+            CountryDAO countryDAO = transaction.createDao(DAOType.COUNTRY, true);
 
             Integer identity;
             for (Address address : addresses) {

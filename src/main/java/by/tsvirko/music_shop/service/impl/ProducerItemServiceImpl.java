@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.CountryDAO;
+import by.tsvirko.music_shop.dao.DAOType;
 import by.tsvirko.music_shop.dao.ProducerItemDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Country;
@@ -28,7 +29,7 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
     @Override
     public void save(ProducerItem item) throws ServicePersistentException {
         try {
-            ProducerItemDAO dao = transaction.createDao(ProducerItemDAO.class, false);
+            ProducerItemDAO dao = transaction.createDao(DAOType.PRODUCER_ITEM, false);
             dao.create(item);
             transaction.commit();
         } catch (PersistentException e) {
@@ -51,7 +52,7 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
     @Override
     public Producer readProducerByProduct(Integer identity) throws ServicePersistentException {
         try {
-            ProducerItemDAO dao = transaction.createDao(ProducerItemDAO.class, true);
+            ProducerItemDAO dao = transaction.createDao(DAOType.PRODUCER_ITEM, true);
             Optional<Producer> producer = dao.readProducerByProduct(identity);
             if (producer.isPresent()) {
                 Producer prod = producer.get();
@@ -72,7 +73,7 @@ public class ProducerItemServiceImpl extends ServiceImpl implements ProducerItem
      */
     private void buildList(Producer producer) throws ServicePersistentException {
         try {
-            CountryDAO dao = transaction.createDao(CountryDAO.class, true);
+            CountryDAO dao = transaction.createDao(DAOType.COUNTRY, true);
             Optional<Country> country = dao.read(producer.getCountry().getId());
             if (country.isPresent()) {
                 producer.setCountry(country.get());

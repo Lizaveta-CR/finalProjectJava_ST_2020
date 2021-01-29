@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.service.impl;
 
 import by.tsvirko.music_shop.dao.AddressDAO;
+import by.tsvirko.music_shop.dao.DAOType;
 import by.tsvirko.music_shop.dao.OrderItemDAO;
 import by.tsvirko.music_shop.dao.ProductDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
@@ -29,7 +30,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
     @Override
     public void save(OrderItem order) throws ServicePersistentException {
         try {
-            OrderItemDAO dao = transaction.createDao(OrderItemDAO.class, false);
+            OrderItemDAO dao = transaction.createDao(DAOType.ORDER_ITEM, false);
             dao.create(order);
             transaction.commit();
         } catch (PersistentException e) {
@@ -51,7 +52,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
     @Override
     public void save(List<OrderItem> orders) throws ServicePersistentException {
         try {
-            OrderItemDAO dao = transaction.createDao(OrderItemDAO.class, false);
+            OrderItemDAO dao = transaction.createDao(DAOType.ORDER_ITEM, false);
             for (OrderItem orderItem : orders) {
                 dao.create(orderItem);
             }
@@ -76,7 +77,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
     public void delete(Integer orderId) throws ServicePersistentException {
         OrderItemDAO dao;
         try {
-            dao = transaction.createDao(OrderItemDAO.class, false);
+            dao = transaction.createDao(DAOType.ORDER_ITEM, false);
             dao.delete(orderId);
             transaction.commit();
         } catch (PersistentException e) {
@@ -99,7 +100,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
     @Override
     public List<Product> readProductsByOrderId(Integer id) throws ServicePersistentException {
         try {
-            OrderItemDAO dao = transaction.createDao(OrderItemDAO.class, true);
+            OrderItemDAO dao = transaction.createDao(DAOType.ORDER_ITEM, true);
             List<Product> products = dao.readProductsByOrder(id);
             if (!products.isEmpty()) {
                 return products;

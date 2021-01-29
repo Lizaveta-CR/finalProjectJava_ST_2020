@@ -27,7 +27,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() throws ServicePersistentException {
         try {
-            ProductDAO dao = transaction.createDao(ProductDAO.class, true);
+            ProductDAO dao = transaction.createDao(DAOType.PRODUCT, true);
             List<Product> products = dao.read();
             if (!products.isEmpty()) {
                 buildList(products);
@@ -61,7 +61,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
-            ProductDAO dao = transaction.createDao(ProductDAO.class, false);
+            ProductDAO dao = transaction.createDao(DAOType.PRODUCT, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -83,12 +83,12 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
     @Override
     public void save(Product product) throws ServicePersistentException {
         try {
-            ProductDAO dao = transaction.createDao(ProductDAO.class, false);
+            ProductDAO dao = transaction.createDao(DAOType.PRODUCT, false);
             if (product.getId() != null) {
                 dao.update(product);
             } else {
                 product.setId(dao.create(product));
-                ProducerItemDAO producerItemDAO = transaction.createDao(ProducerItemDAO.class, false);
+                ProducerItemDAO producerItemDAO = transaction.createDao(DAOType.PRODUCER_ITEM, false);
                 producerItemDAO.create(product.getProducer().getId(), product.getId());
             }
             transaction.commit();
@@ -112,7 +112,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
     @Override
     public Product findById(Integer identity) throws ServicePersistentException {
         try {
-            ProductDAO dao = transaction.createDao(ProductDAO.class, true);
+            ProductDAO dao = transaction.createDao(DAOType.PRODUCT, true);
             Optional<Product> optionalProduct = dao.read(identity);
             if (optionalProduct.isPresent()) {
                 return optionalProduct.get();
@@ -131,7 +131,7 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
      */
     public List<Product> readProductsByMark(int mark) throws ServicePersistentException {
         try {
-            ProductDAO dao = transaction.createDao(ProductDAO.class, true);
+            ProductDAO dao = transaction.createDao(DAOType.PRODUCT, true);
             List<Product> products = dao.readProductsByMark(mark);
             if (!products.isEmpty()) {
                 buildList(products);
@@ -151,8 +151,8 @@ public class ProductServiceImpl extends ServiceImpl implements ProductService {
      */
     private void buildList(List<Product> products) throws ServicePersistentException {
         try {
-            CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
-            ProducerItemDAO producerDAO = transaction.createDao(ProducerItemDAO.class, true);
+            CategoryDAO categoryDAO = transaction.createDao(DAOType.CATEGORY, true);
+            ProducerItemDAO producerDAO = transaction.createDao(DAOType.PRODUCER_ITEM, true);
             Integer identity;
             for (Product product : products) {
                 identity = product.getCategory().getId();

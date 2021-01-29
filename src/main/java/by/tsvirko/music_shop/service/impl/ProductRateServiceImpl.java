@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.service.impl;
 
+import by.tsvirko.music_shop.dao.DAOType;
 import by.tsvirko.music_shop.dao.ProductRateDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Category;
@@ -22,7 +23,7 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
-            ProductRateDAO dao = transaction.createDao(ProductRateDAO.class, false);
+            ProductRateDAO dao = transaction.createDao(DAOType.PRODUCT_RATE, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -37,7 +38,7 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
     @Override
     public void save(ProductRate productRate) throws ServicePersistentException {
         try {
-            ProductRateDAO dao = transaction.createDao(ProductRateDAO.class, false);
+            ProductRateDAO dao = transaction.createDao(DAOType.PRODUCT_RATE, false);
             if (productRate.getId() != null) {
                 dao.update(productRate);
             } else {
@@ -62,7 +63,7 @@ public class ProductRateServiceImpl extends ServiceImpl implements ProductRateSe
     @Override
     public Map<Integer, Integer> countAverageRate() throws ServicePersistentException {
         try {
-            ProductRateDAO dao = transaction.createDao(ProductRateDAO.class, true);
+            ProductRateDAO dao = transaction.createDao(DAOType.PRODUCT_RATE, true);
             Map<Integer, Integer> map = dao.countAverageRate();
             if (!map.isEmpty()) {
                 return map;

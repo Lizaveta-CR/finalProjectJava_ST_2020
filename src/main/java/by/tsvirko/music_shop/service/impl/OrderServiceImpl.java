@@ -24,7 +24,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
     @Override
     public List<Order> findAll() throws ServicePersistentException {
         try {
-            OrderDAO dao = transaction.createDao(OrderDAO.class, true);
+            OrderDAO dao = transaction.createDao(DAOType.ORDER, true);
             List<Order> orders = dao.read();
             buildList(orders);
             return orders;
@@ -44,7 +44,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
     @Override
     public Map<Integer, List<Order>> find(int offset, int noOfRecords, Integer buyerId) throws ServicePersistentException {
         try {
-            OrderDAO dao = transaction.createDao(OrderDAO.class, true);
+            OrderDAO dao = transaction.createDao(DAOType.ORDER, true);
             Map<Integer, List<Order>> map = dao.read(offset, noOfRecords, buyerId);
             return map;
         } catch (PersistentException e) {
@@ -62,7 +62,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
     public void delete(Integer identity) throws ServicePersistentException {
         OrderDAO dao;
         try {
-            dao = transaction.createDao(OrderDAO.class, false);
+            dao = transaction.createDao(DAOType.ORDER, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -84,7 +84,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
     @Override
     public void save(Order order) throws ServicePersistentException {
         try {
-            OrderDAO orderDAO = transaction.createDao(OrderDAO.class, false);
+            OrderDAO orderDAO = transaction.createDao(DAOType.ORDER, false);
             if (order.getId() != null) {
                 orderDAO.update(order);
             } else {
@@ -101,7 +101,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                     } else {
                         buyer.setBalance(buyerBalance.subtract(orderPrice));
                         buyer.addBonus(new TotalPriceUtil().countBonus(order));
-                        BuyerDAO buyerDAO = transaction.createDao(BuyerDAO.class, false);
+                        BuyerDAO buyerDAO = transaction.createDao(DAOType.BUYER, false);
                         buyerDAO.update(buyer);
                     }
                     order.setId(orderDAO.create(order));
@@ -127,8 +127,8 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
      * @throws ServicePersistentException if filling error occurs
      */
     private void buildList(List<Order> orders) throws PersistentException {
-        OrderItemDAO orderItemDAO = transaction.createDao(OrderItemDAO.class, true);
-        CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
+        OrderItemDAO orderItemDAO = transaction.createDao(DAOType.ORDER_ITEM, true);
+        CategoryDAO categoryDAO = transaction.createDao(DAOType.CATEGORY, true);
 
         Map<Integer, Set<Product>> productOrderMap = new HashMap<>();
         Set<Product> orderProductList;

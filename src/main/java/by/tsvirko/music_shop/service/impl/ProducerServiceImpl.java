@@ -24,7 +24,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
     @Override
     public List<Producer> findAll() throws ServicePersistentException {
         try {
-            ProducerDAO dao = transaction.createDao(ProducerDAO.class, true);
+            ProducerDAO dao = transaction.createDao(DAOType.PRODUCER, true);
             List<Producer> producers = dao.read();
             buildList(producers);
             return producers;
@@ -41,7 +41,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
-            ProducerDAO dao = transaction.createDao(ProducerDAO.class, false);
+            ProducerDAO dao = transaction.createDao(DAOType.PRODUCER, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -62,11 +62,11 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
     @Override
     public void save(Producer producer) throws ServicePersistentException {
         try {
-            ProducerDAO dao = transaction.createDao(ProducerDAO.class, false);
+            ProducerDAO dao = transaction.createDao(DAOType.PRODUCER, false);
             if (producer.getId() != null) {
                 dao.update(producer);
             } else {
-                CountryDAO countryDAO = transaction.createDao(CountryDAO.class, false);
+                CountryDAO countryDAO = transaction.createDao(DAOType.COUNTRY, false);
                 //if we don't create producer
                 Country country = null;
                 Integer id = producer.getCountry().getId();
@@ -109,7 +109,7 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
     @Override
     public Producer findById(Integer identity) throws ServicePersistentException {
         try {
-            ProducerDAO dao = transaction.createDao(ProducerDAO.class, true);
+            ProducerDAO dao = transaction.createDao(DAOType.PRODUCER, true);
             Optional<Producer> optionalProducer = dao.read(identity);
             if (optionalProducer.isPresent()) {
                 Producer producer = optionalProducer.get();
@@ -129,9 +129,9 @@ public class ProducerServiceImpl extends ServiceImpl implements ProducerService 
      */
     private void buildList(List<Producer> producers) throws ServicePersistentException {
         try {
-            ProducerItemDAO producerItemDAO = transaction.createDao(ProducerItemDAO.class, true);
-            CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
-            CategoryDAO categoryDAO = transaction.createDao(CategoryDAO.class, true);
+            ProducerItemDAO producerItemDAO = transaction.createDao(DAOType.PRODUCER_ITEM, true);
+            CountryDAO countryDAO = transaction.createDao(DAOType.COUNTRY, true);
+            CategoryDAO categoryDAO = transaction.createDao(DAOType.CATEGORY, true);
 
             Map<Integer, Set<Product>> productProducerMap = new HashMap<>();
             Set<Product> orderProductList;

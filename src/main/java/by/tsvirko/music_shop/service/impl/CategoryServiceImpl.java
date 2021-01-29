@@ -1,9 +1,6 @@
 package by.tsvirko.music_shop.service.impl;
 
-import by.tsvirko.music_shop.dao.CategoryDAO;
-import by.tsvirko.music_shop.dao.CountryDAO;
-import by.tsvirko.music_shop.dao.ProducerItemDAO;
-import by.tsvirko.music_shop.dao.ProductDAO;
+import by.tsvirko.music_shop.dao.*;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.CategoryService;
@@ -27,7 +24,7 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
     @Override
     public Category getCategory() throws ServicePersistentException {
         try {
-            ProductDAO productDAO = transaction.createDao(ProductDAO.class, true);
+            ProductDAO productDAO = transaction.createDao(DAOType.PRODUCT, true);
             Category simpleCategory = getSimpleCategory();
             List<Product> products = productDAO.read();
             buildProducts(products);
@@ -47,7 +44,7 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
     @Override
     public Category getSimpleCategory() throws ServicePersistentException {
         try {
-            CategoryDAO dao = transaction.createDao(CategoryDAO.class, true);
+            CategoryDAO dao = transaction.createDao(DAOType.CATEGORY, true);
             Optional<Category> optionalCategory = dao.read();
             if (optionalCategory.isPresent()) {
                 Category category = optionalCategory.get();
@@ -68,8 +65,8 @@ public class CategoryServiceImpl extends ServiceImpl implements CategoryService 
      */
     private void buildProducts(List<Product> products) throws ServicePersistentException {
         try {
-            ProducerItemDAO producerDAO = transaction.createDao(ProducerItemDAO.class, true);
-            CountryDAO countryDAO = transaction.createDao(CountryDAO.class, true);
+            ProducerItemDAO producerDAO = transaction.createDao(DAOType.PRODUCER_ITEM, true);
+            CountryDAO countryDAO = transaction.createDao(DAOType.COUNTRY, true);
             for (Product product : products) {
                 Optional<Producer> producerItem = producerDAO.readProducerByProduct(product.getId());
                 if (producerItem.isPresent()) {

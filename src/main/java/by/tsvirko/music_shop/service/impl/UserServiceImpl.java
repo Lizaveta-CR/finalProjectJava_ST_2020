@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.service.impl;
 
+import by.tsvirko.music_shop.dao.DAOType;
 import by.tsvirko.music_shop.dao.UserDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.User;
@@ -30,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public List<User> findAll() throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, true);
+            UserDAO dao = transaction.createDao(DAOType.USER, true);
             List<User> list = dao.read();
             if (!list.isEmpty()) {
                 return list;
@@ -51,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public void delete(Integer identity) throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, false);
+            UserDAO dao = transaction.createDao(DAOType.USER, false);
             dao.delete(identity);
             transaction.commit();
         } catch (PersistentException e) {
@@ -73,7 +74,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public void save(User user) throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, false);
+            UserDAO dao = transaction.createDao(DAOType.USER, false);
             if (user.getId() != null) {
                 if (user.getPassword() == null) {
                     Optional<User> oldUserOptional = dao.read(user.getId());
@@ -109,7 +110,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public void updatePassword(User user) throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, false);
+            UserDAO dao = transaction.createDao(DAOType.USER, false);
             if (user.getPassword() != null && user.getId() != null) {
                 user.setPassword(new PasswordUtil().hashPassword(user.getPassword()));
                 dao.update(user);
@@ -138,7 +139,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public User findByLoginAndPassword(String login, String password) throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, true);
+            UserDAO dao = transaction.createDao(DAOType.USER, true);
             if (password != null) {
                 Optional<User> optionalUser = dao.read(login, new PasswordUtil().hashPassword(password));
                 if (optionalUser.isPresent()) {
@@ -161,7 +162,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public User findById(Integer identity) throws ServicePersistentException {
         try {
-            UserDAO dao = transaction.createDao(UserDAO.class, true);
+            UserDAO dao = transaction.createDao(DAOType.USER, true);
             Optional<User> optionalUser = dao.read(identity);
             if (optionalUser.isPresent()) {
                 return optionalUser.get();
