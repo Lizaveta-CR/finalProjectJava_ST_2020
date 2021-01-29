@@ -19,7 +19,8 @@
 * Заполнение формы **Заказа**
 * Оплата **Заказа**
 * Оценивание **Товаров**
-* Изменение личной информации(**Адресс** доставки, пароль, логин и тп)
+* Изменение личной информации(пароль, логин, почта, баланс и тп)
+* Добавление/удаление/изменение **Адресса** доставки
 * Просмотр всех **Заказов**
 * Использование накопленных бонусов(начисляются каждый раз в зависимости от итоговой стоимости) при оплате
 * Смена локализации
@@ -65,7 +66,7 @@
 * логирование событий (Log4J2)
 * использование шаблонов проектирования: Factory Method, Command, Observer, Singleton, Proxy ect
 * использование сессии для хранения информации между запросами
-* фильтры: [CashFilter(для отключения кеша)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CashFilter.java), [CommandFilter(проверка запроса/ответа)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CommandFilter.java),[CookieLocaleFilter(хранение информации о языке)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CookieLocaleFilter.java), [EncodingFilter (кодировка запроса/ответа)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/EncodingFilter.java), [SecurityFilter (для предотвращения несанкционированного доступа к пользователя к запрещенному ему ресурсу)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/SecurityFilter.java), [XSSPreventionFilter (защита от cross site scripting (xss))](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/XSSPreventionFilter.java) 
+* фильтры: [CashFilter(для отключения кеша)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CashFilter.java), [CommandFilter(проверка запроса/ответа)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CommandFilter.java),[CookieLocaleFilter(хранение информации о языке)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/CookieLocaleFilter.java), [EncodingFilter (кодировка запроса/ответа)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/EncodingFilter.java), [SecurityFilter (для предотвращения несанкционированного доступа пользователя к запрещенному ему ресурсу)](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/SecurityFilter.java), [XSSPreventionFilter (защита от cross site scripting (xss))](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/blob/master/src/main/java/by/tsvirko/music_shop/filter/XSSPreventionFilter.java) 
 * использование тегов библиотеки JSTL
 * защита от повторного выполнения запроса нажатием F5
 * собственные теги 
@@ -86,13 +87,12 @@
 * работа с данными в приложении осуществляется посредством шаблона DAO 
 * реализована защита от sql injection
 ***
-##
- Схема базы данных
+## Схема базы данных
 
  ![scheme](https://user-images.githubusercontent.com/56049061/105872094-0df50400-600b-11eb-8e8e-3ad98f4f012d.png)
 ***
  
-##Инструкция по установке приложения:
+## Инструкция по установке приложения:
 
 Для создания базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
 - 1_drop_database.sql
@@ -107,7 +107,7 @@
 - 4_fill_test_ables.sql
 
  
- ###Для доступа к приложению необходимо
+ ### Для доступа к приложению необходимо
  * Запустить вышеуказанные скрипты
  * Для входа с правами покупателя:
  ```логин: elizT, пароль: elizT```
