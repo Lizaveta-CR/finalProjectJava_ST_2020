@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class ShowProducerCommand extends Command {
-    private static final Logger logger = LogManager.getLogger(ShowProducerCommand.class);
+public class ShowProducerProductsCommand extends Command {
+    private static final Logger logger = LogManager.getLogger(ShowProducerProductsCommand.class);
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

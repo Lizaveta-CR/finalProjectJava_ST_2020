@@ -19,11 +19,8 @@
         <jsp:param name="page" value="/products/edit.html"/>
     </jsp:include>
     <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image" scope="session"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
+
     <c:choose>
         <c:when test="${not empty product}">
             <c:set var="product" value="${product}"/>

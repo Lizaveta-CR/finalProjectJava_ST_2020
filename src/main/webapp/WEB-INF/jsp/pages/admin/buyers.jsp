@@ -17,11 +17,7 @@
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Buyers">
     <c:url value="/img/wallpaper/wallpaper-buyers.jpg" var="image"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/admin/buyers.html"/>
     </jsp:include>
@@ -96,28 +92,7 @@
                         </div>
                     </c:forEach>
                 </div>
-                <ul class="pagination">
-                    <c:forEach begin="1" end="${noOfPages}" var="i">
-                        <c:choose>
-                            <c:when test="${currentPage eq i}">
-                                <div class="btn-group">
-                                    <li>
-                                        <button class="btn btn-primary" type="submit">${i}</button>
-                                    </li>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="btn-group">
-                                    <li>
-                                        <form action="<c:url value="/admin/buyers.html?page=${i}"/>" method="post">
-                                            <button class="btn btn-primary" type="submit">${i}</button>
-                                        </form>
-                                    </li>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </ul>
+                <u:pagination action="/admin/buyers.html"/>
             </div>
         </div>
         <form action="<c:url value="/admin/generate.html"/>" method="post">

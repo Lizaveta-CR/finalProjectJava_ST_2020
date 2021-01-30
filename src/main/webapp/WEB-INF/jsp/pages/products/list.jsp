@@ -21,11 +21,8 @@
 </c:choose>
 <u:html title="Categories">
     <c:url value="/img/wallpaper/wallpaper.jpg" var="image"  scope="session"/>
-    <style>
-        body {
-            background: #c7b39b url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
+
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/products/list.html"/>
     </jsp:include>

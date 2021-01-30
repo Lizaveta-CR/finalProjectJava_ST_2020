@@ -16,11 +16,7 @@
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Submit order" jsFile="main.js">
     <c:url value="/img/wallpaper/wallpaper-personal.jpg" var="image"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/order/submit.html"/>
     </jsp:include>

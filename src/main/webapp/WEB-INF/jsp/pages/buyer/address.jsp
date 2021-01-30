@@ -15,11 +15,7 @@
 <fmt:setBundle basename="i18n.messages"/>
 <u:html title="Address">
     <c:url value="/img/wallpaper/wallpaper-address.jpg" var="image"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/buyer/address.html"/>
     </jsp:include>

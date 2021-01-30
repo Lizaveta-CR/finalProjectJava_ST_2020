@@ -40,7 +40,7 @@ public class CommandFilter implements Filter {
 
         getCommands.put("/products/list", new CategoriesCommand());
         getCommands.put("/products/edit", new AdminEditProductsViewCommand());
-        getCommands.put("/products/producer", new ShowProducerCommand());
+        getCommands.put("/products/producer", new ShowProducerProductsCommand());
 
         getCommands.put("/admin/buyers", new AdminBuyersCommand());
         getCommands.put("/admin/unavailableProducts", new ShowUnavailableProductsCommand());

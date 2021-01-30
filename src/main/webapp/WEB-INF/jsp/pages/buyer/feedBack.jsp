@@ -16,11 +16,7 @@
 <u:html title="Feedback">
     <u:head/>
     <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
     <table class="table table-striped">
         <thead>
         <tr>

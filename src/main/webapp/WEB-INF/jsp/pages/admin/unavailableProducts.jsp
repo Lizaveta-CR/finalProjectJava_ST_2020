@@ -24,11 +24,7 @@
         <jsp:param name="page" value="/admin/unavailableProducts.html"/>
     </jsp:include>
     <c:url value="/img/wallpaper/wallpaper-unavail.png" var="image"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
     <c:choose>
         <c:when test="${not empty products}">
             <table class="table" style="background: gray">

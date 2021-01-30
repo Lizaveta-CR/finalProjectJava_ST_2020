@@ -82,28 +82,7 @@
             </c:forEach>
             </tbody>
         </table>
-        <ul class="pagination">
-            <c:forEach begin="1" end="${noOfPages}" var="i">
-                <c:choose>
-                    <c:when test="${currentPage eq i}">
-                        <div class="btn-group">
-                            <li>
-                                <button class="btn btn-primary" type="submit">${i}</button>
-                            </li>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="btn-group">
-                            <li>
-                                <form action="<c:url value="/buyer/buyerForm.html?page=${i}"/>" method="post">
-                                    <button class="btn btn-primary" type="submit">${i}</button>
-                                </form>
-                            </li>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </ul>
+        <u:pagination action="/buyer/buyerForm.html"/>
     </div>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

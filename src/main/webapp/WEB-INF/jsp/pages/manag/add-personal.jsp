@@ -22,7 +22,7 @@
         <div class="wrapper wrapper--w900">
             <div class="card card-6">
                 <div class="card-heading">
-                    <h2 class="title"><fmt:message key="label.register.title"/></h2>
+                    <h2 class="title"><fmt:message key="label.register.personal.title"/></h2>
                 </div>
                 <div class="card-body">
                     <div class="row">

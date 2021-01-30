@@ -19,11 +19,7 @@
         <jsp:param name="page" value="/buyer/editPass.html"/>
     </jsp:include>
     <c:url value="/img/wallpaper/wallpaper-edit.jpg" var="image" scope="session"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
     <div class="container">
         <h1><fmt:message key="label.buyer.edit.profile"/></h1>
         <hr>

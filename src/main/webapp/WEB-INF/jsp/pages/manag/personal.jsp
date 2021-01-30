@@ -16,11 +16,8 @@
 
 <u:html title="Add shop personal">
     <c:url value="/img/wallpaper/wallpaper-personal.jpg" var="image"/>
-    <style>
-        body {
-            background-image: url(${image});
-        }
-    </style>
+    <u:background image="${image}"/>
+
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
         <jsp:param name="page" value="/manag/personal.html"/>
     </jsp:include>
