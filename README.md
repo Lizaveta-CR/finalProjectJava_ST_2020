@@ -104,7 +104,7 @@
 * Tomcat - для запуска сервера
 Остальные зависимости добавяться автоматически
 
-<a name="скрипты"></a>
+##<a name="скрипты"></a>
 Для создания базы данных необходимо запустить [скрипты](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
 - 1_drop_database.sql
 - 2_create_database.sql
