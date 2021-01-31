@@ -19,8 +19,8 @@
         <c:set var="user" value="${sessionScope.authorizedUser}"/>
     </c:when>
 </c:choose>
-<u:html title="Categories">
-    <c:url value="/img/wallpaper/wallpaper.jpg" var="image"  scope="session"/>
+<u:html title="Categories" jsFile="main.js">
+    <c:url value="/img/wallpaper/wallpaper.jpg" var="image" scope="session"/>
     <u:background image="${image}"/>
 
     <jsp:include page="/WEB-INF/jsp/parts/nav-bar.jsp">
@@ -161,7 +161,7 @@
                 <c:when test="${f:isBuyer(user)}">
                     <form action="<c:url value="/products/byRate.html"/>" method="post">
                         <p><input type="number" min="0" value="1" max="10" name="mark" id="mark"
-                                  placeholder="10"  title="<fmt:message key="app.message.mark.incorrect"/>"/></p>
+                                  placeholder="10" title="<fmt:message key="app.message.mark.incorrect"/>"/></p>
                         <button class="btn btn--radius-2 btn--blue-2" type="submit"><fmt:message
                                 key="label.button.find_by_mark"/></button>
                     </form>
@@ -169,5 +169,13 @@
             </c:choose>
         </c:when>
     </c:choose>
+    <button class="open-button" onclick="openForm()"><fmt:message key="label.hint"/></button>
+
+    <div class="chat-popup" id="myForm">
+        <form class="form-container">
+            <label><b><fmt:message key="label.hint.mess"/></b></label>
+            <button type="button" class="btn cancel" onclick="closeForm()"><fmt:message key="label.close"/></button>
+        </form>
+    </div>
     <c:import url="/WEB-INF/jsp/parts/footer.jsp"/>
 </u:html>

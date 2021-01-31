@@ -20,16 +20,16 @@
             margin: 0;
         }
     </style>
-    <c:url value="/img/header2.jpg" var="image"  scope="session"/>
+    <c:url value="/img/header2.jpg" var="image" scope="session"/>
     <c:set var="user" scope="session" value="${authorizedUser}"/>
     <div class="bg" style="background-image: url(${image});">
         <jsp:include page="../parts/nav-bar.jsp">
             <jsp:param name="page" value="/welcome.html"/>
         </jsp:include>
-
         <header class="text-left">
             <h1>Music Land <small><fmt:message key="label.welcome.small"/></small></h1>
             <pre style="border: 0; background-color: transparent;"><fmt:message key="label.welcome.main"/></pre>
+            <p><a href="<c:url value="/about.html"/>"><fmt:message key="label.about.reference"/></a></p>
             <c:if test="${not empty user}">
                 <p class="lead" align="left">
                     <ctg:welcome name="${user.name}"/>
