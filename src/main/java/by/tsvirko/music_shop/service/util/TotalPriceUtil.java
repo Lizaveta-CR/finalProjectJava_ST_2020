@@ -13,7 +13,7 @@ public class TotalPriceUtil {
     /**
      * Koefficient to provide bonus percent of total price
      */
-    private final BigDecimal KOEFFICIENT = new BigDecimal(3);
+    private BigDecimal koefficient = new BigDecimal(3);
 
     /**
      * Counts price for products depending on amount
@@ -58,8 +58,16 @@ public class TotalPriceUtil {
      * @return BigDecimal- total bonus
      */
     public BigDecimal countBonus(Order order) {
-        BigDecimal total = order.getPrice().multiply(KOEFFICIENT).divide(new BigDecimal(100));
+        BigDecimal total = order.getPrice().multiply(koefficient).divide(new BigDecimal(100));
         total = total.setScale(2, BigDecimal.ROUND_HALF_UP);
         return total;
+    }
+
+    public void setKoefficient(BigDecimal koefficient) {
+        if (koefficient != null) {
+            this.koefficient = koefficient;
+        } else {
+            throw new IllegalArgumentException("Koefficient can not be null!");
+        }
     }
 }

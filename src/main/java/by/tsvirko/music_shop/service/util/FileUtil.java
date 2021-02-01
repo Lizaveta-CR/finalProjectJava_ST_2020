@@ -18,7 +18,7 @@ public class FileUtil {
      *
      * @param filePart represents a part or form item that was received within a multipart/form-data POST request
      * @return file information in String
-     * @throws FileUtilException
+     * @throws FileUtilException if file can not be processed
      */
     public String readFile(Part filePart) throws FileUtilException {
         try {

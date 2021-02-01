@@ -32,17 +32,21 @@ public class PasswordUtil {
      * @throws InvalidKeySpecException
      */
     public String hashPassword(String password) throws PasswordException {
-        char[] chars = password.toCharArray();
-        byte[] salt = getSalt().getBytes();
+        if (password != null) {
+            char[] chars = password.toCharArray();
+            byte[] salt = getSalt().getBytes();
 
-        PBEKeySpec spec = new PBEKeySpec(chars, salt, ITERATIONS, KEY_LENGTH);
-        SecretKeyFactory skf = null;
-        try {
-            skf = SecretKeyFactory.getInstance(KEY_ALGORITHM);
-            byte[] hash = skf.generateSecret(spec).getEncoded();
-            return ITERATIONS + ":" + toHex(hash);
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new PasswordException(e);
+            PBEKeySpec spec = new PBEKeySpec(chars, salt, ITERATIONS, KEY_LENGTH);
+            SecretKeyFactory skf = null;
+            try {
+                skf = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+                byte[] hash = skf.generateSecret(spec).getEncoded();
+                return ITERATIONS + ":" + toHex(hash);
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                throw new PasswordException(e);
+            }
+        } else {
+            throw new PasswordException("Password can not be null!");
         }
     }
 
