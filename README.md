@@ -1,4 +1,4 @@
-# finalProjectJava_ST_2020. Music Land - музыкальный магазин
+# finalProjectJava_ST_2020. Music Land
 ## Table of contents
 1. [Music Land](#оглавление)
 2. [Technologies](#технологии)
