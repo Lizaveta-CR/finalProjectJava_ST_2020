@@ -9,10 +9,13 @@ import by.tsvirko.music_shop.domain.OrderItem;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.util.TotalPriceUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -110,6 +113,26 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
         } catch (PersistentException e) {
             throw new ServicePersistentException(e);
         }
+    }
+
+    /**
+     * Builds order items
+     *
+     * @param map, where Product is given product and Byte - amount
+     * @return list of order items
+     */
+    @Override
+    public List<OrderItem> buildOrderItems(Map<Product, Byte> map) {
+        List<OrderItem> orderItems = new ArrayList<>();
+        OrderItem orderItem = null;
+        for (Map.Entry<Product, Byte> entry : map.entrySet()) {
+            orderItem = new OrderItem();
+            orderItem.setProduct(entry.getKey());
+            orderItem.setAmount(entry.getValue());
+            orderItem.setPrice(new TotalPriceUtil().countPrice(entry));
+            orderItems.add(orderItem);
+        }
+        return orderItems;
     }
 }
 

@@ -11,6 +11,8 @@ import java.io.InputStream;
  * Reads file information
  */
 public class FileUtil {
+    private static final String CHARSET_NAME = "UTF-8";
+
     /**
      * Reads file text
      *
@@ -27,7 +29,7 @@ public class FileUtil {
             while ((length = inputStream.read(buffer)) != -1) {
                 result.write(buffer, 0, length);
             }
-            return result.toString("UTF-8");
+            return result.toString(CHARSET_NAME);
         } catch (IOException e) {
             throw new FileUtilException("File can not be processed");
         }
