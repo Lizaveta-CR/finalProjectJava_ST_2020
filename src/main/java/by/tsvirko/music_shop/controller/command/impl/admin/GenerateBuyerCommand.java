@@ -13,13 +13,14 @@ import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
+
 /**
  * Command for generating winner within buyer. Only admin access
  */
 public class GenerateBuyerCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         Forward forward = new Forward(PathConstant.ADMIN_WINNER, true);
         String parameter = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty() && parameter != null) {

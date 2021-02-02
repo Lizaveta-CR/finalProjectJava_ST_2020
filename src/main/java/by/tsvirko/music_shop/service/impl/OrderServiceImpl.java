@@ -5,7 +5,7 @@ import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.service.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.helper.TotalPriceHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -100,7 +100,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                         throw new ServicePersistentException("No money");
                     } else {
                         buyer.setBalance(buyerBalance.subtract(orderPrice));
-                        buyer.addBonus(new TotalPriceUtil().countBonus(order));
+                        buyer.addBonus(new TotalPriceHelper().countBonus(order));
                         BuyerDAO buyerDAO = transaction.createDao(DAOType.BUYER, false);
                         buyerDAO.update(buyer);
                     }

@@ -10,7 +10,7 @@ import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceType;
-import by.tsvirko.music_shop.service.util.FileUtil;
+import by.tsvirko.music_shop.service.helper.FileHelper;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
 import by.tsvirko.music_shop.service.validator.Validator;
@@ -37,7 +37,7 @@ public class AddProductCommand extends ManagerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.PRODUCTS_CREATE, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         Product product = null;
         try {
@@ -53,7 +53,7 @@ public class AddProductCommand extends ManagerCommand {
         String description;
         try {
             Part filePart = request.getPart(ParameterConstant.FILE.value());
-            description = new FileUtil().readFile(filePart);
+            description = new FileHelper().readFile(filePart);
         } catch (IOException | ServletException | FileUtilException e) {
             logger.error("File can not be processed", e.getMessage());
             forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));

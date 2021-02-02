@@ -24,7 +24,7 @@ public class ShowProducerProductsCommand extends Command {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         String parameter = request.getParameter(ParameterConstant.PRODUCER_ID.value());
         if (parameter != null) {
             try {

@@ -31,7 +31,7 @@ public class EditAddressCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession();
         Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         Integer buyerId = authorizedBuyer.getId();

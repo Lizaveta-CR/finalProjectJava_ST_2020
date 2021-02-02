@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.service.util;
+package by.tsvirko.music_shop.service.helper;
 
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
 
@@ -10,7 +10,7 @@ import java.io.InputStream;
 /**
  * Reads file information
  */
-public class FileUtil {
+public class FileHelper {
     private static final String CHARSET_NAME = "UTF-8";
 
     /**

@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.filter;
+package by.tsvirko.music_shop.controller.filter;
 
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttribute;

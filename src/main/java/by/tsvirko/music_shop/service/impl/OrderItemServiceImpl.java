@@ -1,22 +1,19 @@
 package by.tsvirko.music_shop.service.impl;
 
-import by.tsvirko.music_shop.dao.AddressDAO;
 import by.tsvirko.music_shop.dao.DAOType;
 import by.tsvirko.music_shop.dao.OrderItemDAO;
-import by.tsvirko.music_shop.dao.ProductDAO;
 import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.OrderItem;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.service.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.helper.TotalPriceHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Order item service
@@ -129,7 +126,7 @@ public class OrderItemServiceImpl extends ServiceImpl implements OrderItemServic
             orderItem = new OrderItem();
             orderItem.setProduct(entry.getKey());
             orderItem.setAmount(entry.getValue());
-            orderItem.setPrice(new TotalPriceUtil().countPrice(entry));
+            orderItem.setPrice(new TotalPriceHelper().countPrice(entry));
             orderItems.add(orderItem);
         }
         return orderItems;

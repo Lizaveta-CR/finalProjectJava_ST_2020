@@ -160,9 +160,9 @@
             </class>
         </classes>
     </test>
-    <test name="Total Price Util">
+    <test name="Total Price Helper">
         <classes>
-            <class name="music_shop.service.util.PasswordUtilTest">
+            <class name="music_shop.service.helper.TotalPriceHelperTest">
                 <methods>
                     <include name="countPriceTest"/>
                     <include name="countBonus"/>

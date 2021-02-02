@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.filter;
+package by.tsvirko.music_shop.controller.filter;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -125,7 +125,7 @@ public class CommandFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 logger.error("It is impossible to create command handler object and use filter");
-                ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(httpRequest);
+                ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
                 String errMes = rb.getString("app.error.requested") + uri + rb.getString("app.error.requested.not.found");
                 httpRequest.setAttribute(AttributeConstant.ERROR.value(), errMes);
                 httpRequest.getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(servletRequest, servletResponse);

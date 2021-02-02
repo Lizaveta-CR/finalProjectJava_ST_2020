@@ -29,7 +29,7 @@ public class AddEmployeeCommand extends ManagerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.MANAGER_PERSONAL, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User employee = null;
         try {

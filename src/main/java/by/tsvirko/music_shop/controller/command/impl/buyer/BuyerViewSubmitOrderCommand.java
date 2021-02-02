@@ -25,7 +25,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
         if (buyer != null) {

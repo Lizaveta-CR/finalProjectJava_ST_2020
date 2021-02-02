@@ -8,7 +8,7 @@ import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceType;
-import by.tsvirko.music_shop.service.util.FileUtil;
+import by.tsvirko.music_shop.service.helper.FileHelper;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import by.tsvirko.music_shop.service.util.exception.FileUtilException;
 import by.tsvirko.music_shop.service.validator.Validator;
@@ -36,7 +36,7 @@ public class AdminEditProductsCommand extends AdminCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.MAIN_JSP, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
             if (parameter != null && !parameter.isEmpty()) {
@@ -47,7 +47,7 @@ public class AdminEditProductsCommand extends AdminCommand {
                 String description;
                 try {
                     Part filePart = request.getPart(ParameterConstant.FILE.value());
-                    description = new FileUtil().readFile(filePart);
+                    description = new FileHelper().readFile(filePart);
                 } catch (IOException | ServletException | FileUtilException e) {
                     logger.error("File can not be processed", e.getMessage());
                     forward.setForward(PathConstant.PRODUCTS_EDIT);

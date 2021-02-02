@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.filter;
+package by.tsvirko.music_shop.controller.filter;
 
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -57,7 +57,7 @@ public class SecurityFilter implements Filter {
             } else {
                 logger.info(String.format("Trying of %s access to forbidden resource", command.getName()));
                 if (session != null && command.getClass() != MainCommand.class) {
-                    ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(httpRequest);
+                    ResourceBundle rb = ResourceBundleUtil.getResourceBundle(httpRequest);
                     session.setAttribute(AttributeConstant.SECURITY_FILTER_MESSAGE.value(), rb.getString("app.message.security"));
                 }
                 httpResponse.sendRedirect(httpRequest.getContextPath() + PathConstant.LOGIN);

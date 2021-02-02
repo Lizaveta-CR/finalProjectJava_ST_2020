@@ -9,19 +9,19 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class PasswordUtil {
-    private final String SALT = "defaultsalt";
+    private static final String SALT = "defaultsalt";
     /**
      * no. of iterations to be done. This value can manage speed of the algorithm.
      */
-    private final int ITERATIONS = 100;
+    private static final int ITERATIONS = 100;
     /**
      * This is the required output length of the hashed function.
      */
-    private final int KEY_LENGTH = 128;
+    private static final int KEY_LENGTH = 128;
     /**
      * Algorithm to be used in SecretKeyFactory
      */
-    private final String KEY_ALGORITHM = "PBKDF2WithHmacSHA1";
+    private static final String KEY_ALGORITHM = "PBKDF2WithHmacSHA1";
 
     /**
      * Hashes password using PBKDF2 algorithm
@@ -31,22 +31,18 @@ public class PasswordUtil {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public String hashPassword(String password) throws PasswordException {
-        if (password != null) {
-            char[] chars = password.toCharArray();
-            byte[] salt = getSalt().getBytes();
+    public static String hashPassword(String password) throws PasswordException {
+        char[] chars = password.toCharArray();
+        byte[] salt = getSalt().getBytes();
 
-            PBEKeySpec spec = new PBEKeySpec(chars, salt, ITERATIONS, KEY_LENGTH);
-            SecretKeyFactory skf = null;
-            try {
-                skf = SecretKeyFactory.getInstance(KEY_ALGORITHM);
-                byte[] hash = skf.generateSecret(spec).getEncoded();
-                return ITERATIONS + ":" + toHex(hash);
-            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-                throw new PasswordException(e);
-            }
-        } else {
-            throw new PasswordException("Password can not be null!");
+        PBEKeySpec spec = new PBEKeySpec(chars, salt, ITERATIONS, KEY_LENGTH);
+        SecretKeyFactory skf = null;
+        try {
+            skf = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+            byte[] hash = skf.generateSecret(spec).getEncoded();
+            return ITERATIONS + ":" + toHex(hash);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new PasswordException(e);
         }
     }
 
@@ -55,7 +51,7 @@ public class PasswordUtil {
      *
      * @return salt value - byte array
      */
-    private String getSalt() {
+    private static String getSalt() {
         return SALT;
     }
 
@@ -65,7 +61,7 @@ public class PasswordUtil {
      * @param array - array to be converted
      * @return converted string
      */
-    private String toHex(byte[] array) {
+    private static String toHex(byte[] array) {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
         int paddingLength = (array.length * 2) - hex.length();

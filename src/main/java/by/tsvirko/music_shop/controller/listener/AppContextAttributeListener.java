@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.listener;
+package by.tsvirko.music_shop.controller.listener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

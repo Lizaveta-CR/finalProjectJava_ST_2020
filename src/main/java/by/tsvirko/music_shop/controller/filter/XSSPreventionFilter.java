@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.filter;
+package by.tsvirko.music_shop.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

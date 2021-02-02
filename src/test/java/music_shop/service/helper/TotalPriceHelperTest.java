@@ -1,8 +1,8 @@
-package music_shop.service.util;
+package music_shop.service.helper;
 
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
-import by.tsvirko.music_shop.service.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.helper.TotalPriceHelper;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TotalPriceUtilTest {
-    private TotalPriceUtil totalPriceUtil = new TotalPriceUtil();
+public class TotalPriceHelperTest {
+    private TotalPriceHelper totalPriceUtil = new TotalPriceHelper();
 
 
     @DataProvider(name = "priceData")

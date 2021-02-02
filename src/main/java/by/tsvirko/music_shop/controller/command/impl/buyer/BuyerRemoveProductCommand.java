@@ -9,7 +9,7 @@ import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceType;
-import by.tsvirko.music_shop.service.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.helper.TotalPriceHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,7 +37,7 @@ public class BuyerRemoveProductCommand extends BuyerCommand {
                 if (order != null && product != null) {
                     order.removeProduct(product);
                     map.remove(product);
-                    order.setPrice(new TotalPriceUtil().countPrice(map));
+                    order.setPrice(new TotalPriceHelper().countPrice(map));
                     logger.info("Product with id=" + product.getId() + " was removed from order");
                 }
                 return forward;

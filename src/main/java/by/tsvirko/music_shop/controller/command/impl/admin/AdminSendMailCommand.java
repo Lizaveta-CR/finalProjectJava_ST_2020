@@ -65,7 +65,7 @@ public class AdminSendMailCommand extends AdminCommand {
                 logger.warn("Buyer can not be updated. Bonus update operation failed");
             }
         }
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         Forward forward = new Forward(PathConstant.ADMIN_BUYERS, true);
         forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.winner.email.success"));
         return forward;

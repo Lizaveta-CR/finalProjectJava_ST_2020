@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.service.util;
+package by.tsvirko.music_shop.service.helper;
 
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.domain.Product;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Total price counter util
  */
-public class TotalPriceUtil {
+public class TotalPriceHelper {
     /**
      * Koefficient to provide bonus percent of total price
      */

@@ -22,7 +22,7 @@
 
     <filter>
         <filter-name>XSSPreventionFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.XSSPreventionFilter</filter-class>
+        <filter-class>by.tsvirko.music_shop.controller.filter.XSSPreventionFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>XSSPreventionFilter</filter-name>
@@ -30,7 +30,7 @@
     </filter-mapping>
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.EncodingFilter</filter-class>
+        <filter-class>by.tsvirko.music_shop.controller.filter.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
@@ -39,7 +39,7 @@
     </filter-mapping>
     <filter>
         <filter-name>CookieLocaleFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.CookieLocaleFilter</filter-class>
+        <filter-class>by.tsvirko.music_shop.controller.filter.CookieLocaleFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CookieLocaleFilter</filter-name>
@@ -48,7 +48,7 @@
     </filter-mapping>
     <filter>
         <filter-name>CashFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.CashFilter</filter-class>
+        <filter-class>by.tsvirko.music_shop.controller.filter.CashFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CashFilter</filter-name>
@@ -56,7 +56,7 @@
     </filter-mapping>
     <filter>
         <filter-name>CommandFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.CommandFilter</filter-class>
+        <filter-class>by.tsvirko.music_shop.controller.filter.CommandFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CommandFilter</filter-name>
@@ -64,7 +64,7 @@
     </filter-mapping>
     <filter>
         <filter-name>SecurityFilter</filter-name>
-        <filter-class>by.tsvirko.music_shop.filter.SecurityFilter</filter-class>
+        <filter-class>by.tsvirko.music_shop.controller.filter.SecurityFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SecurityFilter</filter-name>
@@ -72,10 +72,10 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>by.tsvirko.music_shop.listener.RequestListener</listener-class>
+        <listener-class>by.tsvirko.music_shop.controller.listener.RequestListener</listener-class>
     </listener>
     <listener>
-        <listener-class>by.tsvirko.music_shop.listener.AppContextAttributeListener</listener-class>
+        <listener-class>by.tsvirko.music_shop.controller.listener.AppContextAttributeListener</listener-class>
     </listener>
     <session-config>
         <!-- Disables URL-based sessions (no more 'jsessionid' in the URL) -->

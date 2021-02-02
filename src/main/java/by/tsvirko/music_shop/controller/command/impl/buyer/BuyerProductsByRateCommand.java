@@ -29,7 +29,7 @@ public class BuyerProductsByRateCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.PRODUCTS_LIST, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         int mark = 0;
         String parameter = request.getParameter(ParameterConstant.MARK.value());
         if (parameter != null && !parameter.isEmpty()) {

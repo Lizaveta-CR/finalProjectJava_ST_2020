@@ -87,7 +87,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 }
                 dao.update(user);
             } else {
-                user.setPassword(new PasswordUtil().hashPassword(user.getPassword()));
+                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
                 user.setId(dao.create(user));
             }
             transaction.commit();
@@ -112,7 +112,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try {
             UserDAO dao = transaction.createDao(DAOType.USER, false);
             if (user.getPassword() != null && user.getId() != null) {
-                user.setPassword(new PasswordUtil().hashPassword(user.getPassword()));
+                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
                 dao.update(user);
             } else {
                 throw new ServicePersistentException("User can not be updated");
@@ -141,7 +141,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try {
             UserDAO dao = transaction.createDao(DAOType.USER, true);
             if (password != null) {
-                Optional<User> optionalUser = dao.read(login, new PasswordUtil().hashPassword(password));
+                Optional<User> optionalUser = dao.read(login, PasswordUtil.hashPassword(password));
                 if (optionalUser.isPresent()) {
                     return optionalUser.get();
                 }

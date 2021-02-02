@@ -39,7 +39,7 @@ public class RegisterCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) {
         Forward forward = new Forward(PathConstant.WELCOME, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User user = null;
         Buyer buyer = null;

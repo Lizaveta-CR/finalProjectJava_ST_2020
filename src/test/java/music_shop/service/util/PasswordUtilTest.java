@@ -18,11 +18,11 @@ public class PasswordUtilTest {
 
     @Test(dataProvider = "passData")
     public void testPass(String pass) throws PasswordException {
-        Assert.assertNotNull(new PasswordUtil().hashPassword(pass));
+        Assert.assertNotNull(PasswordUtil.hashPassword(pass));
     }
 
     @Test()
     public void testPassException() throws PasswordException {
-        Assert.assertThrows(PasswordException.class, () -> new PasswordUtil().hashPassword(null));
+        Assert.assertThrows(PasswordException.class, () -> PasswordUtil.hashPassword(null));
     }
 }

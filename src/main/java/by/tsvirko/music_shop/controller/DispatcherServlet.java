@@ -108,7 +108,7 @@ public class DispatcherServlet extends HttpServlet {
             }
         } catch (PersistentException | CommandException e) {
             logger.error("It is impossible to process request", e);
-            ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(req);
+            ResourceBundle rb = ResourceBundleUtil.getResourceBundle(req);
             req.setAttribute(AttributeConstant.ERROR.value(), rb.getString("app.global.process.error"));
             getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(req, resp);
         }

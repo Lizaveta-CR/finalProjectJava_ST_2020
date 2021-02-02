@@ -42,7 +42,7 @@ public class LoginCommand extends Command {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.LOGIN, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         String login = request.getParameter(ParameterConstant.LOGIN.value());
         String password = request.getParameter(ParameterConstant.PASS.value());

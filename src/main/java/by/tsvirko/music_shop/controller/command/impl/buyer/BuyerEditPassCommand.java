@@ -31,7 +31,7 @@ public class BuyerEditPassCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.BUYER_FORM, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession();
         User authorizedUser = (User) session.getAttribute(AttributeConstant.AUTHORIZED_USER.value());
         String password = request.getParameter(ParameterConstant.PASS.value());

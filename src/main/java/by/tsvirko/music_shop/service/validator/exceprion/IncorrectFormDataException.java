@@ -6,6 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class IncorrectFormDataException extends Exception {
     public IncorrectFormDataException(String param, String value, HttpServletRequest request) {
-        super(new ResourceBundleUtil().getResourceBundle(request).getString("app.exception.incorrect") + " " + param + ":" + value);
+        super(ResourceBundleUtil.getResourceBundle(request).getString("app.exception.incorrect") + " " + param + ":" + value);
     }
 }

@@ -10,7 +10,7 @@ import by.tsvirko.music_shop.service.OrderService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceType;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
-import by.tsvirko.music_shop.service.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.helper.TotalPriceHelper;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.ValidatorFactory;
 import by.tsvirko.music_shop.service.validator.ValidatorType;
@@ -36,7 +36,7 @@ public class SubmitOrderCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.PRODUCTS_LIST, true);
-        ResourceBundle rb = new ResourceBundleUtil().getResourceBundle(request);
+        ResourceBundle rb =  ResourceBundleUtil.getResourceBundle(request);
 
         HttpSession session = request.getSession(false);
         Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
@@ -57,7 +57,7 @@ public class SubmitOrderCommand extends BuyerCommand {
             String bonus = request.getParameter(ParameterConstant.BONUS.value());
             Buyer buyer = order.getBuyer();
             if (bonus != null) {
-                order.setPrice(new TotalPriceUtil().countPrice(order, new BigDecimal(bonus)));
+                order.setPrice(new TotalPriceHelper().countPrice(order, new BigDecimal(bonus)));
                 buyer.setBonus(BigDecimal.ZERO);
             }
             Map<Product, Byte> map = (Map<Product, Byte>) session.getAttribute(AttributeConstant.ORDER_ITEM.value());

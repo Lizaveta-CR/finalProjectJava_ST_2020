@@ -16,7 +16,7 @@ public class ResourceBundleUtil {
      * @param req
      * @return ResourceBundle
      */
-    public ResourceBundle getResourceBundle(HttpServletRequest req) {
+    public static ResourceBundle getResourceBundle(HttpServletRequest req) {
         Optional<String> lang = Arrays.stream(req.getCookies())
                 .filter(c -> ResourceBundleAttribute.LANGUAGE.equals(c.getName()))
                 .map(Cookie::getValue)

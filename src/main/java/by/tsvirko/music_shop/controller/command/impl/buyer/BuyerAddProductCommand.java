@@ -9,7 +9,7 @@ import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.ServiceType;
-import by.tsvirko.music_shop.service.util.TotalPriceUtil;
+import by.tsvirko.music_shop.service.helper.TotalPriceHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,7 +60,7 @@ public class BuyerAddProductCommand extends BuyerCommand {
                             return forward;
                         }
                     }
-                    order.setPrice(new TotalPriceUtil().countPrice(map));
+                    order.setPrice(new TotalPriceHelper().countPrice(map));
                     order.addProduct(product);
                     logger.info("Product with id=" + product.getId() + " was added to order");
                 } else {
