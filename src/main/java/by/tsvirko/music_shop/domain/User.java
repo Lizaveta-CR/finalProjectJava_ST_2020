@@ -1,7 +1,6 @@
 package by.tsvirko.music_shop.domain;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * User class

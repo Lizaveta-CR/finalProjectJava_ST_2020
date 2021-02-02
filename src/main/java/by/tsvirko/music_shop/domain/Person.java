@@ -1,9 +1,7 @@
 package by.tsvirko.music_shop.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Person class
@@ -12,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-abstract public class Person extends Entity<Integer>{
+public abstract class Person extends Entity<Integer> {
     private String email;
     private String password;
 }
