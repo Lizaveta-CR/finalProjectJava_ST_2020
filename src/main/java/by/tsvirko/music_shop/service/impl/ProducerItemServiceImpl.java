@@ -1,9 +1,9 @@
 package by.tsvirko.music_shop.service.impl;
 
-import by.tsvirko.music_shop.dao.CountryDAO;
-import by.tsvirko.music_shop.dao.DAOType;
-import by.tsvirko.music_shop.dao.ProducerItemDAO;
-import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.dal.dao.CountryDAO;
+import by.tsvirko.music_shop.dal.dao.DAOType;
+import by.tsvirko.music_shop.dal.dao.ProducerItemDAO;
+import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.ProducerItem;

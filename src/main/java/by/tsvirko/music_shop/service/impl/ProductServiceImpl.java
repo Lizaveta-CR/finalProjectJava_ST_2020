@@ -1,7 +1,10 @@
 package by.tsvirko.music_shop.service.impl;
 
-import by.tsvirko.music_shop.dao.*;
-import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.dal.dao.CategoryDAO;
+import by.tsvirko.music_shop.dal.dao.DAOType;
+import by.tsvirko.music_shop.dal.dao.ProducerItemDAO;
+import by.tsvirko.music_shop.dal.dao.ProductDAO;
+import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.ProductService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -10,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Product service

@@ -1,19 +1,13 @@
 package by.tsvirko.music_shop.controller;
 
+import by.tsvirko.music_shop.config.ApplicationConfig;
+import by.tsvirko.music_shop.config.exception.ApplicationConfigException;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.CommandManager;
 import by.tsvirko.music_shop.controller.command.CommandManagerFactory;
-import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttribute;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
-import by.tsvirko.music_shop.dao.exception.ConnectionPoolException;
-import by.tsvirko.music_shop.dao.exception.PersistentException;
-import by.tsvirko.music_shop.dao.pool.ConnectionPool;
-import by.tsvirko.music_shop.service.ServiceFactory;
-import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,9 +23,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * Main controlling servlet
+ * Main controlling servlet is used to delegate commands from request, link the
+ * command with the corresponding class and return response.
  *
  * @author Tsvirko Lizaveta
+ * @version 1.0
  */
 @MultipartConfig
 public class DispatcherServlet extends HttpServlet {
@@ -39,24 +35,13 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init() {
-        ResourceBundle resource = ResourceBundle.getBundle(ParameterConstant.DATASOURCE_NAME.value());
-        String driver = resource.getString(ResourceBundleAttribute.DRIVER.value());
-        String url = resource.getString(ResourceBundleAttribute.URL.value());
-        String user = resource.getString(ResourceBundleAttribute.USER.value());
-        String password = resource.getString(ResourceBundleAttribute.PASSWORD.value());
-        int poolSize = Integer.parseInt(resource.getString(ResourceBundleAttribute.POOL_SIZE.value()));
-        int maxSize = Integer.parseInt(resource.getString(ResourceBundleAttribute.POOL_MAX_SIZE.value()));
-        int checkConnectionTimeout = Integer.parseInt(resource.getString(ResourceBundleAttribute.CONNECTIONS_TIMEOUT.value()));
         try {
-            ConnectionPool.getInstance().initPoolData(driver, url, user, password, poolSize, maxSize, checkConnectionTimeout);
-        } catch (ConnectionPoolException e) {
+            ApplicationConfig.getInstance().initApplication();
+            logger.info("Application was initialized");
+        } catch (ApplicationConfigException e) {
             logger.error("It is impossible to initialize application", e);
             destroy();
         }
-    }
-
-    public ServiceFactory getFactory() throws PersistentException {
-        return new ServiceFactoryImpl(new TransactionFactoryImpl());
     }
 
     @Override
@@ -83,7 +68,7 @@ public class DispatcherServlet extends HttpServlet {
                     session.removeAttribute(AttributeConstant.REDIRECTED_DATA.value());
                 }
             }
-            CommandManager actionManager = CommandManagerFactory.getManager(getFactory());
+            CommandManager actionManager = CommandManagerFactory.getManager();
             Command.Forward forward = actionManager.execute(command, req, resp);
             actionManager.close();
             if (session != null && forward != null && !forward.getAttributes().isEmpty()) {
@@ -106,16 +91,18 @@ public class DispatcherServlet extends HttpServlet {
                 logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));
                 getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
             }
-        } catch (PersistentException | CommandException e) {
+        } catch (CommandException e) {
             logger.error("It is impossible to process request", e);
             ResourceBundle rb = ResourceBundleUtil.getResourceBundle(req);
-            req.setAttribute(AttributeConstant.ERROR.value(), rb.getString("app.global.process.error"));
+            req.setAttribute(AttributeConstant.ERROR.value(),
+                    rb.getString("app.global.process.error")
+                            + ":" + e.getMessage());
             getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(req, resp);
         }
     }
 
     @Override
     public void destroy() {
-        ConnectionPool.getInstance().destroy();
+        ApplicationConfig.getInstance().destroyApplication();
     }
 }

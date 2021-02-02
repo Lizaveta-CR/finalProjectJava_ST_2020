@@ -1,10 +1,9 @@
 package music_shop.service;
 
-import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
-import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.dal.transaction.impl.TransactionFactoryImpl;
+import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.domain.Producer;
-import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.service.ProducerService;
 import by.tsvirko.music_shop.service.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
@@ -20,13 +19,13 @@ public class ProducerServiceImplTest {
     Producer producer;
 
     @BeforeClass
-    public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
-        ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
+    public void setUpBeforeClass() throws ServicePersistentException {
+        ServiceFactory serviceFactory = new ServiceFactoryImpl();
         producerService = serviceFactory.getService(ServiceType.PRODUCER);
     }
 
     @BeforeTest
-    public void createProduct() throws ServicePersistentException {
+    public void createProduct() {
         producer = new Producer();
         Country country = new Country();
         country.setId(1);
@@ -59,7 +58,7 @@ public class ProducerServiceImplTest {
     }
 
     @Test
-    public void saveExceptionTest() throws ServicePersistentException {
+    public void saveExceptionTest() {
         Country country = new Country();
         country.setId(1000);
         producer.setCountry(country);

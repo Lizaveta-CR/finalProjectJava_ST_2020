@@ -1,6 +1,5 @@
 package by.tsvirko.music_shop.service;
 
-import by.tsvirko.music_shop.dao.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Order;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 

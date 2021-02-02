@@ -1,7 +1,7 @@
 package music_shop.service;
 
-import by.tsvirko.music_shop.dao.database.TransactionFactoryImpl;
-import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.dal.transaction.impl.TransactionFactoryImpl;
+import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.domain.*;
 import by.tsvirko.music_shop.service.OrderItemService;
 import by.tsvirko.music_shop.service.ServiceFactory;
@@ -21,7 +21,7 @@ public class OrderItemServiceImpTest {
 
     @BeforeClass
     public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
-        ServiceFactory serviceFactory = new ServiceFactoryImpl(new TransactionFactoryImpl());
+        ServiceFactory serviceFactory = new ServiceFactoryImpl();
         orderItemService = serviceFactory.getService(ServiceType.ORDER_ITEM);
     }
 

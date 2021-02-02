@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.service.impl;
 
-import by.tsvirko.music_shop.dao.CountryDAO;
-import by.tsvirko.music_shop.dao.DAOType;
-import by.tsvirko.music_shop.dao.exception.PersistentException;
+import by.tsvirko.music_shop.dal.dao.CountryDAO;
+import by.tsvirko.music_shop.dal.dao.DAOType;
+import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.service.CountryService;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 

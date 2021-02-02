@@ -1,7 +1,7 @@
 package music_shop.dao.pool;
 
-import by.tsvirko.music_shop.dao.exception.ConnectionPoolException;
-import by.tsvirko.music_shop.dao.pool.ConnectionPool;
+import by.tsvirko.music_shop.dal.exception.ConnectionPoolException;
+import by.tsvirko.music_shop.dal.connection.ConnectionPool;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
