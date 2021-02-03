@@ -112,9 +112,7 @@ final public class ConnectionPool {
         if (instance == null) {
             try {
                 lock.lock();
-                if (instance == null) {
-                    instance = new ConnectionPool();
-                }
+                instance = new ConnectionPool();
             } finally {
                 lock.unlock();
             }
