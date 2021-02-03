@@ -35,13 +35,13 @@ final public class ConnectionPool {
     private Set<ConnectionProxy> usedConnections = new ConcurrentSkipListSet<>();
 
     /**
-     * ConnectionPool constructor
+     * ConnectionPool constructor.
      */
     private ConnectionPool() {
     }
 
     /**
-     * Initializes connection with url,user,password. Creates PooledConnection
+     * Initializes connection with url,user,password. Creates PooledConnection.
      *
      * @throws ConnectionPoolException if initializing error occurs
      */
@@ -63,9 +63,9 @@ final public class ConnectionPool {
     }
 
     /**
-     * Gets connection
+     * Gets connection.
      *
-     * @return connection
+     * @return obtained connection instance
      * @throws ConnectionPoolException if limit of number of database connections is exceeded or
      *                                 it is impossible to connect to a database
      */
@@ -97,9 +97,9 @@ final public class ConnectionPool {
     }
 
     /**
-     * Creates connection
+     * Creates connection.
      *
-     * @return PooledConnection
+     * @return ConnectionProxy instance
      * @throws SQLException
      */
     private ConnectionProxy createConnection() throws SQLException {
@@ -121,12 +121,13 @@ final public class ConnectionPool {
     }
 
     /**
-     * Releases connection and returnees it to pool
+     * Releases connection and returnees it to pool.
      *
-     * @param connection
+     * @param connection - proxy connection
      */
     void freeConnection(ConnectionProxy connection) {
         try {
+            lock.lock();
             if (connection.isValid(checkConnectionTimeout)) {
                 connection.clearWarnings();
                 connection.setAutoCommit(true);
@@ -135,16 +136,19 @@ final public class ConnectionPool {
                 logger.info(String.format("Connection was returned into pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), freeConnections.size()));
             }
         } catch (SQLException | InterruptedException e1) {
-            logger.warn("It is impossible to return database connection into pool", e1);
+            logger.warn("It is impossible to return database connection into pool:", e1.getMessage());
             try {
                 connection.getConnection().close();
             } catch (SQLException e2) {
+                logger.warn("It is impossible to close connection:", e2.getMessage());
             }
+        } finally {
+            lock.unlock();
         }
     }
 
     /**
-     * Destroys connections
+     * Destroys connections.
      */
     public void destroy() {
         usedConnections.addAll(freeConnections);
@@ -157,6 +161,7 @@ final public class ConnectionPool {
             }
         }
         usedConnections.clear();
+        logger.info("Connections were destroyed. Used connections size = " + usedConnections.size());
     }
 
     @Override
@@ -165,7 +170,7 @@ final public class ConnectionPool {
     }
 
     /**
-     * Provides count of available connections which can be picked from this pool now
+     * Provides count of available connections which can be picked from this pool now.
      *
      * @return available connection count
      */

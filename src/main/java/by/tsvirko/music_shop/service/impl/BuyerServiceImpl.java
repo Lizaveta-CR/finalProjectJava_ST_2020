@@ -12,13 +12,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Buyer service
+ * Buyer service.
  */
 public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     private static final Logger logger = LogManager.getLogger(BuyerServiceImpl.class);
 
     /**
-     * Finds all buyers
+     * Finds all buyers.
      *
      * @return list of buyers
      * @throws ServicePersistentException if buyers are empty
@@ -37,7 +37,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Finds random buyer by order amount
+     * Finds random buyer by order amount.
      *
      * @param orderAmount - number of orders
      * @return random Buyer
@@ -57,7 +57,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Reads all buyers with specified offset and number of records
+     * Reads all buyers with specified offset and number of records.
      *
      * @param offset
      * @param noOfRecords
@@ -79,7 +79,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Deletes buyer by identity
+     * Deletes buyer by identity.
      *
      * @param identity - buyer identity
      * @throws ServicePersistentException if deletion error occurs
@@ -102,7 +102,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Saves buyer
+     * Saves buyer.
      *
      * @param buyer - buyer to save
      * @throws ServicePersistentException if saving exception occurs
@@ -124,7 +124,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Updates buyer
+     * Updates buyer.
      *
      * @param buyer - buyer to update
      * @throws ServicePersistentException if updating error occurs
@@ -146,7 +146,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Finds buyer by identity
+     * Finds buyer by identity.
      *
      * @param identity - buyers' identity
      * @return - buyer corresponding to identity
@@ -169,7 +169,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
     }
 
     /**
-     * Fills buyers with corresponding fields
+     * Fills buyers with corresponding fields.
      *
      * @param buyers - buyers to fill with data
      * @throws ServicePersistentException if filling error occurs
@@ -191,7 +191,6 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         Integer buyerIdentity;
         Integer orderIdentity;
         Integer addressIdentity;
-//TODO:delete Order init
         for (Order order : orderList) {
             buyerIdentity = order.getBuyer().getId();
             buyerOrderList = ordersMap.get(buyerIdentity);

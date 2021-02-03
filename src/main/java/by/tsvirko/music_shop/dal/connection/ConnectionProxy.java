@@ -6,15 +6,25 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * Pooled connection class
+ * Proxy connection class.
  */
 public class ConnectionProxy implements Connection, Comparable<ConnectionProxy> {
     private Connection connection;
 
+    /**
+     * Instantiates a new Connection proxy.
+     *
+     * @param connection the connection
+     */
     public ConnectionProxy(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() {
         return connection;
     }
@@ -39,6 +49,11 @@ public class ConnectionProxy implements Connection, Comparable<ConnectionProxy> 
         connection.clearWarnings();
     }
 
+    /**
+     * Releases connection in Connection Poll.
+     *
+     * @throws SQLException if connection error occurs
+     */
     @Override
     public void close() throws SQLException {
         ConnectionPool.getInstance().freeConnection(this);
