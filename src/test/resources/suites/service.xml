@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="service_test_suite">
+    <test name="Set up service">
+        <classes>
+            <class name="music_shop.service.setupTestData.BeforeServicesSetUp">
+                <methods>
+                    <include name="setUpBeforeSuite"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
     <test name="User service">
         <classes>
             <class name="music_shop.service.UserServiceImplTest">
@@ -177,6 +186,15 @@
                 <methods>
                     <include name="testPass"/>
                     <include name="testPassException"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Set down service">
+        <classes>
+            <class name="music_shop.service.setupTestData.AfterServicesSetDown">
+                <methods>
+                    <include name="setUpAfterSuite"/>
                 </methods>
             </class>
         </classes>

@@ -15,7 +15,10 @@ public class CustomFunction {
      * @return true if zero, otherwise - false
      */
     public static boolean isBigDecimalZero(BigDecimal value) {
-        return value.compareTo(BigDecimal.ZERO) == 0;
+        if (value != null) {
+            return value.compareTo(BigDecimal.ZERO) == 0;
+        }
+        return false;
     }
 
     /**
@@ -26,7 +29,10 @@ public class CustomFunction {
      * @return true if str1 equals str2, otherwise - false
      */
     public static boolean equals(String str1, String str2) {
-        return str1.equals(str2);
+        if (str1 != null && str2 != null) {
+            return str1.equals(str2);
+        }
+        return false;
     }
 
     /**
@@ -46,7 +52,10 @@ public class CustomFunction {
      * @return true if user is buyer, otherwise - false
      */
     public static boolean isBuyer(User user) {
-        return user.getRole().equals(Role.BUYER);
+        if (user != null) {
+            return user.getRole().equals(Role.BUYER);
+        }
+        return false;
     }
 
     /**
@@ -56,7 +65,10 @@ public class CustomFunction {
      * @return true if user is administrator, otherwise - false
      */
     public static boolean isAdmin(User user) {
-        return user.getRole().equals(Role.ADMINISTRATOR);
+        if (user != null) {
+            return user.getRole().equals(Role.ADMINISTRATOR);
+        }
+        return false;
     }
 
     /**
@@ -66,6 +78,9 @@ public class CustomFunction {
      * @return true if user is manager, otherwise - false
      */
     public static boolean isManager(User user) {
-        return user.getRole().equals(Role.MANAGER);
+        if (user != null) {
+            return user.getRole().equals(Role.MANAGER);
+        }
+        return false;
     }
 }

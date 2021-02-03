@@ -3,7 +3,7 @@
 <suite name="dao_test_suite">
     <test name="Connection pool">
         <classes>
-            <class name="music_shop.dao.pool.ConnectionPoolTest">
+            <class name="music_shop.dal.connection.ConnectionPoolTest">
                 <methods>
                     <include name="initPoolDataException"/>
                     <include name="destroy"/>

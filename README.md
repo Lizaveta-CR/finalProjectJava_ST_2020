@@ -97,10 +97,11 @@
  
 ## <a name="установка"></a>Application installation instructions:
 Requirements for running:
-* Java 9 or higher
+* Java 10 or higher
 * MySQL database
 * Maven - to create dependencies
 * Tomcat - to start server
+
 The rest of the dependencies will be added automatically
 
 To create a database you need to run [scripts](https://github.com/Lizaveta-CR/finalProjectJava_ST_2020/tree/master/sql)
@@ -117,8 +118,8 @@ To create a *test* database you need to run [scripts](https://github.com/Lizavet
 
  
  ##  <a name="доступ"></a>To access the application you need
- * Run the above scripts
- *To log in as a buyer:
+Run the above scripts
+ * To log in as a buyer:
  ```login: elizT, password: elizT```
  * To log in with administrator rights:
  ``` login: administrator, password: administrator```

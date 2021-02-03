@@ -20,31 +20,31 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserServiceImplTest {
-    private final String DATASOURCE_NAME = "testdatabase";
+//    private final String DATASOURCE_NAME = "testdatabase";
     private UserService userService;
     private User user;
 
-    @BeforeSuite
-    public void setUpBeforeSuite() throws ConnectionPoolException {
-        ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
-        String url = resource.getString("db.url");
-        String user = resource.getString("db.user");
-        String driver = resource.getString("db.driver");
-        String password = resource.getString("db.password");
-        int poolSize = Integer.parseInt(resource.getString("db.poolsize"));
-        int maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
-        int checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
-        ConnectionPool.getInstance().initPoolData(driver, url, user, password, poolSize, maxSize, checkConnectionTimeout);
-    }
+//    @BeforeSuite
+//    public void setUpBeforeSuite() throws ConnectionPoolException {
+//        ResourceBundle resource = ResourceBundle.getBundle(DATASOURCE_NAME);
+//        String url = resource.getString("db.url");
+//        String user = resource.getString("db.user");
+//        String driver = resource.getString("db.driver");
+//        String password = resource.getString("db.password");
+//        int poolSize = Integer.parseInt(resource.getString("db.poolsize"));
+//        int maxSize = Integer.parseInt(resource.getString("db.poolMaxSize"));
+//        int checkConnectionTimeout = Integer.parseInt(resource.getString("db.poolCheckConnectionTimeOut"));
+//        ConnectionPool.getInstance().initPoolData(driver, url, user, password, poolSize, maxSize, checkConnectionTimeout);
+//    }
 
     @BeforeClass
-    public void setUpBeforeClass() throws PersistentException, ServicePersistentException {
+    public void setUpBeforeClass() throws ServicePersistentException {
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
         userService = serviceFactory.getService(ServiceType.USER);
     }
 
     @BeforeTest
-    public void createUser() throws ServicePersistentException {
+    public void createUser() {
         user = new User();
         user.setLogin("manager1");
         user.setName("Alexey");

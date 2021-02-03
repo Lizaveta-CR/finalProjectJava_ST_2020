@@ -2,10 +2,12 @@ package by.tsvirko.music_shop.tag;
 
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**

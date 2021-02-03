@@ -1,4 +1,4 @@
-package music_shop.dao.pool;
+package music_shop.dal.connection;
 
 import by.tsvirko.music_shop.dal.exception.ConnectionPoolException;
 import by.tsvirko.music_shop.dal.connection.ConnectionPool;

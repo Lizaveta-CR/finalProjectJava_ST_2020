@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="tag_test_suite">
+    <test name="Custom Function">
+        <classes>
+            <class name="music_shop.tag.CustomFunctionTest">
+                <methods>
+                    <include name="isBigDecimalZeroTest"/>
+                    <include name="isBigDecimalZeroNegativeTest"/>
+                    <include name="equalsString"/>
+                    <include name="equalsStringNull"/>
+                    <include name="isBuyerTest"/>
+                    <include name="isAdminTest"/>
+                    <include name="isManagerTest"/>
+                    <include name="isBuyerNullTest"/>
+                    <include name="isManagerNullTest"/>
+                    <include name="isAdminNullTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -191,7 +191,7 @@ public class BuyerServiceImpl extends ServiceImpl implements BuyerService {
         Integer buyerIdentity;
         Integer orderIdentity;
         Integer addressIdentity;
-
+//TODO:delete Order init
         for (Order order : orderList) {
             buyerIdentity = order.getBuyer().getId();
             buyerOrderList = ordersMap.get(buyerIdentity);

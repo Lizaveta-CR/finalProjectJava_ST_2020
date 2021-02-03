@@ -14,11 +14,11 @@ public class ResourceBundleUtil {
      * Gets ResourceBundle depending on HttpServletRequest
      *
      * @param req
-     * @return ResourceBundle
+     * @return ResourceBundle with locale
      */
     public static ResourceBundle getResourceBundle(HttpServletRequest req) {
         Optional<String> lang = Arrays.stream(req.getCookies())
-                .filter(c -> ResourceBundleAttribute.LANGUAGE.equals(c.getName()))
+                .filter(c -> ResourceBundleAttribute.LANGUAGE.value().equals(c.getName()))
                 .map(Cookie::getValue)
                 .findAny();
 
