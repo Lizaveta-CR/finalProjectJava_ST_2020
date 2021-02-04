@@ -91,7 +91,7 @@
 * protection against sql injection
 ***
 ## <a name="схема"></a>Database scheme
-![scheme2](https://user-images.githubusercontent.com/56049061/106863190-35b62d00-66d9-11eb-8ccc-6fa2325d1206.png)
+![scheme3](https://user-images.githubusercontent.com/56049061/106867210-6351a500-66de-11eb-887a-9ccf77e3671a.png)
 ***
  
 ## <a name="установка"></a>Application installation instructions:
@@ -116,8 +116,8 @@ To create a *test* database you need to run [scripts](https://github.com/Lizavet
 - 4_fill_test_ables.sql
 
  
- ##  <a name="доступ"></a>To access the application you need
-Run the above scripts
+ ##  <a name="доступ"></a>Access
+To access the application you need run the above scripts
  * To log in as a buyer:
  ```login: elizT, password: elizT```
  * To log in with administrator rights:

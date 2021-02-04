@@ -160,7 +160,9 @@ CREATE TABLE categories
     id        INTEGER     NOT NULL AUTO_INCREMENT,
     name      VARCHAR(20) NOT NULL,
     parent_id INT DEFAULT NULL,
-    CONSTRAINT PK_category PRIMARY KEY (id)
+    CONSTRAINT PK_category PRIMARY KEY (id),
+    CONSTRAINT `FK_category` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
-
 # ANALYZE TABLE products;
