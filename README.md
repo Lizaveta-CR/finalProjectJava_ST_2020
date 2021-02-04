@@ -91,8 +91,7 @@
 * protection against sql injection
 ***
 ## <a name="схема"></a>Database scheme
-
- ![scheme](https://user-images.githubusercontent.com/56049061/105872094-0df50400-600b-11eb-8e8e-3ad98f4f012d.png)
+![scheme2](https://user-images.githubusercontent.com/56049061/106863190-35b62d00-66d9-11eb-8ccc-6fa2325d1206.png)
 ***
  
 ## <a name="установка"></a>Application installation instructions:
