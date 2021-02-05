@@ -62,6 +62,7 @@
                             <div class="value">
                                 <input class="input--style-6" type="text" id="login" name="login" required=""
                                        value="" onkeyup="checkLogin();"
+                                       title="<fmt:message key="label.register.login.mess"/>"
                                        oninvalid="this.setCustomValidity('<fmt:message key="label.login.required"/>')"
                                        oninput="setCustomValidity('')">
                             </div>
@@ -70,9 +71,9 @@
                             <div class="name"><fmt:message key="label.register.pass"/></div>
                             <div class="value">
                                 <input class="input--style-6" type="password" name="password" id="password"
-                                       title="password"
                                        value="" onkeyup="checkPassword();"
                                        required=""
+                                       title="<fmt:message key="label.register.pass.mess"/>"
                                        oninvalid="this.setCustomValidity('<fmt:message key="label.pass.required"/>')"
                                        oninput="setCustomValidity('')"
                                 >
