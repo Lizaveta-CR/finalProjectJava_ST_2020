@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.EnumMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Transaction implementation
@@ -19,29 +19,29 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionImpl implements Transaction {
     private static final Logger logger = LogManager.getLogger(TransactionImpl.class);
 
-    private static final Map<DAOType, BaseDAO> CLASSES = new ConcurrentHashMap<>();
-
-    /**
-     * All dao classes are created in static block
-     */
-    static {
-        CLASSES.put(DAOType.USER, new UserDAOImpl());
-        CLASSES.put(DAOType.BUYER, new BuyerDAOImpl());
-        CLASSES.put(DAOType.PRODUCT, new ProductDAOImpl());
-        CLASSES.put(DAOType.ADDRESS, new AddressDAOImpl());
-        CLASSES.put(DAOType.ORDER, new OrderDAOImpl());
-        CLASSES.put(DAOType.ORDER_ITEM, new OrderItemDAOImpl());
-        CLASSES.put(DAOType.PRODUCER, new ProducerDAOImpl());
-        CLASSES.put(DAOType.PRODUCER_ITEM, new ProducerItemDAOImpl());
-        CLASSES.put(DAOType.PRODUCT_RATE, new ProductRateDAOImpl());
-        CLASSES.put(DAOType.CATEGORY, new CategoryDAOImpl());
-        CLASSES.put(DAOType.COUNTRY, new CountryDAOImpl());
-    }
+    private final Map<DAOType, BaseDAO> classes;
 
     private Connection connection;
 
+    /**
+     * Class constructor.
+     *
+     * @param connection - received connection
+     */
     public TransactionImpl(Connection connection) {
         this.connection = connection;
+        classes = new EnumMap<>(DAOType.class);
+        classes.put(DAOType.USER, new UserDAOImpl());
+        classes.put(DAOType.BUYER, new BuyerDAOImpl());
+        classes.put(DAOType.PRODUCT, new ProductDAOImpl());
+        classes.put(DAOType.ADDRESS, new AddressDAOImpl());
+        classes.put(DAOType.ORDER, new OrderDAOImpl());
+        classes.put(DAOType.ORDER_ITEM, new OrderItemDAOImpl());
+        classes.put(DAOType.PRODUCER, new ProducerDAOImpl());
+        classes.put(DAOType.PRODUCER_ITEM, new ProducerItemDAOImpl());
+        classes.put(DAOType.PRODUCT_RATE, new ProductRateDAOImpl());
+        classes.put(DAOType.CATEGORY, new CategoryDAOImpl());
+        classes.put(DAOType.COUNTRY, new CountryDAOImpl());
     }
 
     /**
@@ -53,7 +53,7 @@ public class TransactionImpl implements Transaction {
      */
     @Override
     public <Type extends Dao<?, ?>> Type createDao(DAOType key, boolean isAutoCommit) throws PersistentException {
-        BaseDAO dao = CLASSES.get(key);
+        BaseDAO dao = classes.get(key);
         if (dao != null) {
             try {
                 connection.setAutoCommit(isAutoCommit);

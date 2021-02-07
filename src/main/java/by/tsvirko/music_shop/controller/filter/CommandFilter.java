@@ -22,20 +22,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CommandFilter.class);
-
-    private static Map<String, CommandName> getCommands = new ConcurrentHashMap<>();
-    private static Map<String, CommandName> postCommands = new ConcurrentHashMap<>();
-    private CommandFactory factory;
+    /**
+     * Map of available GET commands
+     */
+    private final Map<String, CommandName> getCommands = new ConcurrentHashMap<>();
+    /**
+     * Map of available POST commands
+     */
+    private final Map<String, CommandName> postCommands = new ConcurrentHashMap<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        factory = CommandFactory.getInstance();
-    }
-
-    /**
-     * Initializes commands maps
-     */
-    static {
         getCommands.put("/", CommandName.MAIN_COMMAND);
         getCommands.put("/index", CommandName.MAIN_COMMAND);
         getCommands.put("/welcome", CommandName.MAIN_COMMAND);
@@ -124,7 +121,7 @@ public class CommandFilter implements Filter {
             }
 
             try {
-                Command command = factory.getCommand(commandName);
+                Command command = CommandFactory.getInstance().getCommand(commandName);
                 httpRequest.setAttribute(AttributeConstant.COMMAND.value(), command);
                 command.setName(actionName);
                 filterChain.doFilter(servletRequest, servletResponse);

@@ -8,32 +8,10 @@ import by.tsvirko.music_shop.service.*;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.*;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * Service factory
  */
 public class ServiceFactoryImpl implements ServiceFactory {
-    private static final Map<ServiceType, ServiceImpl> SERVICES = new ConcurrentHashMap<>();
-
-    /**
-     * All services are created in static block
-     */
-    static {
-        SERVICES.put(ServiceType.USER, new UserServiceImpl());
-        SERVICES.put(ServiceType.BUYER, new BuyerServiceImpl());
-        SERVICES.put(ServiceType.ADDRESS, new AddressServiceImpl());
-        SERVICES.put(ServiceType.ORDER, new OrderServiceImpl());
-        SERVICES.put(ServiceType.ORDER_ITEM, new OrderItemServiceImpl());
-        SERVICES.put(ServiceType.PRODUCER, new ProducerServiceImpl());
-        SERVICES.put(ServiceType.PRODUCER_ITEM, new ProducerItemServiceImpl());
-        SERVICES.put(ServiceType.PRODUCT, new ProductServiceImpl());
-        SERVICES.put(ServiceType.PRODUCT_RATE, new ProductRateServiceImpl());
-        SERVICES.put(ServiceType.CATEGORY, new CategoryServiceImpl());
-        SERVICES.put(ServiceType.COUNTRY, new CountryServiceImpl());
-    }
-
     private TransactionFactory factory;
 
     public ServiceFactoryImpl() throws ServicePersistentException {
@@ -45,7 +23,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     /**
-     * Gets service by interface name class
+     * Gets service by it's enum name
      *
      * @param key - given service interface
      * @return service implementation corresponding input key interface
@@ -53,13 +31,46 @@ public class ServiceFactoryImpl implements ServiceFactory {
      */
     @Override
     public <Type extends Service> Type getService(ServiceType key) throws ServicePersistentException {
-        ServiceImpl value = SERVICES.get(key);
-        if (value != null) {
-            Transaction transaction = factory.createTransaction();
-            value.setTransaction(transaction);
-            return (Type) value;
+        ServiceImpl service = switchService(key);
+        Transaction transaction = factory.createTransaction();
+        service.setTransaction(transaction);
+        return (Type) service;
+    }
+
+    /**
+     * Switches service by its enum type
+     *
+     * @param key - service type
+     * @return ServiceImpl - service corresponding to enum type
+     * @throws ServicePersistentException if no service was found
+     */
+    private ServiceImpl switchService(ServiceType key) throws ServicePersistentException {
+        switch (key) {
+            case USER:
+                return new UserServiceImpl();
+            case BUYER:
+                return new BuyerServiceImpl();
+            case ADDRESS:
+                return new AddressServiceImpl();
+            case ORDER:
+                return new OrderServiceImpl();
+            case ORDER_ITEM:
+                return new OrderItemServiceImpl();
+            case PRODUCER:
+                return new ProducerServiceImpl();
+            case PRODUCER_ITEM:
+                return new ProducerItemServiceImpl();
+            case PRODUCT:
+                return new ProductServiceImpl();
+            case PRODUCT_RATE:
+                return new ProductRateServiceImpl();
+            case CATEGORY:
+                return new CategoryServiceImpl();
+            case COUNTRY:
+                return new CountryServiceImpl();
+            default:
+                throw new ServicePersistentException("Service can not be returned");
         }
-        throw new ServicePersistentException("Service can not be returned");
     }
 
     /**
@@ -69,4 +80,5 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public void close() {
         factory.close();
     }
+
 }

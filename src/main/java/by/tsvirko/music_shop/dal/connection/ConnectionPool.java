@@ -110,9 +110,11 @@ final public class ConnectionPool {
 
     public static ConnectionPool getInstance() {
         if (instance == null) {
+            lock.lock();
             try {
-                lock.lock();
-                instance = new ConnectionPool();
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                }
             } finally {
                 lock.unlock();
             }
