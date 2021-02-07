@@ -32,6 +32,9 @@ public class CommandFilter implements Filter {
         factory = CommandFactory.getInstance();
     }
 
+    /**
+     * Initializes commands maps
+     */
     static {
         getCommands.put("/", CommandName.MAIN_COMMAND);
         getCommands.put("/index", CommandName.MAIN_COMMAND);

@@ -1,14 +1,13 @@
 package music_shop.service;
 
-import by.tsvirko.music_shop.dal.transaction.impl.TransactionFactoryImpl;
 import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.domain.Category;
 import by.tsvirko.music_shop.domain.Producer;
 import by.tsvirko.music_shop.domain.Product;
 import by.tsvirko.music_shop.service.ProductService;
-import by.tsvirko.music_shop.service.ServiceFactory;
+import by.tsvirko.music_shop.service.factory.ServiceFactory;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.factory.ServiceFactoryImpl;
 import by.tsvirko.music_shop.service.impl.ServiceType;
 import org.testng.Assert;
 import org.testng.annotations.*;

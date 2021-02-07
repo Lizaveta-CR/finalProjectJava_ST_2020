@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.service.util;
 
-import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttribute;
+import by.tsvirko.music_shop.controller.command.constant.ResourceBundleConstant;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +18,16 @@ public class ResourceBundleUtil {
      */
     public static ResourceBundle getResourceBundle(HttpServletRequest req) {
         Optional<String> lang = Arrays.stream(req.getCookies())
-                .filter(c -> ResourceBundleAttribute.LANGUAGE.value().equals(c.getName()))
+                .filter(c -> ResourceBundleConstant.LANGUAGE.value().equals(c.getName()))
                 .map(Cookie::getValue)
                 .findAny();
 
         if (lang.isPresent()) {
             String[] params = lang.get().split("_");
             Locale currentLocale = new Locale(params[0], params[1]);
-            return ResourceBundle.getBundle(ResourceBundleAttribute.RESOURCE.value(), currentLocale);
+            return ResourceBundle.getBundle(ResourceBundleConstant.RESOURCE.value(), currentLocale);
         } else {
-            return ResourceBundle.getBundle(ResourceBundleAttribute.RESOURCE.value()
+            return ResourceBundle.getBundle(ResourceBundleConstant.RESOURCE.value()
                     , Locale.getDefault());
         }
     }

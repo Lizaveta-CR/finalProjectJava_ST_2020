@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.service.impl;
+package by.tsvirko.music_shop.service.factory;
 
 import by.tsvirko.music_shop.dal.exception.PersistentException;
 import by.tsvirko.music_shop.dal.transaction.Transaction;
@@ -6,6 +6,7 @@ import by.tsvirko.music_shop.dal.transaction.TransactionFactory;
 import by.tsvirko.music_shop.dal.transaction.impl.TransactionFactoryImpl;
 import by.tsvirko.music_shop.service.*;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
+import by.tsvirko.music_shop.service.impl.*;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,9 +36,6 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
     private TransactionFactory factory;
 
-    //    public ServiceFactoryImpl(TransactionFactory factory) {
-//        this.factory = factory;
-//    }
     public ServiceFactoryImpl() throws ServicePersistentException {
         try {
             this.factory = new TransactionFactoryImpl();

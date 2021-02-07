@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.config;
 
 import by.tsvirko.music_shop.config.exception.ApplicationConfigException;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.ResourceBundleAttribute;
+import by.tsvirko.music_shop.controller.command.constant.ResourceBundleConstant;
 import by.tsvirko.music_shop.dal.connection.ConnectionPool;
 import by.tsvirko.music_shop.dal.exception.ConnectionPoolException;
 
@@ -31,13 +31,13 @@ public class ApplicationConfig {
 
     public static void initApplication() throws ApplicationConfigException {
         ResourceBundle resource = ResourceBundle.getBundle(ParameterConstant.DATASOURCE_NAME.value());
-        String driver = resource.getString(ResourceBundleAttribute.DRIVER.value());
-        String url = resource.getString(ResourceBundleAttribute.URL.value());
-        String user = resource.getString(ResourceBundleAttribute.USER.value());
-        String password = resource.getString(ResourceBundleAttribute.PASSWORD.value());
-        int poolSize = Integer.parseInt(resource.getString(ResourceBundleAttribute.POOL_SIZE.value()));
-        int maxSize = Integer.parseInt(resource.getString(ResourceBundleAttribute.POOL_MAX_SIZE.value()));
-        int checkConnectionTimeout = Integer.parseInt(resource.getString(ResourceBundleAttribute.CONNECTIONS_TIMEOUT.value()));
+        String driver = resource.getString(ResourceBundleConstant.DRIVER.value());
+        String url = resource.getString(ResourceBundleConstant.URL.value());
+        String user = resource.getString(ResourceBundleConstant.USER.value());
+        String password = resource.getString(ResourceBundleConstant.PASSWORD.value());
+        int poolSize = Integer.parseInt(resource.getString(ResourceBundleConstant.POOL_SIZE.value()));
+        int maxSize = Integer.parseInt(resource.getString(ResourceBundleConstant.POOL_MAX_SIZE.value()));
+        int checkConnectionTimeout = Integer.parseInt(resource.getString(ResourceBundleConstant.CONNECTIONS_TIMEOUT.value()));
         try {
             ConnectionPool.getInstance().initPoolData(driver, url, user, password, poolSize, maxSize, checkConnectionTimeout);
         } catch (ConnectionPoolException e) {

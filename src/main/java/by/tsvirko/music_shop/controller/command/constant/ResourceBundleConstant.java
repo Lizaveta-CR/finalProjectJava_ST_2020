@@ -3,7 +3,7 @@ package by.tsvirko.music_shop.controller.command.constant;
 /**
  * Enum for resource bundle attributes
  */
-public enum ResourceBundleAttribute {
+public enum ResourceBundleConstant {
     RESOURCE("i18n.messages"),
     LANGUAGE("lang"),
     DRIVER("db.driver"),
@@ -16,7 +16,7 @@ public enum ResourceBundleAttribute {
 
     private final String name;
 
-    private ResourceBundleAttribute(String name) {
+    private ResourceBundleConstant(String name) {
         this.name = name;
     }
 

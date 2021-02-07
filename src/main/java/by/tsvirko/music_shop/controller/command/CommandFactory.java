@@ -10,6 +10,9 @@ import by.tsvirko.music_shop.controller.command.impl.manager.*;
  * Command factory class.
  */
 public class CommandFactory {
+    private CommandFactory() {
+    }
+
     private static class Holder {
         private static final CommandFactory INSTANCE = new CommandFactory();
     }
@@ -17,7 +20,6 @@ public class CommandFactory {
     public static CommandFactory getInstance() {
         return CommandFactory.Holder.INSTANCE;
     }
-
 
     /**
      * Gets commands by name.

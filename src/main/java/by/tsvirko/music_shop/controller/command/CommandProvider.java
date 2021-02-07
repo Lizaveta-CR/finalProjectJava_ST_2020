@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
-import by.tsvirko.music_shop.service.ServiceFactory;
+import by.tsvirko.music_shop.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

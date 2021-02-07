@@ -2,7 +2,7 @@ package by.tsvirko.music_shop.controller.command;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.service.exception.ServicePersistentException;
-import by.tsvirko.music_shop.service.impl.ServiceFactoryImpl;
+import by.tsvirko.music_shop.service.factory.ServiceFactoryImpl;
 
 public class CommandManagerFactory {
     public static CommandManager getManager() throws CommandException {
