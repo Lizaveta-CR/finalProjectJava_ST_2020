@@ -21,6 +21,7 @@ import java.util.Set;
 
 public class ShowProducerProductsCommand extends Command {
     private static final Logger logger = LogManager.getLogger(ShowProducerProductsCommand.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -38,7 +39,8 @@ public class ShowProducerProductsCommand extends Command {
                 return forward;
             }
         }
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 
     @Override

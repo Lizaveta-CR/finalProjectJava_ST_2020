@@ -32,6 +32,7 @@ import java.util.ResourceBundle;
 @MultipartConfig
 public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public void init() {
@@ -85,7 +86,7 @@ public class DispatcherServlet extends HttpServlet {
                 if (forward != null) {
                     jspPage = forward.getForward();
                 } else {
-                    jspPage = command.getName() + ".jsp";
+                    jspPage = command.getName() + SUFFIX;
                 }
                 jspPage = PathConstant.PAGES_LOCATION + jspPage;
                 logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));

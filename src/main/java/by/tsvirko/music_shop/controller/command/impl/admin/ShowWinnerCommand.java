@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSession;
 import java.util.ResourceBundle;
 
 /**
- * Command for showing winner within buyers. Only admin access
+ * Command for showing winner within buyers. Only admin access.
  */
 public class ShowWinnerCommand extends AdminCommand {
+    private static final String SUFFIX = ".jsp";
+
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession(false);
@@ -22,6 +24,7 @@ public class ShowWinnerCommand extends AdminCommand {
             request.setAttribute(AttributeConstant.BUYER.value(), attribute);
             session.removeAttribute(AttributeConstant.BUYER.value());
         }
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 }

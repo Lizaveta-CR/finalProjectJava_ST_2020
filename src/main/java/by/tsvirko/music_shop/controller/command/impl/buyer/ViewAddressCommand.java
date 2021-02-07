@@ -14,11 +14,13 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
- * Command for viewing edit address form
+ * Command for viewing edit address form.
  */
 public class ViewAddressCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerEditCommand.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -36,6 +38,7 @@ public class ViewAddressCommand extends BuyerCommand {
         } catch (ServicePersistentException e) {
             logger.info("Service error occurred");
         }
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 }

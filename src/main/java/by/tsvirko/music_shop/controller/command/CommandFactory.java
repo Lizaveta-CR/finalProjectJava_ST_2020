@@ -4,6 +4,7 @@ import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.controller.command.impl.admin.*;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;
 import by.tsvirko.music_shop.controller.command.impl.common.*;
+import by.tsvirko.music_shop.controller.command.impl.common.authorizedUser.LogoutCommand;
 import by.tsvirko.music_shop.controller.command.impl.manager.*;
 
 /**

@@ -3,6 +3,7 @@ package by.tsvirko.music_shop.domain;
 /**
  * Role enum
  */
+//TODO:add guest
 public enum Role {
     ADMINISTRATOR("administrator"),
     MANAGER("manager"),

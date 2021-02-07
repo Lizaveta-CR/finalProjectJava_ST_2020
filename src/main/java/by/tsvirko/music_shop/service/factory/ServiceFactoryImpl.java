@@ -9,7 +9,7 @@ import by.tsvirko.music_shop.service.exception.ServicePersistentException;
 import by.tsvirko.music_shop.service.impl.*;
 
 /**
- * Service factory
+ * Service factory.
  */
 public class ServiceFactoryImpl implements ServiceFactory {
     private TransactionFactory factory;
@@ -23,7 +23,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     /**
-     * Gets service by it's enum name
+     * Gets service by it's enum name.
      *
      * @param key - given service interface
      * @return service implementation corresponding input key interface
@@ -38,7 +38,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     /**
-     * Switches service by its enum type
+     * Switches service by its enum type.
      *
      * @param key - service type
      * @return ServiceImpl - service corresponding to enum type
@@ -74,7 +74,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     /**
-     * Closes transaction factory
+     * Closes transaction factory.
      */
     @Override
     public void close() {

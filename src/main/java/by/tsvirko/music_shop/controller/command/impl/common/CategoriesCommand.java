@@ -19,6 +19,8 @@ import java.util.Set;
  * Command for viewing all products
  */
 public class CategoriesCommand extends Command {
+    private static final String SUFFIX = ".jsp";
+
     @Override
     public Command.Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
@@ -33,7 +35,8 @@ public class CategoriesCommand extends Command {
         } catch (ServicePersistentException e) {
             throw new CommandException(e);
         }
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 
     @Override

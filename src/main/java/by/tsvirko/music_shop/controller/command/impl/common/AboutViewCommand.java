@@ -8,10 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
+/**
+ * View 'about' page.
+ */
 public class AboutViewCommand extends Command {
+    private static final String SUFFIX = ".jsp";
+
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 
     @Override

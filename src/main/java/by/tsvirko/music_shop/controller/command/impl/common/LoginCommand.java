@@ -27,6 +27,7 @@ import java.util.*;
 public class LoginCommand extends Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static Map<Role, List<Menu>> menu = new HashMap<>();
+    private static final String SUFFIX = ".jsp";
 
     static {
         menu.put(Role.BUYER, Arrays.asList(new Menu(PathConstant.BUYER_FORM, "app.menu.myPage")));
@@ -81,11 +82,17 @@ public class LoginCommand extends Command {
                 request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.notRecognized"));
                 logger.info(String.format("user %s unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
-                return null;
+                String forwardName = getName().concat(SUFFIX);
+                forward.setForward(forwardName);
+                forward.setRedirect(false);
+                return forward;
             }
         }
         request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.empty"));
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        forward.setForward(forwardName);
+        forward.setRedirect(false);
+        return forward;
     }
 
     @Override

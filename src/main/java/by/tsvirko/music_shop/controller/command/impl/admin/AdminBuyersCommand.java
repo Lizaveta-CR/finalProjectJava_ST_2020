@@ -20,9 +20,13 @@ import java.util.Map;
  */
 public class AdminBuyersCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminBuyersCommand.class);
+    private static final String SUFFIX = ".jsp";
+
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        String forwardName = getName().concat(SUFFIX);
+        Forward forward = new Forward(forwardName);
         int page = 1;
         int recordsPerPage = 6;
         String parameter = request.getParameter(ParameterConstant.PAGE.value());
@@ -33,7 +37,7 @@ public class AdminBuyersCommand extends AdminCommand {
                     return null;
                 }
             } catch (NumberFormatException e) {
-                return null;
+                return forward;
             }
         }
         try {
@@ -50,6 +54,6 @@ public class AdminBuyersCommand extends AdminCommand {
         } catch (ServicePersistentException e) {
             logger.error("Service can not perform operation with retrieving limited data");
         }
-        return null;
+        return forward;
     }
 }

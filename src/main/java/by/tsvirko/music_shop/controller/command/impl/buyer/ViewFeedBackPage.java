@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Command for viewing feedback page
+ * Command for viewing feedback page.
  */
 public class ViewFeedBackPage extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(ViewFeedBackPage.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -35,6 +36,7 @@ public class ViewFeedBackPage extends BuyerCommand {
                 return new Forward(PathConstant.BUYER_FORM, true);
             }
         }
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 }

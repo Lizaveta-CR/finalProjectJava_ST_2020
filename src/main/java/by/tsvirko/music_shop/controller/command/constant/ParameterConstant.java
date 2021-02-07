@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.constant;
 
 /**
- * Enum for parameters
+ * Enum for parameters.
  */
 public enum ParameterConstant {
     DATASOURCE_NAME("database"),

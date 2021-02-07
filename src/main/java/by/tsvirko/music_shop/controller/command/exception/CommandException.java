@@ -1,5 +1,8 @@
 package by.tsvirko.music_shop.controller.command.exception;
 
+/**
+ * Command exception.
+ */
 public class CommandException extends Exception {
     public CommandException() {
     }

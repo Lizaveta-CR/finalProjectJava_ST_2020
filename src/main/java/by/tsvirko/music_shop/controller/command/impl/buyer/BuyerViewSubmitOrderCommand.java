@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
  */
 public class BuyerViewSubmitOrderCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerViewSubmitOrderCommand.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -50,7 +51,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
             forward.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
             return forward;
         }
-
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 }

@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.constant;
 
 /**
- * Enum for attributes
+ * Enum for attributes.
  */
 public enum AttributeConstant {
     REDIRECTED_DATA("redirectedData"),

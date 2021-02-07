@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.impl.common;
+package by.tsvirko.music_shop.controller.command.impl.common.authorizedUser;
 
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;

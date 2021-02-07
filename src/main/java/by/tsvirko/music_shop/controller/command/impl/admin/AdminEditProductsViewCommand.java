@@ -13,14 +13,18 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
- * Command for viewing editing products page. Only admin access
+ * Command for viewing editing products page. Only admin access.
  */
 public class AdminEditProductsViewCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminEditProductsViewCommand.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        String forwardName = getName().concat(SUFFIX);
+        Forward forward = new Forward(forwardName);
         HttpSession session = request.getSession(false);
 
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
@@ -30,11 +34,11 @@ public class AdminEditProductsViewCommand extends AdminCommand {
                 ProductService service = factory.getService(ServiceType.PRODUCT);
                 Product product = service.findById(Integer.parseInt(parameter));
                 session.setAttribute(AttributeConstant.PRODUCT.value(), product);
-                return null;
+                return forward;
             } catch (ServicePersistentException e) {
                 logger.warn("Product with id=" + parameter + " can not be read");
             }
         }
-        return null;
+        return forward;
     }
 }

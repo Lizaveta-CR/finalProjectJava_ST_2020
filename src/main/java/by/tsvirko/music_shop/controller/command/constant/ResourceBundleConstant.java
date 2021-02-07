@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.constant;
 
 /**
- * Enum for resource bundle attributes
+ * Enum for resource bundle attributes.
  */
 public enum ResourceBundleConstant {
     RESOURCE("i18n.messages"),

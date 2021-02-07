@@ -12,11 +12,13 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * Command for viewing edit form
  */
 public class BuyerViewEditFormCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerViewEditFormCommand.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -28,6 +30,7 @@ public class BuyerViewEditFormCommand extends BuyerCommand {
         } catch (ServicePersistentException e) {
             logger.info("Buyer can not be found in system");
         }
-        return null;
+        String forwardName = getName().concat(SUFFIX);
+        return new Forward(forwardName);
     }
 }

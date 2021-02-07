@@ -15,14 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+
 /**
  * Command for viewing buyer page
  */
+
 public class BuyerFormCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerFormCommand.class);
+    private static final String SUFFIX = ".jsp";
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        String forwardName = getName().concat(SUFFIX);
+        Forward forward = new Forward(forwardName);
         int page = 1;
         int recordsPerPage = 5;
         String parameter = request.getParameter(ParameterConstant.PAGE.value());
@@ -33,7 +38,7 @@ public class BuyerFormCommand extends BuyerCommand {
                     return null;
                 }
             } catch (NumberFormatException e) {
-                return null;
+                return forward;
             }
         }
         try {
@@ -51,6 +56,6 @@ public class BuyerFormCommand extends BuyerCommand {
         } catch (ServicePersistentException e) {
             logger.error("Service can not perform operation with retrieving limited data");
         }
-        return null;
+        return forward;
     }
 }
