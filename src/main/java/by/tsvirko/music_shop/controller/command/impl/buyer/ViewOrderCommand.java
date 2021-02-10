@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -15,10 +16,10 @@ import javax.servlet.http.HttpSession;
 public class ViewOrderCommand extends BuyerCommand {
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession(false);
         Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
         request.setAttribute(AttributeConstant.ORDER.value(), order);
-        return new Forward(PathConstant.BUYER_ORDER_JSP);
+        return new ResponseEntity(PathConstant.BUYER_ORDER_JSP);
     }
 }

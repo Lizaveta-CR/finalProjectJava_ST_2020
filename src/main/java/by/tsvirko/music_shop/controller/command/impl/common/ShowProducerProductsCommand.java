@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -24,7 +25,7 @@ public class ShowProducerProductsCommand extends Command {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         String parameter = request.getParameter(ParameterConstant.PRODUCER_ID.value());
         if (parameter != null) {
@@ -34,13 +35,13 @@ public class ShowProducerProductsCommand extends Command {
                 request.setAttribute(AttributeConstant.PRODUCER.value(), producer);
             } catch (ServicePersistentException e) {
                 logger.info("Producer with id=" + parameter + " can not be found:" + e.getMessage());
-                Forward forward = new Forward(PathConstant.PRODUCT_PRODUCER, true);
-                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noProducer"));
-                return forward;
+                ResponseEntity responseEntity = new ResponseEntity(PathConstant.PRODUCT_PRODUCER, true);
+                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noProducer"));
+                return responseEntity;
             }
         }
         String forwardName = getName().concat(SUFFIX);
-        return new Forward(forwardName);
+        return new ResponseEntity(forwardName);
     }
 
     @Override

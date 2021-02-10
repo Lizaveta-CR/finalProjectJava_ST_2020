@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -24,8 +25,8 @@ public class BuyerRemoveProductCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerRemoveProductCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.BUYER_ORDER, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.BUYER_ORDER, true);
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         if (!parameter.isEmpty()) {
             try {
@@ -40,11 +41,11 @@ public class BuyerRemoveProductCommand extends BuyerCommand {
                     order.setPrice(new TotalPriceHelper().countPrice(map));
                     logger.info("Product with id=" + product.getId() + " was removed from order");
                 }
-                return forward;
+                return responseEntity;
             } catch (ServicePersistentException e) {
                 logger.error("Service exception occurred while removing product in BuyerRemoveProductCommand class");
             }
         }
-        return forward;
+        return responseEntity;
     }
 }

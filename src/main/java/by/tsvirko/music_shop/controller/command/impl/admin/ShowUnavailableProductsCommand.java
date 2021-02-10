@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Product;
@@ -21,7 +22,7 @@ public class ShowUnavailableProductsCommand extends AdminCommand {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             ProductService service = factory.getService(ServiceType.PRODUCT);
             List<Product> products = service.findNotAvailable();
@@ -31,6 +32,6 @@ public class ShowUnavailableProductsCommand extends AdminCommand {
             logger.error("Service can not perform operation with retrieving products");
         }
         String forwardName = getName().concat(SUFFIX);
-        return new Forward(forwardName);
+        return new ResponseEntity(forwardName);
     }
 }

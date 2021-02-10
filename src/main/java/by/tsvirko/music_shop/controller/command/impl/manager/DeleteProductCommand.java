@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -18,7 +19,7 @@ public class DeleteProductCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(DeleteProductCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         if (parameter != null) {
             try {
@@ -28,6 +29,6 @@ public class DeleteProductCommand extends ManagerCommand {
                 logger.warn("Product with id=" + parameter + " can not be deleted");
             }
         }
-        return new Forward(PathConstant.PRODUCTS_LIST, true);
+        return new ResponseEntity(PathConstant.PRODUCTS_LIST, true);
     }
 }

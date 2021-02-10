@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -22,9 +23,9 @@ public class AdminEditProductsViewCommand extends AdminCommand {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String forwardName = getName().concat(SUFFIX);
-        Forward forward = new Forward(forwardName);
+        ResponseEntity responseEntity = new ResponseEntity(forwardName);
         HttpSession session = request.getSession(false);
 
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
@@ -34,11 +35,11 @@ public class AdminEditProductsViewCommand extends AdminCommand {
                 ProductService service = factory.getService(ServiceType.PRODUCT);
                 Product product = service.findById(Integer.parseInt(parameter));
                 session.setAttribute(AttributeConstant.PRODUCT.value(), product);
-                return forward;
+                return responseEntity;
             } catch (ServicePersistentException e) {
                 logger.warn("Product with id=" + parameter + " can not be read");
             }
         }
-        return forward;
+        return responseEntity;
     }
 }

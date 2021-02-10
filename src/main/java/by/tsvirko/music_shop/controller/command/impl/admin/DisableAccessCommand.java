@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -19,7 +20,7 @@ public class DisableAccessCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(DisableAccessCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String parameter = request.getParameter(ParameterConstant.BUYER_ID.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
@@ -34,6 +35,6 @@ public class DisableAccessCommand extends AdminCommand {
                 logger.warn("Buyer with id=" + parameter + " can not be disabled");
             }
         }
-        return new Forward(PathConstant.ADMIN_BUYERS, true);
+        return new ResponseEntity(PathConstant.ADMIN_BUYERS, true);
     }
 }

@@ -10,7 +10,5 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <u:html title="index">
-    <%--    <body>--%>
     <jsp:forward page="/WEB-INF/jsp/pages/welcome.jsp"/>
-    <%--    </body>--%>
 </u:html>

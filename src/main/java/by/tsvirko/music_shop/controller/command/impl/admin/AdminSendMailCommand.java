@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -28,7 +29,7 @@ public class AdminSendMailCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminSendMailCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         InputStream inputStream = null;
         try {
             Properties properties = new Properties();
@@ -66,8 +67,8 @@ public class AdminSendMailCommand extends AdminCommand {
             }
         }
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
-        Forward forward = new Forward(PathConstant.ADMIN_BUYERS, true);
-        forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.winner.email.success"));
-        return forward;
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.ADMIN_BUYERS, true);
+        responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.winner.email.success"));
+        return responseEntity;
     }
 }

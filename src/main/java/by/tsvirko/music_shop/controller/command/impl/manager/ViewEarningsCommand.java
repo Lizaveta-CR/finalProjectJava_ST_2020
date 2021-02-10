@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -21,17 +22,17 @@ public class ViewEarningsCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(ViewEarningsCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.MAIN_JSP);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.MAIN_JSP);
         try {
             OrderService service = factory.getService(ServiceType.ORDER);
             List<Order> orders = service.findAll();
             request.setAttribute(AttributeConstant.ORDERS.value(), orders);
         } catch (ServicePersistentException e) {
             logger.error("Earning can not be send to manager: " + e.getMessage());
-            return forward;
+            return responseEntity;
         }
-        forward.setForward(PathConstant.MANAG_EARNINGS_JSP);
-        return forward;
+        responseEntity.setForward(PathConstant.MANAG_EARNINGS_JSP);
+        return responseEntity;
     }
 }

@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -25,7 +26,7 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         Buyer buyer = (Buyer) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
@@ -38,20 +39,20 @@ public class BuyerViewSubmitOrderCommand extends BuyerCommand {
                         buyer.setAddress(address);
                     }
                 } catch (ServicePersistentException e) {
-                    Forward forward = new Forward(PathConstant.BUYER_ADDRESS, true);
-                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
+                    ResponseEntity responseEntity = new ResponseEntity(PathConstant.BUYER_ADDRESS, true);
+                    responseEntity.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.address.empty"));
                     logger.info(String.format("Buyer %s was redirected to fill address", buyer.getId()));
-                    return forward;
+                    return responseEntity;
                 }
             }
             Order order = (Order) request.getSession(false).getAttribute(AttributeConstant.ORDER.value());
             order.setBuyer(buyer);
         } else {
-            Forward forward = new Forward(PathConstant.ERROR_PAGES_LOCATION);
-            forward.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
-            return forward;
+            ResponseEntity responseEntity = new ResponseEntity(PathConstant.ERROR_PAGES_LOCATION);
+            responseEntity.getAttributes().put(AttributeConstant.ERROR.value(), "app.mess.authorize");
+            return responseEntity;
         }
         String forwardName = getName().concat(SUFFIX);
-        return new Forward(forwardName);
+        return new ResponseEntity(forwardName);
     }
 }

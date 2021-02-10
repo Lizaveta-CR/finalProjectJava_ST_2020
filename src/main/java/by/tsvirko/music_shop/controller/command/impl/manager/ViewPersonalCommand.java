@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class ViewPersonalCommand extends ManagerCommand {
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             UserService userService = factory.getService(ServiceType.USER);
             List<User> personal = userService.findEmployees();
@@ -29,8 +30,8 @@ public class ViewPersonalCommand extends ManagerCommand {
             }
             request.setAttribute(AttributeConstant.PERSONAL.value(), personal);
         } catch (ServicePersistentException e) {
-            return new Forward(PathConstant.MAIN_JSP, true);
+            return new ResponseEntity(PathConstant.MAIN_JSP, true);
         }
-        return new Forward(PathConstant.MANAGER_PERSONAL_JSP);
+        return new ResponseEntity(PathConstant.MANAGER_PERSONAL_JSP);
     }
 }

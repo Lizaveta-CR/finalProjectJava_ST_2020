@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -26,8 +27,8 @@ public class BuyerAddProductCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(BuyerAddProductCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.BUYER_ORDER, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.BUYER_ORDER, true);
         String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         String parameterAmount = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty()) {
@@ -55,24 +56,24 @@ public class BuyerAddProductCommand extends BuyerCommand {
                         if (amount != 0 && amount > 0) {
                             map.put(product, amount);
                         } else {
-                            forward.setForward(PathConstant.PRODUCTS_LIST);
-                            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), "app.mess.not-negative");
-                            return forward;
+                            responseEntity.setForward(PathConstant.PRODUCTS_LIST);
+                            responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), "app.mess.not-negative");
+                            return responseEntity;
                         }
                     }
                     order.setPrice(new TotalPriceHelper().countPrice(map));
                     order.addProduct(product);
                     logger.info("Product with id=" + product.getId() + " was added to order");
                 } else {
-                    forward.setForward(PathConstant.LOGIN);
-                    forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), "app.mess.authorize");
-                    return forward;
+                    responseEntity.setForward(PathConstant.LOGIN);
+                    responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), "app.mess.authorize");
+                    return responseEntity;
                 }
             } catch (ServicePersistentException e) {
                 logger.error("Service exception occurred while adding product in " +
                         "BuyerAddProductCommand class. No product with id=" + parameter);
             }
         }
-        return forward;
+        return responseEntity;
     }
 }

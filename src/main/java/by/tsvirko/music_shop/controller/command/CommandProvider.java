@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.controller.command;
 
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class CommandProvider implements CommandManager {
 
 
     @Override
-    public Command.Forward execute(Command command, HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(Command command, HttpServletRequest request, HttpServletResponse response) throws CommandException {
         command.setFactory(factory);
         return command.execute(request, response);
     }

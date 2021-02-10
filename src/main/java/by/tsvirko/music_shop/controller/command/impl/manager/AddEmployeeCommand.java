@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -27,8 +28,8 @@ public class AddEmployeeCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(AddEmployeeCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.MANAGER_PERSONAL, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.MANAGER_PERSONAL, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User employee = null;
@@ -39,9 +40,9 @@ public class AddEmployeeCommand extends ManagerCommand {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when saving user", e);
-            forward.setForward(PathConstant.MANAGER_ADD_PERSONAL);
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
-            return forward;
+            responseEntity.setForward(PathConstant.MANAGER_ADD_PERSONAL);
+            responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect"));
+            return responseEntity;
         }
         if (employee != null) {
             try {
@@ -49,11 +50,11 @@ public class AddEmployeeCommand extends ManagerCommand {
                 service.save(employee);
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                forward.setForward(PathConstant.MANAGER_ADD_PERSONAL);
-                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
-                return forward;
+                responseEntity.setForward(PathConstant.MANAGER_ADD_PERSONAL);
+                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
+                return responseEntity;
             }
         }
-        return forward;
+        return responseEntity;
     }
 }

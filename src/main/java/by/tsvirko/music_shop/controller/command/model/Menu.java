@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.impl.common;
+package by.tsvirko.music_shop.controller.command.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -35,8 +36,8 @@ public class AddProductCommand extends ManagerCommand {
     private static final Logger logger = LogManager.getLogger(AddProductCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.PRODUCTS_CREATE, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.PRODUCTS_CREATE, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         Product product = null;
@@ -47,8 +48,8 @@ public class AddProductCommand extends ManagerCommand {
             logger.error("Product can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.info("Incorrect data while updating product", e.getMessage());
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect") + " " + e.getMessage());
-            return forward;
+            responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect") + " " + e.getMessage());
+            return responseEntity;
         }
         String description;
         try {
@@ -56,8 +57,8 @@ public class AddProductCommand extends ManagerCommand {
             description = new FileHelper().readFile(filePart);
         } catch (IOException | ServletException | FileUtilException e) {
             logger.error("File can not be processed", e.getMessage());
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));
-            return forward;
+            responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));
+            return responseEntity;
         }
         if (product != null && description != null) {
             product.setDescription(description);
@@ -69,19 +70,19 @@ public class AddProductCommand extends ManagerCommand {
                 }
             } catch (ServicePersistentException e) {
                 logger.warn("Service for saving producer can not be instantiated: ", e.getMessage());
-                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.producer.dublicate"));
-                return forward;
+                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.producer.dublicate"));
+                return responseEntity;
             }
             try {
                 ProductService productService = factory.getService(ServiceType.PRODUCT);
                 productService.save(product);
             } catch (ServicePersistentException e) {
                 logger.warn("Service for saving product can not be instantiated: ", e.getMessage());
-                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.dublicate"));
-                return forward;
+                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.dublicate"));
+                return responseEntity;
             }
         }
-        forward.setForward(PathConstant.PRODUCTS_LIST);
-        return forward;
+        responseEntity.setForward(PathConstant.PRODUCTS_LIST);
+        return responseEntity;
     }
 }

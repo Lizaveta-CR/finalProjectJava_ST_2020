@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -19,21 +20,21 @@ import java.util.ResourceBundle;
  */
 public class GenerateBuyerCommand extends AdminCommand {
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
-        Forward forward = new Forward(PathConstant.ADMIN_WINNER, true);
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.ADMIN_WINNER, true);
         String parameter = request.getParameter(ParameterConstant.AMOUNT.value());
         if (!parameter.isEmpty() && parameter != null) {
             try {
                 BuyerService service = factory.getService(ServiceType.BUYER);
                 Buyer buyer = service.find(Integer.parseInt(parameter));
-                forward.getAttributes().put(AttributeConstant.BUYER.value(), buyer);
+                responseEntity.getAttributes().put(AttributeConstant.BUYER.value(), buyer);
             } catch (ServicePersistentException e) {
-                forward.setForward(PathConstant.ADMIN_BUYERS);
-                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noBuyer"));
-                return forward;
+                responseEntity.setForward(PathConstant.ADMIN_BUYERS);
+                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.noBuyer"));
+                return responseEntity;
             }
         }
-        return forward;
+        return responseEntity;
     }
 }

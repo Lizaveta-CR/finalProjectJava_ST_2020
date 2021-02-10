@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -13,8 +14,8 @@ import java.util.Set;
  */
 public class ViewRegisterCommand extends Command {
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        return new Forward(PathConstant.REGISTRATION_JSP);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        return new ResponseEntity(PathConstant.REGISTRATION_JSP);
     }
 
     @Override

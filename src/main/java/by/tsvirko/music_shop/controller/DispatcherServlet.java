@@ -2,6 +2,7 @@ package by.tsvirko.music_shop.controller;
 
 import by.tsvirko.music_shop.config.ApplicationConfig;
 import by.tsvirko.music_shop.config.exception.ApplicationConfigException;
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
@@ -23,7 +24,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * Main controlling servlet is used to delegate commands from request, link the
+ * Main controlling servlet
+ * <p>
+ * is used to delegate commands from request, link the
  * command with the corresponding class and return response.
  *
  * @author Tsvirko Lizaveta
@@ -47,15 +50,15 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        process(req, resp);
+        processCommand(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        process(req, resp);
+        processCommand(req, resp);
     }
 
-    private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processCommand(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Command command = (Command) req.getAttribute(AttributeConstant.COMMAND.value());
         try {
             HttpSession session = req.getSession(false);
@@ -70,28 +73,12 @@ public class DispatcherServlet extends HttpServlet {
                 }
             }
             CommandManager actionManager = CommandManagerFactory.getManager();
-            Command.Forward forward = actionManager.execute(command, req, resp);
+            ResponseEntity responseEntity = actionManager.execute(command, req, resp);
             actionManager.close();
-            if (session != null && forward != null && !forward.getAttributes().isEmpty()) {
-                session.setAttribute(AttributeConstant.REDIRECTED_DATA.value(), forward.getAttributes());
+            if (session != null && responseEntity != null && !responseEntity.getAttributes().isEmpty()) {
+                session.setAttribute(AttributeConstant.REDIRECTED_DATA.value(), responseEntity.getAttributes());
             }
-            String requestedUri = req.getRequestURI();
-            if (forward != null && forward.isRedirect()) {
-                String contextPath = req.getContextPath();
-                String redirectedUri = contextPath + forward.getForward();
-                logger.debug(String.format("Request for URI %s id redirected to URI %s", requestedUri, redirectedUri));
-                resp.sendRedirect(redirectedUri);
-            } else {
-                String jspPage = null;
-                if (forward != null) {
-                    jspPage = forward.getForward();
-                } else {
-                    jspPage = command.getName() + SUFFIX;
-                }
-                jspPage = PathConstant.PAGES_LOCATION + jspPage;
-                logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));
-                getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
-            }
+            processResponse(responseEntity, req, resp);
         } catch (CommandException e) {
             logger.error("It is impossible to process request", e);
             ResourceBundle rb = ResourceBundleUtil.getResourceBundle(req);
@@ -99,6 +86,27 @@ public class DispatcherServlet extends HttpServlet {
                     rb.getString("app.global.process.error")
                             + ":" + e.getMessage());
             getServletContext().getRequestDispatcher(PathConstant.ERROR_PAGES_LOCATION).forward(req, resp);
+        }
+    }
+
+    private void processResponse(ResponseEntity responseEntity, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String requestedUri = req.getRequestURI();
+        if (responseEntity != null && responseEntity.isRedirect()) {
+            String contextPath = req.getContextPath();
+            String redirectedUri = contextPath + responseEntity.getForward();
+            logger.debug(String.format("Request for URI %s id redirected to URI %s", requestedUri, redirectedUri));
+            resp.sendRedirect(redirectedUri);
+        } else {
+            String jspPage = null;
+            if (responseEntity != null) {
+                jspPage = responseEntity.getForward();
+            } else {
+                Command command = (Command) req.getAttribute(AttributeConstant.COMMAND.value());
+                jspPage = command.getName() + SUFFIX;
+            }
+            jspPage = PathConstant.PAGES_LOCATION + jspPage;
+            logger.debug(String.format("Request for URI %s is forwarded to JSP %s", requestedUri, jspPage));
+            getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
         }
     }
 

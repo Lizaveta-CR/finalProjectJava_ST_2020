@@ -1,8 +1,10 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
+import by.tsvirko.music_shop.controller.command.model.Menu;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.Role;
@@ -37,8 +39,8 @@ public class RegisterCommand extends Command {
     }
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) {
-        Forward forward = new Forward(PathConstant.WELCOME, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.WELCOME, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         User user = null;
@@ -54,9 +56,9 @@ public class RegisterCommand extends Command {
             logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.info("Incorrect data was found when saving user");
-            forward.setForward(PathConstant.REGISTRATION);
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect" + " :" + e.getMessage()));
-            return forward;
+            responseEntity.setForward(PathConstant.REGISTRATION);
+            responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.incorrect" + " :" + e.getMessage()));
+            return responseEntity;
         }
         if (user != null && buyer != null) {
             try {
@@ -71,12 +73,12 @@ public class RegisterCommand extends Command {
                 session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
             } catch (ServicePersistentException e) {
                 logger.error("User can not created because of service error", e.getMessage());
-                forward.setForward(PathConstant.REGISTRATION);
-                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
-                return forward;
+                responseEntity.setForward(PathConstant.REGISTRATION);
+                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.register.duplicate"));
+                return responseEntity;
             }
         }
-        return forward;
+        return responseEntity;
     }
 
     @Override

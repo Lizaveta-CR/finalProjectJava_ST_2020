@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Address;
@@ -23,7 +24,7 @@ public class ViewAddressCommand extends BuyerCommand {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         User authorizedUser = (User) request.getSession(false).getAttribute(AttributeConstant.AUTHORIZED_USER.value());
         try {
             CountryService service = factory.getService(ServiceType.COUNTRY);
@@ -39,6 +40,6 @@ public class ViewAddressCommand extends BuyerCommand {
             logger.info("Service error occurred");
         }
         String forwardName = getName().concat(SUFFIX);
-        return new Forward(forwardName);
+        return new ResponseEntity(forwardName);
     }
 }

@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -24,9 +25,9 @@ public class AdminBuyersCommand extends AdminCommand {
 
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String forwardName = getName().concat(SUFFIX);
-        Forward forward = new Forward(forwardName);
+        ResponseEntity responseEntity = new ResponseEntity(forwardName);
         int page = 1;
         int recordsPerPage = 6;
         String parameter = request.getParameter(ParameterConstant.PAGE.value());
@@ -37,7 +38,7 @@ public class AdminBuyersCommand extends AdminCommand {
                     return null;
                 }
             } catch (NumberFormatException e) {
-                return forward;
+                return responseEntity;
             }
         }
         try {
@@ -54,6 +55,6 @@ public class AdminBuyersCommand extends AdminCommand {
         } catch (ServicePersistentException e) {
             logger.error("Service can not perform operation with retrieving limited data");
         }
-        return forward;
+        return responseEntity;
     }
 }

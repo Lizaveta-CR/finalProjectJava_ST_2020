@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -25,9 +26,9 @@ public class BuyerFormCommand extends BuyerCommand {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String forwardName = getName().concat(SUFFIX);
-        Forward forward = new Forward(forwardName);
+        ResponseEntity responseEntity = new ResponseEntity(forwardName);
         int page = 1;
         int recordsPerPage = 5;
         String parameter = request.getParameter(ParameterConstant.PAGE.value());
@@ -38,7 +39,7 @@ public class BuyerFormCommand extends BuyerCommand {
                     return null;
                 }
             } catch (NumberFormatException e) {
-                return forward;
+                return responseEntity;
             }
         }
         try {
@@ -56,6 +57,6 @@ public class BuyerFormCommand extends BuyerCommand {
         } catch (ServicePersistentException e) {
             logger.error("Service can not perform operation with retrieving limited data");
         }
-        return forward;
+        return responseEntity;
     }
 }

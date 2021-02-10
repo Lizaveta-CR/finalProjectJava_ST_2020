@@ -1,10 +1,12 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
+import by.tsvirko.music_shop.controller.command.model.Menu;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.Role;
@@ -41,8 +43,8 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.LOGIN, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.LOGIN, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         String login = request.getParameter(ParameterConstant.LOGIN.value());
@@ -64,10 +66,10 @@ public class LoginCommand extends Command {
                                 session.setAttribute(AttributeConstant.AUTHORIZED_BUYER.value(), buyer);
                             } else {
                                 logger.info(String.format("buyer \"%s\" is not enabled to access resource", login));
-                                forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(),
+                                responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(),
                                         rb.getString("app.message.login.enabledError"));
                                 session.removeAttribute(AttributeConstant.AUTHORIZED_USER.value());
-                                return forward;
+                                return responseEntity;
                             }
                         } catch (ServicePersistentException e) {
                         }
@@ -75,24 +77,24 @@ public class LoginCommand extends Command {
                     logger.info(String.format("user %s is logged in from %s (%s:%s)", login,
                             request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                     session.setAttribute(AttributeConstant.MENU.value(), menu.get(user.getRole()));
-                    forward.setForward(PathConstant.MAIN);
-                    return forward;
+                    responseEntity.setForward(PathConstant.MAIN);
+                    return responseEntity;
                 }
             } catch (ServicePersistentException e) {
                 request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.notRecognized"));
                 logger.info(String.format("user %s unsuccessfully tried to log in from %s (%s:%s)",
                         login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
                 String forwardName = getName().concat(SUFFIX);
-                forward.setForward(forwardName);
-                forward.setRedirect(false);
-                return forward;
+                responseEntity.setForward(forwardName);
+                responseEntity.setRedirect(false);
+                return responseEntity;
             }
         }
         request.setAttribute(AttributeConstant.MESSAGE.value(), rb.getString("app.message.login.empty"));
         String forwardName = getName().concat(SUFFIX);
-        forward.setForward(forwardName);
-        forward.setRedirect(false);
-        return forward;
+        responseEntity.setForward(forwardName);
+        responseEntity.setRedirect(false);
+        return responseEntity;
     }
 
     @Override

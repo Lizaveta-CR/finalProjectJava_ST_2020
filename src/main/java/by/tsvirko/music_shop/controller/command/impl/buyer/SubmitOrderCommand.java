@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -34,8 +35,8 @@ public class SubmitOrderCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(SubmitOrderCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.PRODUCTS_LIST, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.PRODUCTS_LIST, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         HttpSession session = request.getSession(false);
@@ -50,9 +51,9 @@ public class SubmitOrderCommand extends BuyerCommand {
                 logger.error("User can not validated because of ValidatorFactory error", e.getMessage());
             } catch (IncorrectFormDataException e) {
                 logger.warn("Incorrect data was found when saving order", e);
-                forward.setForward(PathConstant.BUYER_ORDER_SUBMIT);
-                forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.order.incorrect"));
-                return forward;
+                responseEntity.setForward(PathConstant.BUYER_ORDER_SUBMIT);
+                responseEntity.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.order.incorrect"));
+                return responseEntity;
             }
             String bonus = request.getParameter(ParameterConstant.BONUS.value());
             Buyer buyer = order.getBuyer();
@@ -72,19 +73,19 @@ public class SubmitOrderCommand extends BuyerCommand {
                     orderItemService.save(orderItems);
                 } catch (ServicePersistentException e) {
                     logger.error("Service error occurred");
-                    forward.setForward(PathConstant.BUYER_ORDER_SUBMIT);
-                    forward.getAttributes().put(AttributeConstant.MESSAGE.value(),
+                    responseEntity.setForward(PathConstant.BUYER_ORDER_SUBMIT);
+                    responseEntity.getAttributes().put(AttributeConstant.MESSAGE.value(),
                             rb.getString("app.message.order.noMoney"));
                     if (bonus != null) {
                         buyer.setBonus(new BigDecimal(bonus));
                     }
-                    return forward;
+                    return responseEntity;
                 }
                 session.removeAttribute(AttributeConstant.ORDER_ITEM.value());
             }
             session.removeAttribute(AttributeConstant.ORDER.value());
         }
-        forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.success"));
-        return forward;
+        responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.success"));
+        return responseEntity;
     }
 }

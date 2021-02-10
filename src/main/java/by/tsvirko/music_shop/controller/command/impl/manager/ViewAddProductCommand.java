@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ViewAddProductCommand extends ManagerCommand {
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             ProducerService producerService = factory.getService(ServiceType.PRODUCER);
             List<Producer> producers = producerService.findAll();
@@ -34,6 +35,6 @@ public class ViewAddProductCommand extends ManagerCommand {
             request.setAttribute(AttributeConstant.COUNTRIES.value(), countries);
         } catch (ServicePersistentException e) {
         }
-        return new Forward(PathConstant.PRODUCTS_CREATE_JSP);
+        return new ResponseEntity(PathConstant.PRODUCTS_CREATE_JSP);
     }
 }

@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -24,7 +25,7 @@ public class SubmitFeedBackCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(SubmitFeedBackCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String mark = request.getParameter(ParameterConstant.MARK.value());
         String productId = request.getParameter(ParameterConstant.PRODUCT_ID.value());
         if (mark != null && productId != null && !mark.isEmpty()
@@ -45,6 +46,6 @@ public class SubmitFeedBackCommand extends BuyerCommand {
                 logger.error(String.format("Unable to save feedback for product with id=%s", productId));
             }
         }
-        return new Forward(PathConstant.BUYER_FORM, true);
+        return new ResponseEntity(PathConstant.BUYER_FORM, true);
     }
 }

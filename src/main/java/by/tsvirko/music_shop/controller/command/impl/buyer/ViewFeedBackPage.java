@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -22,7 +23,7 @@ public class ViewFeedBackPage extends BuyerCommand {
     private static final String SUFFIX = ".jsp";
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String parameter = request.getParameter(ParameterConstant.ORDER.value());
         if (parameter != null) {
             try {
@@ -33,10 +34,10 @@ public class ViewFeedBackPage extends BuyerCommand {
             } catch (ServicePersistentException e) {
                 logger.error(String.format("Products for order with id=%s can not be read. " +
                         "Service Exception occurred", parameter));
-                return new Forward(PathConstant.BUYER_FORM, true);
+                return new ResponseEntity(PathConstant.BUYER_FORM, true);
             }
         }
         String forwardName = getName().concat(SUFFIX);
-        return new Forward(forwardName);
+        return new ResponseEntity(forwardName);
     }
 }

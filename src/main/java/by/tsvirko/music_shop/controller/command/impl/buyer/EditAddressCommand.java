@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.buyer;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
@@ -30,7 +31,7 @@ public class EditAddressCommand extends BuyerCommand {
     private static final Logger logger = LogManager.getLogger(EditAddressCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         HttpSession session = request.getSession();
         Buyer authorizedBuyer = (Buyer) session.getAttribute(AttributeConstant.AUTHORIZED_BUYER.value());
@@ -64,13 +65,13 @@ public class EditAddressCommand extends BuyerCommand {
             logger.error("Address can not validated because of ValidatorFactory error", e.getMessage());
         } catch (IncorrectFormDataException e) {
             logger.warn("Incorrect data was found when updating address", e);
-            Forward forward = new Forward(PathConstant.BUYER_ADDRESS, true);
-            forward.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.incorrect"));
-            return forward;
+            ResponseEntity responseEntity = new ResponseEntity(PathConstant.BUYER_ADDRESS, true);
+            responseEntity.getAttributes().put(AttributeConstant.MESSAGE.value(), rb.getString("app.message.user.edit.incorrect"));
+            return responseEntity;
         } catch (ServicePersistentException e) {
             logger.error("Service can not be instantiated");
             logger.warn(String.format("Incorrect data was found when buyer tried to change address"));
         }
-        return new Forward(PathConstant.BUYER_FORM, true);
+        return new ResponseEntity(PathConstant.BUYER_FORM, true);
     }
 }

@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
@@ -15,13 +16,13 @@ import java.util.Set;
  */
 public class ChangeLanguageCommand extends Command {
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String referer = request.getParameter(ParameterConstant.PAGE.value());
 
         if (referer != null && !referer.isEmpty()) {
-            return new Forward(referer, true);
+            return new ResponseEntity(referer, true);
         } else {
-            return new Forward(PathConstant.WELCOME, true);
+            return new ResponseEntity(PathConstant.WELCOME, true);
         }
     }
 

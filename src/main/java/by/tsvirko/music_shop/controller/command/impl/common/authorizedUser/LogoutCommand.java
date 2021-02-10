@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.common.authorizedUser;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LogoutCommand extends AuthorizedUserCommand {
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         request.getSession(false).invalidate();
-        return new Forward(PathConstant.LOGOUT, true);
+        return new ResponseEntity(PathConstant.LOGOUT, true);
     }
 }

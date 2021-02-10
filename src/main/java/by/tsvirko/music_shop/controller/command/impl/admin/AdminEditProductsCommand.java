@@ -1,5 +1,6 @@
 package by.tsvirko.music_shop.controller.command.impl.admin;
 
+import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
 import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
 import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
 import by.tsvirko.music_shop.controller.command.constant.PathConstant;
@@ -34,8 +35,8 @@ public class AdminEditProductsCommand extends AdminCommand {
     private static final Logger logger = LogManager.getLogger(AdminEditProductsCommand.class);
 
     @Override
-    public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        Forward forward = new Forward(PathConstant.MAIN_JSP, true);
+    public ResponseEntity execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        ResponseEntity responseEntity = new ResponseEntity(PathConstant.MAIN_JSP, true);
         ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
         try {
             String parameter = request.getParameter(ParameterConstant.PRODUCT_ID.value());
@@ -50,9 +51,9 @@ public class AdminEditProductsCommand extends AdminCommand {
                     description = new FileHelper().readFile(filePart);
                 } catch (IOException | ServletException | FileUtilException e) {
                     logger.error("File can not be processed", e.getMessage());
-                    forward.setForward(PathConstant.PRODUCTS_EDIT);
-                    forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));
-                    return forward;
+                    responseEntity.setForward(PathConstant.PRODUCTS_EDIT);
+                    responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect.descr"));
+                    return responseEntity;
                 }
                 if (!description.isEmpty() && description != null) {
                     product.setDescription(description);
@@ -65,15 +66,15 @@ public class AdminEditProductsCommand extends AdminCommand {
             logger.warn("Product Service can not be instantiated");
         } catch (IncorrectFormDataException e) {
             logger.info("Incorrect data while updating product", e.getMessage());
-            forward.setForward(PathConstant.PRODUCTS_EDIT);
-            forward.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect"));
-            return forward;
+            responseEntity.setForward(PathConstant.PRODUCTS_EDIT);
+            responseEntity.getAttributes().put(AttributeConstant.REDIRECTED_DATA.value(), rb.getString("app.message.product.incorrect"));
+            return responseEntity;
         }
         HttpSession session = request.getSession(false);
         Product attribute = (Product) session.getAttribute(AttributeConstant.PRODUCT.value());
         if (attribute != null) {
             session.removeAttribute(AttributeConstant.PRODUCT.value());
         }
-        return forward;
+        return responseEntity;
     }
 }
