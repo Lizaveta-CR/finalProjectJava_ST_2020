@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * Main controlling servlet
+ * Main controlling servlet.
  * <p>
  * is used to delegate commands from request, link the
- * command with the corresponding class and return response.
+ * commands with the corresponding class and return response.
  *
  * @author Tsvirko Lizaveta
  * @version 1.0
@@ -37,6 +37,11 @@ public class DispatcherServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DispatcherServlet.class);
     private static final String SUFFIX = ".jsp";
 
+    /**
+     * Initializes servlet only once when first request is send. All necessary resources are loading.
+     *
+     * @see ApplicationConfig - initilizes application servlet
+     */
     @Override
     public void init() {
         try {
@@ -48,16 +53,37 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Processes GET requests.
+     *
+     * @param req  - http request
+     * @param resp - http response
+     * @throws IOException - if response can not be send
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processCommand(req, resp);
     }
 
+    /**
+     * Processes POST requests.
+     *
+     * @param req  - http request
+     * @param resp - http response
+     * @throws IOException - if response can not be send
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processCommand(req, resp);
     }
 
+    /**
+     * Processes command from request.
+     *
+     * @param req  -  http request
+     * @param resp -  http response
+     * @throws IOException - if response can not be send
+     */
     private void processCommand(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Command command = (Command) req.getAttribute(AttributeConstant.COMMAND.value());
         try {
@@ -89,6 +115,13 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Processes {@link ResponseEntity} instance and sends corresponding response.
+     *
+     * @param req  -  http request
+     * @param resp -  http response
+     * @throws IOException - if response can not be send
+     */
     private void processResponse(ResponseEntity responseEntity, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String requestedUri = req.getRequestURI();
         if (responseEntity != null && responseEntity.isRedirect()) {
@@ -110,6 +143,9 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Destroys application and servlet. All necessary resources are releasing.
+     */
     @Override
     public void destroy() {
         ApplicationConfig.getInstance().destroyApplication();
