@@ -10,13 +10,16 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Product validator.
+ */
 public class ProductValidator implements Validator<Product> {
     /**
-     * Validates request, is used for new entities
+     * Validates request parameters and returns corresponding {@link Product} entity.
      *
-     * @param request
-     * @return Product instance
-     * @throws IncorrectFormDataException
+     * @param request - HttpServletRequest
+     * @return corresponding to {@param request} {@link Product} entity
+     * @throws IncorrectFormDataException if request parameters were incorrect
      */
     @Override
     public Product validate(HttpServletRequest request) throws IncorrectFormDataException {
@@ -64,6 +67,12 @@ public class ProductValidator implements Validator<Product> {
         return product;
     }
 
+    /**
+     * Checks if string matches money regex.
+     *
+     * @param price - value to check
+     * @return {@code true} if price matches money regex, otherwise - {@code false}
+     */
     private boolean isMoney(String price) {
         String regExp = "[0-9]+([,.][0-9]{1,2})?";
         Pattern pattern = Pattern.compile(regExp);
@@ -72,10 +81,11 @@ public class ProductValidator implements Validator<Product> {
     }
 
     /**
-     * Validates request, is used for entities update
+     * Is used when {@link Product} entity is being updating. Gets request parameters and updates entity.
      *
-     * @param request
-     * @throws IncorrectFormDataException
+     * @param product- {@link Product} entity
+     * @param request  - HttpServletRequest
+     * @throws IncorrectFormDataException if request parameters were incorrect
      */
     @Override
     public void validate(Product product, HttpServletRequest request) throws IncorrectFormDataException {

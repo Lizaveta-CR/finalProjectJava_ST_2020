@@ -8,7 +8,17 @@ import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataExcept
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Address Validator.
+ */
 public class AddressValidator implements Validator<Address> {
+    /**
+     * Validates request parameters and returns corresponding {@link Address} entity.
+     *
+     * @param request - HttpServletRequest
+     * @return corresponding to {@param request} {@link Address} entity
+     * @throws IncorrectFormDataException if request parameters were incorrect
+     */
     @Override
     public Address validate(HttpServletRequest request) throws IncorrectFormDataException {
         Address address = new Address();
@@ -18,57 +28,64 @@ public class AddressValidator implements Validator<Address> {
             country.setName(parameter);
             address.setCountry(country);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.COUNTRY.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.COUNTRY.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.CITY.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setCity(parameter);
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter,request);
+                throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.CITY.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.ZIP_CODE.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setZipCode(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter,request);
+                throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.ZIP_CODE.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.STREET.value());
         if (parameter != null && !parameter.isEmpty()) {
             address.setStreet(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.STREET.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.STREET.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.APARTMENT_NUMBER.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setApartmentNumber(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter,request);
+                throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.APARTMENT_NUMBER.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.HOUSE_NUMBER.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 address.setHouseNumber(Integer.parseInt(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter,request);
+                throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.HOUSE_NUMBER.value(), parameter, request);
         }
         return address;
     }
 
+    /**
+     * Is used when {@link Address} entity is being updating. Gets request parameters and updates entity.
+     *
+     * @param entity- {@link Address} entity
+     * @param request - HttpServletRequest
+     * @throws IncorrectFormDataException if request parameters were incorrect
+     */
     @Override
     public void validate(Address entity, HttpServletRequest request) throws IncorrectFormDataException {
         Address address = validate(request);

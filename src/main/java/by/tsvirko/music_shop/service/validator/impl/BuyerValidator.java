@@ -1,6 +1,7 @@
 package by.tsvirko.music_shop.service.validator.impl;
 
 import by.tsvirko.music_shop.controller.constant.ParameterConstant;
+import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;
@@ -10,7 +11,17 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Buyer validator.
+ */
 public class BuyerValidator implements Validator<Buyer> {
+    /**
+     * Validates request parameters and returns corresponding {@link Buyer} entity.
+     *
+     * @param request - HttpServletRequest
+     * @return corresponding to {@param request} {@link Buyer} entity
+     * @throws IncorrectFormDataException if request parameters were incorrect
+     */
     @Override
     public Buyer validate(HttpServletRequest request) throws IncorrectFormDataException {
         Buyer buyer = new Buyer();
@@ -18,17 +29,17 @@ public class BuyerValidator implements Validator<Buyer> {
         if (parameter != null && !parameter.isEmpty() && isEmailValid(parameter)) {
             buyer.setEmail(parameter);
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.EMAIL.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.EMAIL.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.TELEPHONE.value());
         if (parameter != null && !parameter.isEmpty()) {
             try {
                 buyer.setTelephone(Long.parseLong(parameter));
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter,request);
+                throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.TELEPHONE.value(), parameter, request);
         }
         parameter = request.getParameter(ParameterConstant.BALANCE.value());
         if (parameter != null && !parameter.isEmpty() && isMoney(parameter)) {
@@ -39,17 +50,24 @@ public class BuyerValidator implements Validator<Buyer> {
                 if (Double.valueOf(parameter) > 0) {
                     buyer.setBalance(new BigDecimal(parameter));
                 } else {
-                    throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter,request);
+                    throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter, request);
                 }
             } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter,request);
+                throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter, request);
             }
         } else {
-            throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter,request);
+            throw new IncorrectFormDataException(ParameterConstant.BALANCE.value(), parameter, request);
         }
         return buyer;
     }
 
+    /**
+     * Is used when {@link Buyer} entity is being updating. Gets request parameters and updates entity.
+     *
+     * @param entity- {@link Buyer} entity
+     * @param request - HttpServletRequest
+     * @throws IncorrectFormDataException if request parameters were incorrect
+     */
     @Override
     public void validate(Buyer entity, HttpServletRequest request) throws IncorrectFormDataException {
         Buyer buyer = validate(request);
@@ -67,6 +85,12 @@ public class BuyerValidator implements Validator<Buyer> {
         }
     }
 
+    /**
+     * Checks if string matches money regex.
+     *
+     * @param price - value to check
+     * @return {@code true} if price matches money regex, otherwise - {@code false}
+     */
     private boolean isMoney(String price) {
         String regExp = "[0-9]+([,.][0-9]{1,2})?";
         Pattern pattern = Pattern.compile(regExp);
@@ -74,6 +98,12 @@ public class BuyerValidator implements Validator<Buyer> {
         return matcher.matches();
     }
 
+    /**
+     * Checks if email mis valid.
+     *
+     * @param email - value to check
+     * @return {@code true} if email matches email regex, otherwise - {@code false}
+     */
     private boolean isEmailValid(String email) {
         Pattern validEmailRegex = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"
                 , Pattern.CASE_INSENSITIVE);

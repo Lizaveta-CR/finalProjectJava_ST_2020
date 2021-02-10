@@ -7,22 +7,32 @@ import by.tsvirko.music_shop.service.validator.impl.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Validator factory class.
+ */
 public class ValidatorFactory {
-    private static Map<ValidatorType, Validator> validators = new ConcurrentHashMap<>();
-
-    static {
-        validators.put(ValidatorType.USER, new UserValidator());
-        validators.put(ValidatorType.BUYER, new BuyerValidator());
-        validators.put(ValidatorType.ADDRESS, new AddressValidator());
-        validators.put(ValidatorType.ORDER, new OrderValidator());
-        validators.put(ValidatorType.PRODUCT, new ProductValidator());
-    }
-
+    /**
+     * Returns validator class by {@link ValidatorType}
+     *
+     * @param key    - validator type
+     * @param <Type> - validator entity  type
+     * @return - corresponding validator
+     * @throws ValidatorException if validator wasn't found
+     */
     public static <Type extends Entity> Validator<Type> getValidator(ValidatorType key) throws ValidatorException {
-        Validator value = validators.get(key);
-        if (value != null) {
-            return (Validator<Type>) value;
+        switch (key) {
+            case USER:
+                return (Validator<Type>) new UserValidator();
+            case BUYER:
+                return (Validator<Type>) new BuyerValidator();
+            case ADDRESS:
+                return (Validator<Type>) new AddressValidator();
+            case ORDER:
+                return (Validator<Type>) new OrderValidator();
+            case PRODUCT:
+                return (Validator<Type>) new ProductValidator();
+            default:
+                throw new ValidatorException("No such validator");
         }
-        throw new ValidatorException("Validator can not be created");
     }
 }
