@@ -10,26 +10,43 @@ import java.util.ResourceBundle;
 
 /**
  * Application configuration class
- * <p>Application configuration class was made using static
- * * holder singleton pattern(Static factory, Lazy initialization,
+ * <p>
+ * Application configuration class was made using static
+ * holder singleton pattern(Static factory, Lazy initialization,
  * Thread safe) The JVM defers initializing the Holder class until it is actually used,
  * and because the ApplicationConfig is initialized with a static initializer,
  * no additional synchronization is needed. The first call to getInstance
  * by any thread causes InstanceHolder to be loaded and initialized, at which
- * time the initialization of the Singleton happens through the static initializer. </>
+ * time the initialization of the Singleton happens through the static initializer.
+ * </p>
  */
 public class ApplicationConfig {
     private ApplicationConfig() {
     }
 
+    /**
+     * Holds {@code ApplicationConfig} instance.
+     */
     private static class Holder {
         private static final ApplicationConfig INSTANCE = new ApplicationConfig();
     }
 
+    /**
+     * Returns {@code ApplicationConfig} instance in lazy mode.
+     *
+     * @return ApplicationConfig instance
+     */
     public static ApplicationConfig getInstance() {
         return Holder.INSTANCE;
     }
 
+    /**
+     * Initializes application ConnectionPool to access database in thread mode.
+     *
+     * @throws ApplicationConfigException - if ConnectionPoolException occurred
+     * @see ConnectionPoolException
+     * @see ConnectionPool
+     */
     public void initApplication() throws ApplicationConfigException {
         ResourceBundle resource = ResourceBundle.getBundle(ParameterConstant.DATASOURCE_NAME.value());
         String driver = resource.getString(ResourceBundleConstant.DRIVER.value());
@@ -46,6 +63,9 @@ public class ApplicationConfig {
         }
     }
 
+    /**
+     * Destroys application database connection.
+     */
     public void destroyApplication() {
         ConnectionPool.getInstance().destroy();
     }
