@@ -58,15 +58,10 @@
                                onclick="document.getElementById('file').click();"/>
                         <input type="file" style="display:none;" id="file" name="file"/>
                     </div>
-                        <%--                <div class="form-wrapper">--%>
-                        <%--                    <label for="imgFile"><fmt:message key="label.product.picture"/></label>--%>
-                        <%--                    <input type="button" id="uploadImg" value="<fmt:message key="label.file.upload"/>"--%>
-                        <%--                           onclick="document.getElementById('imgFile').click();"/>--%>
-                        <%--                    <input type="file" style="display:none;" id="imgFile" name="imgFile"/>--%>
-                        <%--                </div>--%>
                     <div class="form-wrapper">
                         <label for="price"><fmt:message key="label.product.price"/></label>
-                        <input type="number" id="price" name="price" min="10" placeholder="<fmt:message key="label.product.price"/>"
+                        <input type="number" id="price" name="price" min="10"
+                               placeholder="<fmt:message key="label.product.price"/>"
                                step="any" required=""
                                oninvalid="this.setCustomValidity('<fmt:message key="label.product.price.required"/>')"
                                oninput="setCustomValidity('')">
@@ -88,7 +83,8 @@
                             <div class="form-row">
                                 <div class="form-wrapper">
                                     <label for="name"><fmt:message key="label.producer.name"/></label>
-                                    <input type="text" id="name" name="name" placeholder="<fmt:message key="label.producer.name"/>">
+                                    <input type="text" id="name" name="name"
+                                           placeholder="<fmt:message key="label.producer.name"/>">
                                 </div>
                             </div>
                             <div class="form-row">
