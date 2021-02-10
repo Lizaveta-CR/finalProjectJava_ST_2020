@@ -36,7 +36,7 @@ public class SubmitOrderCommand extends BuyerCommand {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         Forward forward = new Forward(PathConstant.PRODUCTS_LIST, true);
-        ResourceBundle rb =  ResourceBundleUtil.getResourceBundle(request);
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
 
         HttpSession session = request.getSession(false);
         Order order = (Order) session.getAttribute(AttributeConstant.ORDER.value());
@@ -75,7 +75,9 @@ public class SubmitOrderCommand extends BuyerCommand {
                     forward.setForward(PathConstant.BUYER_ORDER_SUBMIT);
                     forward.getAttributes().put(AttributeConstant.MESSAGE.value(),
                             rb.getString("app.message.order.noMoney"));
-                    buyer.setBonus(new BigDecimal(bonus));
+                    if (bonus != null) {
+                        buyer.setBonus(new BigDecimal(bonus));
+                    }
                     return forward;
                 }
                 session.removeAttribute(AttributeConstant.ORDER_ITEM.value());

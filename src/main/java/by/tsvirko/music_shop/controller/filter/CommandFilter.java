@@ -99,7 +99,7 @@ public class CommandFilter implements Filter {
             String contextPath = httpRequest.getContextPath();
             String uri = httpRequest.getRequestURI();
 
-            logger.debug(String.format("Starting of processing of request for URI %s, uri"));
+            logger.debug("Starting of processing of request for URI: " + uri);
 
             int beginAction = contextPath.length();
             int endAction = uri.lastIndexOf('.');
