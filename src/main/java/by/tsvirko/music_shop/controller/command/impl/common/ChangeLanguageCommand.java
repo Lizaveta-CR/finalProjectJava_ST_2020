@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.controller.command.impl.common;
 
 import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
-import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstant;
+import by.tsvirko.music_shop.controller.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.domain.Role;

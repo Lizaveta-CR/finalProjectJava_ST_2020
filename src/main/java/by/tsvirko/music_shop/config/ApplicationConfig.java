@@ -1,8 +1,8 @@
 package by.tsvirko.music_shop.config;
 
 import by.tsvirko.music_shop.config.exception.ApplicationConfigException;
-import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
-import by.tsvirko.music_shop.controller.command.constant.ResourceBundleConstant;
+import by.tsvirko.music_shop.controller.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.constant.ResourceBundleConstant;
 import by.tsvirko.music_shop.dal.connection.ConnectionPool;
 import by.tsvirko.music_shop.dal.exception.ConnectionPoolException;
 

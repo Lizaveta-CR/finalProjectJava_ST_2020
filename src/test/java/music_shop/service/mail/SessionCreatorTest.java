@@ -1,6 +1,6 @@
 package music_shop.service.mail;
 
-import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.constant.ParameterConstant;
 import by.tsvirko.music_shop.service.mail.SessionCreator;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;

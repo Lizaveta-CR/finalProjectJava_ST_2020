@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.service.validator.impl;
 
-import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.Address;
 import by.tsvirko.music_shop.domain.Country;
 import by.tsvirko.music_shop.service.validator.Validator;

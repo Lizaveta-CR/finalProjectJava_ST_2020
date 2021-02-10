@@ -1,4 +1,4 @@
-package by.tsvirko.music_shop.controller.command.constant;
+package by.tsvirko.music_shop.controller.constant;
 
 /**
  * Enum for resource bundle attributes.

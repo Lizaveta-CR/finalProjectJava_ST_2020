@@ -1,5 +1,7 @@
-package by.tsvirko.music_shop.controller.command;
+package by.tsvirko.music_shop.controller.command.factory;
 
+import by.tsvirko.music_shop.controller.command.Command;
+import by.tsvirko.music_shop.controller.command.CommandName;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.controller.command.impl.admin.*;
 import by.tsvirko.music_shop.controller.command.impl.buyer.*;

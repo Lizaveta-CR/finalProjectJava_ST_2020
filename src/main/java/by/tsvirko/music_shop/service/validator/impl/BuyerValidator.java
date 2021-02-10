@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.service.validator.impl;
 
-import by.tsvirko.music_shop.controller.command.constant.ParameterConstant;
+import by.tsvirko.music_shop.controller.constant.ParameterConstant;
 import by.tsvirko.music_shop.domain.Buyer;
 import by.tsvirko.music_shop.service.validator.Validator;
 import by.tsvirko.music_shop.service.validator.exceprion.IncorrectFormDataException;

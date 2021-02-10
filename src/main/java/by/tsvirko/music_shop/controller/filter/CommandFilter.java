@@ -1,9 +1,9 @@
 package by.tsvirko.music_shop.controller.filter;
 
-import by.tsvirko.music_shop.controller.command.CommandFactory;
+import by.tsvirko.music_shop.controller.command.factory.CommandFactory;
 import by.tsvirko.music_shop.controller.command.CommandName;
-import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstant;
+import by.tsvirko.music_shop.controller.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 import by.tsvirko.music_shop.service.util.ResourceBundleUtil;

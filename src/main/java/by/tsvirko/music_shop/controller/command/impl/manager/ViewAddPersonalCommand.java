@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.command.impl.manager;
 
 import by.tsvirko.music_shop.controller.command.model.ResponseEntity;
-import by.tsvirko.music_shop.controller.command.constant.PathConstant;
+import by.tsvirko.music_shop.controller.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package by.tsvirko.music_shop.controller.filter;
 
-import by.tsvirko.music_shop.controller.command.constant.AttributeConstant;
-import by.tsvirko.music_shop.controller.command.constant.PathConstant;
+import by.tsvirko.music_shop.controller.constant.AttributeConstant;
+import by.tsvirko.music_shop.controller.constant.PathConstant;
 import by.tsvirko.music_shop.controller.command.Command;
 import by.tsvirko.music_shop.controller.command.impl.common.MainCommand;
 import by.tsvirko.music_shop.domain.User;

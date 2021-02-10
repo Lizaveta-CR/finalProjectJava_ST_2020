@@ -1,6 +1,6 @@
 package by.tsvirko.music_shop.service.util;
 
-import by.tsvirko.music_shop.controller.command.constant.ResourceBundleConstant;
+import by.tsvirko.music_shop.controller.constant.ResourceBundleConstant;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
