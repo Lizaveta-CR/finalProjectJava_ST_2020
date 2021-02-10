@@ -18,19 +18,25 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Filter to delegate commands
+ * Delegates user commands sent in request.
  */
 public class CommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CommandFilter.class);
     /**
-     * Map of available GET commands
+     * Map of available GET commands.
      */
     private final Map<String, CommandName> getCommands = new ConcurrentHashMap<>();
     /**
-     * Map of available POST commands
+     * Map of available POST commands.
      */
     private final Map<String, CommandName> postCommands = new ConcurrentHashMap<>();
 
+    /**
+     * Puts all available GET, POST commands in maps.
+     *
+     * @param filterConfig - filter configuration
+     * @throws ServletException - if can't set up filter
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         getCommands.put("/", CommandName.MAIN_COMMAND);
@@ -91,6 +97,15 @@ public class CommandFilter implements Filter {
         postCommands.put("/manag/delete", CommandName.DELETE_EMPLOYEE_COMMAND);
     }
 
+    /**
+     * Converts request URL into command object and puts into request attribute.
+     *
+     * @param servletRequest  -  the ServletRequest object, contains the client's request
+     * @param servletResponse - the ServletResponse object, contains the filter's response
+     * @param filterChain     - the FilterChain for invoking the next filter or the resource
+     * @throws IOException      -  if an I/O related error has occurred during the processing
+     * @throws ServletException - if servlet exception occurs
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         if (servletRequest instanceof HttpServletRequest) {
@@ -119,7 +134,6 @@ public class CommandFilter implements Filter {
                     commandName = postCommands.get(actionName);
                     break;
             }
-
             try {
                 Command command = CommandFactory.getInstance().getCommand(commandName);
                 httpRequest.setAttribute(AttributeConstant.COMMAND.value(), command);

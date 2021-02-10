@@ -5,11 +5,16 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.regex.Pattern;
 
 /**
- * XSS wrapper - encode values
+ * XSS wrapper.
+ * <p>
+ * Encodes values to prevent Cross Site Scripting attack.
+ *
+ * @author Elizaveta Tsvirko
+ * @version 1.0
  */
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
     /**
-     * Compiles regex for possible attacks
+     * Compiles regex for possible attacks.
      */
     private static Pattern[] patterns = new Pattern[]{
             // Avoid anything between script tags
@@ -32,19 +37,20 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     };
 
     /**
-     * Class constructor
+     * Class constructor. Creates new {@code XSSRequestWrapper}.
      *
-     * @param request
+     * @param request - http request
+     * @see HttpServletRequest
      */
     public XSSRequestWrapper(HttpServletRequest request) {
         super(request);
     }
 
     /**
-     * Gets parameter values and  encodes them
+     * Gets parameter values and  encodes their value.
      *
-     * @param name
-     * @return encoded values or null if parameter values were null
+     * @param name - parameter name
+     * @return encoded values or {@code null} if parameter values were null
      */
     @Override
     public String[] getParameterValues(String name) {
@@ -61,9 +67,9 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Gets parameter and encodes it
+     * Gets parameter encodes it.
      *
-     * @param parameter
+     * @param parameter name
      * @return encoded parameter
      */
     @Override
@@ -73,10 +79,11 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Gets header and encodes it
+     * Gets header and encodes it.
      *
-     * @param name
+     * @param name - header name
      * @return encoded header
+     * @see HttpServletRequestWrapper
      */
     @Override
     public String getHeader(String name) {
@@ -85,9 +92,9 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Remove all sections that match a pattern with possible attack
+     * Remove all sections that match a pattern with possible attack.
      *
-     * @param value
+     * @param value - value to check
      * @return correct and encoded value
      */
     private String unscrewXSSAttack(String value) {

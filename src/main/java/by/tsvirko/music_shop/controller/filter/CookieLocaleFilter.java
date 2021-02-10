@@ -10,14 +10,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Locale filter
+ * Locale filter.
+ * <p>
+ * Stores language in cookie.
+ * </p>
  */
 public class CookieLocaleFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
+    /**
+     * Checks for language in cookie. Sets cookie with language to response.
+     *
+     * @param servletRequest  -  the ServletRequest object, contains the client's request
+     * @param servletResponse - the ServletResponse object, contains the filter's response
+     * @param filterChain     - the FilterChain for invoking the next filter or the resource
+     * @throws IOException      -  if an I/O related error has occurred during the processing
+     * @throws ServletException - if servlet exception occurs
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
@@ -32,6 +43,5 @@ public class CookieLocaleFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }
