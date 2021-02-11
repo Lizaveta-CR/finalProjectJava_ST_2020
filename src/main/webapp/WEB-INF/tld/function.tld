@@ -39,4 +39,10 @@
         <function-signature>boolean isManager(by.tsvirko.music_shop.domain.User)(by.tsvirko.music_shop.domain.User)
         </function-signature>
     </function>
+    <function>
+        <name>findByRoleIdentity</name>
+        <function-class>by.tsvirko.music_shop.tag.CustomFunction</function-class>
+        <function-signature>java.lang.String findByRoleIdentity(java.lang.Integer,javax.servlet.jsp.PageContext)
+        </function-signature>
+    </function>
 </taglib>

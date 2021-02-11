@@ -9,6 +9,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
+<%@ taglib prefix="f" uri="function" %>
 <%@ page session="false" %>
 
 <fmt:setLocale value="${cookie.lang.value}"/>
@@ -41,7 +42,8 @@
                             <td>${employee.name}</td>
                             <td>${employee.surname}</td>
                             <td>${employee.login}</td>
-                            <td>${employee.role.identity}</td>
+                            <td>
+                                    ${f:findByRoleIdentity(employee.role.identity,pageContext)}</td>
                             <td>
                                 <form action="<c:url value="/manag/delete.html?employeeId=${employee.id}"/>"
                                       method="post">

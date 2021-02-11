@@ -26,21 +26,18 @@
             <c:set var="address" value="${order.buyer.address}"/>
         </c:when>
     </c:choose>
-    <body>
+    <c:if test="${not empty message}">
+        <p class="bg-danger text-center lead"><c:out value="${message}"/></p>
+        <form action="<c:url value="/buyer/address.html"/>" method="get">
+            <button class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message
+                    key="label.buyer.address"/></button>
+        </form>
+        <form action="<c:url value="/buyer/edit.html"/>" method="get">
+            <button class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message
+                    key="label.buyer.edit"/></button>
+        </form>
+    </c:if>
     <c:if test="${not empty order}">
-        <c:if test="${not empty message}">
-            <c:forEach items="${message}" var="item" varStatus="status">
-                <p class="bg-danger text-center lead"><c:out value="${item}"/></p>
-                <form action="<c:url value="/buyer/address.html"/>" method="get">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message
-                            key="label.buyer.address"/></button>
-                </form>
-                <form action="<c:url value="/buyer/edit.html"/>" method="get">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message
-                            key="label.buyer.edit"/></button>
-                </form>
-            </c:forEach>
-        </c:if>
         <div class="container">
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src='<c:url value="/img/order.jpg"/>'

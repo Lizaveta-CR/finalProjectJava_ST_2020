@@ -3,13 +3,20 @@ package by.tsvirko.music_shop.tag;
 import by.tsvirko.music_shop.domain.Component;
 import by.tsvirko.music_shop.domain.User;
 import by.tsvirko.music_shop.domain.Role;
+import by.tsvirko.music_shop.service.util.ResourceBundleUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.ResourceBundle;
 
+/**
+ * Custom functions for jsp pages.
+ */
 public class CustomFunction {
     /**
-     * Checks if BigDecimal is zero
+     * Checks if BigDecimal is zero.
      *
      * @param value
      * @return true if zero, otherwise - false
@@ -22,7 +29,7 @@ public class CustomFunction {
     }
 
     /**
-     * Checks if 2 strings are equal
+     * Checks if 2 strings are equal.
      *
      * @param str1
      * @param str2
@@ -36,7 +43,7 @@ public class CustomFunction {
     }
 
     /**
-     * Checks if list size is greater than zero
+     * Checks if list size is greater than zero.
      *
      * @param list - list to check
      * @return true if size is greater than zero, otherwise - false
@@ -46,7 +53,7 @@ public class CustomFunction {
     }
 
     /**
-     * Checks if user is buyer
+     * Checks if user is buyer.
      *
      * @param user - user to check role
      * @return true if user is buyer, otherwise - false
@@ -59,7 +66,7 @@ public class CustomFunction {
     }
 
     /**
-     * Checks if user is administrator
+     * Checks if user is administrator.
      *
      * @param user - user to check role
      * @return true if user is administrator, otherwise - false
@@ -72,7 +79,7 @@ public class CustomFunction {
     }
 
     /**
-     * Checks if user is manager
+     * Checks if user is manager.
      *
      * @param user - user to check role
      * @return true if user is manager, otherwise - false
@@ -82,5 +89,26 @@ public class CustomFunction {
             return user.getRole().equals(Role.MANAGER);
         }
         return false;
+    }
+
+    /**
+     * Finds Role by identity.
+     *
+     * @param identity - role identity.
+     * @return String value of found Role
+     */
+    public static String findByRoleIdentity(Integer identity, PageContext pageContext) {
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(request);
+        Role role = Role.getByIdentity(identity);
+        switch (role) {
+            case MANAGER:
+                return rb.getString("label.manager");
+            case ADMINISTRATOR:
+                return rb.getString("label.admin");
+            case BUYER:
+                return rb.getString("label.buyer");
+        }
+        return null;
     }
 }
